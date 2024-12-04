@@ -2,7 +2,10 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	. "4h-recordbook/backend/internal/repository"
 )
+
+var userRepository UserRepository
 
 // GetUserProfile godoc
 // @Summary 
