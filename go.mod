@@ -13,6 +13,8 @@ require (
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
+	github.com/auth0/go-auth0 v1.12.0 // indirect
+	github.com/auth0/go-jwt-middleware/v2 v2.2.2 // indirect
 	github.com/bytedance/sonic v1.12.4 // indirect
 	github.com/bytedance/sonic/loader v0.2.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
