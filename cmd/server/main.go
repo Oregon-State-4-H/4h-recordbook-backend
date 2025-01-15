@@ -11,6 +11,7 @@ import (
 
 )
 
+// @title	4H Record Books API
 func main() {
 
     debug := flag.Bool("d", false, "enable debug mode")

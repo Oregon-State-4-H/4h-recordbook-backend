@@ -36,6 +36,8 @@ func (e *env) RunLocal() error {
 
 func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, error) {
 
+	logger.Info("Setting up API")
+
 	validator := validator.New()
 
 	e := &env {
@@ -61,12 +63,15 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 		})
 	})
 
-	router.GET("/user", getUserProfile)
-	router.PUT("/user", updateUserProfile)
-	
-	router.GET("/bookmarks", getUserBookmarks)
-	router.POST("/bookmarks", addUserBookmark)
-	router.DELETE("/bookmarks/{bookmarkId}", removeUserBookmark)
+	router.GET("/user", e.getUserProfile)
+	router.PUT("/user", e.updateUserProfile)
+	router.POST("/signin", e.signin)
+	router.POST("/signout", e.signout)
+	router.POST("/signup", e.signup)
+
+	router.GET("/bookmarks", e.getUserBookmarks)
+	router.POST("/bookmarks", e.addUserBookmark)
+	router.DELETE("/bookmarks/:bookmarkId", e.removeUserBookmark)
 
 	router.GET("/projects", getCurrentProjects)
   	router.GET("/project", getProjects)
