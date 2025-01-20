@@ -26,12 +26,18 @@ func (e *env) getUserProfile(c *gin.Context) {
 	//get id value from cookie, if no id value return 401
 	cookie, err := c.Cookie("login_cookie")
 	if err != nil {
-		c.JSON(401, err)
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
 	}
 
 	user, err := e.db.GetUser(context.TODO(), cookie)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
 		return
 	}
 
@@ -61,18 +67,27 @@ func (e *env) updateUserProfile(c *gin.Context) {
 	//get id value from cookie, if no id value return 401
 	cookie, err := c.Cookie("login_cookie")
 	if err != nil {
-		c.JSON(401, err)
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
 	}
 
 	var req UpdateUserReq
 	err = c.BindJSON(&req)
 	if err != nil {
-		c.JSON(400, err)
+		c.JSON(500, gin.H{
+			"message": HTTPResponseCodeMap[500],
+		})
+		return
 	}
 
 	user, err := e.db.GetUser(context.TODO(), cookie)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
 		return
 	}
 
@@ -88,7 +103,11 @@ func (e *env) updateUserProfile(c *gin.Context) {
 
 	response, err := e.db.UpsertUser(context.TODO(), updatedUser)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
 	}
 
 	c.JSON(204, response)
@@ -100,18 +119,23 @@ type SignInReq struct {
 	ID string `json:id" validate:"required"`
 }
 
-
 func (e *env) signin(c *gin.Context) {
 
 	var req SignInReq
 	err := c.BindJSON(&req)
 	if err != nil {
-		c.JSON(400, err)
+		c.JSON(500, gin.H{
+			"message": HTTPResponseCodeMap[500],
+		})
+		return
 	}
 
 	user, err := e.db.GetUser(context.TODO(), req.ID)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
 		return
 	}
 
@@ -124,7 +148,10 @@ func (e *env) signout(c *gin.Context) {
 
 	cookie, err := c.Cookie("login_cookie")
 	if err != nil {
-		c.JSON(400, err)
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
 	}
 
 	c.SetCookie("login_cookie", cookie, -1, "/", "localhost", false, false)
@@ -147,7 +174,10 @@ func (e *env) signup(c *gin.Context) {
 	var req SignUpReq
 	err := c.BindJSON(&req)
 	if err != nil {
-		c.JSON(400, err)
+		c.JSON(500, gin.H{
+			"message": HTTPResponseCodeMap[500],
+		})
+		return
 	}
 
 	user := db.User{
@@ -162,7 +192,11 @@ func (e *env) signup(c *gin.Context) {
 
 	response, err := e.db.UpsertUser(context.TODO(), user)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
 	}
 
 	c.JSON(204, response)

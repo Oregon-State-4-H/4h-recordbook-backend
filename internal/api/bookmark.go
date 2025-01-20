@@ -18,12 +18,18 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 	
 	cookie, err := c.Cookie("login_cookie")
 	if err != nil {
-		c.JSON(401, err)
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
 	}
 
 	bookmarks, err := e.db.GetBookmarks(context.TODO(), cookie)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
 		return
 	}
 
@@ -49,13 +55,19 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	
 	cookie, err := c.Cookie("login_cookie")
 	if err != nil {
-		c.JSON(401, err)
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
 	}
 
 	var req AddBookmarkReq
 	err = c.BindJSON(&req)
 	if err != nil {
-		c.JSON(400, err)
+		c.JSON(500, gin.H{
+			"message": HTTPResponseCodeMap[500],
+		})
+		return
 	}
 
 	bookmark := db.Bookmark{
@@ -68,7 +80,11 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	//TODO: only add bookmark if it doesn't already exist for this user
 	response, err := e.db.AddBookmark(context.TODO(), bookmark)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
 	}
 
 	c.JSON(204, response)
@@ -87,7 +103,10 @@ func (e *env) removeUserBookmark(c *gin.Context) {
 	
 	cookie, err := c.Cookie("login_cookie")
 	if err != nil {
-		c.JSON(401, err)
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
 	}
 
 	id := c.Param("bookmarkId")
@@ -96,7 +115,11 @@ func (e *env) removeUserBookmark(c *gin.Context) {
 
 	response, err := e.db.RemoveBookmark(context.TODO(), cookie, id)
 	if err != nil {
-		c.JSON(400, err)
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
 	}
 
 	c.JSON(204, response)

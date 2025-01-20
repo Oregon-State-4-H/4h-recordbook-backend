@@ -14,10 +14,6 @@ import (
 
 const API_VERSION = "1.0"
 
-const (
-
-)
-
 type Api interface {
 	RunLocal() error
 }
