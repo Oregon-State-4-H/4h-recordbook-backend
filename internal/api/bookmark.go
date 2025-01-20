@@ -77,7 +77,19 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		UserID: 		   cookie,
 	}
 
-	//TODO: only add bookmark if it doesn't already exist for this user
+	e.logger.Info("1")
+
+	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), cookie, req.Link)
+	if existingBookmark != (db.Bookmark{}) {
+		e.logger.Info(existingBookmark)
+		c.JSON(409, gin.H{
+			"message": HTTPResponseCodeMap[409],
+		})
+		return
+	}
+
+	e.logger.Info("2")
+
 	response, err := e.db.AddBookmark(context.TODO(), bookmark)
 	if err != nil {
 		response := InterpretCosmosError(err)
@@ -110,8 +122,6 @@ func (e *env) removeUserBookmark(c *gin.Context) {
 	}
 
 	id := c.Param("bookmarkId")
-
-	//TODO: verify user has this bookmark
 
 	response, err := e.db.RemoveBookmark(context.TODO(), cookie, id)
 	if err != nil {

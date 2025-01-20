@@ -11,6 +11,7 @@ import (
 type Db interface {
 	GetUser(ctx context.Context, id string) (User, error)
 	UpsertUser(ctx context.Context, user User) (interface{}, error)
+	GetBookmarkByLink(ctx context.Context, userid string, link string) (Bookmark, error)
 	GetBookmarks(ctx context.Context, userid string) ([]Bookmark, error)
 	AddBookmark(ctx context.Context, bookmark Bookmark) (interface{}, error)
 	RemoveBookmark(ctx context.Context, userid string, bookmarkid string) (interface{}, error)

@@ -34,11 +34,9 @@ func (env *env) GetUser(ctx context.Context, id string) (User, error) {
 		return user, err
 	}
 
-	if response.RawResponse.StatusCode == 200 {
-		err := json.Unmarshal(response.Value, &user)
-		if err != nil {
-			return user, err
-		}
+	err = json.Unmarshal(response.Value, &user)
+	if err != nil {
+		return user, err
 	}
 
 	return user, nil

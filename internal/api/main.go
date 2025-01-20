@@ -71,9 +71,9 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 
 	router.GET("/projects", getCurrentProjects)
   	router.GET("/project", getProjects)
-  	router.GET("/project/{projectId}", getProject)
+  	router.GET("/project/:projectId", getProject)
   	router.POST("/project", addProject)
-	router.PUT("/project/{projectId}", updateProject)
+	router.PUT("/project/:projectId", updateProject)
 
 	router.GET("/resume", getResumeDocs)
 

@@ -13,6 +13,54 @@ type Bookmark struct {
 	UserID 	string	`json:"userid"`
 }
 
+func (env *env) GetBookmarkByLink(ctx context.Context, userid string, link string) (Bookmark, error) {
+
+	env.logger.Info("Getting bookmark by link")
+
+	container, err := env.client.NewContainer("bookmarks")
+	if err != nil {
+		return Bookmark{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	query := "SELECT * FROM bookmarks b WHERE b.userid = @id AND b.link = @link"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@id", Value: userid},
+			{Name: "@link", Value: link},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	bookmarks := []Bookmark{}
+
+	for pager.More() {
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return Bookmark{}, err
+		}
+	
+		for _, bytes := range response.Items {
+			bookmark := Bookmark{}
+			err := json.Unmarshal(bytes, &bookmark)
+			if err != nil {
+				return Bookmark{}, err
+			}
+			bookmarks = append(bookmarks, bookmark)
+		}
+	}
+
+	if len(bookmarks) == 0{
+		return Bookmark{}, err
+	}
+
+	return bookmarks[0], nil
+
+}
+
 func (env *env) GetBookmarks(ctx context.Context, userid string) ([]Bookmark, error) {
 
 	env.logger.Info("Getting bookmarks")
