@@ -26,6 +26,13 @@ type env struct {
 	api		  *gin.Engine		  `validate:"required"`
 }
 
+func ternary(s1 string, s2 string) (string){
+	if s1 == "" {
+		return s2
+	}
+	return s1
+}
+
 func (e *env) RunLocal() error {
 	return http.ListenAndServe("localhost:8080", e.api)
 }
@@ -69,11 +76,11 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 	router.POST("/bookmarks", e.addUserBookmark)
 	router.DELETE("/bookmarks/:bookmarkId", e.removeUserBookmark)
 
-	router.GET("/projects", getCurrentProjects)
-  	router.GET("/project", getProjects)
-  	router.GET("/project/:projectId", getProject)
-  	router.POST("/project", addProject)
-	router.PUT("/project/:projectId", updateProject)
+	router.GET("/projects", e.getCurrentProjects)
+  	router.GET("/project", e.getProjects)
+  	router.GET("/project/:projectId", e.getProject)
+  	router.POST("/project", e.addProject)
+	router.PUT("/project/:projectId", e.updateProject)
 
 	router.GET("/resume", getResumeDocs)
 

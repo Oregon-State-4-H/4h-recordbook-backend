@@ -15,6 +15,10 @@ type Db interface {
 	GetBookmarks(ctx context.Context, userid string) ([]Bookmark, error)
 	AddBookmark(ctx context.Context, bookmark Bookmark) (interface{}, error)
 	RemoveBookmark(ctx context.Context, userid string, bookmarkid string) (interface{}, error)
+	GetProjectByID(ctx context.Context, userid string, projectid string) (Project, error)
+	GetCurrentProjects(ctx context.Context, userid string) ([]Project, error)
+	GetProjectsByUser(ctx context.Context, userid string) ([]Project, error)
+	UpsertProject(ctx context.Context, project Project) (interface{}, error)
 }
 
 type env struct {

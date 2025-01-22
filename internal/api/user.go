@@ -7,13 +7,6 @@ import (
 	"4h-recordbook-backend/pkg/db"
 )
 
-func ternary(s1 string, s2 string) (string){
-	if s1 == "" {
-		return s2
-	}
-	return s1
-}
-
 // GetUserProfile godoc
 // @Summary 
 // @Description 
