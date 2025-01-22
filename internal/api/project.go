@@ -7,6 +7,25 @@ import (
 	"4h-recordbook-backend/pkg/db"
 )
 
+type AddProjectReq struct {
+	ID			string `json:"id"`
+	Year 		string `json:"year"`
+	Name 		string `json:"name"`
+	Description string `json:"description"`
+	Type 		string `json:"type"`
+	StartDate   string `json:"start_date"`
+	EndDate		string `json:"end_date"`
+}
+
+type UpdateProjectReq struct {
+	Year 		string `json:"year"`
+	Name 		string `json:"name"`
+	Description string `json:"description"`
+	Type 		string `json:"type"`
+	StartDate   string `json:"start_date"`
+	EndDate		string `json:"end_date"`
+}
+
 // GetCurrentProjects godoc
 // @Summary 
 // @Description 
@@ -109,16 +128,6 @@ func (e *env) getProject(c *gin.Context) {
 
 }
 
-type AddProjectReq struct {
-	ID			string `json:"id"`
-	Year 		string `json:"year"`
-	Name 		string `json:"name"`
-	Description string `json:"description"`
-	Type 		string `json:"type"`
-	StartDate   string `json:"start_date"`
-	EndDate		string `json:"end_date"`
-}
-
 // AddProject godoc
 // @Summary 
 // @Description 
@@ -195,15 +204,6 @@ func (e *env) addProject(c *gin.Context) {
 
 	c.JSON(204, response)
 
-}
-
-type UpdateProjectReq struct {
-	Year 		string `json:"year"`
-	Name 		string `json:"name"`
-	Description string `json:"description"`
-	Type 		string `json:"type"`
-	StartDate   string `json:"start_date"`
-	EndDate		string `json:"end_date"`
 }
 
 // UpdateProject godoc

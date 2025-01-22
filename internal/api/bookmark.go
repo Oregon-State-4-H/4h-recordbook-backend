@@ -7,6 +7,12 @@ import (
 	"4h-recordbook-backend/pkg/db"
 )
 
+type AddBookmarkReq struct {
+	ID	  string
+	Link  string
+	Label string
+}
+
 // GetUserBookmarks godoc
 // @Summary 
 // @Description 
@@ -36,12 +42,6 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 
 	c.JSON(200, bookmarks)
 
-}
-
-type AddBookmarkReq struct {
-	ID	  string
-	Link  string
-	Label string
 }
 
 // AddUserBookmark godoc
@@ -82,18 +82,13 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		Updated:		   timestamp.ToString(),
 	}
 
-	e.logger.Info("1")
-
 	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), cookie, req.Link)
 	if existingBookmark != (db.Bookmark{}) {
-		e.logger.Info(existingBookmark)
 		c.JSON(409, gin.H{
 			"message": HTTPResponseCodeMap[409],
 		})
 		return
 	}
-
-	e.logger.Info("2")
 
 	response, err := e.db.AddBookmark(context.TODO(), bookmark)
 	if err != nil {

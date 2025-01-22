@@ -7,6 +7,15 @@ import (
 	"4h-recordbook-backend/pkg/db"
 )
 
+type UpdateUserReq struct {
+	Email 				string	`json:"email"`
+	Birthdate 			string	`json:"birthdate"`
+	FirstName 			string	`json:"first_name"`
+	MiddleNameInitial 	string	`json:"middle_name_initial"`
+	LastNameInitial 	string	`json:"last_name_initial"`
+	CountyName 			string	`json:"county_name"`
+}
+
 // GetUserProfile godoc
 // @Summary 
 // @Description 
@@ -37,15 +46,6 @@ func (e *env) getUserProfile(c *gin.Context) {
 
 	c.JSON(200, user)
 
-}
-
-type UpdateUserReq struct {
-	Email 				string	`json:"email"`
-	Birthdate 			string	`json:"birthdate"`
-	FirstName 			string	`json:"first_name"`
-	MiddleNameInitial 	string	`json:"middle_name_initial"`
-	LastNameInitial 	string	`json:"last_name_initial"`
-	CountyName 			string	`json:"county_name"`
 }
 
 // UpdateUserProfile godoc
