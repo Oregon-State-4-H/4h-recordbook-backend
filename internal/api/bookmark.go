@@ -3,6 +3,7 @@ package api
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 )
 
@@ -70,11 +71,15 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		return
 	}
 
+	timestamp := utils.TimeNow()
+
 	bookmark := db.Bookmark{
 		ID: 			   req.ID, //temporary
 		Link: 			   req.Link,
 		Label: 			   req.Label,
 		UserID: 		   cookie,
+		Created:		   timestamp.ToString(),
+		Updated:		   timestamp.ToString(),
 	}
 
 	e.logger.Info("1")

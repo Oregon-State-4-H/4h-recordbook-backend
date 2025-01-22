@@ -11,6 +11,8 @@ type Bookmark struct {
 	Link 	string	`json:"link"`
 	Label 	string	`json:"label"`
 	UserID 	string	`json:"userid"`
+	Created string  `json:"created"`
+	Updated string  `json:"updated"`
 }
 
 func (env *env) GetBookmarkByLink(ctx context.Context, userid string, link string) (Bookmark, error) {

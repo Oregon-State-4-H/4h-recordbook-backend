@@ -3,6 +3,7 @@ package api
 import (
 	"context"
 	"github.com/gin-gonic/gin"
+	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 )
 
@@ -91,6 +92,8 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		return
 	}
 
+	timestamp := utils.TimeNow()
+
 	updatedUser := db.User{
 		ID: 			   user.ID,
 		Email: 			   ternary(req.Email, user.Email),
@@ -98,7 +101,8 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		FirstName: 		   ternary(req.FirstName, user.FirstName),
 		MiddleNameInitial: ternary(req.MiddleNameInitial, user.MiddleNameInitial),
 		CountyName: 	   ternary(req.CountyName, user.CountyName),
-		JoinDate: 		   user.JoinDate,
+		Created: 		   user.Created,
+		Updated:		   timestamp.ToString(),
 	}
 
 	response, err := e.db.UpsertUser(context.TODO(), updatedUser)
@@ -180,6 +184,8 @@ func (e *env) signup(c *gin.Context) {
 		return
 	}
 
+	timestamp := utils.TimeNow()
+
 	user := db.User{
 		ID: 			   req.ID,
 		Email: 			   req.Email,
@@ -187,7 +193,8 @@ func (e *env) signup(c *gin.Context) {
 		FirstName: 		   req.FirstName,
 		MiddleNameInitial: req.MiddleNameInitial,
 		CountyName: 	   req.CountyName,
-		JoinDate: 		   "TODAY",
+		Created: 		   timestamp.ToString(),
+		Updated:		   timestamp.ToString(),	
 	}
 
 	response, err := e.db.UpsertUser(context.TODO(), user)

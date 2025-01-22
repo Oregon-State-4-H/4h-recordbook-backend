@@ -14,7 +14,8 @@ type User struct {
 	MiddleNameInitial 	string	`json:"middle_name_initial"`
 	LastNameInitial 	string	`json:"last_name_initial"`
 	CountyName 			string	`json:"county_name"`
-	JoinDate 			string	`json:"join_date"`
+	Created 			string	`json:"created"`
+	Updated				string	`json:"updated"`
 }
 
 func (env *env) GetUser(ctx context.Context, id string) (User, error) {
