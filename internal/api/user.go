@@ -70,8 +70,8 @@ func (e *env) updateUserProfile(c *gin.Context) {
 	var req UpdateUserReq
 	err = c.BindJSON(&req)
 	if err != nil {
-		c.JSON(500, gin.H{
-			"message": HTTPResponseCodeMap[500],
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
 		})
 		return
 	}
@@ -121,8 +121,8 @@ func (e *env) signin(c *gin.Context) {
 	var req SignInReq
 	err := c.BindJSON(&req)
 	if err != nil {
-		c.JSON(500, gin.H{
-			"message": HTTPResponseCodeMap[500],
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
 		})
 		return
 	}
@@ -171,8 +171,8 @@ func (e *env) signup(c *gin.Context) {
 	var req SignUpReq
 	err := c.BindJSON(&req)
 	if err != nil {
-		c.JSON(500, gin.H{
-			"message": HTTPResponseCodeMap[500],
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
 		})
 		return
 	}

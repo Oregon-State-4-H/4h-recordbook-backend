@@ -65,8 +65,8 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	var req AddBookmarkReq
 	err = c.BindJSON(&req)
 	if err != nil {
-		c.JSON(500, gin.H{
-			"message": HTTPResponseCodeMap[500],
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
 		})
 		return
 	}
