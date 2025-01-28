@@ -117,13 +117,6 @@ func (e *env) getProject(c *gin.Context) {
 		return
 	}
 
-	if project == (db.Project{}){
-		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
-		})
-		return
-	}
-
 	c.JSON(200, project)
 
 }
@@ -264,14 +257,7 @@ func (e *env) updateProject(c *gin.Context) {
 		})
 		return
 	}
-
-	if project == (db.Project{}){
-		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
-		})
-		return
-	}
-
+	
 	timestamp := utils.TimeNow()
 
 	updatedProject := db.Project{

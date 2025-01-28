@@ -24,48 +24,26 @@ type Project struct {
 func (env *env) GetProjectByID(ctx context.Context, userid string, projectid string) (Project, error) {
 
 	env.logger.Info("Getting project by ID")
+	project := Project{}
 
 	container, err := env.client.NewContainer("projects")
 	if err != nil {
-		return Project{}, err
+		return project, err
 	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userid)
 
-	query := "SELECT * FROM projects p WHERE p.userid = @userid AND p.id = @projectid"
-
-	queryOptions := azcosmos.QueryOptions{
-		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@userid", Value: userid},
-			{Name: "@projectid", Value: projectid},
-		},
+	response, err := container.ReadItem(ctx, partitionKey, projectid, nil)
+	if err != nil {
+		return project, err
 	}
 
-	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
-
-	projects := []Project{}
-
-	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return Project{}, err
-		}
-	
-		for _, bytes := range response.Items {
-			project := Project{}
-			err := json.Unmarshal(bytes, &project)
-			if err != nil {
-				return Project{}, err
-			}
-			projects = append(projects, project)
-		}
+	err = json.Unmarshal(response.Value, &project)
+	if err != nil {
+		return project, err
 	}
 
-	if len(projects) == 0{
-		return Project{}, err
-	}
-
-	return projects[0], nil
+	return project, nil
 
 }
 
