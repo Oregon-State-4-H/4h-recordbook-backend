@@ -80,15 +80,67 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
   	router.GET("/project", e.getProjects)
   	router.GET("/project/:projectId", e.getProject)
   	router.POST("/project", e.addProject)
-	router.PUT("/project/:projectId", e.updateProject)
+	router.PUT("/project/:projectId", e.updateProject) //this might not need to have a path param
 
-	router.GET("/resume", getResumeDocs)
+	router.GET("/resume", e.getResume)
 
-	router.GET("/section-1/{docId}", getSection1)
-	router.GET("/section-1", getSection1Docs)
-	router.POST("/section-1", addSection1)
-	router.PUT("/section-1", updateSection1)
-	router.DELETE("/section-1/{docId}", deleteSection1)
+	router.GET("/section1", e.getSection1)
+	router.POST("/section1", e.addSection1)
+	router.PUT("/section1", e.updateSection1)
+
+	router.GET("/section2", e.getSection2)
+	router.POST("/section2", e.addSection2)
+	router.PUT("/section2", e.updateSection2)
+
+	router.GET("/section3", e.getSection3)
+	router.POST("/section3", e.addSection3)
+	router.PUT("/section3", e.updateSection3)
+
+	router.GET("/section4", e.getSection4)
+	router.POST("/section4", e.addSection4)
+	router.PUT("/section4", e.updateSection4)
+
+	router.GET("/section5", e.getSection5)
+	router.POST("/section5", e.addSection5)
+	router.PUT("/section5", e.updateSection5)
+
+	router.GET("/section6", e.getSection6)
+	router.POST("/section6", e.addSection6)
+	router.PUT("/section6", e.updateSection6)
+
+	router.GET("/section7", e.getSection7)
+	router.POST("/section7", e.addSection7)
+	router.PUT("/section7", e.updateSection7)
+
+	router.GET("/section8", e.getSection8)
+	router.POST("/section8", e.addSection8)
+	router.PUT("/section8", e.updateSection8)
+
+	router.GET("/section9", e.getSection9)
+	router.POST("/section9", e.addSection9)
+	router.PUT("/section9", e.updateSection9)
+
+	router.GET("/section10", e.getSection10)
+	router.POST("/section10", e.addSection10)
+	router.PUT("/section10", e.updateSection10)
+
+	router.GET("/section11", e.getSection11)
+	router.POST("/section11", e.addSection11)
+	router.PUT("/section11", e.updateSection11)
+
+	router.GET("/section12", e.getSection12)
+	router.POST("/section12", e.addSection12)
+	router.PUT("/section12", e.updateSection12)
+
+	router.GET("/section13", e.getSection13)
+	router.POST("/section13", e.addSection13)
+	router.PUT("/section13", e.updateSection13)
+
+	router.GET("/section14", e.getSection14)
+	router.POST("/section14", e.addSection14)
+	router.PUT("/section14", e.updateSection14)
+
+	router.DELETE("/section/:sectionId", e.deleteSection)
 
 	router.GET("/animal/docs/{projectId}", getAnimalDocs)
 	router.GET("/animal/{animalId}", getAnimal)

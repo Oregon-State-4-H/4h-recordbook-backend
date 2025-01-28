@@ -11,7 +11,6 @@ var HTTPResponseCodeMap = map[int]string {
 	403: "Forbidden",
 	404: "Item not found",
 	409: "Conflict",
-	500: "Internal server error",
 }
 
 type HTTPResponseCode struct {
