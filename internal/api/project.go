@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"github.com/beevik/guid"
 )
 
 type AddProjectReq struct {
-	ID			string `json:"id"`
 	Year 		string `json:"year"`
 	Name 		string `json:"name"`
 	Description string `json:"description"`
@@ -148,6 +148,7 @@ func (e *env) addProject(c *gin.Context) {
 		return
 	}
 
+	g := guid.New()
 	timestamp := utils.TimeNow()
 	
 	//verify StartDate and EndDate are properly formatted
@@ -166,7 +167,7 @@ func (e *env) addProject(c *gin.Context) {
 	}
 
 	project := db.Project{
-		ID: 			   req.ID, //temporary
+		ID: 			   g.String(),
 		Year: 			   req.Year,
 		Name: 			   req.Name,
 		Description:	   req.Description,
@@ -176,14 +177,6 @@ func (e *env) addProject(c *gin.Context) {
 		UserID: 		   cookie,
 		Created:		   timestamp.ToString(),
 		Updated:		   timestamp.ToString(),
-	}
-
-	existingProject, err := e.db.GetProjectByID(context.TODO(), cookie, req.ID)
-	if existingProject != (db.Project{}) {
-		c.JSON(409, gin.H{
-			"message": HTTPResponseCodeMap[409],
-		})
-		return
 	}
 
 	response, err := e.db.UpsertProject(context.TODO(), project)
@@ -257,7 +250,7 @@ func (e *env) updateProject(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	timestamp := utils.TimeNow()
 
 	updatedProject := db.Project{

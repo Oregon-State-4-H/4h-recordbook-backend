@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"github.com/beevik/guid"
 )
 
 type AddBookmarkReq struct {
-	ID	  string
 	Link  string
 	Label string
 }
@@ -71,10 +71,11 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		return
 	}
 
+	g := guid.New()
 	timestamp := utils.TimeNow()
 
 	bookmark := db.Bookmark{
-		ID: 			   req.ID, //temporary
+		ID: 			   g.String(),
 		Link: 			   req.Link,
 		Label: 			   req.Label,
 		UserID: 		   cookie,
