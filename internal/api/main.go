@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http"
+	_ "4h-recordbook-backend/internal/api/docs"
 	"4h-recordbook-backend/internal/config"
 	"4h-recordbook-backend/pkg/db"
 	"github.com/gin-contrib/cors"
