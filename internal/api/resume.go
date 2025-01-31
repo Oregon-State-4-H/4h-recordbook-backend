@@ -8,105 +8,105 @@ import (
 	"github.com/beevik/guid"
 )
 
-type Section1Req struct {
-	Year string `json:"year"`
-	Grade int `json:"grade,omitempty" validate:"required"`
-	ClubName string `json:"club_name"`
-	NumInClub int `json:"num_in_club"`
-	ClubLeader string `json:"club_leader"`
-	MeetingsHeld int `json:"meetings_held"`
-	MeetingsAttended int `json:"meetings_attended"`
+type UpsertSection1Input struct {
+	Year string `json:"year" validate:"required"`
+	Grade int `json:"grade" validate:"required"`
+	ClubName string `json:"club_name" validate:"required"`
+	NumInClub int `json:"num_in_club" validate:"required"`
+	ClubLeader string `json:"club_leader" validate:"required"`
+	MeetingsHeld int `json:"meetings_held" validate:"required"`
+	MeetingsAttended int `json:"meetings_attended" validate:"required"`
 }
 
-type Section2Req struct {
-	Year string `json:"year"`
-	ProjectName string `json:"project_name"`
-	ProjectScope string `json:"project_scope"`
+type UpsertSection2Input struct {
+	Year string `json:"year" validate:"required"`
+	ProjectName string `json:"project_name" validate:"required"`
+	ProjectScope string `json:"project_scope" validate:"required"`
 }
 
-type Section3Req struct {
-	Year string `json:"year"`
-	ActivityKind string `json:"activity_kind"`
-	ThingsLearned string `json:"things_learned"`
-	Level string `json:"level"`
+type UpsertSection3Input struct {
+	Year string `json:"year" validate:"required"`
+	ActivityKind string `json:"activity_kind" validate:"required"`
+	ThingsLearned string `json:"things_learned" validate:"required"`
+	Level string `json:"level" validate:"required"`
 }
 
-type Section4Req struct {
-	Year string `json:"year"`
-	ActivityKind string `json:"activity_kind"`
-	Scope string `json:"scope"`
-	Level string `json:"level"`
+type UpsertSection4Input struct {
+	Year string `json:"year" validate:"required"`
+	ActivityKind string `json:"activity_kind" validate:"required"`
+	Scope string `json:"scope" validate:"required"`
+	Level string `json:"level" validate:"required"`
 }
 
-type Section5Req struct {
-	Year string `json:"year"`
-	LeadershipRole string `json:"leadership_role"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
+type UpsertSection5Input struct {
+	Year string `json:"year" validate:"required"`
+	LeadershipRole string `json:"leadership_role" validate:"required"`
+	HoursSpent int `json:"hours_spent" validate:"required"`
+	NumPeopleReached int `json:"num_people_reached" validate:"required"`
 }
 
-type Section6Req struct {
-	Year string `json:"year"`
-	OrganizationName string `json:"organization_name"`
-	LeadershipRole string `json:"leadership_role"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
+type UpsertSection6Input struct {
+	Year string `json:"year" validate:"required"`
+	OrganizationName string `json:"organization_name" validate:"required"`
+	LeadershipRole string `json:"leadership_role" validate:"required"`
+	HoursSpent int `json:"hours_spent" validate:"required"`
+	NumPeopleReached int `json:"num_people_reached" validate:"required"`
 }
 
-type Section7Req struct {
-	Year string `json:"year"`
-	ClubMemberActivities string `json:"club_member_activities"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
+type UpsertSection7Input struct {
+	Year string `json:"year" validate:"required"`
+	ClubMemberActivities string `json:"club_member_activities" validate:"required"`
+	HoursSpent int `json:"hours_spent" validate:"required"`
+	NumPeopleReached int `json:"num_people_reached" validate:"required"`
 }
 
-type Section8Req struct {
-	Year string `json:"year"`
-	IndividualGroupActivities string `json:"individual_group_activities"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
+type UpsertSection8Input struct {
+	Year string `json:"year" validate:"required"`
+	IndividualGroupActivities string `json:"individual_group_activities" validate:"required"`
+	HoursSpent int `json:"hours_spent" validate:"required"`
+	NumPeopleReached int `json:"num_people_reached" validate:"required"`
 }
 
-type Section9Req struct {
-	Year string `json:"year"`
-	CommunicationType string `json:"communication_type"`
-	Topic string `json:"topic"`
-	TimesGiven int `json:"times_given"`
-	Location string `json:"location"`
-	AudienceSize int `json:"audience_size"`
+type UpsertSection9Input struct {
+	Year string `json:"year" validate:"required"`
+	CommunicationType string `json:"communication_type" validate:"required"`
+	Topic string `json:"topic" validate:"required"`
+	TimesGiven int `json:"times_given" validate:"required"`
+	Location string `json:"location" validate:"required"`
+	AudienceSize int `json:"audience_size" validate:"required"`
 }
 
-type Section10Req struct {
-	Year string `json:"year"`
-	CommunicationType string `json:"communication_type"`
-	Topic string `json:"topic"`
-	TimesGiven int `json:"times_given"`
-	Location string `json:"location"`
-	AudienceSize string `json:"audience_size"`
+type UpsertSection10Input struct {
+	Year string `json:"year" validate:"required"`
+	CommunicationType string `json:"communication_type" validate:"required"`
+	Topic string `json:"topic" validate:"required"`
+	TimesGiven int `json:"times_given" validate:"required"`
+	Location string `json:"location" validate:"required"`
+	AudienceSize string `json:"audience_size" validate:"required"`
 }
 
-type Section11Req struct {
-	Year string `json:"year"`
-	EventAndLevel string `json:"event_and_level"`
-	ExhibitsOrDivision string `json:"exhibits_or_division"`
-	RibbonOrPlacings string `json:"ribbon_or_placings"`
+type UpsertSection11Input struct {
+	Year string `json:"year" validate:"required"`
+	EventAndLevel string `json:"event_and_level" validate:"required"`
+	ExhibitsOrDivision string `json:"exhibits_or_division" validate:"required"`
+	RibbonOrPlacings string `json:"ribbon_or_placings" validate:"required"`
 }
 
-type Section12Req struct {
-	Year string `json:"year"`
-	ContestOrEvent string `json:"contest_or_event"`
-	RecognitionReceived string `json:"recognition_received"`
-	Level string `json:"level"`
+type UpsertSection12Input struct {
+	Year string `json:"year" validate:"required"`
+	ContestOrEvent string `json:"contest_or_event" validate:"required"`
+	RecognitionReceived string `json:"recognition_received" validate:"required"`
+	Level string `json:"level" validate:"required"`
 }
 
-type Section13Req struct {
-	Year string `json:"year"`
-	RecognitionType string `json:"recognition_type"`
+type UpsertSection13Input struct {
+	Year string `json:"year" validate:"required"`
+	RecognitionType string `json:"recognition_type" validate:"required"`
 }
 
-type Section14Req struct {
-	Year string `json:"year"`
-	RecognitionType string `json:"recognition_type"`
+type UpsertSection14Input struct {
+	Year string `json:"year" validate:"required"`
+	RecognitionType string `json:"recognition_type" validate:"required"`
 }
 
 /*******************************
@@ -173,8 +173,16 @@ func (e *env) addSection1(c *gin.Context) {
 		return
 	}
 
-	var req Section1Req
-	err = c.BindJSON(&req)
+	var input UpsertSection1Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -188,13 +196,13 @@ func (e *env) addSection1(c *gin.Context) {
 	section := db.Section1 {
 		ID: g.String(),
 		Section: 1,
-		Year: req.Year,
-		Grade: req.Grade,
-		ClubName: req.ClubName,
-		NumInClub: req.NumInClub,
-		ClubLeader: req.ClubLeader,
-		MeetingsHeld: req.MeetingsHeld,
-		MeetingsAttended: req.MeetingsAttended,
+		Year: input.Year,
+		Grade: input.Grade,
+		ClubName: input.ClubName,
+		NumInClub: input.NumInClub,
+		ClubLeader: input.ClubLeader,
+		MeetingsHeld: input.MeetingsHeld,
+		MeetingsAttended: input.MeetingsAttended,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -225,8 +233,16 @@ func (e *env) updateSection1(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section1Req
-	err = c.BindJSON(&req)
+	var input UpsertSection1Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -248,13 +264,13 @@ func (e *env) updateSection1(c *gin.Context) {
 	updatedSection := db.Section1 {
 		ID: existingSection.ID,
 		Section: 1,
-		Year: req.Year,
-		Grade: req.Grade,
-		ClubName: req.ClubName,
-		NumInClub: req.NumInClub,
-		ClubLeader: req.ClubLeader,
-		MeetingsHeld: req.MeetingsHeld,
-		MeetingsAttended: req.MeetingsAttended,
+		Year: input.Year,
+		Grade: input.Grade,
+		ClubName: input.ClubName,
+		NumInClub: input.NumInClub,
+		ClubLeader: input.ClubLeader,
+		MeetingsHeld: input.MeetingsHeld,
+		MeetingsAttended: input.MeetingsAttended,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -310,8 +326,16 @@ func (e *env) addSection2(c *gin.Context) {
 		return
 	}
 
-	var req Section2Req
-	err = c.BindJSON(&req)
+	var input UpsertSection2Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -325,9 +349,9 @@ func (e *env) addSection2(c *gin.Context) {
 	section := db.Section2 {
 		ID: g.String(),
 		Section: 2,
-		Year: req.Year,
-		ProjectName: req.ProjectName,
-		ProjectScope: req.ProjectScope,
+		Year: input.Year,
+		ProjectName: input.ProjectName,
+		ProjectScope: input.ProjectScope,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -358,8 +382,16 @@ func (e *env) updateSection2(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section2Req
-	err = c.BindJSON(&req)
+	var input UpsertSection2Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -381,9 +413,9 @@ func (e *env) updateSection2(c *gin.Context) {
 	updatedSection := db.Section2 {
 		ID: existingSection.ID,
 		Section: 2,
-		Year: req.Year,
-		ProjectName: req.ProjectName,
-		ProjectScope: req.ProjectScope,
+		Year: input.Year,
+		ProjectName: input.ProjectName,
+		ProjectScope: input.ProjectScope,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -439,8 +471,16 @@ func (e *env) addSection3(c *gin.Context) {
 		return
 	}
 
-	var req Section3Req
-	err = c.BindJSON(&req)
+	var input UpsertSection3Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -454,10 +494,10 @@ func (e *env) addSection3(c *gin.Context) {
 	section := db.Section3 {
 		ID: g.String(),
 		Section: 3,
-		Year: req.Year,
-		ActivityKind: req.ActivityKind,
-		ThingsLearned: req.ThingsLearned,
-		Level: req.Level,
+		Year: input.Year,
+		ActivityKind: input.ActivityKind,
+		ThingsLearned: input.ThingsLearned,
+		Level: input.Level,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -488,8 +528,16 @@ func (e *env) updateSection3(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section3Req
-	err = c.BindJSON(&req)
+	var input UpsertSection3Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -511,10 +559,10 @@ func (e *env) updateSection3(c *gin.Context) {
 	updatedSection := db.Section3 {
 		ID: existingSection.ID,
 		Section: 3,
-		Year: req.Year,
-		ActivityKind: req.ActivityKind,
-		ThingsLearned: req.ThingsLearned,
-		Level: req.Level,
+		Year: input.Year,
+		ActivityKind: input.ActivityKind,
+		ThingsLearned: input.ThingsLearned,
+		Level: input.Level,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -570,8 +618,16 @@ func (e *env) addSection4(c *gin.Context) {
 		return
 	}
 
-	var req Section4Req
-	err = c.BindJSON(&req)
+	var input UpsertSection4Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -585,10 +641,10 @@ func (e *env) addSection4(c *gin.Context) {
 	section := db.Section4 {
 		ID: g.String(),
 		Section: 4,
-		Year: req.Year,
-		ActivityKind: req.ActivityKind,
-		Scope: req.Scope,
-		Level: req.Level,
+		Year: input.Year,
+		ActivityKind: input.ActivityKind,
+		Scope: input.Scope,
+		Level: input.Level,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -619,8 +675,16 @@ func (e *env) updateSection4(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section4Req
-	err = c.BindJSON(&req)
+	var input UpsertSection4Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -642,10 +706,10 @@ func (e *env) updateSection4(c *gin.Context) {
 	updatedSection := db.Section4 {
 		ID: existingSection.ID,
 		Section: 4,
-		Year: req.Year,
-		ActivityKind: req.ActivityKind,
-		Scope: req.Scope,
-		Level: req.Level,
+		Year: input.Year,
+		ActivityKind: input.ActivityKind,
+		Scope: input.Scope,
+		Level: input.Level,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -701,8 +765,16 @@ func (e *env) addSection5(c *gin.Context) {
 		return
 	}
 
-	var req Section5Req
-	err = c.BindJSON(&req)
+	var input UpsertSection5Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -716,10 +788,10 @@ func (e *env) addSection5(c *gin.Context) {
 	section := db.Section5 {
 		ID: g.String(),
 		Section: 5,
-		Year: req.Year,
-		LeadershipRole: req.LeadershipRole,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		LeadershipRole: input.LeadershipRole,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -750,8 +822,16 @@ func (e *env) updateSection5(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section5Req
-	err = c.BindJSON(&req)
+	var input UpsertSection5Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -773,10 +853,10 @@ func (e *env) updateSection5(c *gin.Context) {
 	updatedSection := db.Section5 {
 		ID: existingSection.ID,
 		Section: 5,
-		Year: req.Year,
-		LeadershipRole: req.LeadershipRole,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		LeadershipRole: input.LeadershipRole,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -832,8 +912,16 @@ func (e *env) addSection6(c *gin.Context) {
 		return
 	}
 
-	var req Section6Req
-	err = c.BindJSON(&req)
+	var input UpsertSection6Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -847,11 +935,11 @@ func (e *env) addSection6(c *gin.Context) {
 	section := db.Section6 {
 		ID: g.String(),
 		Section: 6,
-		Year: req.Year,
-		OrganizationName: req.OrganizationName,
-		LeadershipRole: req.LeadershipRole,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		OrganizationName: input.OrganizationName,
+		LeadershipRole: input.LeadershipRole,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -882,8 +970,16 @@ func (e *env) updateSection6(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section6Req
-	err = c.BindJSON(&req)
+	var input UpsertSection6Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -905,11 +1001,11 @@ func (e *env) updateSection6(c *gin.Context) {
 	updatedSection := db.Section6 {
 		ID: existingSection.ID,
 		Section: 6,
-		Year: req.Year,
-		OrganizationName: req.OrganizationName,
-		LeadershipRole: req.LeadershipRole,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		OrganizationName: input.OrganizationName,
+		LeadershipRole: input.LeadershipRole,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -965,8 +1061,16 @@ func (e *env) addSection7(c *gin.Context) {
 		return
 	}
 
-	var req Section7Req
-	err = c.BindJSON(&req)
+	var input UpsertSection7Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -980,10 +1084,10 @@ func (e *env) addSection7(c *gin.Context) {
 	section := db.Section7 {
 		ID: g.String(),
 		Section: 7,
-		Year: req.Year,
-		ClubMemberActivities: req.ClubMemberActivities,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		ClubMemberActivities: input.ClubMemberActivities,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1014,8 +1118,16 @@ func (e *env) updateSection7(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section7Req
-	err = c.BindJSON(&req)
+	var input UpsertSection7Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1037,10 +1149,10 @@ func (e *env) updateSection7(c *gin.Context) {
 	updatedSection := db.Section7 {
 		ID: existingSection.ID,
 		Section: 7,
-		Year: req.Year,
-		ClubMemberActivities: req.ClubMemberActivities,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		ClubMemberActivities: input.ClubMemberActivities,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1096,8 +1208,16 @@ func (e *env) addSection8(c *gin.Context) {
 		return
 	}
 
-	var req Section8Req
-	err = c.BindJSON(&req)
+	var input UpsertSection8Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1111,10 +1231,10 @@ func (e *env) addSection8(c *gin.Context) {
 	section := db.Section8 {
 		ID: g.String(),
 		Section: 8,
-		Year: req.Year,
-		IndividualGroupActivities: req.IndividualGroupActivities,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		IndividualGroupActivities: input.IndividualGroupActivities,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1145,8 +1265,16 @@ func (e *env) updateSection8(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section8Req
-	err = c.BindJSON(&req)
+	var input UpsertSection8Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1168,10 +1296,10 @@ func (e *env) updateSection8(c *gin.Context) {
 	updatedSection := db.Section8 {
 		ID: existingSection.ID,
 		Section: 8,
-		Year: req.Year,
-		IndividualGroupActivities: req.IndividualGroupActivities,
-		HoursSpent: req.HoursSpent,
-		NumPeopleReached: req.NumPeopleReached,
+		Year: input.Year,
+		IndividualGroupActivities: input.IndividualGroupActivities,
+		HoursSpent: input.HoursSpent,
+		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1227,8 +1355,16 @@ func (e *env) addSection9(c *gin.Context) {
 		return
 	}
 
-	var req Section9Req
-	err = c.BindJSON(&req)
+	var input UpsertSection9Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1242,12 +1378,12 @@ func (e *env) addSection9(c *gin.Context) {
 	section := db.Section9 {
 		ID: g.String(),
 		Section: 9,
-		Year: req.Year,
-		CommunicationType: req.CommunicationType,
-		Topic: req.Topic,
-		TimesGiven: req.TimesGiven,
-		Location: req.Location,
-		AudienceSize: req.AudienceSize,
+		Year: input.Year,
+		CommunicationType: input.CommunicationType,
+		Topic: input.Topic,
+		TimesGiven: input.TimesGiven,
+		Location: input.Location,
+		AudienceSize: input.AudienceSize,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1278,8 +1414,16 @@ func (e *env) updateSection9(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section9Req
-	err = c.BindJSON(&req)
+	var input UpsertSection9Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1301,12 +1445,12 @@ func (e *env) updateSection9(c *gin.Context) {
 	updatedSection := db.Section9 {
 		ID: existingSection.ID,
 		Section: 9,
-		Year: req.Year,
-		CommunicationType: req.CommunicationType,
-		Topic: req.Topic,
-		TimesGiven: req.TimesGiven,
-		Location: req.Location,
-		AudienceSize: req.AudienceSize,
+		Year: input.Year,
+		CommunicationType: input.CommunicationType,
+		Topic: input.Topic,
+		TimesGiven: input.TimesGiven,
+		Location: input.Location,
+		AudienceSize: input.AudienceSize,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1362,8 +1506,16 @@ func (e *env) addSection10(c *gin.Context) {
 		return
 	}
 
-	var req Section10Req
-	err = c.BindJSON(&req)
+	var input UpsertSection10Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1377,12 +1529,12 @@ func (e *env) addSection10(c *gin.Context) {
 	section := db.Section10 {
 		ID: g.String(),
 		Section: 10,
-		Year: req.Year,
-		CommunicationType: req.CommunicationType,
-		Topic: req.Topic,
-		TimesGiven: req.TimesGiven,
-		Location: req.Location,
-		AudienceSize: req.AudienceSize,
+		Year: input.Year,
+		CommunicationType: input.CommunicationType,
+		Topic: input.Topic,
+		TimesGiven: input.TimesGiven,
+		Location: input.Location,
+		AudienceSize: input.AudienceSize,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1413,8 +1565,16 @@ func (e *env) updateSection10(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section10Req
-	err = c.BindJSON(&req)
+	var input UpsertSection10Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1436,12 +1596,12 @@ func (e *env) updateSection10(c *gin.Context) {
 	updatedSection := db.Section10 {
 		ID: existingSection.ID,
 		Section: 10,
-		Year: req.Year,
-		CommunicationType: req.CommunicationType,
-		Topic: req.Topic,
-		TimesGiven: req.TimesGiven,
-		Location: req.Location,
-		AudienceSize: req.AudienceSize,
+		Year: input.Year,
+		CommunicationType: input.CommunicationType,
+		Topic: input.Topic,
+		TimesGiven: input.TimesGiven,
+		Location: input.Location,
+		AudienceSize: input.AudienceSize,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1497,8 +1657,16 @@ func (e *env) addSection11(c *gin.Context) {
 		return
 	}
 
-	var req Section11Req
-	err = c.BindJSON(&req)
+	var input UpsertSection11Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1512,10 +1680,10 @@ func (e *env) addSection11(c *gin.Context) {
 	section := db.Section11 {
 		ID: g.String(),
 		Section: 11,
-		Year: req.Year,
-		EventAndLevel: req.EventAndLevel,
-		ExhibitsOrDivision: req.ExhibitsOrDivision,
-		RibbonOrPlacings: req.RibbonOrPlacings,
+		Year: input.Year,
+		EventAndLevel: input.EventAndLevel,
+		ExhibitsOrDivision: input.ExhibitsOrDivision,
+		RibbonOrPlacings: input.RibbonOrPlacings,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1546,8 +1714,16 @@ func (e *env) updateSection11(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section11Req
-	err = c.BindJSON(&req)
+	var input UpsertSection11Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1569,10 +1745,10 @@ func (e *env) updateSection11(c *gin.Context) {
 	updatedSection := db.Section11 {
 		ID: existingSection.ID,
 		Section: 11,
-		Year: req.Year,
-		EventAndLevel: req.EventAndLevel,
-		ExhibitsOrDivision: req.ExhibitsOrDivision,
-		RibbonOrPlacings: req.RibbonOrPlacings,
+		Year: input.Year,
+		EventAndLevel: input.EventAndLevel,
+		ExhibitsOrDivision: input.ExhibitsOrDivision,
+		RibbonOrPlacings: input.RibbonOrPlacings,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1628,8 +1804,16 @@ func (e *env) addSection12(c *gin.Context) {
 		return
 	}
 
-	var req Section12Req
-	err = c.BindJSON(&req)
+	var input UpsertSection12Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1643,10 +1827,10 @@ func (e *env) addSection12(c *gin.Context) {
 	section := db.Section12 {
 		ID: g.String(),
 		Section: 12,
-		Year: req.Year,
-		ContestOrEvent: req.ContestOrEvent,
-		RecognitionReceived: req.RecognitionReceived,
-		Level: req.Level,
+		Year: input.Year,
+		ContestOrEvent: input.ContestOrEvent,
+		RecognitionReceived: input.RecognitionReceived,
+		Level: input.Level,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1677,8 +1861,16 @@ func (e *env) updateSection12(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section12Req
-	err = c.BindJSON(&req)
+	var input UpsertSection12Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1700,10 +1892,10 @@ func (e *env) updateSection12(c *gin.Context) {
 	updatedSection := db.Section12 {
 		ID: existingSection.ID,
 		Section: 12,
-		Year: req.Year,
-		ContestOrEvent: req.ContestOrEvent,
-		RecognitionReceived: req.RecognitionReceived,
-		Level: req.Level,
+		Year: input.Year,
+		ContestOrEvent: input.ContestOrEvent,
+		RecognitionReceived: input.RecognitionReceived,
+		Level: input.Level,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1759,8 +1951,16 @@ func (e *env) addSection13(c *gin.Context) {
 		return
 	}
 
-	var req Section13Req
-	err = c.BindJSON(&req)
+	var input UpsertSection13Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1774,8 +1974,8 @@ func (e *env) addSection13(c *gin.Context) {
 	section := db.Section13 {
 		ID: g.String(),
 		Section: 13,
-		Year: req.Year,
-		RecognitionType: req.RecognitionType,
+		Year: input.Year,
+		RecognitionType: input.RecognitionType,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1806,8 +2006,16 @@ func (e *env) updateSection13(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section13Req
-	err = c.BindJSON(&req)
+	var input UpsertSection13Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1829,8 +2037,8 @@ func (e *env) updateSection13(c *gin.Context) {
 	updatedSection := db.Section13 {
 		ID: existingSection.ID,
 		Section: 13,
-		Year: req.Year,
-		RecognitionType: req.RecognitionType,
+		Year: input.Year,
+		RecognitionType: input.RecognitionType,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),
@@ -1886,8 +2094,16 @@ func (e *env) addSection14(c *gin.Context) {
 		return
 	}
 
-	var req Section14Req
-	err = c.BindJSON(&req)
+	var input UpsertSection14Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1901,8 +2117,8 @@ func (e *env) addSection14(c *gin.Context) {
 	section := db.Section14 {
 		ID: g.String(),
 		Section: 14,
-		Year: req.Year,
-		RecognitionType: req.RecognitionType,
+		Year: input.Year,
+		RecognitionType: input.RecognitionType,
 		UserID: cookie,
 		Created: timestamp.ToString(),
 		Updated: timestamp.ToString(),
@@ -1933,8 +2149,16 @@ func (e *env) updateSection14(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	var req Section14Req
-	err = c.BindJSON(&req)
+	var input UpsertSection14Input
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -1956,8 +2180,8 @@ func (e *env) updateSection14(c *gin.Context) {
 	updatedSection := db.Section14 {
 		ID: existingSection.ID,
 		Section: 14,
-		Year: req.Year,
-		RecognitionType: req.RecognitionType,
+		Year: input.Year,
+		RecognitionType: input.RecognitionType,
 		UserID: cookie,
 		Created: existingSection.Created,
 		Updated: timestamp.ToString(),

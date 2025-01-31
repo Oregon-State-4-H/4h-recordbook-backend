@@ -8,9 +8,9 @@ import (
 	"github.com/beevik/guid"
 )
 
-type AddBookmarkReq struct {
-	Link  string
-	Label string
+type AddBookmarkInput struct {
+	Link  string `json:"link" validate:"required"`
+	Label string `json:"label" validate:"required"`
 }
 
 // GetUserBookmarks godoc
@@ -62,8 +62,16 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		return
 	}
 
-	var req AddBookmarkReq
-	err = c.BindJSON(&req)
+	var input AddBookmarkInput
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -76,14 +84,14 @@ func (e *env) addUserBookmark(c *gin.Context) {
 
 	bookmark := db.Bookmark{
 		ID: 			   g.String(),
-		Link: 			   req.Link,
-		Label: 			   req.Label,
+		Link: 			   input.Link,
+		Label: 			   input.Label,
 		UserID: 		   cookie,
 		Created:		   timestamp.ToString(),
 		Updated:		   timestamp.ToString(),
 	}
 
-	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), cookie, req.Link)
+	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), cookie, input.Link)
 	if existingBookmark != (db.Bookmark{}) {
 		c.JSON(409, gin.H{
 			"message": HTTPResponseCodeMap[409],

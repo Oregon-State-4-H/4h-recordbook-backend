@@ -8,22 +8,13 @@ import (
 	"github.com/beevik/guid"
 )
 
-type AddProjectReq struct {
-	Year 		string `json:"year"`
-	Name 		string `json:"name"`
-	Description string `json:"description"`
-	Type 		string `json:"type"`
-	StartDate   string `json:"start_date"`
-	EndDate		string `json:"end_date"`
-}
-
-type UpdateProjectReq struct {
-	Year 		string `json:"year"`
-	Name 		string `json:"name"`
-	Description string `json:"description"`
-	Type 		string `json:"type"`
-	StartDate   string `json:"start_date"`
-	EndDate		string `json:"end_date"`
+type UpsertProjectInput struct {
+	Year 		string `json:"year" validate:"required"`
+	Name 		string `json:"name" validate:"required"`
+	Description string `json:"description" validate:"required"`
+	Type 		string `json:"type" validate:"required"`
+	StartDate   string `json:"start_date" validate:"required"`
+	EndDate		string `json:"end_date" validate:"required"`
 }
 
 // GetCurrentProjects godoc
@@ -139,8 +130,16 @@ func (e *env) addProject(c *gin.Context) {
 		return
 	}
 
-	var req AddProjectReq
-	err = c.BindJSON(&req)
+	var input UpsertProjectInput
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -152,14 +151,14 @@ func (e *env) addProject(c *gin.Context) {
 	timestamp := utils.TimeNow()
 	
 	//verify StartDate and EndDate are properly formatted
-	startDate, err := utils.StringToTimestamp(req.StartDate)
+	startDate, err := utils.StringToTimestamp(input.StartDate)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
 		})
 	}
 
-	endDate, err := utils.StringToTimestamp(req.EndDate)
+	endDate, err := utils.StringToTimestamp(input.EndDate)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -168,10 +167,10 @@ func (e *env) addProject(c *gin.Context) {
 
 	project := db.Project{
 		ID: 			   g.String(),
-		Year: 			   req.Year,
-		Name: 			   req.Name,
-		Description:	   req.Description,
-		Type:			   req.Type,
+		Year: 			   input.Year,
+		Name: 			   input.Name,
+		Description:	   input.Description,
+		Type:			   input.Type,
 		StartDate:		   startDate.ToString(),
 		EndDate:		   endDate.ToString(),
 		UserID: 		   cookie,
@@ -210,8 +209,16 @@ func (e *env) updateProject(c *gin.Context) {
 		return
 	}
 
-	var req UpdateProjectReq
-	err = c.BindJSON(&req)
+	var input UpsertProjectInput
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+	
+	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -220,24 +227,18 @@ func (e *env) updateProject(c *gin.Context) {
 	}
 
 	//verify StartDate and EndDate are properly formatted
-	if req.StartDate != "" {
-		_, err = utils.StringToTimestamp(req.StartDate)
-		if err != nil {
-			c.JSON(400, gin.H{
-				"message": HTTPResponseCodeMap[400],
-			})
-		return
-		}
+	startDate, err := utils.StringToTimestamp(input.StartDate)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
 	}
 
-	if req.EndDate != "" {
-		_, err = utils.StringToTimestamp(req.EndDate)
-		if err != nil {
-			c.JSON(400, gin.H{
-				"message": HTTPResponseCodeMap[400],
-			})
-			return
-		}
+	endDate, err := utils.StringToTimestamp(input.EndDate)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
 	}
 
 	id := c.Param("projectId")
@@ -255,12 +256,12 @@ func (e *env) updateProject(c *gin.Context) {
 
 	updatedProject := db.Project{
 		ID: 			   project.ID,
-		Year: 			   ternary(req.Year, project.Year),
-		Name: 		   	   ternary(req.Name, project.Name),
-		Description: 	   ternary(req.Description, project.Description),
-		Type: 			   ternary(req.Type, project.Type),
-		StartDate: 	   	   ternary(req.StartDate, project.StartDate),
-		EndDate: 	       ternary(req.EndDate, project.EndDate),
+		Year: 			   input.Year,
+		Name: 		   	   input.Name,
+		Description: 	   input.Description,
+		Type: 			   input.Type,
+		StartDate: 	   	   startDate.ToString(),
+		EndDate: 	       endDate.ToString(),
 		UserID:			   cookie,
 		Created: 		   project.Created,
 		Updated:		   timestamp.ToString(),
