@@ -5,9 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"github.com/beevik/guid"
 )
 
-type UpdateUserReq struct {
+type UpdateUserInput struct {
 	Email 				string	`json:"email"`
 	Birthdate 			string	`json:"birthdate"`
 	FirstName 			string	`json:"first_name"`
@@ -16,13 +17,19 @@ type UpdateUserReq struct {
 	CountyName 			string	`json:"county_name"`
 }
 
+type GetUserProfileOutput struct {
+	User db.User `json:"user"`
+}
+
 // GetUserProfile godoc
-// @Summary 
-// @Description 
+// @Summary Get a user
+// @Description Get user by JWT
 // @Tags User
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Success 200 {object} api.GetUserProfileOutput 
+// @Failure 401
+// @Failure 404
 // @Router /user [get]
 func (e *env) getUserProfile(c *gin.Context) {
 
@@ -35,7 +42,9 @@ func (e *env) getUserProfile(c *gin.Context) {
 		return
 	}
 
-	user, err := e.db.GetUser(context.TODO(), cookie)
+	var output GetUserProfileOutput
+
+	output.User, err = e.db.GetUser(context.TODO(), cookie)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -44,17 +53,21 @@ func (e *env) getUserProfile(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, user)
+	c.JSON(200, output)
 
 }
 
 // UpdateUserProfile godoc
-// @Summary 
-// @Description 
+// @Summary Update a user
+// @Description Update the signed-in user's information
 // @Tags User
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Param UpdateUserInput body api.UpdateUserInput true "User information"
+// @Success 204 
+// @Failure 400
+// @Failure 401
+// @Failure 404
 // @Router /user [put]
 func (e *env) updateUserProfile(c *gin.Context) {
 
@@ -67,8 +80,8 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		return
 	}
 
-	var req UpdateUserReq
-	err = c.BindJSON(&req)
+	var input UpdateUserInput
+	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -89,11 +102,11 @@ func (e *env) updateUserProfile(c *gin.Context) {
 
 	updatedUser := db.User{
 		ID: 			   user.ID,
-		Email: 			   ternary(req.Email, user.Email),
-		Birthdate: 		   ternary(req.Birthdate, user.Birthdate),
-		FirstName: 		   ternary(req.FirstName, user.FirstName),
-		MiddleNameInitial: ternary(req.MiddleNameInitial, user.MiddleNameInitial),
-		CountyName: 	   ternary(req.CountyName, user.CountyName),
+		Email: 			   ternary(input.Email, user.Email),
+		Birthdate: 		   ternary(input.Birthdate, user.Birthdate),
+		FirstName: 		   ternary(input.FirstName, user.FirstName),
+		MiddleNameInitial: ternary(input.MiddleNameInitial, user.MiddleNameInitial),
+		CountyName: 	   ternary(input.CountyName, user.CountyName),
 		Created: 		   user.Created,
 		Updated:		   timestamp.ToString(),
 	}
@@ -112,14 +125,25 @@ func (e *env) updateUserProfile(c *gin.Context) {
 }
 
 //temporary signin and signup functions
-type SignInReq struct {
+type SignInInput struct {
 	ID string `json:id" validate:"required"`
 }
 
+// SignIn godoc
+// @Summary Sign in 
+// @Description Placeholder route, sign in with ID
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param ID body api.SignInInput true "User ID"
+// @Success 204 
+// @Failure 400
+// @Failure 404
+// @Router /signin [post]
 func (e *env) signin(c *gin.Context) {
 
-	var req SignInReq
-	err := c.BindJSON(&req)
+	var input SignInInput
+	err := c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -127,7 +151,7 @@ func (e *env) signin(c *gin.Context) {
 		return
 	}
 
-	user, err := e.db.GetUser(context.TODO(), req.ID)
+	user, err := e.db.GetUser(context.TODO(), input.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -141,6 +165,15 @@ func (e *env) signin(c *gin.Context) {
 
 }
 
+// SignOut godoc
+// @Summary Sign out
+// @Description Placeholder route, sign out with JWT
+// @Tags User
+// @Accept json
+// @Produce json
+// @Success 204 
+// @Failure 401
+// @Router /signout [post]
 func (e *env) signout(c *gin.Context) {
 
 	cookie, err := c.Cookie("login_cookie")
@@ -156,8 +189,7 @@ func (e *env) signout(c *gin.Context) {
 
 }
 
-type SignUpReq struct {
-	ID					string  `json:"id" validate:"required"`
+type SignUpInput struct {
 	Email 				string	`json:"email" validate:"required"`
 	Birthdate 			string	`json:"birthdate" validate:"required"`
 	FirstName 			string	`json:"first_name" validate:"required"`
@@ -166,10 +198,21 @@ type SignUpReq struct {
 	CountyName 			string	`json:"county_name" validate:"required"`
 }
 
+// Signup godoc
+// @Summary Sign up 
+// @Description Placeholder route, sign up with custom user information
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param ID body api.SignUpInput true "User information"
+// @Success 204 
+// @Failure 400
+// @Failure 409
+// @Router /signup [post]
 func (e *env) signup(c *gin.Context) {
 
-	var req SignUpReq
-	err := c.BindJSON(&req)
+	var input SignUpInput
+	err := c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -177,15 +220,16 @@ func (e *env) signup(c *gin.Context) {
 		return
 	}
 
+	g := guid.New()
 	timestamp := utils.TimeNow()
 
 	user := db.User{
-		ID: 			   req.ID,
-		Email: 			   req.Email,
-		Birthdate: 		   req.Birthdate,
-		FirstName: 		   req.FirstName,
-		MiddleNameInitial: req.MiddleNameInitial,
-		CountyName: 	   req.CountyName,
+		ID: 			   g.String(),
+		Email: 			   input.Email,
+		Birthdate: 		   input.Birthdate,
+		FirstName: 		   input.FirstName,
+		MiddleNameInitial: input.MiddleNameInitial,
+		CountyName: 	   input.CountyName,
 		Created: 		   timestamp.ToString(),
 		Updated:		   timestamp.ToString(),	
 	}

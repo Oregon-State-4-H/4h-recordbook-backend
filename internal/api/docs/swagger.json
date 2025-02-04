@@ -6,6 +6,7 @@
     "paths": {
         "/bookmarks": {
             "get": {
+                "description": "Returns an array of all the user's bookmarks, queried using JWT claims",
                 "consumes": [
                     "application/json"
                 ],
@@ -15,13 +16,21 @@
                 "tags": [
                     "User Bookmarks"
                 ],
+                "summary": "Get all of a user's bookmarks",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetBookmarksOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             },
             "post": {
+                "description": "Adds a bookmark to a user's personal records.\nThe new bookmark can not have the same link as another of the user's bookmarks",
                 "consumes": [
                     "application/json"
                 ],
@@ -31,15 +40,37 @@
                 "tags": [
                     "User Bookmarks"
                 ],
+                "summary": "Adds a bookmark",
+                "parameters": [
+                    {
+                        "description": "Bookmark information",
+                        "name": "AddBookmarkInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.AddBookmarkInput"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     }
                 }
             }
         },
         "/bookmarks/{bookmarkId}": {
             "delete": {
+                "description": "Deletes a user's bookmark given the bookmark ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -49,15 +80,32 @@
                 "tags": [
                     "User Bookmarks"
                 ],
+                "summary": "Removes a bookmark",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bookmark ID",
+                        "name": "bookmarkId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
         },
         "/project": {
             "get": {
+                "description": "Gets all of a user's saved projects regardless of year",
                 "consumes": [
                     "application/json"
                 ],
@@ -67,13 +115,21 @@
                 "tags": [
                     "Projects"
                 ],
+                "summary": "Get all of a user's projects",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetProjectsOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             },
             "post": {
+                "description": "Adds a project to a user's personal records",
                 "consumes": [
                     "application/json"
                 ],
@@ -83,15 +139,34 @@
                 "tags": [
                     "Projects"
                 ],
+                "summary": "Add a project",
+                "parameters": [
+                    {
+                        "description": "Project information",
+                        "name": "UpsertProjectInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertProjectInput"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             }
         },
         "/project/{projectId}": {
             "get": {
+                "description": "Get a user's project by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -101,13 +176,33 @@
                 "tags": [
                     "Projects"
                 ],
+                "summary": "Get a project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetProjectOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             },
             "put": {
+                "description": "Updates a user's project information",
                 "consumes": [
                     "application/json"
                 ],
@@ -117,15 +212,37 @@
                 "tags": [
                     "Projects"
                 ],
+                "summary": "Update a project",
+                "parameters": [
+                    {
+                        "description": "Project information",
+                        "name": "UpsertProjectInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertProjectInput"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "OK"
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
         },
         "/projects": {
             "get": {
+                "description": "Gets all of a user's projects that take place in the last 12 months",
                 "consumes": [
                     "application/json"
                 ],
@@ -135,15 +252,1525 @@
                 "tags": [
                     "Projects"
                 ],
+                "summary": "Gets projects of the current year",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetProjectsOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/resume": {
+            "get": {
+                "description": "Gets all of a user's entries for every resume section",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume"
+                ],
+                "summary": "Gets full resume",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetResumeOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section/{sectionId}": {
+            "delete": {
+                "description": "Deletes a user's resume section given the section ID. Can be any resume section",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume"
+                ],
+                "summary": "Removes a resume section",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/section1": {
+            "get": {
+                "description": "Gets all of a user's Section 1 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 1"
+                ],
+                "summary": "Gets all Section 1 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection1Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 1 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 1"
+                ],
+                "summary": "Updates a Section 1 entry",
+                "parameters": [
+                    {
+                        "description": "Section 1 information",
+                        "name": "UpsertSection1Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection1Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 1 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 1"
+                ],
+                "summary": "Add a Section 1 entry",
+                "parameters": [
+                    {
+                        "description": "Section 1 information",
+                        "name": "UpsertSection1Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection1Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section10": {
+            "get": {
+                "description": "Gets all of a user's Section 10 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 10"
+                ],
+                "summary": "Gets all Section 10 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection10Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 10 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 10"
+                ],
+                "summary": "Updates a Section 10 entry",
+                "parameters": [
+                    {
+                        "description": "Section 10 information",
+                        "name": "UpsertSection10Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection10Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 10 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 10"
+                ],
+                "summary": "Add a Section 10 entry",
+                "parameters": [
+                    {
+                        "description": "Section 10 information",
+                        "name": "UpsertSection10Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection10Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section11": {
+            "get": {
+                "description": "Gets all of a user's Section 11 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 11"
+                ],
+                "summary": "Gets all Section 11 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection11Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 11 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 11"
+                ],
+                "summary": "Updates a Section 11 entry",
+                "parameters": [
+                    {
+                        "description": "Section 11 information",
+                        "name": "UpsertSection11Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection11Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 11 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 11"
+                ],
+                "summary": "Add a Section 11 entry",
+                "parameters": [
+                    {
+                        "description": "Section 11 information",
+                        "name": "UpsertSection11Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection11Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section12": {
+            "get": {
+                "description": "Gets all of a user's Section 12 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 12"
+                ],
+                "summary": "Gets all Section 12 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection12Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 12 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 12"
+                ],
+                "summary": "Updates a Section 12 entry",
+                "parameters": [
+                    {
+                        "description": "Section 12 information",
+                        "name": "UpsertSection12Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection12Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 12 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 12"
+                ],
+                "summary": "Add a Section 12 entry",
+                "parameters": [
+                    {
+                        "description": "Section 12 information",
+                        "name": "UpsertSection12Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection12Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section13": {
+            "get": {
+                "description": "Gets all of a user's Section 13 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 13"
+                ],
+                "summary": "Gets all Section 13 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection13Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 13 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 13"
+                ],
+                "summary": "Updates a Section 13 entry",
+                "parameters": [
+                    {
+                        "description": "Section 13 information",
+                        "name": "UpsertSection13Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection13Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 13 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 13"
+                ],
+                "summary": "Add a Section 13 entry",
+                "parameters": [
+                    {
+                        "description": "Section 13 information",
+                        "name": "UpsertSection13Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection13Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section14": {
+            "get": {
+                "description": "Gets all of a user's Section 14 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 14"
+                ],
+                "summary": "Gets all Section 14 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection14Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 14 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 14"
+                ],
+                "summary": "Updates a Section 14 entry",
+                "parameters": [
+                    {
+                        "description": "Section 14 information",
+                        "name": "UpsertSection14Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection14Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 14 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 14"
+                ],
+                "summary": "Add a Section 14 entry",
+                "parameters": [
+                    {
+                        "description": "Section 14 information",
+                        "name": "UpsertSection14Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection14Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section2": {
+            "get": {
+                "description": "Gets all of a user's Section 2 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 2"
+                ],
+                "summary": "Gets all Section 2 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection2Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 2 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 2"
+                ],
+                "summary": "Updates a Section 2 entry",
+                "parameters": [
+                    {
+                        "description": "Section 2 information",
+                        "name": "UpsertSection2Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection2Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 2 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 2"
+                ],
+                "summary": "Add a Section 2 entry",
+                "parameters": [
+                    {
+                        "description": "Section 2 information",
+                        "name": "UpsertSection2Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection2Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section3": {
+            "get": {
+                "description": "Gets all of a user's Section 3 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 3"
+                ],
+                "summary": "Gets all Section 3 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection3Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 3 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 3"
+                ],
+                "summary": "Updates a Section 3 entry",
+                "parameters": [
+                    {
+                        "description": "Section 3 information",
+                        "name": "UpsertSection3Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection3Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 3 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 3"
+                ],
+                "summary": "Add a Section 3 entry",
+                "parameters": [
+                    {
+                        "description": "Section 3 information",
+                        "name": "UpsertSection3Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection3Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section4": {
+            "get": {
+                "description": "Gets all of a user's Section 4 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 4"
+                ],
+                "summary": "Gets all Section 4 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection4Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 4 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 4"
+                ],
+                "summary": "Updates a Section 4 entry",
+                "parameters": [
+                    {
+                        "description": "Section 4 information",
+                        "name": "UpsertSection4Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection4Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 4 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 4"
+                ],
+                "summary": "Add a Section 4 entry",
+                "parameters": [
+                    {
+                        "description": "Section 4 information",
+                        "name": "UpsertSection4Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection4Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section5": {
+            "get": {
+                "description": "Gets all of a user's Section 5 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 5"
+                ],
+                "summary": "Gets all Section 5 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection5Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 5 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 5"
+                ],
+                "summary": "Updates a Section 5 entry",
+                "parameters": [
+                    {
+                        "description": "Section 5 information",
+                        "name": "UpsertSection5Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection5Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 5 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 5"
+                ],
+                "summary": "Add a Section 5 entry",
+                "parameters": [
+                    {
+                        "description": "Section 5 information",
+                        "name": "UpsertSection5Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection5Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section6": {
+            "get": {
+                "description": "Gets all of a user's Section 6 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 6"
+                ],
+                "summary": "Gets all Section 6 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection6Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 6 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 6"
+                ],
+                "summary": "Updates a Section 6 entry",
+                "parameters": [
+                    {
+                        "description": "Section 6 information",
+                        "name": "UpsertSection6Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection6Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 6 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 6"
+                ],
+                "summary": "Add a Section 6 entry",
+                "parameters": [
+                    {
+                        "description": "Section 6 information",
+                        "name": "UpsertSection6Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection6Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section7": {
+            "get": {
+                "description": "Gets all of a user's Section 7 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 7"
+                ],
+                "summary": "Gets all Section 7 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection7Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 7 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 7"
+                ],
+                "summary": "Updates a Section 7 entry",
+                "parameters": [
+                    {
+                        "description": "Section 7 information",
+                        "name": "UpsertSection7Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection7Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 7 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 7"
+                ],
+                "summary": "Add a Section 7 entry",
+                "parameters": [
+                    {
+                        "description": "Section 7 information",
+                        "name": "UpsertSection7Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection7Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section8": {
+            "get": {
+                "description": "Gets all of a user's Section 8 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 8"
+                ],
+                "summary": "Gets all Section 8 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection8Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 8 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 8"
+                ],
+                "summary": "Updates a Section 8 entry",
+                "parameters": [
+                    {
+                        "description": "Section 8 information",
+                        "name": "UpsertSection8Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection8Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 8 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 8"
+                ],
+                "summary": "Add a Section 8 entry",
+                "parameters": [
+                    {
+                        "description": "Section 8 information",
+                        "name": "UpsertSection8Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection8Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/section9": {
+            "get": {
+                "description": "Gets all of a user's Section 9 entries",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 9"
+                ],
+                "summary": "Gets all Section 9 entries",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection9Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates a user's Section 9 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 9"
+                ],
+                "summary": "Updates a Section 9 entry",
+                "parameters": [
+                    {
+                        "description": "Section 9 information",
+                        "name": "UpsertSection9Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection9Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "description": "Adds a Section 9 entry to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 9"
+                ],
+                "summary": "Add a Section 9 entry",
+                "parameters": [
+                    {
+                        "description": "Section 9 information",
+                        "name": "UpsertSection9Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection9Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/signin": {
+            "post": {
+                "description": "Placeholder route, sign in with ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Sign in",
+                "parameters": [
+                    {
+                        "description": "User ID",
+                        "name": "ID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.SignInInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/signout": {
+            "post": {
+                "description": "Placeholder route, sign out with JWT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Sign out",
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "post": {
+                "description": "Placeholder route, sign up with custom user information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Sign up",
+                "parameters": [
+                    {
+                        "description": "User information",
+                        "name": "ID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.SignUpInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "409": {
+                        "description": "Conflict"
                     }
                 }
             }
         },
         "/user": {
             "get": {
+                "description": "Get user by JWT",
                 "consumes": [
                     "application/json"
                 ],
@@ -153,13 +1780,24 @@
                 "tags": [
                     "User"
                 ],
+                "summary": "Get a user",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetUserProfileOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             },
             "put": {
+                "description": "Update the signed-in user's information",
                 "consumes": [
                     "application/json"
                 ],
@@ -169,10 +1807,1311 @@
                 "tags": [
                     "User"
                 ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
+                "summary": "Update a user",
+                "parameters": [
+                    {
+                        "description": "User information",
+                        "name": "UpdateUserInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpdateUserInput"
+                        }
                     }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.AddBookmarkInput": {
+            "type": "object",
+            "required": [
+                "label",
+                "link"
+            ],
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.GetBookmarksOutput": {
+            "type": "object",
+            "properties": {
+                "bookmarks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Bookmark"
+                    }
+                }
+            }
+        },
+        "api.GetProjectOutput": {
+            "type": "object",
+            "properties": {
+                "project": {
+                    "$ref": "#/definitions/db.Project"
+                }
+            }
+        },
+        "api.GetProjectsOutput": {
+            "type": "object",
+            "properties": {
+                "projects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Project"
+                    }
+                }
+            }
+        },
+        "api.GetResumeOutput": {
+            "type": "object",
+            "properties": {
+                "resume": {
+                    "$ref": "#/definitions/db.Resume"
+                }
+            }
+        },
+        "api.GetSection10Output": {
+            "type": "object",
+            "properties": {
+                "section_10_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section10"
+                    }
+                }
+            }
+        },
+        "api.GetSection11Output": {
+            "type": "object",
+            "properties": {
+                "section_11_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section11"
+                    }
+                }
+            }
+        },
+        "api.GetSection12Output": {
+            "type": "object",
+            "properties": {
+                "section_1_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section12"
+                    }
+                }
+            }
+        },
+        "api.GetSection13Output": {
+            "type": "object",
+            "properties": {
+                "section_13_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section13"
+                    }
+                }
+            }
+        },
+        "api.GetSection14Output": {
+            "type": "object",
+            "properties": {
+                "section_14_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section14"
+                    }
+                }
+            }
+        },
+        "api.GetSection1Output": {
+            "type": "object",
+            "properties": {
+                "section_1_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section1"
+                    }
+                }
+            }
+        },
+        "api.GetSection2Output": {
+            "type": "object",
+            "properties": {
+                "section_2_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section2"
+                    }
+                }
+            }
+        },
+        "api.GetSection3Output": {
+            "type": "object",
+            "properties": {
+                "section_3_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section3"
+                    }
+                }
+            }
+        },
+        "api.GetSection4Output": {
+            "type": "object",
+            "properties": {
+                "section_4_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section4"
+                    }
+                }
+            }
+        },
+        "api.GetSection5Output": {
+            "type": "object",
+            "properties": {
+                "section_5_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section5"
+                    }
+                }
+            }
+        },
+        "api.GetSection6Output": {
+            "type": "object",
+            "properties": {
+                "section_6_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section6"
+                    }
+                }
+            }
+        },
+        "api.GetSection7Output": {
+            "type": "object",
+            "properties": {
+                "section_7_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section7"
+                    }
+                }
+            }
+        },
+        "api.GetSection8Output": {
+            "type": "object",
+            "properties": {
+                "section_8_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section8"
+                    }
+                }
+            }
+        },
+        "api.GetSection9Output": {
+            "type": "object",
+            "properties": {
+                "section_9_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section9"
+                    }
+                }
+            }
+        },
+        "api.GetUserProfileOutput": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "$ref": "#/definitions/db.User"
+                }
+            }
+        },
+        "api.SignInInput": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.SignUpInput": {
+            "type": "object",
+            "required": [
+                "birthdate",
+                "county_name",
+                "email",
+                "first_name",
+                "last_name_initial",
+                "middle_name_initial"
+            ],
+            "properties": {
+                "birthdate": {
+                    "type": "string"
+                },
+                "county_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name_initial": {
+                    "type": "string"
+                },
+                "middle_name_initial": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpdateUserInput": {
+            "type": "object",
+            "properties": {
+                "birthdate": {
+                    "type": "string"
+                },
+                "county_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name_initial": {
+                    "type": "string"
+                },
+                "middle_name_initial": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertProjectInput": {
+            "type": "object",
+            "required": [
+                "description",
+                "end_date",
+                "name",
+                "start_date",
+                "type",
+                "year"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection10Input": {
+            "type": "object",
+            "required": [
+                "audience_size",
+                "communication_type",
+                "location",
+                "times_given",
+                "topic",
+                "year"
+            ],
+            "properties": {
+                "audience_size": {
+                    "type": "string"
+                },
+                "communication_type": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "times_given": {
+                    "type": "integer"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection11Input": {
+            "type": "object",
+            "required": [
+                "event_and_level",
+                "exhibits_or_division",
+                "ribbon_or_placings",
+                "year"
+            ],
+            "properties": {
+                "event_and_level": {
+                    "type": "string"
+                },
+                "exhibits_or_division": {
+                    "type": "string"
+                },
+                "ribbon_or_placings": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection12Input": {
+            "type": "object",
+            "required": [
+                "contest_or_event",
+                "level",
+                "recognition_received",
+                "year"
+            ],
+            "properties": {
+                "contest_or_event": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "recognition_received": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection13Input": {
+            "type": "object",
+            "required": [
+                "recognition_type",
+                "year"
+            ],
+            "properties": {
+                "recognition_type": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection14Input": {
+            "type": "object",
+            "required": [
+                "recognition_type",
+                "year"
+            ],
+            "properties": {
+                "recognition_type": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection1Input": {
+            "type": "object",
+            "required": [
+                "club_leader",
+                "club_name",
+                "grade",
+                "meetings_attended",
+                "meetings_held",
+                "num_in_club",
+                "year"
+            ],
+            "properties": {
+                "club_leader": {
+                    "type": "string"
+                },
+                "club_name": {
+                    "type": "string"
+                },
+                "grade": {
+                    "type": "integer"
+                },
+                "meetings_attended": {
+                    "type": "integer"
+                },
+                "meetings_held": {
+                    "type": "integer"
+                },
+                "num_in_club": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection2Input": {
+            "type": "object",
+            "required": [
+                "project_name",
+                "project_scope",
+                "year"
+            ],
+            "properties": {
+                "project_name": {
+                    "type": "string"
+                },
+                "project_scope": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection3Input": {
+            "type": "object",
+            "required": [
+                "activity_kind",
+                "level",
+                "things_learned",
+                "year"
+            ],
+            "properties": {
+                "activity_kind": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "things_learned": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection4Input": {
+            "type": "object",
+            "required": [
+                "activity_kind",
+                "level",
+                "scope",
+                "year"
+            ],
+            "properties": {
+                "activity_kind": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "scope": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection5Input": {
+            "type": "object",
+            "required": [
+                "hours_spent",
+                "leadership_role",
+                "num_people_reached",
+                "year"
+            ],
+            "properties": {
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "leadership_role": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection6Input": {
+            "type": "object",
+            "required": [
+                "hours_spent",
+                "leadership_role",
+                "num_people_reached",
+                "organization_name",
+                "year"
+            ],
+            "properties": {
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "leadership_role": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "organization_name": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection7Input": {
+            "type": "object",
+            "required": [
+                "club_member_activities",
+                "hours_spent",
+                "num_people_reached",
+                "year"
+            ],
+            "properties": {
+                "club_member_activities": {
+                    "type": "string"
+                },
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection8Input": {
+            "type": "object",
+            "required": [
+                "hours_spent",
+                "individual_group_activities",
+                "num_people_reached",
+                "year"
+            ],
+            "properties": {
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "individual_group_activities": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection9Input": {
+            "type": "object",
+            "required": [
+                "audience_size",
+                "communication_type",
+                "location",
+                "times_given",
+                "topic",
+                "year"
+            ],
+            "properties": {
+                "audience_size": {
+                    "type": "integer"
+                },
+                "communication_type": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "times_given": {
+                    "type": "integer"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Bookmark": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "link": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Project": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Resume": {
+            "type": "object",
+            "properties": {
+                "section_10_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section10"
+                    }
+                },
+                "section_11_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section11"
+                    }
+                },
+                "section_12_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section12"
+                    }
+                },
+                "section_13_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section13"
+                    }
+                },
+                "section_14_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section14"
+                    }
+                },
+                "section_1_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section1"
+                    }
+                },
+                "section_2_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section2"
+                    }
+                },
+                "section_3_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section3"
+                    }
+                },
+                "section_4_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section4"
+                    }
+                },
+                "section_5_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section5"
+                    }
+                },
+                "section_6_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section6"
+                    }
+                },
+                "section_7_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section7"
+                    }
+                },
+                "section_8_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section8"
+                    }
+                },
+                "section_9_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Section9"
+                    }
+                }
+            }
+        },
+        "db.Section1": {
+            "type": "object",
+            "properties": {
+                "club_leader": {
+                    "type": "string"
+                },
+                "club_name": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "grade": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "meetings_attended": {
+                    "type": "integer"
+                },
+                "meetings_held": {
+                    "type": "integer"
+                },
+                "num_in_club": {
+                    "type": "integer"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section10": {
+            "type": "object",
+            "properties": {
+                "audience_size": {
+                    "type": "string"
+                },
+                "communication_type": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "times_given": {
+                    "type": "integer"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section11": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "event_and_level": {
+                    "type": "string"
+                },
+                "exhibits_or_division": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "ribbon_or_placings": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section12": {
+            "type": "object",
+            "properties": {
+                "contest_or_event": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "recognition_received": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section13": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "recognition_type": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section14": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "recognition_type": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section2": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "project_name": {
+                    "type": "string"
+                },
+                "project_scope": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section3": {
+            "type": "object",
+            "properties": {
+                "activity_kind": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "things_learned": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section4": {
+            "type": "object",
+            "properties": {
+                "activity_kind": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "string"
+                },
+                "scope": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section5": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "leadership_role": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section6": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "leadership_role": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "organization_name": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section7": {
+            "type": "object",
+            "properties": {
+                "club_member_activities": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section8": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "hours_spent": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "individual_group_activities": {
+                    "type": "string"
+                },
+                "num_people_reached": {
+                    "type": "integer"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Section9": {
+            "type": "object",
+            "properties": {
+                "audience_size": {
+                    "type": "integer"
+                },
+                "communication_type": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "integer"
+                },
+                "times_given": {
+                    "type": "integer"
+                },
+                "topic": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.User": {
+            "type": "object",
+            "properties": {
+                "birthdate": {
+                    "type": "string"
+                },
+                "county_name": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name_initial": {
+                    "type": "string"
+                },
+                "middle_name_initial": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
                 }
             }
         }

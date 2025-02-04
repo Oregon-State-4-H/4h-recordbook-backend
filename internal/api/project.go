@@ -17,13 +17,22 @@ type UpsertProjectInput struct {
 	EndDate		string `json:"end_date" validate:"required"`
 }
 
+type GetProjectsOutput struct {
+	Projects []db.Project `json:"projects"`
+}
+
+type GetProjectOutput struct {
+	Project db.Project `json:"project"`
+}
+
 // GetCurrentProjects godoc
-// @Summary 
-// @Description 
+// @Summary Gets projects of the current year
+// @Description Gets all of a user's projects that take place in the last 12 months
 // @Tags Projects
-// @Accept json
+// @Accept json 
 // @Produce json
-// @Success 200 
+// @Success 200 {object} api.GetProjectsOutput
+// @Failure 401
 // @Router /projects [get]
 func (e *env) getCurrentProjects(c *gin.Context) {
 
@@ -35,7 +44,9 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 		return
 	}
 
-	projects, err := e.db.GetCurrentProjects(context.TODO(), cookie)
+	var output GetProjectsOutput
+
+	output.Projects, err = e.db.GetCurrentProjects(context.TODO(), cookie)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -44,17 +55,18 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, projects)
+	c.JSON(200, output)
 
 }
 
 // GetProjects godoc
-// @Summary 
-// @Description 
+// @Summary Get all of a user's projects
+// @Description Gets all of a user's saved projects regardless of year
 // @Tags Projects
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Success 200 {object} api.GetProjectsOutput
+// @Failure 401
 // @Router /project [get]
 func (e *env) getProjects(c *gin.Context) {
 
@@ -66,7 +78,9 @@ func (e *env) getProjects(c *gin.Context) {
 		return
 	}
 
-	projects, err := e.db.GetProjectsByUser(context.TODO(), cookie)
+	var output GetProjectsOutput
+
+	output.Projects, err = e.db.GetProjectsByUser(context.TODO(), cookie)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -75,17 +89,20 @@ func (e *env) getProjects(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, projects)
+	c.JSON(200, output)
 
 }
 
 // GetProject godoc
-// @Summary 
-// @Description 
+// @Summary Get a project
+// @Description Get a user's project by ID
 // @Tags Projects
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Param projectId path string true "Project ID"
+// @Success 200 {object} api.GetProjectOutput
+// @Failure 401
+// @Failure 404
 // @Router /project/{projectId} [get]
 func (e *env) getProject(c *gin.Context) {
 	
@@ -99,7 +116,9 @@ func (e *env) getProject(c *gin.Context) {
 
 	id := c.Param("projectId")
 
-	project, err := e.db.GetProjectByID(context.TODO(), cookie, id)
+	var output GetProjectOutput
+
+	output.Project, err = e.db.GetProjectByID(context.TODO(), cookie, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -108,17 +127,20 @@ func (e *env) getProject(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, project)
+	c.JSON(200, output)
 
 }
 
 // AddProject godoc
-// @Summary 
-// @Description 
+// @Summary Add a project
+// @Description Adds a project to a user's personal records
 // @Tags Projects
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
+// @Success 204
+// @Failure 400
+// @Failure 401
 // @Router /project [post]
 func (e *env) addProject(c *gin.Context) {
 	
@@ -192,12 +214,16 @@ func (e *env) addProject(c *gin.Context) {
 }
 
 // UpdateProject godoc
-// @Summary 
-// @Description 
+// @Summary Update a project
+// @Description Updates a user's project information
 // @Tags Projects
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
+// @Success 204 
+// @Failure 400
+// @Failure 401
+// @Failure 404
 // @Router /project/{projectId} [put]
 func (e *env) updateProject(c *gin.Context) {
 	

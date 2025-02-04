@@ -13,13 +13,18 @@ type AddBookmarkInput struct {
 	Label string `json:"label" validate:"required"`
 }
 
+type GetBookmarksOutput struct {
+	Bookmarks []db.Bookmark `json:"bookmarks"`
+}
+
 // GetUserBookmarks godoc
-// @Summary 
-// @Description 
+// @Summary Get all of a user's bookmarks
+// @Description Returns an array of all the user's bookmarks, queried using JWT claims
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Success 200 {object} api.GetBookmarksOutput
+// @Failure 401 
 // @Router /bookmarks [get]
 func (e *env) getUserBookmarks(c *gin.Context) {
 	
@@ -31,7 +36,9 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		return
 	}
 
-	bookmarks, err := e.db.GetBookmarks(context.TODO(), cookie)
+	var output GetBookmarksOutput
+
+	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), cookie)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -40,17 +47,22 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, bookmarks)
+	c.JSON(200, output)
 
 }
 
 // AddUserBookmark godoc
-// @Summary 
-// @Description 
+// @Summary Adds a bookmark
+// @Description Adds a bookmark to a user's personal records. 
+// @Description The new bookmark can not have the same link as another of the user's bookmarks
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Param AddBookmarkInput body api.AddBookmarkInput true "Bookmark information"
+// @Success 204 
+// @Failure 400
+// @Failure 401
+// @Failure 409
 // @Router /bookmarks [post]
 func (e *env) addUserBookmark(c *gin.Context) {
 	
@@ -113,12 +125,15 @@ func (e *env) addUserBookmark(c *gin.Context) {
 }
 
 // RemoveUserBookmark godoc
-// @Summary 
-// @Description 
+// @Summary Removes a bookmark
+// @Description Deletes a user's bookmark given the bookmark ID
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
-// @Success 200 
+// @Param bookmarkId path string true "Bookmark ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
 // @Router /bookmarks/{bookmarkId} [delete]
 func (e *env) removeUserBookmark(c *gin.Context) {
 	

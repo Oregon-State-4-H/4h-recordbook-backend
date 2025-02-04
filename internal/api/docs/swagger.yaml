@@ -1,3 +1,856 @@
+definitions:
+  api.AddBookmarkInput:
+    properties:
+      label:
+        type: string
+      link:
+        type: string
+    required:
+    - label
+    - link
+    type: object
+  api.GetBookmarksOutput:
+    properties:
+      bookmarks:
+        items:
+          $ref: '#/definitions/db.Bookmark'
+        type: array
+    type: object
+  api.GetProjectOutput:
+    properties:
+      project:
+        $ref: '#/definitions/db.Project'
+    type: object
+  api.GetProjectsOutput:
+    properties:
+      projects:
+        items:
+          $ref: '#/definitions/db.Project'
+        type: array
+    type: object
+  api.GetResumeOutput:
+    properties:
+      resume:
+        $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
+  api.GetSection2Output:
+    properties:
+      section_2_data:
+        items:
+          $ref: '#/definitions/db.Section2'
+        type: array
+    type: object
+  api.GetSection3Output:
+    properties:
+      section_3_data:
+        items:
+          $ref: '#/definitions/db.Section3'
+        type: array
+    type: object
+  api.GetSection4Output:
+    properties:
+      section_4_data:
+        items:
+          $ref: '#/definitions/db.Section4'
+        type: array
+    type: object
+  api.GetSection5Output:
+    properties:
+      section_5_data:
+        items:
+          $ref: '#/definitions/db.Section5'
+        type: array
+    type: object
+  api.GetSection6Output:
+    properties:
+      section_6_data:
+        items:
+          $ref: '#/definitions/db.Section6'
+        type: array
+    type: object
+  api.GetSection7Output:
+    properties:
+      section_7_data:
+        items:
+          $ref: '#/definitions/db.Section7'
+        type: array
+    type: object
+  api.GetSection8Output:
+    properties:
+      section_8_data:
+        items:
+          $ref: '#/definitions/db.Section8'
+        type: array
+    type: object
+  api.GetSection9Output:
+    properties:
+      section_9_data:
+        items:
+          $ref: '#/definitions/db.Section9'
+        type: array
+    type: object
+  api.GetSection10Output:
+    properties:
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+    type: object
+  api.GetSection11Output:
+    properties:
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+    type: object
+  api.GetSection12Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+    type: object
+  api.GetSection13Output:
+    properties:
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+    type: object
+  api.GetSection14Output:
+    properties:
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetUserProfileOutput:
+    properties:
+      user:
+        $ref: '#/definitions/db.User'
+    type: object
+  api.SignInInput:
+    properties:
+      id:
+        type: string
+    type: object
+  api.SignUpInput:
+    properties:
+      birthdate:
+        type: string
+      county_name:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name_initial:
+        type: string
+      middle_name_initial:
+        type: string
+    required:
+    - birthdate
+    - county_name
+    - email
+    - first_name
+    - last_name_initial
+    - middle_name_initial
+    type: object
+  api.UpdateUserInput:
+    properties:
+      birthdate:
+        type: string
+      county_name:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name_initial:
+        type: string
+      middle_name_initial:
+        type: string
+    type: object
+  api.UpsertProjectInput:
+    properties:
+      description:
+        type: string
+      end_date:
+        type: string
+      name:
+        type: string
+      start_date:
+        type: string
+      type:
+        type: string
+      year:
+        type: string
+    required:
+    - description
+    - end_date
+    - name
+    - start_date
+    - type
+    - year
+    type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - num_in_club
+    - year
+    type: object
+  api.UpsertSection2Input:
+    properties:
+      project_name:
+        type: string
+      project_scope:
+        type: string
+      year:
+        type: string
+    required:
+    - project_name
+    - project_scope
+    - year
+    type: object
+  api.UpsertSection3Input:
+    properties:
+      activity_kind:
+        type: string
+      level:
+        type: string
+      things_learned:
+        type: string
+      year:
+        type: string
+    required:
+    - activity_kind
+    - level
+    - things_learned
+    - year
+    type: object
+  api.UpsertSection4Input:
+    properties:
+      activity_kind:
+        type: string
+      level:
+        type: string
+      scope:
+        type: string
+      year:
+        type: string
+    required:
+    - activity_kind
+    - level
+    - scope
+    - year
+    type: object
+  api.UpsertSection5Input:
+    properties:
+      hours_spent:
+        type: integer
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - hours_spent
+    - leadership_role
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection6Input:
+    properties:
+      hours_spent:
+        type: integer
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      organization_name:
+        type: string
+      year:
+        type: string
+    required:
+    - hours_spent
+    - leadership_role
+    - num_people_reached
+    - organization_name
+    - year
+    type: object
+  api.UpsertSection7Input:
+    properties:
+      club_member_activities:
+        type: string
+      hours_spent:
+        type: integer
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_member_activities
+    - hours_spent
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection8Input:
+    properties:
+      hours_spent:
+        type: integer
+      individual_group_activities:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - hours_spent
+    - individual_group_activities
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection9Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: string
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  db.Bookmark:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      label:
+        type: string
+      link:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+    type: object
+  db.Project:
+    properties:
+      created:
+        type: string
+      description:
+        type: string
+      end_date:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      start_date:
+        type: string
+      type:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Resume:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+      section_2_data:
+        items:
+          $ref: '#/definitions/db.Section2'
+        type: array
+      section_3_data:
+        items:
+          $ref: '#/definitions/db.Section3'
+        type: array
+      section_4_data:
+        items:
+          $ref: '#/definitions/db.Section4'
+        type: array
+      section_5_data:
+        items:
+          $ref: '#/definitions/db.Section5'
+        type: array
+      section_6_data:
+        items:
+          $ref: '#/definitions/db.Section6'
+        type: array
+      section_7_data:
+        items:
+          $ref: '#/definitions/db.Section7'
+        type: array
+      section_8_data:
+        items:
+          $ref: '#/definitions/db.Section8'
+        type: array
+      section_9_data:
+        items:
+          $ref: '#/definitions/db.Section9'
+        type: array
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+      section_12_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  db.Section1:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      created:
+        type: string
+      grade:
+        type: integer
+      id:
+        type: string
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      num_in_club:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section2:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      project_name:
+        type: string
+      project_scope:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section3:
+    properties:
+      activity_kind:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      level:
+        type: string
+      section:
+        type: integer
+      things_learned:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section4:
+    properties:
+      activity_kind:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      level:
+        type: string
+      scope:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section5:
+    properties:
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section6:
+    properties:
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      organization_name:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section7:
+    properties:
+      club_member_activities:
+        type: string
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      num_people_reached:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section8:
+    properties:
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      individual_group_activities:
+        type: string
+      num_people_reached:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section9:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      section:
+        type: integer
+      times_given:
+        type: integer
+      topic:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section10:
+    properties:
+      audience_size:
+        type: string
+      communication_type:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      section:
+        type: integer
+      times_given:
+        type: integer
+      topic:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section11:
+    properties:
+      created:
+        type: string
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      id:
+        type: string
+      ribbon_or_placings:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section12:
+    properties:
+      contest_or_event:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section13:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      recognition_type:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section14:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      recognition_type:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      userid:
+        type: string
+      year:
+        type: string
+    type: object
+  db.User:
+    properties:
+      birthdate:
+        type: string
+      county_name:
+        type: string
+      created:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name_initial:
+        type: string
+      middle_name_initial:
+        type: string
+      updated:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
@@ -5,106 +858,1205 @@ paths:
     get:
       consumes:
       - application/json
+      description: Returns an array of all the user's bookmarks, queried using JWT
+        claims
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetBookmarksOutput'
+        "401":
+          description: Unauthorized
+      summary: Get all of a user's bookmarks
       tags:
       - User Bookmarks
     post:
       consumes:
       - application/json
+      description: |-
+        Adds a bookmark to a user's personal records.
+        The new bookmark can not have the same link as another of the user's bookmarks
+      parameters:
+      - description: Bookmark information
+        in: body
+        name: AddBookmarkInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.AddBookmarkInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "409":
+          description: Conflict
+      summary: Adds a bookmark
       tags:
       - User Bookmarks
   /bookmarks/{bookmarkId}:
     delete:
       consumes:
       - application/json
+      description: Deletes a user's bookmark given the bookmark ID
+      parameters:
+      - description: Bookmark ID
+        in: path
+        name: bookmarkId
+        required: true
+        type: string
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      summary: Removes a bookmark
       tags:
       - User Bookmarks
   /project:
     get:
       consumes:
       - application/json
+      description: Gets all of a user's saved projects regardless of year
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetProjectsOutput'
+        "401":
+          description: Unauthorized
+      summary: Get all of a user's projects
       tags:
       - Projects
     post:
       consumes:
       - application/json
+      description: Adds a project to a user's personal records
+      parameters:
+      - description: Project information
+        in: body
+        name: UpsertProjectInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertProjectInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a project
       tags:
       - Projects
   /project/{projectId}:
     get:
       consumes:
       - application/json
+      description: Get a user's project by ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetProjectOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      summary: Get a project
       tags:
       - Projects
     put:
       consumes:
       - application/json
+      description: Updates a user's project information
+      parameters:
+      - description: Project information
+        in: body
+        name: UpsertProjectInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertProjectInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      summary: Update a project
       tags:
       - Projects
   /projects:
     get:
       consumes:
       - application/json
+      description: Gets all of a user's projects that take place in the last 12 months
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetProjectsOutput'
+        "401":
+          description: Unauthorized
+      summary: Gets projects of the current year
       tags:
       - Projects
+  /resume:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's entries for every resume section
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetResumeOutput'
+        "401":
+          description: Unauthorized
+      summary: Gets full resume
+      tags:
+      - Resume
+  /section/{sectionId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's resume section given the section ID. Can be any
+        resume section
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      summary: Removes a resume section
+      tags:
+      - Resume
+  /section1:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 1 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection1Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 1 entries
+      tags:
+      - Resume Section 1
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 1 entry to a user's personal records
+      parameters:
+      - description: Section 1 information
+        in: body
+        name: UpsertSection1Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection1Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 1 entry
+      tags:
+      - Resume Section 1
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 1 entry information
+      parameters:
+      - description: Section 1 information
+        in: body
+        name: UpsertSection1Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection1Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 1 entry
+      tags:
+      - Resume Section 1
+  /section2:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 2 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection2Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 2 entries
+      tags:
+      - Resume Section 2
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 2 entry to a user's personal records
+      parameters:
+      - description: Section 2 information
+        in: body
+        name: UpsertSection2Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection2Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 2 entry
+      tags:
+      - Resume Section 2
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 2 entry information
+      parameters:
+      - description: Section 2 information
+        in: body
+        name: UpsertSection2Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection2Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 2 entry
+      tags:
+      - Resume Section 2
+  /section3:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 3 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection3Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 3 entries
+      tags:
+      - Resume Section 3
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 3 entry to a user's personal records
+      parameters:
+      - description: Section 3 information
+        in: body
+        name: UpsertSection3Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection3Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 3 entry
+      tags:
+      - Resume Section 3
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 3 entry information
+      parameters:
+      - description: Section 3 information
+        in: body
+        name: UpsertSection3Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection3Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 3 entry
+      tags:
+      - Resume Section 3
+  /section4:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 4 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection4Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 4 entries
+      tags:
+      - Resume Section 4
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 4 entry to a user's personal records
+      parameters:
+      - description: Section 4 information
+        in: body
+        name: UpsertSection4Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection4Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 4 entry
+      tags:
+      - Resume Section 4
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 4 entry information
+      parameters:
+      - description: Section 4 information
+        in: body
+        name: UpsertSection4Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection4Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 4 entry
+      tags:
+      - Resume Section 4
+  /section5:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 5 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection5Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 5 entries
+      tags:
+      - Resume Section 5
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 5 entry to a user's personal records
+      parameters:
+      - description: Section 5 information
+        in: body
+        name: UpsertSection5Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection5Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 5 entry
+      tags:
+      - Resume Section 5
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 5 entry information
+      parameters:
+      - description: Section 5 information
+        in: body
+        name: UpsertSection5Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection5Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 5 entry
+      tags:
+      - Resume Section 5
+  /section6:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 6 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection6Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 6 entries
+      tags:
+      - Resume Section 6
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 6 entry to a user's personal records
+      parameters:
+      - description: Section 6 information
+        in: body
+        name: UpsertSection6Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection6Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 6 entry
+      tags:
+      - Resume Section 6
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 6 entry information
+      parameters:
+      - description: Section 6 information
+        in: body
+        name: UpsertSection6Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection6Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 6 entry
+      tags:
+      - Resume Section 6
+  /section7:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 7 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection7Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 7 entries
+      tags:
+      - Resume Section 7
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 7 entry to a user's personal records
+      parameters:
+      - description: Section 7 information
+        in: body
+        name: UpsertSection7Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection7Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 7 entry
+      tags:
+      - Resume Section 7
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 7 entry information
+      parameters:
+      - description: Section 7 information
+        in: body
+        name: UpsertSection7Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection7Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 7 entry
+      tags:
+      - Resume Section 7
+  /section8:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 8 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection8Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 8 entries
+      tags:
+      - Resume Section 8
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 8 entry to a user's personal records
+      parameters:
+      - description: Section 8 information
+        in: body
+        name: UpsertSection8Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection8Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 8 entry
+      tags:
+      - Resume Section 8
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 8 entry information
+      parameters:
+      - description: Section 8 information
+        in: body
+        name: UpsertSection8Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection8Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 8 entry
+      tags:
+      - Resume Section 8
+  /section9:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 9 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection9Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 9 entries
+      tags:
+      - Resume Section 9
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 9 entry to a user's personal records
+      parameters:
+      - description: Section 9 information
+        in: body
+        name: UpsertSection9Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection9Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 9 entry
+      tags:
+      - Resume Section 9
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 9 entry information
+      parameters:
+      - description: Section 9 information
+        in: body
+        name: UpsertSection9Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection9Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 9 entry
+      tags:
+      - Resume Section 9
+  /section10:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 10 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection10Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 10 entries
+      tags:
+      - Resume Section 10
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 10 entry to a user's personal records
+      parameters:
+      - description: Section 10 information
+        in: body
+        name: UpsertSection10Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection10Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 10 entry
+      tags:
+      - Resume Section 10
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 10 entry information
+      parameters:
+      - description: Section 10 information
+        in: body
+        name: UpsertSection10Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection10Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 10 entry
+      tags:
+      - Resume Section 10
+  /section11:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 11 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection11Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 11 entries
+      tags:
+      - Resume Section 11
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 11 entry to a user's personal records
+      parameters:
+      - description: Section 11 information
+        in: body
+        name: UpsertSection11Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection11Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 11 entry
+      tags:
+      - Resume Section 11
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 11 entry information
+      parameters:
+      - description: Section 11 information
+        in: body
+        name: UpsertSection11Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection11Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 11 entry
+      tags:
+      - Resume Section 11
+  /section12:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 12 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection12Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 12 entries
+      tags:
+      - Resume Section 12
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 12 entry to a user's personal records
+      parameters:
+      - description: Section 12 information
+        in: body
+        name: UpsertSection12Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection12Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 12 entry
+      tags:
+      - Resume Section 12
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 12 entry information
+      parameters:
+      - description: Section 12 information
+        in: body
+        name: UpsertSection12Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection12Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 12 entry
+      tags:
+      - Resume Section 12
+  /section13:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 13 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection13Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 13 entries
+      tags:
+      - Resume Section 13
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 13 entry to a user's personal records
+      parameters:
+      - description: Section 13 information
+        in: body
+        name: UpsertSection13Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection13Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 13 entry
+      tags:
+      - Resume Section 13
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 13 entry information
+      parameters:
+      - description: Section 13 information
+        in: body
+        name: UpsertSection13Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection13Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 13 entry
+      tags:
+      - Resume Section 13
+  /section14:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 14 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection14Output'
+        "401":
+          description: Unauthorized
+      summary: Gets all Section 14 entries
+      tags:
+      - Resume Section 14
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 14 entry to a user's personal records
+      parameters:
+      - description: Section 14 information
+        in: body
+        name: UpsertSection14Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection14Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Add a Section 14 entry
+      tags:
+      - Resume Section 14
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 14 entry information
+      parameters:
+      - description: Section 14 information
+        in: body
+        name: UpsertSection14Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection14Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      summary: Updates a Section 14 entry
+      tags:
+      - Resume Section 14
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: Placeholder route, sign in with ID
+      parameters:
+      - description: User ID
+        in: body
+        name: ID
+        required: true
+        schema:
+          $ref: '#/definitions/api.SignInInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Sign in
+      tags:
+      - User
+  /signout:
+    post:
+      consumes:
+      - application/json
+      description: Placeholder route, sign out with JWT
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+      summary: Sign out
+      tags:
+      - User
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Placeholder route, sign up with custom user information
+      parameters:
+      - description: User information
+        in: body
+        name: ID
+        required: true
+        schema:
+          $ref: '#/definitions/api.SignUpInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "409":
+          description: Conflict
+      summary: Sign up
+      tags:
+      - User
   /user:
     get:
       consumes:
       - application/json
+      description: Get user by JWT
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetUserProfileOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      summary: Get a user
       tags:
       - User
     put:
       consumes:
       - application/json
+      description: Update the signed-in user's information
+      parameters:
+      - description: User information
+        in: body
+        name: UpdateUserInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateUserInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      summary: Update a user
       tags:
       - User
 swagger: "2.0"
