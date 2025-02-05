@@ -17,8 +17,7 @@ type Project struct {
 	StartDate   string `json:"start_date"`
 	EndDate		string `json:"end_date"`
 	UserID		string `json:"userid"`
-	Created		string `json:"created"`
-	Updated		string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 func (env *env) GetProjectByID(ctx context.Context, userid string, projectid string) (Project, error) {

@@ -154,8 +154,10 @@ func (e *env) addSection1(c *gin.Context) {
 		MeetingsHeld: input.MeetingsHeld,
 		MeetingsAttended: input.MeetingsAttended,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection1(context.TODO(), section)
@@ -233,8 +235,10 @@ func (e *env) updateSection1(c *gin.Context) {
 		MeetingsHeld: input.MeetingsHeld,
 		MeetingsAttended: input.MeetingsAttended,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection1(context.TODO(), updatedSection)
@@ -346,8 +350,10 @@ func (e *env) addSection2(c *gin.Context) {
 		ProjectName: input.ProjectName,
 		ProjectScope: input.ProjectScope,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection2(context.TODO(), section)
@@ -421,8 +427,10 @@ func (e *env) updateSection2(c *gin.Context) {
 		ProjectName: input.ProjectName,
 		ProjectScope: input.ProjectScope,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection2(context.TODO(), updatedSection)
@@ -536,8 +544,10 @@ func (e *env) addSection3(c *gin.Context) {
 		ThingsLearned: input.ThingsLearned,
 		Level: input.Level,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection3(context.TODO(), section)
@@ -612,8 +622,10 @@ func (e *env) updateSection3(c *gin.Context) {
 		ThingsLearned: input.ThingsLearned,
 		Level: input.Level,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection3(context.TODO(), updatedSection)
@@ -727,8 +739,10 @@ func (e *env) addSection4(c *gin.Context) {
 		Scope: input.Scope,
 		Level: input.Level,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection4(context.TODO(), section)
@@ -803,8 +817,10 @@ func (e *env) updateSection4(c *gin.Context) {
 		Scope: input.Scope,
 		Level: input.Level,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection4(context.TODO(), updatedSection)
@@ -918,8 +934,10 @@ func (e *env) addSection5(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection5(context.TODO(), section)
@@ -994,8 +1012,10 @@ func (e *env) updateSection5(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection5(context.TODO(), updatedSection)
@@ -1111,8 +1131,10 @@ func (e *env) addSection6(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection6(context.TODO(), section)
@@ -1188,8 +1210,10 @@ func (e *env) updateSection6(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection6(context.TODO(), updatedSection)
@@ -1303,8 +1327,10 @@ func (e *env) addSection7(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection7(context.TODO(), section)
@@ -1379,8 +1405,10 @@ func (e *env) updateSection7(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection7(context.TODO(), updatedSection)
@@ -1494,8 +1522,10 @@ func (e *env) addSection8(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection8(context.TODO(), section)
@@ -1570,8 +1600,10 @@ func (e *env) updateSection8(c *gin.Context) {
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection8(context.TODO(), updatedSection)
@@ -1689,8 +1721,10 @@ func (e *env) addSection9(c *gin.Context) {
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection9(context.TODO(), section)
@@ -1767,8 +1801,10 @@ func (e *env) updateSection9(c *gin.Context) {
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection9(context.TODO(), updatedSection)
@@ -1886,8 +1922,10 @@ func (e *env) addSection10(c *gin.Context) {
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection10(context.TODO(), section)
@@ -1964,8 +2002,10 @@ func (e *env) updateSection10(c *gin.Context) {
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection10(context.TODO(), updatedSection)
@@ -2079,8 +2119,10 @@ func (e *env) addSection11(c *gin.Context) {
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
 		RibbonOrPlacings: input.RibbonOrPlacings,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection11(context.TODO(), section)
@@ -2155,8 +2197,10 @@ func (e *env) updateSection11(c *gin.Context) {
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
 		RibbonOrPlacings: input.RibbonOrPlacings,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection11(context.TODO(), updatedSection)
@@ -2270,8 +2314,10 @@ func (e *env) addSection12(c *gin.Context) {
 		RecognitionReceived: input.RecognitionReceived,
 		Level: input.Level,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection12(context.TODO(), section)
@@ -2346,8 +2392,10 @@ func (e *env) updateSection12(c *gin.Context) {
 		RecognitionReceived: input.RecognitionReceived,
 		Level: input.Level,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection12(context.TODO(), updatedSection)
@@ -2457,8 +2505,10 @@ func (e *env) addSection13(c *gin.Context) {
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection13(context.TODO(), section)
@@ -2531,8 +2581,10 @@ func (e *env) updateSection13(c *gin.Context) {
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection13(context.TODO(), updatedSection)
@@ -2642,8 +2694,10 @@ func (e *env) addSection14(c *gin.Context) {
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: cookie,
-		Created: timestamp.ToString(),
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection14(context.TODO(), section)
@@ -2716,8 +2770,10 @@ func (e *env) updateSection14(c *gin.Context) {
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: cookie,
-		Created: existingSection.Created,
-		Updated: timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: existingSection.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertSection14(context.TODO(), updatedSection)

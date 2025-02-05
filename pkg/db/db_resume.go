@@ -34,8 +34,7 @@ type Section1 struct {
 	MeetingsHeld int `json:"meetings_held"`
 	MeetingsAttended int `json:"meetings_attended"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section2 struct {
@@ -45,8 +44,7 @@ type Section2 struct {
 	ProjectName string `json:"project_name"`
 	ProjectScope string `json:"project_scope"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section3 struct {
@@ -57,8 +55,7 @@ type Section3 struct {
 	ThingsLearned string `json:"things_learned"`
 	Level string `json:"level"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section4 struct {
@@ -69,8 +66,7 @@ type Section4 struct {
 	Scope string `json:"scope"`
 	Level string `json:"level"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section5 struct {
@@ -81,8 +77,7 @@ type Section5 struct {
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section6 struct {
@@ -94,8 +89,7 @@ type Section6 struct {
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section7 struct {
@@ -106,8 +100,7 @@ type Section7 struct {
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section8 struct {
@@ -118,8 +111,7 @@ type Section8 struct {
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section9 struct {
@@ -132,8 +124,7 @@ type Section9 struct {
 	Location string `json:"location"`
 	AudienceSize int `json:"audience_size"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section10 struct {
@@ -146,8 +137,7 @@ type Section10 struct {
 	Location string `json:"location"`
 	AudienceSize string `json:"audience_size"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section11 struct {
@@ -158,8 +148,7 @@ type Section11 struct {
 	ExhibitsOrDivision string `json:"exhibits_or_division"`
 	RibbonOrPlacings string `json:"ribbon_or_placings"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section12 struct {
@@ -170,8 +159,7 @@ type Section12 struct {
 	RecognitionReceived string `json:"recognition_received"`
 	Level string `json:"level"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section13 struct {
@@ -180,8 +168,7 @@ type Section13 struct {
 	Year string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 type Section14 struct {
@@ -190,8 +177,7 @@ type Section14 struct {
 	Year string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
 	UserID string `json:"userid"`
-	Created string `json:"created"`
-	Updated string `json:"updated"`
+	GenericDatabaseInfo
 }
 
 /*******************************

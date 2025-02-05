@@ -196,8 +196,10 @@ func (e *env) addProject(c *gin.Context) {
 		StartDate:		   startDate.ToString(),
 		EndDate:		   endDate.ToString(),
 		UserID: 		   cookie,
-		Created:		   timestamp.ToString(),
-		Updated:		   timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertProject(context.TODO(), project)
@@ -289,8 +291,10 @@ func (e *env) updateProject(c *gin.Context) {
 		StartDate: 	   	   startDate.ToString(),
 		EndDate: 	       endDate.ToString(),
 		UserID:			   cookie,
-		Created: 		   project.Created,
-		Updated:		   timestamp.ToString(),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: project.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertProject(context.TODO(), updatedProject)

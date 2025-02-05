@@ -95,12 +95,14 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	bookmark := db.Bookmark{
-		ID: 			   g.String(),
-		Link: 			   input.Link,
-		Label: 			   input.Label,
-		UserID: 		   cookie,
-		Created:		   timestamp.ToString(),
-		Updated:		   timestamp.ToString(),
+		ID: g.String(),
+		Link: input.Link,
+		Label: input.Label,
+		UserID: cookie,
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), cookie, input.Link)

@@ -101,14 +101,16 @@ func (e *env) updateUserProfile(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedUser := db.User{
-		ID: 			   user.ID,
-		Email: 			   ternary(input.Email, user.Email),
-		Birthdate: 		   ternary(input.Birthdate, user.Birthdate),
-		FirstName: 		   ternary(input.FirstName, user.FirstName),
+		ID: user.ID,
+		Email: ternary(input.Email, user.Email),
+		Birthdate: ternary(input.Birthdate, user.Birthdate),
+		FirstName: ternary(input.FirstName, user.FirstName),
 		MiddleNameInitial: ternary(input.MiddleNameInitial, user.MiddleNameInitial),
-		CountyName: 	   ternary(input.CountyName, user.CountyName),
-		Created: 		   user.Created,
-		Updated:		   timestamp.ToString(),
+		CountyName: ternary(input.CountyName, user.CountyName),
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: user.Created,
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertUser(context.TODO(), updatedUser)
@@ -230,8 +232,10 @@ func (e *env) signup(c *gin.Context) {
 		FirstName: 		   input.FirstName,
 		MiddleNameInitial: input.MiddleNameInitial,
 		CountyName: 	   input.CountyName,
-		Created: 		   timestamp.ToString(),
-		Updated:		   timestamp.ToString(),	
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: timestamp.ToString(),
+			Updated: timestamp.ToString(),
+		},
 	}
 
 	response, err := e.db.UpsertUser(context.TODO(), user)

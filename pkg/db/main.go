@@ -65,6 +65,11 @@ type Db interface {
 	RemoveSection(ctx context.Context, userid string, sectionid string) (interface{}, error)
 }
 
+type GenericDatabaseInfo struct {
+	Created string `json:"created"`
+	Updated string `json:"updated"`
+}
+
 type env struct {
 	logger	  *zap.SugaredLogger  	   `validate:"required"`
 	validator *validator.Validate 	   `validate:"required"`
