@@ -23,12 +23,13 @@ type GetBookmarksOutput struct {
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetBookmarksOutput
 // @Failure 401 
 // @Router /bookmarks [get]
 func (e *env) getUserBookmarks(c *gin.Context) {
 	
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -38,7 +39,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 
 	var output GetBookmarksOutput
 
-	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), cookie)
+	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -58,6 +59,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param AddBookmarkInput body api.AddBookmarkInput true "Bookmark information"
 // @Success 204 
 // @Failure 400
@@ -66,7 +68,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 // @Router /bookmarks [post]
 func (e *env) addUserBookmark(c *gin.Context) {
 	
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -98,14 +100,14 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		ID: g.String(),
 		Link: input.Link,
 		Label: input.Label,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
 		},
 	}
 
-	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), cookie, input.Link)
+	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), claims.ID, input.Link)
 	if existingBookmark != (db.Bookmark{}) {
 		c.JSON(409, gin.H{
 			"message": HTTPResponseCodeMap[409],
@@ -132,6 +134,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param bookmarkId path string true "Bookmark ID"
 // @Success 204
 // @Failure 401
@@ -139,7 +142,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 // @Router /bookmarks/{bookmarkId} [delete]
 func (e *env) removeUserBookmark(c *gin.Context) {
 	
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -149,7 +152,7 @@ func (e *env) removeUserBookmark(c *gin.Context) {
 
 	id := c.Param("bookmarkId")
 
-	response, err := e.db.RemoveBookmark(context.TODO(), cookie, id)
+	response, err := e.db.RemoveBookmark(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

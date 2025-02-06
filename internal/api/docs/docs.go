@@ -17,6 +17,11 @@ const docTemplate = `{
     "paths": {
         "/bookmarks": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Returns an array of all the user's bookmarks, queried using JWT claims",
                 "consumes": [
                     "application/json"
@@ -41,6 +46,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a bookmark to a user's personal records.\nThe new bookmark can not have the same link as another of the user's bookmarks",
                 "consumes": [
                     "application/json"
@@ -81,6 +91,11 @@ const docTemplate = `{
         },
         "/bookmarks/{bookmarkId}": {
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Deletes a user's bookmark given the bookmark ID",
                 "consumes": [
                     "application/json"
@@ -116,6 +131,11 @@ const docTemplate = `{
         },
         "/project": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's saved projects regardless of year",
                 "consumes": [
                     "application/json"
@@ -140,6 +160,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a project to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -177,6 +202,11 @@ const docTemplate = `{
         },
         "/project/{projectId}": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get a user's project by ID",
                 "consumes": [
                     "application/json"
@@ -213,6 +243,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Updates a user's project information",
                 "consumes": [
                     "application/json"
@@ -225,6 +260,13 @@ const docTemplate = `{
                 ],
                 "summary": "Update a project",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "description": "Project information",
                         "name": "UpsertProjectInput",
@@ -253,6 +295,11 @@ const docTemplate = `{
         },
         "/projects": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's projects that take place in the last 12 months",
                 "consumes": [
                     "application/json"
@@ -279,6 +326,11 @@ const docTemplate = `{
         },
         "/resume": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's entries for every resume section",
                 "consumes": [
                     "application/json"
@@ -305,6 +357,11 @@ const docTemplate = `{
         },
         "/section/{sectionId}": {
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Deletes a user's resume section given the section ID. Can be any resume section",
                 "consumes": [
                     "application/json"
@@ -340,6 +397,11 @@ const docTemplate = `{
         },
         "/section1": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 1 entries",
                 "consumes": [
                     "application/json"
@@ -363,42 +425,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 1 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 1"
-                ],
-                "summary": "Updates a Section 1 entry",
-                "parameters": [
-                    {
-                        "description": "Section 1 information",
-                        "name": "UpsertSection1Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection1Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 1 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -434,8 +466,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section1/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 1 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 1"
+                ],
+                "summary": "Updates a Section 1 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 1 information",
+                        "name": "UpsertSection1Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection1Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section10": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 10 entries",
                 "consumes": [
                     "application/json"
@@ -459,42 +545,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 10 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 10"
-                ],
-                "summary": "Updates a Section 10 entry",
-                "parameters": [
-                    {
-                        "description": "Section 10 information",
-                        "name": "UpsertSection10Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection10Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 10 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -530,8 +586,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section10/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 10 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 10"
+                ],
+                "summary": "Updates a Section 10 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 10 information",
+                        "name": "UpsertSection10Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection10Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section11": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 11 entries",
                 "consumes": [
                     "application/json"
@@ -555,42 +665,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 11 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 11"
-                ],
-                "summary": "Updates a Section 11 entry",
-                "parameters": [
-                    {
-                        "description": "Section 11 information",
-                        "name": "UpsertSection11Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection11Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 11 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -626,8 +706,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section11/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 11 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 11"
+                ],
+                "summary": "Updates a Section 11 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 11 information",
+                        "name": "UpsertSection11Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection11Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section12": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 12 entries",
                 "consumes": [
                     "application/json"
@@ -651,42 +785,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 12 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 12"
-                ],
-                "summary": "Updates a Section 12 entry",
-                "parameters": [
-                    {
-                        "description": "Section 12 information",
-                        "name": "UpsertSection12Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection12Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 12 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -722,8 +826,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section12/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 12 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 12"
+                ],
+                "summary": "Updates a Section 12 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 12 information",
+                        "name": "UpsertSection12Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection12Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section13": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 13 entries",
                 "consumes": [
                     "application/json"
@@ -747,42 +905,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 13 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 13"
-                ],
-                "summary": "Updates a Section 13 entry",
-                "parameters": [
-                    {
-                        "description": "Section 13 information",
-                        "name": "UpsertSection13Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection13Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 13 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -818,8 +946,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section13/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 13 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 13"
+                ],
+                "summary": "Updates a Section 13 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 13 information",
+                        "name": "UpsertSection13Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection13Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section14": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 14 entries",
                 "consumes": [
                     "application/json"
@@ -843,42 +1025,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 14 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 14"
-                ],
-                "summary": "Updates a Section 14 entry",
-                "parameters": [
-                    {
-                        "description": "Section 14 information",
-                        "name": "UpsertSection14Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection14Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 14 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -914,8 +1066,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section14/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 14 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 14"
+                ],
+                "summary": "Updates a Section 14 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 14 information",
+                        "name": "UpsertSection14Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection14Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section2": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 2 entries",
                 "consumes": [
                     "application/json"
@@ -939,42 +1145,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 2 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 2"
-                ],
-                "summary": "Updates a Section 2 entry",
-                "parameters": [
-                    {
-                        "description": "Section 2 information",
-                        "name": "UpsertSection2Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection2Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 2 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1010,8 +1186,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section2/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 2 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 2"
+                ],
+                "summary": "Updates a Section 2 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 2 information",
+                        "name": "UpsertSection2Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection2Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section3": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 3 entries",
                 "consumes": [
                     "application/json"
@@ -1035,42 +1265,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 3 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 3"
-                ],
-                "summary": "Updates a Section 3 entry",
-                "parameters": [
-                    {
-                        "description": "Section 3 information",
-                        "name": "UpsertSection3Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection3Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 3 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1106,8 +1306,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section3/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 3 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 3"
+                ],
+                "summary": "Updates a Section 3 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 3 information",
+                        "name": "UpsertSection3Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection3Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section4": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 4 entries",
                 "consumes": [
                     "application/json"
@@ -1131,42 +1385,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 4 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 4"
-                ],
-                "summary": "Updates a Section 4 entry",
-                "parameters": [
-                    {
-                        "description": "Section 4 information",
-                        "name": "UpsertSection4Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection4Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 4 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1202,8 +1426,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section4/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 4 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 4"
+                ],
+                "summary": "Updates a Section 4 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 4 information",
+                        "name": "UpsertSection4Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection4Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section5": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 5 entries",
                 "consumes": [
                     "application/json"
@@ -1227,42 +1505,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 5 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 5"
-                ],
-                "summary": "Updates a Section 5 entry",
-                "parameters": [
-                    {
-                        "description": "Section 5 information",
-                        "name": "UpsertSection5Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection5Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 5 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1298,8 +1546,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section5/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 5 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 5"
+                ],
+                "summary": "Updates a Section 5 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 5 information",
+                        "name": "UpsertSection5Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection5Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section6": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 6 entries",
                 "consumes": [
                     "application/json"
@@ -1323,42 +1625,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 6 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 6"
-                ],
-                "summary": "Updates a Section 6 entry",
-                "parameters": [
-                    {
-                        "description": "Section 6 information",
-                        "name": "UpsertSection6Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection6Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 6 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1394,8 +1666,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section6/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 6 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 6"
+                ],
+                "summary": "Updates a Section 6 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 6 information",
+                        "name": "UpsertSection6Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection6Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section7": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 7 entries",
                 "consumes": [
                     "application/json"
@@ -1419,42 +1745,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 7 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 7"
-                ],
-                "summary": "Updates a Section 7 entry",
-                "parameters": [
-                    {
-                        "description": "Section 7 information",
-                        "name": "UpsertSection7Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection7Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 7 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1490,8 +1786,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section7/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 7 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 7"
+                ],
+                "summary": "Updates a Section 7 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 7 information",
+                        "name": "UpsertSection7Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection7Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section8": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 8 entries",
                 "consumes": [
                     "application/json"
@@ -1515,42 +1865,12 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 8 entry information",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Resume Section 8"
-                ],
-                "summary": "Updates a Section 8 entry",
-                "parameters": [
-                    {
-                        "description": "Section 8 information",
-                        "name": "UpsertSection8Input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertSection8Input"
-                        }
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Adds a Section 8 entry to a user's personal records",
                 "consumes": [
                     "application/json"
@@ -1586,8 +1906,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/section8/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 8 entry information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 8"
+                ],
+                "summary": "Updates a Section 8 entry",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Section 8 information",
+                        "name": "UpsertSection8Input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection8Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/section9": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Gets all of a user's Section 9 entries",
                 "consumes": [
                     "application/json"
@@ -1611,8 +1985,13 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Updates a user's Section 9 entry information",
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds a Section 9 entry to a user's personal records",
                 "consumes": [
                     "application/json"
                 ],
@@ -1622,7 +2001,7 @@ const docTemplate = `{
                 "tags": [
                     "Resume Section 9"
                 ],
-                "summary": "Updates a Section 9 entry",
+                "summary": "Add a Section 9 entry",
                 "parameters": [
                     {
                         "description": "Section 9 information",
@@ -1645,9 +2024,16 @@ const docTemplate = `{
                         "description": "Unauthorized"
                     }
                 }
-            },
-            "post": {
-                "description": "Adds a Section 9 entry to a user's personal records",
+            }
+        },
+        "/section9/{sectionId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's Section 9 entry information",
                 "consumes": [
                     "application/json"
                 ],
@@ -1657,8 +2043,15 @@ const docTemplate = `{
                 "tags": [
                     "Resume Section 9"
                 ],
-                "summary": "Add a Section 9 entry",
+                "summary": "Updates a Section 9 entry",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "description": "Section 9 information",
                         "name": "UpsertSection9Input",
@@ -1721,6 +2114,11 @@ const docTemplate = `{
         },
         "/signout": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Placeholder route, sign out with JWT",
                 "consumes": [
                     "application/json"
@@ -1781,6 +2179,11 @@ const docTemplate = `{
         },
         "/user": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Get user by JWT",
                 "consumes": [
                     "application/json"
@@ -1808,6 +2211,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Update the signed-in user's information",
                 "consumes": [
                     "application/json"
@@ -3126,6 +3534,13 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
@@ -3135,7 +3550,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
+	Title:            "4H Record Books API",
 	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

@@ -22,12 +22,13 @@ type GetResumeOutput struct {
 // @Tags Resume
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetResumeOutput
 // @Failure 401
 // @Router /resume [get]
 func (e *env) getResume(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -37,7 +38,7 @@ func (e *env) getResume(c *gin.Context) {
 
 	var output GetResumeOutput
 
-	output.Resume, err = e.db.GetResume(context.TODO(), cookie)
+	output.Resume, err = e.db.GetResume(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -74,12 +75,13 @@ type GetSection1Output struct {
 // @Tags Resume Section 1
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection1Output
 // @Failure 401
 // @Router /section1 [get]
 func (e *env) getSection1(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -89,7 +91,7 @@ func (e *env) getSection1(c *gin.Context) {
 
 	var output GetSection1Output
 
-	output.Sections, err = e.db.GetSection1(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection1(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -108,6 +110,7 @@ func (e *env) getSection1(c *gin.Context) {
 // @Tags Resume Section 1
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection1Input body api.UpsertSection1Input true "Section 1 information"
 // @Success 204
 // @Failure 400
@@ -115,7 +118,7 @@ func (e *env) getSection1(c *gin.Context) {
 // @Router /section1 [post]
 func (e *env) addSection1(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -153,7 +156,7 @@ func (e *env) addSection1(c *gin.Context) {
 		ClubLeader: input.ClubLeader,
 		MeetingsHeld: input.MeetingsHeld,
 		MeetingsAttended: input.MeetingsAttended,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -179,14 +182,16 @@ func (e *env) addSection1(c *gin.Context) {
 // @Tags Resume Section 1
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection1Input body api.UpsertSection1Input true "Section 1 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section1 [put]
+// @Router /section1/{sectionId} [put]
 func (e *env) updateSection1(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -213,7 +218,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection1ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection1ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -234,7 +239,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		ClubLeader: input.ClubLeader,
 		MeetingsHeld: input.MeetingsHeld,
 		MeetingsAttended: input.MeetingsAttended,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -274,12 +279,13 @@ type GetSection2Output struct {
 // @Tags Resume Section 2
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection2Output
 // @Failure 401
 // @Router /section2 [get]
 func (e *env) getSection2(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -289,7 +295,7 @@ func (e *env) getSection2(c *gin.Context) {
 
 	var output GetSection2Output
 
-	output.Sections, err = e.db.GetSection2(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection2(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -308,6 +314,7 @@ func (e *env) getSection2(c *gin.Context) {
 // @Tags Resume Section 2
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection2Input body api.UpsertSection2Input true "Section 2 information"
 // @Success 204
 // @Failure 400
@@ -315,7 +322,7 @@ func (e *env) getSection2(c *gin.Context) {
 // @Router /section2 [post]
 func (e *env) addSection2(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -349,7 +356,7 @@ func (e *env) addSection2(c *gin.Context) {
 		Year: input.Year,
 		ProjectName: input.ProjectName,
 		ProjectScope: input.ProjectScope,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -375,14 +382,16 @@ func (e *env) addSection2(c *gin.Context) {
 // @Tags Resume Section 2
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection2Input body api.UpsertSection2Input true "Section 2 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section2 [put]
+// @Router /section2/{sectionId} [put]
 func (e *env) updateSection2(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -409,7 +418,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection2ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection2ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -426,7 +435,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		Year: input.Year,
 		ProjectName: input.ProjectName,
 		ProjectScope: input.ProjectScope,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -467,12 +476,13 @@ type GetSection3Output struct {
 // @Tags Resume Section 3
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection3Output
 // @Failure 401
 // @Router /section3 [get]
 func (e *env) getSection3(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -482,7 +492,7 @@ func (e *env) getSection3(c *gin.Context) {
 
 	var output GetSection3Output
 
-	output.Sections, err = e.db.GetSection3(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection3(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -501,6 +511,7 @@ func (e *env) getSection3(c *gin.Context) {
 // @Tags Resume Section 3
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection3Input body api.UpsertSection3Input true "Section 3 information"
 // @Success 204
 // @Failure 400
@@ -508,7 +519,7 @@ func (e *env) getSection3(c *gin.Context) {
 // @Router /section3 [post]
 func (e *env) addSection3(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -543,7 +554,7 @@ func (e *env) addSection3(c *gin.Context) {
 		ActivityKind: input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
 		Level: input.Level,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -569,14 +580,16 @@ func (e *env) addSection3(c *gin.Context) {
 // @Tags Resume Section 3
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection3Input body api.UpsertSection3Input true "Section 3 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section3 [put]
+// @Router /section3/{sectionId} [put]
 func (e *env) updateSection3(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -603,7 +616,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection3ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection3ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -621,7 +634,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		ActivityKind: input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
 		Level: input.Level,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -662,12 +675,13 @@ type GetSection4Output struct {
 // @Tags Resume Section 4
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection4Output
 // @Failure 401
 // @Router /section4 [get]
 func (e *env) getSection4(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -677,7 +691,7 @@ func (e *env) getSection4(c *gin.Context) {
 
 	var output GetSection4Output
 
-	output.Sections, err = e.db.GetSection4(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection4(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -696,6 +710,7 @@ func (e *env) getSection4(c *gin.Context) {
 // @Tags Resume Section 4
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection4Input body api.UpsertSection4Input true "Section 4 information"
 // @Success 204
 // @Failure 400
@@ -703,7 +718,7 @@ func (e *env) getSection4(c *gin.Context) {
 // @Router /section4 [post]
 func (e *env) addSection4(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -738,7 +753,7 @@ func (e *env) addSection4(c *gin.Context) {
 		ActivityKind: input.ActivityKind,
 		Scope: input.Scope,
 		Level: input.Level,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -764,14 +779,16 @@ func (e *env) addSection4(c *gin.Context) {
 // @Tags Resume Section 4
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection4Input body api.UpsertSection4Input true "Section 4 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section4 [put]
+// @Router /section4/{sectionId} [put]
 func (e *env) updateSection4(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -798,7 +815,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection4ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection4ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -816,7 +833,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		ActivityKind: input.ActivityKind,
 		Scope: input.Scope,
 		Level: input.Level,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -857,12 +874,13 @@ type GetSection5Output struct {
 // @Tags Resume Section 5
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection5Output
 // @Failure 401
 // @Router /section5 [get]
 func (e *env) getSection5(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -872,7 +890,7 @@ func (e *env) getSection5(c *gin.Context) {
 
 	var output GetSection5Output
 
-	output.Sections, err = e.db.GetSection5(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection5(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -891,6 +909,7 @@ func (e *env) getSection5(c *gin.Context) {
 // @Tags Resume Section 5
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection5Input body api.UpsertSection5Input true "Section 5 information"
 // @Success 204
 // @Failure 400
@@ -898,7 +917,7 @@ func (e *env) getSection5(c *gin.Context) {
 // @Router /section5 [post]
 func (e *env) addSection5(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -933,7 +952,7 @@ func (e *env) addSection5(c *gin.Context) {
 		LeadershipRole: input.LeadershipRole,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -959,14 +978,16 @@ func (e *env) addSection5(c *gin.Context) {
 // @Tags Resume Section 5
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection5Input body api.UpsertSection5Input true "Section 5 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section5 [put]
+// @Router /section5/{sectionId} [put]
 func (e *env) updateSection5(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -993,7 +1014,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection5ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection5ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1011,7 +1032,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		LeadershipRole: input.LeadershipRole,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -1053,12 +1074,13 @@ type GetSection6Output struct {
 // @Tags Resume Section 6
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection6Output
 // @Failure 401
 // @Router /section6 [get]
 func (e *env) getSection6(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1068,7 +1090,7 @@ func (e *env) getSection6(c *gin.Context) {
 
 	var output GetSection6Output
 
-	output.Sections, err = e.db.GetSection6(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection6(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1087,6 +1109,7 @@ func (e *env) getSection6(c *gin.Context) {
 // @Tags Resume Section 6
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection6Input body api.UpsertSection6Input true "Section 6 information"
 // @Success 204
 // @Failure 400
@@ -1094,7 +1117,7 @@ func (e *env) getSection6(c *gin.Context) {
 // @Router /section6 [post]
 func (e *env) addSection6(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1130,7 +1153,7 @@ func (e *env) addSection6(c *gin.Context) {
 		LeadershipRole: input.LeadershipRole,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -1156,14 +1179,16 @@ func (e *env) addSection6(c *gin.Context) {
 // @Tags Resume Section 6
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection6Input body api.UpsertSection6Input true "Section 6 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section6 [put]
+// @Router /section6/{sectionId} [put]
 func (e *env) updateSection6(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1190,7 +1215,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection6ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection6ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1209,7 +1234,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		LeadershipRole: input.LeadershipRole,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -1250,12 +1275,13 @@ type GetSection7Output struct {
 // @Tags Resume Section 7
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection7Output
 // @Failure 401
 // @Router /section7 [get]
 func (e *env) getSection7(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1265,7 +1291,7 @@ func (e *env) getSection7(c *gin.Context) {
 
 	var output GetSection7Output
 
-	output.Sections, err = e.db.GetSection7(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection7(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1284,6 +1310,7 @@ func (e *env) getSection7(c *gin.Context) {
 // @Tags Resume Section 7
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection7Input body api.UpsertSection7Input true "Section 7 information"
 // @Success 204
 // @Failure 400
@@ -1291,7 +1318,7 @@ func (e *env) getSection7(c *gin.Context) {
 // @Router /section7 [post]
 func (e *env) addSection7(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1326,7 +1353,7 @@ func (e *env) addSection7(c *gin.Context) {
 		ClubMemberActivities: input.ClubMemberActivities,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -1352,14 +1379,16 @@ func (e *env) addSection7(c *gin.Context) {
 // @Tags Resume Section 7
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection7Input body api.UpsertSection7Input true "Section 7 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section7 [put]
+// @Router /section7/{sectionId} [put]
 func (e *env) updateSection7(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1386,7 +1415,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection7ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection7ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1404,7 +1433,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		ClubMemberActivities: input.ClubMemberActivities,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -1445,12 +1474,13 @@ type GetSection8Output struct {
 // @Tags Resume Section 8
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection8Output
 // @Failure 401
 // @Router /section8 [get]
 func (e *env) getSection8(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1460,7 +1490,7 @@ func (e *env) getSection8(c *gin.Context) {
 
 	var output GetSection8Output
 
-	output.Sections, err = e.db.GetSection8(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection8(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1479,6 +1509,7 @@ func (e *env) getSection8(c *gin.Context) {
 // @Tags Resume Section 8
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection8Input body api.UpsertSection8Input true "Section 8 information"
 // @Success 204
 // @Failure 400
@@ -1486,7 +1517,7 @@ func (e *env) getSection8(c *gin.Context) {
 // @Router /section8 [post]
 func (e *env) addSection8(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1521,7 +1552,7 @@ func (e *env) addSection8(c *gin.Context) {
 		IndividualGroupActivities: input.IndividualGroupActivities,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -1547,14 +1578,16 @@ func (e *env) addSection8(c *gin.Context) {
 // @Tags Resume Section 8
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection8Input body api.UpsertSection8Input true "Section 8 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section8 [put]
+// @Router /section8/{sectionId} [put]
 func (e *env) updateSection8(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1581,7 +1614,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection8ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection8ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1599,7 +1632,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		IndividualGroupActivities: input.IndividualGroupActivities,
 		HoursSpent: input.HoursSpent,
 		NumPeopleReached: input.NumPeopleReached,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -1642,12 +1675,13 @@ type GetSection9Output struct {
 // @Tags Resume Section 9
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection9Output
 // @Failure 401
 // @Router /section9 [get]
 func (e *env) getSection9(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1657,7 +1691,7 @@ func (e *env) getSection9(c *gin.Context) {
 
 	var output GetSection9Output
 
-	output.Sections, err = e.db.GetSection9(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection9(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1676,6 +1710,7 @@ func (e *env) getSection9(c *gin.Context) {
 // @Tags Resume Section 9
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection9Input body api.UpsertSection9Input true "Section 9 information"
 // @Success 204
 // @Failure 400
@@ -1683,7 +1718,7 @@ func (e *env) getSection9(c *gin.Context) {
 // @Router /section9 [post]
 func (e *env) addSection9(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1720,7 +1755,7 @@ func (e *env) addSection9(c *gin.Context) {
 		TimesGiven: input.TimesGiven,
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -1746,14 +1781,16 @@ func (e *env) addSection9(c *gin.Context) {
 // @Tags Resume Section 9
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection9Input body api.UpsertSection9Input true "Section 9 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section9 [put]
+// @Router /section9/{sectionId} [put]
 func (e *env) updateSection9(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1780,7 +1817,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection9ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection9ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1800,7 +1837,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		TimesGiven: input.TimesGiven,
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -1843,12 +1880,13 @@ type GetSection10Output struct {
 // @Tags Resume Section 10
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection10Output
 // @Failure 401
 // @Router /section10 [get]
 func (e *env) getSection10(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1858,7 +1896,7 @@ func (e *env) getSection10(c *gin.Context) {
 
 	var output GetSection10Output
 
-	output.Sections, err = e.db.GetSection10(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection10(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1877,6 +1915,7 @@ func (e *env) getSection10(c *gin.Context) {
 // @Tags Resume Section 10
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection10Input body api.UpsertSection10Input true "Section 10 information"
 // @Success 204
 // @Failure 400
@@ -1884,7 +1923,7 @@ func (e *env) getSection10(c *gin.Context) {
 // @Router /section10 [post]
 func (e *env) addSection10(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1921,7 +1960,7 @@ func (e *env) addSection10(c *gin.Context) {
 		TimesGiven: input.TimesGiven,
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -1947,14 +1986,16 @@ func (e *env) addSection10(c *gin.Context) {
 // @Tags Resume Section 10
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection10Input body api.UpsertSection10Input true "Section 10 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section10 [put]
+// @Router /section10/{sectionId} [put]
 func (e *env) updateSection10(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -1981,7 +2022,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection10ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection10ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2001,7 +2042,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		TimesGiven: input.TimesGiven,
 		Location: input.Location,
 		AudienceSize: input.AudienceSize,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -2042,12 +2083,13 @@ type GetSection11Output struct {
 // @Tags Resume Section 11
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection11Output
 // @Failure 401
 // @Router /section11 [get]
 func (e *env) getSection11(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2057,7 +2099,7 @@ func (e *env) getSection11(c *gin.Context) {
 
 	var output GetSection11Output
 
-	output.Sections, err = e.db.GetSection11(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection11(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2076,6 +2118,7 @@ func (e *env) getSection11(c *gin.Context) {
 // @Tags Resume Section 11
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection11Input body api.UpsertSection11Input true "Section 11 information"
 // @Success 204
 // @Failure 400
@@ -2083,7 +2126,7 @@ func (e *env) getSection11(c *gin.Context) {
 // @Router /section11 [post]
 func (e *env) addSection11(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2118,7 +2161,7 @@ func (e *env) addSection11(c *gin.Context) {
 		EventAndLevel: input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
 		RibbonOrPlacings: input.RibbonOrPlacings,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -2144,14 +2187,16 @@ func (e *env) addSection11(c *gin.Context) {
 // @Tags Resume Section 11
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection11Input body api.UpsertSection11Input true "Section 11 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section11 [put]
+// @Router /section11/{sectionId} [put]
 func (e *env) updateSection11(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2178,7 +2223,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection11ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection11ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2196,7 +2241,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		EventAndLevel: input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
 		RibbonOrPlacings: input.RibbonOrPlacings,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -2237,12 +2282,13 @@ type GetSection12Output struct {
 // @Tags Resume Section 12
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection12Output
 // @Failure 401
 // @Router /section12 [get]
 func (e *env) getSection12(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2252,7 +2298,7 @@ func (e *env) getSection12(c *gin.Context) {
 
 	var output GetSection12Output
 
-	output.Sections, err = e.db.GetSection12(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection12(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2271,6 +2317,7 @@ func (e *env) getSection12(c *gin.Context) {
 // @Tags Resume Section 12
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection12Input body api.UpsertSection12Input true "Section 12 information"
 // @Success 204
 // @Failure 400
@@ -2278,7 +2325,7 @@ func (e *env) getSection12(c *gin.Context) {
 // @Router /section12 [post]
 func (e *env) addSection12(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2313,7 +2360,7 @@ func (e *env) addSection12(c *gin.Context) {
 		ContestOrEvent: input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
 		Level: input.Level,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -2339,14 +2386,16 @@ func (e *env) addSection12(c *gin.Context) {
 // @Tags Resume Section 12
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection12Input body api.UpsertSection12Input true "Section 12 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section12 [put]
+// @Router /section12/{sectionId} [put]
 func (e *env) updateSection12(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2373,7 +2422,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection12ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection12ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2391,7 +2440,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		ContestOrEvent: input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
 		Level: input.Level,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -2430,12 +2479,13 @@ type GetSection13Output struct {
 // @Tags Resume Section 13
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection13Output
 // @Failure 401
 // @Router /section13 [get]
 func (e *env) getSection13(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2445,7 +2495,7 @@ func (e *env) getSection13(c *gin.Context) {
 
 	var output GetSection13Output
 
-	output.Sections, err = e.db.GetSection13(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection13(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2464,6 +2514,7 @@ func (e *env) getSection13(c *gin.Context) {
 // @Tags Resume Section 13
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection13Input body api.UpsertSection13Input true "Section 13 information"
 // @Success 204
 // @Failure 400
@@ -2471,7 +2522,7 @@ func (e *env) getSection13(c *gin.Context) {
 // @Router /section13 [post]
 func (e *env) addSection13(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2504,7 +2555,7 @@ func (e *env) addSection13(c *gin.Context) {
 		Section: 13,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -2530,14 +2581,16 @@ func (e *env) addSection13(c *gin.Context) {
 // @Tags Resume Section 13
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection13Input body api.UpsertSection13Input true "Section 13 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section13 [put]
+// @Router /section13/{sectionId} [put]
 func (e *env) updateSection13(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2564,7 +2617,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection13ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection13ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2580,7 +2633,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		Section: 13,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -2619,12 +2672,13 @@ type GetSection14Output struct {
 // @Tags Resume Section 14
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection14Output
 // @Failure 401
 // @Router /section14 [get]
 func (e *env) getSection14(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2634,7 +2688,7 @@ func (e *env) getSection14(c *gin.Context) {
 
 	var output GetSection14Output
 
-	output.Sections, err = e.db.GetSection14(context.TODO(), cookie)
+	output.Sections, err = e.db.GetSection14(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2653,6 +2707,7 @@ func (e *env) getSection14(c *gin.Context) {
 // @Tags Resume Section 14
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertSection14Input body api.UpsertSection14Input true "Section 14 information"
 // @Success 204
 // @Failure 400
@@ -2660,7 +2715,7 @@ func (e *env) getSection14(c *gin.Context) {
 // @Router /section14 [post]
 func (e *env) addSection14(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2693,7 +2748,7 @@ func (e *env) addSection14(c *gin.Context) {
 		Section: 14,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -2719,14 +2774,16 @@ func (e *env) addSection14(c *gin.Context) {
 // @Tags Resume Section 14
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
+// @Param sectionId path string true "Section ID"
 // @Param UpsertSection14Input body api.UpsertSection14Input true "Section 14 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section14 [put]
+// @Router /section14/{sectionId} [put]
 func (e *env) updateSection14(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2753,7 +2810,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection14ByID(context.TODO(), cookie, id)
+	existingSection, err := e.db.GetSection14ByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2769,7 +2826,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		Section: 14,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: cookie,
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
 			Updated: timestamp.ToString(),
@@ -2799,6 +2856,7 @@ func (e *env) updateSection14(c *gin.Context) {
 // @Tags Resume
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param sectionId path string true "Section ID"
 // @Success 204
 // @Failure 401
@@ -2806,7 +2864,7 @@ func (e *env) updateSection14(c *gin.Context) {
 // @Router /section/{sectionId} [delete]
 func (e *env) deleteSection(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -2816,7 +2874,7 @@ func (e *env) deleteSection(c *gin.Context) {
 
 	id := c.Param("sectionId")
 
-	response, err := e.db.RemoveSection(context.TODO(), cookie, id)
+	response, err := e.db.RemoveSection(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

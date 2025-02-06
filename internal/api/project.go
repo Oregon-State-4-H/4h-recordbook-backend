@@ -31,12 +31,13 @@ type GetProjectOutput struct {
 // @Tags Projects
 // @Accept json 
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetProjectsOutput
 // @Failure 401
 // @Router /projects [get]
 func (e *env) getCurrentProjects(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -46,7 +47,7 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 
 	var output GetProjectsOutput
 
-	output.Projects, err = e.db.GetCurrentProjects(context.TODO(), cookie)
+	output.Projects, err = e.db.GetCurrentProjects(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -65,12 +66,13 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 // @Tags Projects
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetProjectsOutput
 // @Failure 401
 // @Router /project [get]
 func (e *env) getProjects(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -80,7 +82,7 @@ func (e *env) getProjects(c *gin.Context) {
 
 	var output GetProjectsOutput
 
-	output.Projects, err = e.db.GetProjectsByUser(context.TODO(), cookie)
+	output.Projects, err = e.db.GetProjectsByUser(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -99,6 +101,7 @@ func (e *env) getProjects(c *gin.Context) {
 // @Tags Projects
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param projectId path string true "Project ID"
 // @Success 200 {object} api.GetProjectOutput
 // @Failure 401
@@ -106,7 +109,7 @@ func (e *env) getProjects(c *gin.Context) {
 // @Router /project/{projectId} [get]
 func (e *env) getProject(c *gin.Context) {
 	
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -118,7 +121,7 @@ func (e *env) getProject(c *gin.Context) {
 
 	var output GetProjectOutput
 
-	output.Project, err = e.db.GetProjectByID(context.TODO(), cookie, id)
+	output.Project, err = e.db.GetProjectByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -137,6 +140,7 @@ func (e *env) getProject(c *gin.Context) {
 // @Tags Projects
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
 // @Success 204
 // @Failure 400
@@ -144,7 +148,7 @@ func (e *env) getProject(c *gin.Context) {
 // @Router /project [post]
 func (e *env) addProject(c *gin.Context) {
 	
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -178,6 +182,7 @@ func (e *env) addProject(c *gin.Context) {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
 		})
+		return
 	}
 
 	endDate, err := utils.StringToTimestamp(input.EndDate)
@@ -185,6 +190,7 @@ func (e *env) addProject(c *gin.Context) {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
 		})
+		return
 	}
 
 	project := db.Project{
@@ -195,7 +201,7 @@ func (e *env) addProject(c *gin.Context) {
 		Type:			   input.Type,
 		StartDate:		   startDate.ToString(),
 		EndDate:		   endDate.ToString(),
-		UserID: 		   cookie,
+		UserID: 		   claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -221,6 +227,8 @@ func (e *env) addProject(c *gin.Context) {
 // @Tags Projects
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
+// @Param projectId path string true "Project ID"
 // @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
 // @Success 204 
 // @Failure 400
@@ -229,7 +237,7 @@ func (e *env) addProject(c *gin.Context) {
 // @Router /project/{projectId} [put]
 func (e *env) updateProject(c *gin.Context) {
 	
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -260,6 +268,7 @@ func (e *env) updateProject(c *gin.Context) {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
 		})
+		return
 	}
 
 	endDate, err := utils.StringToTimestamp(input.EndDate)
@@ -267,11 +276,12 @@ func (e *env) updateProject(c *gin.Context) {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
 		})
+		return
 	}
 
 	id := c.Param("projectId")
 
-	project, err := e.db.GetProjectByID(context.TODO(), cookie, id)
+	project, err := e.db.GetProjectByID(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -290,7 +300,7 @@ func (e *env) updateProject(c *gin.Context) {
 		Type: 			   input.Type,
 		StartDate: 	   	   startDate.ToString(),
 		EndDate: 	       endDate.ToString(),
-		UserID:			   cookie,
+		UserID:			   claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: project.Created,
 			Updated: timestamp.ToString(),

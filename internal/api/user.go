@@ -27,14 +27,14 @@ type GetUserProfileOutput struct {
 // @Tags User
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 200 {object} api.GetUserProfileOutput 
 // @Failure 401
 // @Failure 404
 // @Router /user [get]
 func (e *env) getUserProfile(c *gin.Context) {
 
-	//get id value from cookie, if no id value return 401
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -44,7 +44,7 @@ func (e *env) getUserProfile(c *gin.Context) {
 
 	var output GetUserProfileOutput
 
-	output.User, err = e.db.GetUser(context.TODO(), cookie)
+	output.User, err = e.db.GetUser(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -63,6 +63,7 @@ func (e *env) getUserProfile(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param UpdateUserInput body api.UpdateUserInput true "User information"
 // @Success 204 
 // @Failure 400
@@ -71,8 +72,7 @@ func (e *env) getUserProfile(c *gin.Context) {
 // @Router /user [put]
 func (e *env) updateUserProfile(c *gin.Context) {
 
-	//get id value from cookie, if no id value return 401
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -89,7 +89,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		return
 	}
 
-	user, err := e.db.GetUser(context.TODO(), cookie)
+	user, err := e.db.GetUser(context.TODO(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -162,7 +162,15 @@ func (e *env) signin(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("login_cookie", user.ID, 3600, "/", "localhost", false, false)
+	jwt, err := generateJWT(user.ID, user.FirstName)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	c.SetCookie("authtoken", jwt, 3600, "/", "localhost", false, true)
 	c.JSON(204, nil)
 
 }
@@ -173,12 +181,13 @@ func (e *env) signin(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Success 204 
 // @Failure 401
 // @Router /signout [post]
 func (e *env) signout(c *gin.Context) {
 
-	cookie, err := c.Cookie("login_cookie")
+	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
 			"message": HTTPResponseCodeMap[401],
@@ -186,7 +195,7 @@ func (e *env) signout(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("login_cookie", cookie, -1, "/", "localhost", false, false)
+	c.SetCookie("authtoken", claims.ID, -1, "/", "localhost", false, true)
 	c.JSON(204, nil)
 
 }

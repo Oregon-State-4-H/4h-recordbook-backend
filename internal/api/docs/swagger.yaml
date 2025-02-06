@@ -33,6 +33,41 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
+  api.GetSection10Output:
+    properties:
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+    type: object
+  api.GetSection11Output:
+    properties:
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+    type: object
+  api.GetSection12Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+    type: object
+  api.GetSection13Output:
+    properties:
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+    type: object
+  api.GetSection14Output:
+    properties:
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
   api.GetSection1Output:
     properties:
       section_1_data:
@@ -94,41 +129,6 @@ definitions:
       section_9_data:
         items:
           $ref: '#/definitions/db.Section9'
-        type: array
-    type: object
-  api.GetSection10Output:
-    properties:
-      section_10_data:
-        items:
-          $ref: '#/definitions/db.Section10'
-        type: array
-    type: object
-  api.GetSection11Output:
-    properties:
-      section_11_data:
-        items:
-          $ref: '#/definitions/db.Section11'
-        type: array
-    type: object
-  api.GetSection12Output:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section12'
-        type: array
-    type: object
-  api.GetSection13Output:
-    properties:
-      section_13_data:
-        items:
-          $ref: '#/definitions/db.Section13'
-        type: array
-    type: object
-  api.GetSection14Output:
-    properties:
-      section_14_data:
-        items:
-          $ref: '#/definitions/db.Section14'
         type: array
     type: object
   api.GetUserProfileOutput:
@@ -853,6 +853,7 @@ definitions:
     type: object
 info:
   contact: {}
+  title: 4H Record Books API
 paths:
   /bookmarks:
     get:
@@ -869,6 +870,8 @@ paths:
             $ref: '#/definitions/api.GetBookmarksOutput'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Get all of a user's bookmarks
       tags:
       - User Bookmarks
@@ -896,6 +899,8 @@ paths:
           description: Unauthorized
         "409":
           description: Conflict
+      security:
+      - ApiKeyAuth: []
       summary: Adds a bookmark
       tags:
       - User Bookmarks
@@ -919,6 +924,8 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+      security:
+      - ApiKeyAuth: []
       summary: Removes a bookmark
       tags:
       - User Bookmarks
@@ -936,6 +943,8 @@ paths:
             $ref: '#/definitions/api.GetProjectsOutput'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Get all of a user's projects
       tags:
       - Projects
@@ -959,6 +968,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a project
       tags:
       - Projects
@@ -984,6 +995,8 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+      security:
+      - ApiKeyAuth: []
       summary: Get a project
       tags:
       - Projects
@@ -992,6 +1005,11 @@ paths:
       - application/json
       description: Updates a user's project information
       parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        type: string
       - description: Project information
         in: body
         name: UpsertProjectInput
@@ -1009,6 +1027,8 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+      security:
+      - ApiKeyAuth: []
       summary: Update a project
       tags:
       - Projects
@@ -1026,6 +1046,8 @@ paths:
             $ref: '#/definitions/api.GetProjectsOutput'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets projects of the current year
       tags:
       - Projects
@@ -1043,6 +1065,8 @@ paths:
             $ref: '#/definitions/api.GetResumeOutput'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets full resume
       tags:
       - Resume
@@ -1067,6 +1091,8 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+      security:
+      - ApiKeyAuth: []
       summary: Removes a resume section
       tags:
       - Resume
@@ -1084,6 +1110,8 @@ paths:
             $ref: '#/definitions/api.GetSection1Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 1 entries
       tags:
       - Resume Section 1
@@ -1107,14 +1135,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 1 entry
       tags:
       - Resume Section 1
+  /section1/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 1 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 1 information
         in: body
         name: UpsertSection1Input
@@ -1130,6 +1166,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 1 entry
       tags:
       - Resume Section 1
@@ -1147,6 +1185,8 @@ paths:
             $ref: '#/definitions/api.GetSection2Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 2 entries
       tags:
       - Resume Section 2
@@ -1170,14 +1210,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 2 entry
       tags:
       - Resume Section 2
+  /section2/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 2 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 2 information
         in: body
         name: UpsertSection2Input
@@ -1193,6 +1241,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 2 entry
       tags:
       - Resume Section 2
@@ -1210,6 +1260,8 @@ paths:
             $ref: '#/definitions/api.GetSection3Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 3 entries
       tags:
       - Resume Section 3
@@ -1233,14 +1285,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 3 entry
       tags:
       - Resume Section 3
+  /section3/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 3 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 3 information
         in: body
         name: UpsertSection3Input
@@ -1256,6 +1316,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 3 entry
       tags:
       - Resume Section 3
@@ -1273,6 +1335,8 @@ paths:
             $ref: '#/definitions/api.GetSection4Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 4 entries
       tags:
       - Resume Section 4
@@ -1296,14 +1360,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 4 entry
       tags:
       - Resume Section 4
+  /section4/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 4 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 4 information
         in: body
         name: UpsertSection4Input
@@ -1319,6 +1391,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 4 entry
       tags:
       - Resume Section 4
@@ -1336,6 +1410,8 @@ paths:
             $ref: '#/definitions/api.GetSection5Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 5 entries
       tags:
       - Resume Section 5
@@ -1359,14 +1435,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 5 entry
       tags:
       - Resume Section 5
+  /section5/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 5 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 5 information
         in: body
         name: UpsertSection5Input
@@ -1382,6 +1466,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 5 entry
       tags:
       - Resume Section 5
@@ -1399,6 +1485,8 @@ paths:
             $ref: '#/definitions/api.GetSection6Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 6 entries
       tags:
       - Resume Section 6
@@ -1422,14 +1510,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 6 entry
       tags:
       - Resume Section 6
+  /section6/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 6 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 6 information
         in: body
         name: UpsertSection6Input
@@ -1445,6 +1541,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 6 entry
       tags:
       - Resume Section 6
@@ -1462,6 +1560,8 @@ paths:
             $ref: '#/definitions/api.GetSection7Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 7 entries
       tags:
       - Resume Section 7
@@ -1485,14 +1585,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 7 entry
       tags:
       - Resume Section 7
+  /section7/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 7 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 7 information
         in: body
         name: UpsertSection7Input
@@ -1508,6 +1616,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 7 entry
       tags:
       - Resume Section 7
@@ -1525,6 +1635,8 @@ paths:
             $ref: '#/definitions/api.GetSection8Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 8 entries
       tags:
       - Resume Section 8
@@ -1548,14 +1660,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 8 entry
       tags:
       - Resume Section 8
+  /section8/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 8 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 8 information
         in: body
         name: UpsertSection8Input
@@ -1571,6 +1691,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 8 entry
       tags:
       - Resume Section 8
@@ -1588,6 +1710,8 @@ paths:
             $ref: '#/definitions/api.GetSection9Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 9 entries
       tags:
       - Resume Section 9
@@ -1611,14 +1735,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 9 entry
       tags:
       - Resume Section 9
+  /section9/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 9 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 9 information
         in: body
         name: UpsertSection9Input
@@ -1634,6 +1766,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 9 entry
       tags:
       - Resume Section 9
@@ -1651,6 +1785,8 @@ paths:
             $ref: '#/definitions/api.GetSection10Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 10 entries
       tags:
       - Resume Section 10
@@ -1674,14 +1810,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 10 entry
       tags:
       - Resume Section 10
+  /section10/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 10 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 10 information
         in: body
         name: UpsertSection10Input
@@ -1697,6 +1841,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 10 entry
       tags:
       - Resume Section 10
@@ -1714,6 +1860,8 @@ paths:
             $ref: '#/definitions/api.GetSection11Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 11 entries
       tags:
       - Resume Section 11
@@ -1737,14 +1885,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 11 entry
       tags:
       - Resume Section 11
+  /section11/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 11 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 11 information
         in: body
         name: UpsertSection11Input
@@ -1760,6 +1916,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 11 entry
       tags:
       - Resume Section 11
@@ -1777,6 +1935,8 @@ paths:
             $ref: '#/definitions/api.GetSection12Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 12 entries
       tags:
       - Resume Section 12
@@ -1800,14 +1960,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 12 entry
       tags:
       - Resume Section 12
+  /section12/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 12 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 12 information
         in: body
         name: UpsertSection12Input
@@ -1823,6 +1991,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 12 entry
       tags:
       - Resume Section 12
@@ -1840,6 +2010,8 @@ paths:
             $ref: '#/definitions/api.GetSection13Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 13 entries
       tags:
       - Resume Section 13
@@ -1863,14 +2035,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 13 entry
       tags:
       - Resume Section 13
+  /section13/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 13 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 13 information
         in: body
         name: UpsertSection13Input
@@ -1886,6 +2066,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 13 entry
       tags:
       - Resume Section 13
@@ -1903,6 +2085,8 @@ paths:
             $ref: '#/definitions/api.GetSection14Output'
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Gets all Section 14 entries
       tags:
       - Resume Section 14
@@ -1926,14 +2110,22 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Add a Section 14 entry
       tags:
       - Resume Section 14
+  /section14/{sectionId}:
     put:
       consumes:
       - application/json
       description: Updates a user's Section 14 entry information
       parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
       - description: Section 14 information
         in: body
         name: UpsertSection14Input
@@ -1949,6 +2141,8 @@ paths:
           description: Bad Request
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Updates a Section 14 entry
       tags:
       - Resume Section 14
@@ -1988,6 +2182,8 @@ paths:
           description: No Content
         "401":
           description: Unauthorized
+      security:
+      - ApiKeyAuth: []
       summary: Sign out
       tags:
       - User
@@ -2031,6 +2227,8 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+      security:
+      - ApiKeyAuth: []
       summary: Get a user
       tags:
       - User
@@ -2056,7 +2254,14 @@ paths:
           description: Unauthorized
         "404":
           description: Not Found
+      security:
+      - ApiKeyAuth: []
       summary: Update a user
       tags:
       - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

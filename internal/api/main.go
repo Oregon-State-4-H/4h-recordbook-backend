@@ -1,12 +1,16 @@
 package api
 
 import (
+	"errors"
+	"time"
+	"strings"
 	"net/http"
 	_ "4h-recordbook-backend/internal/api/docs"
 	"4h-recordbook-backend/internal/config"
 	"4h-recordbook-backend/pkg/db"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 	"github.com/go-playground/validator/v10"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -32,6 +36,61 @@ func ternary(s1 string, s2 string) (string){
 		return s2
 	}
 	return s1
+}
+
+type UserInfo struct {
+	ID string `json:"id"`
+	FirstName string `json:"first_name"`
+}
+
+type CustomClaims struct {
+	jwt.StandardClaims
+	UserInfo
+}
+
+func decodeJWT(c *gin.Context) (*CustomClaims, error){
+
+	var claims *CustomClaims
+
+	auth := c.Request.Header.Get("Authorization")
+	if auth == "" {
+		return claims, errors.New("Unauthorized 1") 
+	}
+
+	splitToken := strings.Split(auth, "Bearer ")
+	auth = splitToken[1]
+
+	token, err := jwt.ParseWithClaims(auth, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte("AccessToken"), nil
+	})
+
+	if err != nil {
+		return claims, errors.New("Unauthorized 2") 
+	}
+
+	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
+		return claims, nil
+	}
+
+	return claims, errors.New("Unauthorized 3")
+
+}
+
+func generateJWT(userid string, firstName string) (string, error){
+
+	token := jwt.New(jwt.SigningMethodHS256)
+	token.Claims = CustomClaims {
+		jwt.StandardClaims {
+			ExpiresAt: time.Now().Add(time.Minute * 60).Unix(),
+		},
+		UserInfo{
+			userid,
+			firstName,
+		},
+	}
+
+	return token.SignedString([]byte("AccessToken"))
+
 }
 
 func (e *env) RunLocal() error {
@@ -178,5 +237,13 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 	e.api = router
 
 	return e, nil
+
+}
+
+// @title	4H Record Books API
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+func main() {
 
 }
