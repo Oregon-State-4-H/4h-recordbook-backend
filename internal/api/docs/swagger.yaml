@@ -16,6 +16,18 @@ definitions:
           $ref: '#/definitions/db.Bookmark'
         type: array
     type: object
+  api.GetFeedOutput:
+    properties:
+      feed:
+        $ref: '#/definitions/db.Feed'
+    type: object
+  api.GetFeedsOutput:
+    properties:
+      feeds:
+        items:
+          $ref: '#/definitions/db.Feed'
+        type: array
+    type: object
   api.GetProjectOutput:
     properties:
       project:
@@ -32,48 +44,6 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
-    type: object
-  api.GetSection10Output:
-    properties:
-      section_10_data:
-        items:
-          $ref: '#/definitions/db.Section10'
-        type: array
-    type: object
-  api.GetSection11Output:
-    properties:
-      section_11_data:
-        items:
-          $ref: '#/definitions/db.Section11'
-        type: array
-    type: object
-  api.GetSection12Output:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section12'
-        type: array
-    type: object
-  api.GetSection13Output:
-    properties:
-      section_13_data:
-        items:
-          $ref: '#/definitions/db.Section13'
-        type: array
-    type: object
-  api.GetSection14Output:
-    properties:
-      section_14_data:
-        items:
-          $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -131,6 +101,48 @@ definitions:
           $ref: '#/definitions/db.Section9'
         type: array
     type: object
+  api.GetSection10Output:
+    properties:
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+    type: object
+  api.GetSection11Output:
+    properties:
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+    type: object
+  api.GetSection12Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+    type: object
+  api.GetSection13Output:
+    properties:
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+    type: object
+  api.GetSection14Output:
+    properties:
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetUserProfileOutput:
     properties:
       user:
@@ -176,6 +188,13 @@ definitions:
       last_name_initial:
         type: string
       middle_name_initial:
+        type: string
+    type: object
+  api.UpsertFeedInput:
+    properties:
+      name:
+        type: string
+      projectID:
         type: string
     type: object
   api.UpsertProjectInput:
@@ -442,6 +461,21 @@ definitions:
       label:
         type: string
       link:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+    type: object
+  db.Feed:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      projectID:
         type: string
       updated:
         type: string
@@ -929,6 +963,115 @@ paths:
       summary: Removes a bookmark
       tags:
       - User Bookmarks
+  /feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feeds given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedsOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feeds by project
+      tags:
+      - Feed
+    post:
+      consumes:
+      - application/json
+      description: Adds a feed to a user's personal records
+      parameters:
+      - description: Feed information
+        in: body
+        name: UpsertFeedInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a feed
+      tags:
+      - Feed
+  /feed/{feedId}:
+    get:
+      consumes:
+      - application/json
+      description: Get a user's feed by ID
+      parameters:
+      - description: Feed ID
+        in: path
+        name: feedId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a feed
+      tags:
+      - Feed
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's feed information
+      parameters:
+      - description: Feed ID
+        in: path
+        name: feedId
+        required: true
+        type: string
+      - description: Feed information
+        in: body
+        name: UpsertFeedInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a feed
+      tags:
+      - Feed
   /project:
     get:
       consumes:

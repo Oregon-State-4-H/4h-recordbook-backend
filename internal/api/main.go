@@ -202,37 +202,40 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 
 	router.DELETE("/section/:sectionId", e.deleteSection)
 
-	router.GET("/animal/docs/{projectId}", getAnimalDocs)
-	router.GET("/animal/{animalId}", getAnimal)
+	/*
+	router.GET("/animal/docs/:projectId", getAnimalDocs)
+	router.GET("/animal/:animalId", getAnimal)
 	router.POST("/animal", addAnimal)
 	router.PUT("/animal", updateAnimal)
 	router.PUT("/rate-of-gain", updateRateOfGain)
+	*/
 
-	router.GET("/feed/docs/{projectId}", getFeedDocs)
-	router.GET("/feed/{feedId}", getFeed)
-	router.POST("/feed", addFeed)
-	//no endpoint for addFeedNoForm, all that's different is it adds a name. could probably just be added to POST /feed
-	router.PUT("/feed", updateFeed)
+	router.GET("/feed", e.getFeeds)
+	router.GET("/feed/:feedId", e.getFeed)
+	router.POST("/feed", e.addFeed)
+	router.PUT("/feed/:feedId", e.updateFeed)
 	
-	router.GET("/feed-purchase/docs/{projecId}", getFeedPurchaseDocs)
-	router.GET("/feed-purchase/{feedPurchaseId}", getFeedPurchase)
-	router.POST("/feed-purchase", addFeedPurchase)
-	router.PUT("/feed-purchase", updateFeedPurchase)
+	router.GET("/feed-purchase", e.getFeedPurchases)
+	router.GET("/feed-purchase/:feedPurchaseId", e.getFeedPurchase)
+	router.POST("/feed-purchase", e.addFeedPurchase)
+	router.PUT("/feed-purchase/:feedPurchaseId", e.updateFeedPurchase)
 
-	router.GET("/daily-feed/docs/{projectId}/{animalId}", getDailyFeedDocs)
-	router.GET("/daily-feed/{dailyFeedId}", getDailyFeed)
+	/*
+	router.GET("/daily-feed/:projectId/:animalId", getDailyFeeds)
+	router.GET("/daily-feed/:dailyFeedId", getDailyFeed)
 	router.POST("/daily-feed", addDailyFeed)
 	router.PUT("/daily-feed", updateDailyFeed)
 
-	router.GET("/expenses/docs/{projectId}", getExpenseDocs)
-	router.GET("/expenses/{expenseId}", getExpense)
+	router.GET("/expenses/:projectId", getExpenses)
+	router.GET("/expenses/:expenseId", getExpense)
 	router.POST("/expenses/", addExpense)
 
-	router.GET("/supply/docs/{projectId}", getSupplyDocs)
-	router.GET("/supply/{supplyId}", getSupply)
+	router.GET("/supply/:projectId", getSupplies)
+	router.GET("/supply/:supplyId", getSupply)
 	router.POST("/supply", addSupply)
-	router.PUT("/supply", updateSupply)
-	router.DELETE("/supply/{supplyId}", deleteSupply)
+	router.PUT("/supply/:supplyId", updateSupply)
+	router.DELETE("/supply/:supplyId", deleteSupply)
+	*/
 
 	e.api = router
 

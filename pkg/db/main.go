@@ -63,6 +63,10 @@ type Db interface {
 	UpsertSection13(ctx context.Context, section Section13) (interface{}, error)
 	UpsertSection14(ctx context.Context, section Section14) (interface{}, error)
 	RemoveSection(ctx context.Context, userid string, sectionid string) (interface{}, error)
+
+	GetFeedsByProject(ctx context.Context, userid string, projectid string) ([]Feed, error)
+	GetFeedByID(ctx context.Context, userid string, feedid string) (Feed, error)
+	UpsertFeed(ctx context.Context, feed Feed) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {
