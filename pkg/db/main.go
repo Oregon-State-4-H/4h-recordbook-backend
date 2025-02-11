@@ -67,6 +67,9 @@ type Db interface {
 	GetFeedsByProject(ctx context.Context, userid string, projectid string) ([]Feed, error)
 	GetFeedByID(ctx context.Context, userid string, feedid string) (Feed, error)
 	UpsertFeed(ctx context.Context, feed Feed) (interface{}, error)
+	GetFeedPurchasesByProject(ctx context.Context, userid string, projectid string) ([]FeedPurchase, error)
+	GetFeedPurchaseByID(ctx context.Context, userid string, feedPurchaseID string) (FeedPurchase, error)
+	UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchase) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {

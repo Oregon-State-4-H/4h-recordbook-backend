@@ -21,6 +21,18 @@ definitions:
       feed:
         $ref: '#/definitions/db.Feed'
     type: object
+  api.GetFeedPurchaseOutput:
+    properties:
+      feed_purchase:
+        $ref: '#/definitions/db.FeedPurchase'
+    type: object
+  api.GetFeedPurchasesOutput:
+    properties:
+      feed_purchases:
+        items:
+          $ref: '#/definitions/db.FeedPurchase'
+        type: array
+    type: object
   api.GetFeedsOutput:
     properties:
       feeds:
@@ -44,6 +56,13 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -136,13 +155,6 @@ definitions:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetUserProfileOutput:
     properties:
       user:
@@ -196,6 +208,19 @@ definitions:
         type: string
       projectID:
         type: string
+    type: object
+  api.UpsertFeedPurchaseInput:
+    properties:
+      amount_purchased:
+        type: number
+      date_purchased:
+        type: string
+      feedid:
+        type: string
+      projectid:
+        type: string
+      total_cost:
+        type: number
     type: object
   api.UpsertProjectInput:
     properties:
@@ -475,8 +500,29 @@ definitions:
         type: string
       name:
         type: string
-      projectID:
+      projectid:
         type: string
+      updated:
+        type: string
+      userid:
+        type: string
+    type: object
+  db.FeedPurchase:
+    properties:
+      amount_purchased:
+        type: number
+      created:
+        type: string
+      date_purchased:
+        type: string
+      feedid:
+        type: string
+      id:
+        type: string
+      projectid:
+        type: string
+      total_cost:
+        type: number
       updated:
         type: string
       userid:
@@ -981,6 +1027,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/api.GetFeedsOutput'
+        "400":
+          description: Bad Request
         "401":
           description: Unauthorized
       security:
@@ -1013,6 +1061,117 @@ paths:
       summary: Add a feed
       tags:
       - Feed
+  /feed-purchase:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feed purchass given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedPurchasesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feed purchases by project
+      tags:
+      - Feed Purchase
+    post:
+      consumes:
+      - application/json
+      description: Adds a feed purchase to a user's personal records
+      parameters:
+      - description: Feed Purchase information
+        in: body
+        name: UpsertFeedPurchaseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedPurchaseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a feed purchase
+      tags:
+      - Feed Purchase
+  /feed-purchase/{feedPurchaseId}:
+    get:
+      consumes:
+      - application/json
+      description: Get a user's feed purchase by ID
+      parameters:
+      - description: Feed Purchase ID
+        in: path
+        name: feedPurchaseId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedPurchaseOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a feed purchase
+      tags:
+      - Feed Purchase
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's feed purchase information
+      parameters:
+      - description: Feed Purchase ID
+        in: path
+        name: feedPurchaseId
+        required: true
+        type: string
+      - description: Feed purchase information
+        in: body
+        name: UpsertFeedPurchaseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedPurchaseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a feed purchase
+      tags:
+      - Feed Purchase
   /feed/{feedId}:
     get:
       consumes:

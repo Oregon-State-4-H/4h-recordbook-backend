@@ -163,6 +163,9 @@ const docTemplate = `{
                             "$ref": "#/definitions/api.GetFeedsOutput"
                         }
                     },
+                    "400": {
+                        "description": "Bad Request"
+                    },
                     "401": {
                         "description": "Unauthorized"
                     }
@@ -205,6 +208,182 @@ const docTemplate = `{
                     },
                     "401": {
                         "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/feed-purchase": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's feed purchass given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed Purchase"
+                ],
+                "summary": "Get feed purchases by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetFeedPurchasesOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds a feed purchase to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed Purchase"
+                ],
+                "summary": "Add a feed purchase",
+                "parameters": [
+                    {
+                        "description": "Feed Purchase information",
+                        "name": "UpsertFeedPurchaseInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertFeedPurchaseInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/feed-purchase/{feedPurchaseId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a user's feed purchase by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed Purchase"
+                ],
+                "summary": "Get a feed purchase",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Feed Purchase ID",
+                        "name": "feedPurchaseId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetFeedPurchaseOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's feed purchase information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed Purchase"
+                ],
+                "summary": "Update a feed purchase",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Feed Purchase ID",
+                        "name": "feedPurchaseId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Feed purchase information",
+                        "name": "UpsertFeedPurchaseInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertFeedPurchaseInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
@@ -2463,6 +2642,25 @@ const docTemplate = `{
                 }
             }
         },
+        "api.GetFeedPurchaseOutput": {
+            "type": "object",
+            "properties": {
+                "feed_purchase": {
+                    "$ref": "#/definitions/db.FeedPurchase"
+                }
+            }
+        },
+        "api.GetFeedPurchasesOutput": {
+            "type": "object",
+            "properties": {
+                "feed_purchases": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.FeedPurchase"
+                    }
+                }
+            }
+        },
         "api.GetFeedsOutput": {
             "type": "object",
             "properties": {
@@ -2733,6 +2931,26 @@ const docTemplate = `{
                 },
                 "projectID": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertFeedPurchaseInput": {
+            "type": "object",
+            "properties": {
+                "amount_purchased": {
+                    "type": "number"
+                },
+                "date_purchased": {
+                    "type": "string"
+                },
+                "feedid": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "total_cost": {
+                    "type": "number"
                 }
             }
         },
@@ -3136,8 +3354,40 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "projectID": {
+                "projectid": {
                     "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.FeedPurchase": {
+            "type": "object",
+            "properties": {
+                "amount_purchased": {
+                    "type": "number"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "date_purchased": {
+                    "type": "string"
+                },
+                "feedid": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "total_cost": {
+                    "type": "number"
                 },
                 "updated": {
                     "type": "string"
