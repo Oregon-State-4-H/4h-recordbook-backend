@@ -70,6 +70,10 @@ type Db interface {
 	GetFeedPurchasesByProject(ctx context.Context, userid string, projectid string) ([]FeedPurchase, error)
 	GetFeedPurchaseByID(ctx context.Context, userid string, feedPurchaseID string) (FeedPurchase, error)
 	UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchase) (interface{}, error)
+
+	GetExpensesByProject(ctx context.Context, userid string, projectid string) ([]Expense, error)
+	GetExpenseByID(ctx context.Context, userid string, expenseid string) (Expense, error)
+	UpsertExpense(ctx context.Context, expense Expense) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {

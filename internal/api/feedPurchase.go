@@ -9,11 +9,11 @@ import (
 )
 
 type UpsertFeedPurchaseInput struct {
-	DatePurchased string `json:"date_purchased"`
-	AmountPurchased float64 `json:"amount_purchased"`
-	TotalCost float64 `json:"total_cost"`
-	FeedID string `json:"feedid"`
-	ProjectID string `json:"projectid"`
+	DatePurchased string `json:"date_purchased" validate:"required"`
+	AmountPurchased float64 `json:"amount_purchased" validate:"required"`
+	TotalCost float64 `json:"total_cost" validate:"required"`
+	FeedID string `json:"feedid" validate:"required"`
+	ProjectID string `json:"projectid" validate:"required"`
 }
 
 type GetFeedPurchasesOutput struct {
@@ -26,7 +26,7 @@ type GetFeedPurchaseOutput struct {
 
 // GetFeedPurchases godoc
 // @Summary Get feed purchases by project
-// @Description Gets all of a user's feed purchass given a project ID
+// @Description Gets all of a user's feed purchases given a project ID
 // @Tags Feed Purchase
 // @Accept json
 // @Produce json

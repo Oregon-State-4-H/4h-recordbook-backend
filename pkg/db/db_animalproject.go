@@ -44,17 +44,6 @@ type DailyFeed struct {
 	GenericDatabaseInfo
 }
 
-type Expenses struct {
-	ID string `json:"id"`
-	Date string `json:"date"`
-	Items string `json:"items"`
-	Quantity float64 `json:"quantity"`
-	Cost float64 `json:"cost"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
-	GenericDatabaseInfo
-}
-
 type Supplies struct {
 	ID string `json:"id"`
 	Description string `json:"description"`
@@ -64,19 +53,3 @@ type Supplies struct {
 	UserID string `json:"userid"`
 	GenericDatabaseInfo
 }
-
-/*******************************
-* ANIMALS
-********************************/
-
-/*******************************
-* DAILY FEED
-********************************/
-
-/*******************************
-* EXPENSES
-********************************/
-
-/*******************************
-* SUPPLY INVENTORY
-********************************/

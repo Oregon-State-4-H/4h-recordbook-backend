@@ -16,6 +16,18 @@ definitions:
           $ref: '#/definitions/db.Bookmark'
         type: array
     type: object
+  api.GetExpenseOutput:
+    properties:
+      expense:
+        $ref: '#/definitions/db.Expense'
+    type: object
+  api.GetExpensesOutput:
+    properties:
+      expenses:
+        items:
+          $ref: '#/definitions/db.Expense'
+        type: array
+    type: object
   api.GetFeedOutput:
     properties:
       feed:
@@ -202,12 +214,34 @@ definitions:
       middle_name_initial:
         type: string
     type: object
+  api.UpsertExpenseInput:
+    properties:
+      cost:
+        type: number
+      date:
+        type: string
+      items:
+        type: string
+      projectid:
+        type: string
+      quantity:
+        type: number
+    required:
+    - cost
+    - date
+    - items
+    - projectid
+    - quantity
+    type: object
   api.UpsertFeedInput:
     properties:
       name:
         type: string
-      projectID:
+      projectid:
         type: string
+    required:
+    - name
+    - projectid
     type: object
   api.UpsertFeedPurchaseInput:
     properties:
@@ -221,6 +255,12 @@ definitions:
         type: string
       total_cost:
         type: number
+    required:
+    - amount_purchased
+    - date_purchased
+    - feedid
+    - projectid
+    - total_cost
     type: object
   api.UpsertProjectInput:
     properties:
@@ -242,6 +282,80 @@ definitions:
     - name
     - start_date
     - type
+    - year
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: string
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
     - year
     type: object
   api.UpsertSection1Input:
@@ -403,80 +517,6 @@ definitions:
     - topic
     - year
     type: object
-  api.UpsertSection10Input:
-    properties:
-      audience_size:
-        type: string
-      communication_type:
-        type: string
-      location:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection11Input:
-    properties:
-      event_and_level:
-        type: string
-      exhibits_or_division:
-        type: string
-      ribbon_or_placings:
-        type: string
-      year:
-        type: string
-    required:
-    - event_and_level
-    - exhibits_or_division
-    - ribbon_or_placings
-    - year
-    type: object
-  api.UpsertSection12Input:
-    properties:
-      contest_or_event:
-        type: string
-      level:
-        type: string
-      recognition_received:
-        type: string
-      year:
-        type: string
-    required:
-    - contest_or_event
-    - level
-    - recognition_received
-    - year
-    type: object
-  api.UpsertSection13Input:
-    properties:
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection14Input:
-    properties:
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - recognition_type
-    - year
-    type: object
   db.Bookmark:
     properties:
       created:
@@ -487,6 +527,27 @@ definitions:
         type: string
       link:
         type: string
+      updated:
+        type: string
+      userid:
+        type: string
+    type: object
+  db.Expense:
+    properties:
+      cost:
+        type: number
+      created:
+        type: string
+      date:
+        type: string
+      id:
+        type: string
+      items:
+        type: string
+      projectid:
+        type: string
+      quantity:
+        type: number
       updated:
         type: string
       userid:
@@ -1009,6 +1070,85 @@ paths:
       summary: Removes a bookmark
       tags:
       - User Bookmarks
+  /expense:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's expenses given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetExpensesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get expenses by project
+      tags:
+      - Expense
+    post:
+      consumes:
+      - application/json
+      description: Adds an expense to a user's personal records
+      parameters:
+      - description: Expense information
+        in: body
+        name: UpsertExpenseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertExpenseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Adds an expense
+      tags:
+      - Expense
+  /expense/{expenseId}:
+    get:
+      consumes:
+      - application/json
+      description: Get a user's expense by ID
+      parameters:
+      - description: Expense ID
+        in: path
+        name: expenseId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetExpenseOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get an expense
+      tags:
+      - Expense
   /feed:
     get:
       consumes:
@@ -1065,7 +1205,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Gets all of a user's feed purchass given a project ID
+      description: Gets all of a user's feed purchases given a project ID
       parameters:
       - description: Project ID
         in: query

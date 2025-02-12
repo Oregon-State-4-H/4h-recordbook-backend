@@ -53,22 +53,6 @@ func updateDailyFeed(c *gin.Context) {
 }
 
 /*******************************
-* EXPENSES
-********************************/
-
-func getExpenses(c *gin.Context) {
-
-}
-
-func getExpense(c *gin.Context) {
-
-}
-
-func addExpense(c *gin.Context) {
-
-}
-
-/*******************************
 * SUPPLY INVENTORY
 ********************************/
 func getSupplies(c *gin.Context) {

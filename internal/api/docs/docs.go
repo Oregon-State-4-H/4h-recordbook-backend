@@ -129,6 +129,132 @@ const docTemplate = `{
                 }
             }
         },
+        "/expense": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's expenses given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Expense"
+                ],
+                "summary": "Get expenses by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetExpensesOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds an expense to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Expense"
+                ],
+                "summary": "Adds an expense",
+                "parameters": [
+                    {
+                        "description": "Expense information",
+                        "name": "UpsertExpenseInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertExpenseInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/expense/{expenseId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a user's expense by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Expense"
+                ],
+                "summary": "Get an expense",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Expense ID",
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetExpenseOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/feed": {
             "get": {
                 "security": [
@@ -219,7 +345,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Gets all of a user's feed purchass given a project ID",
+                "description": "Gets all of a user's feed purchases given a project ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -2634,6 +2760,25 @@ const docTemplate = `{
                 }
             }
         },
+        "api.GetExpenseOutput": {
+            "type": "object",
+            "properties": {
+                "expense": {
+                    "$ref": "#/definitions/db.Expense"
+                }
+            }
+        },
+        "api.GetExpensesOutput": {
+            "type": "object",
+            "properties": {
+                "expenses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Expense"
+                    }
+                }
+            }
+        },
         "api.GetFeedOutput": {
             "type": "object",
             "properties": {
@@ -2923,19 +3068,57 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertExpenseInput": {
+            "type": "object",
+            "required": [
+                "cost",
+                "date",
+                "items",
+                "projectid",
+                "quantity"
+            ],
+            "properties": {
+                "cost": {
+                    "type": "number"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "number"
+                }
+            }
+        },
         "api.UpsertFeedInput": {
             "type": "object",
+            "required": [
+                "name",
+                "projectid"
+            ],
             "properties": {
                 "name": {
                     "type": "string"
                 },
-                "projectID": {
+                "projectid": {
                     "type": "string"
                 }
             }
         },
         "api.UpsertFeedPurchaseInput": {
             "type": "object",
+            "required": [
+                "amount_purchased",
+                "date_purchased",
+                "feedid",
+                "projectid",
+                "total_cost"
+            ],
             "properties": {
                 "amount_purchased": {
                     "type": "number"
@@ -3333,6 +3516,38 @@ const docTemplate = `{
                 },
                 "link": {
                     "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Expense": {
+            "type": "object",
+            "properties": {
+                "cost": {
+                    "type": "number"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "number"
                 },
                 "updated": {
                     "type": "string"
