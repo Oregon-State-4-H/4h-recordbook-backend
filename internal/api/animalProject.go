@@ -51,26 +51,3 @@ func addDailyFeed(c *gin.Context) {
 func updateDailyFeed(c *gin.Context) {
 
 }
-
-/*******************************
-* SUPPLY INVENTORY
-********************************/
-func getSupplies(c *gin.Context) {
-
-}
-
-func getSupply(c *gin.Context) {
-
-}
-
-func addSupply(c *gin.Context) {
-
-}
-
-func updateSupply(c *gin.Context) {
-
-}
-
-func deleteSupply(c *gin.Context) {
-
-}

@@ -1,0 +1,126 @@
+package db
+
+import (
+	"context"
+	"encoding/json"
+	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
+)
+
+type Supply struct {
+	ID string `json:"id"`
+	Description string `json:"description"`
+	StartValue float64 `json:"start_value"`
+	EndValue float64 `json:"end_value"`
+	ProjectID string `json:"projectid"`
+	UserID string `json:"userid"`
+	GenericDatabaseInfo
+}
+
+func (env *env) GetSuppliesByProject(ctx context.Context, userid string, projectid string) ([]Supply, error) {
+
+	env.logger.Info("Getting supplies by project")
+
+	container, err := env.client.NewContainer("supplies")
+	if err != nil {
+		return []Supply{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	query := "SELECT * FROM supplies s WHERE s.userid = @id AND s.projectid = @projectid"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@id", Value: userid},
+			{Name: "@projectid", Value: projectid},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	supplies := []Supply{}
+
+	for pager.More() {
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Supply{}, err
+		}
+
+		for _, bytes := range response.Items {
+			supply := Supply{}
+			err := json.Unmarshal(bytes, &supply)
+			if err != nil {
+				return []Supply{}, err
+			}
+			supplies = append(supplies, supply)
+		}
+	}
+
+	return supplies, nil
+
+}
+
+func (env *env) GetSupplyByID(ctx context.Context, userid string, supplyid string) (Supply, error) {
+
+	env.logger.Info("Getting supply by ID")
+	supply := Supply{}
+
+	container, err := env.client.NewContainer("supplies")
+	if err != nil {
+		return supply, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.ReadItem(ctx, partitionKey, supplyid, nil)
+	if err != nil {
+		return supply, err
+	}
+
+	err = json.Unmarshal(response.Value, &supply)
+	if err != nil {
+		return supply, err
+	}
+
+	return supply, nil
+
+}
+
+func (env *env) UpsertSupply(ctx context.Context, supply Supply) (interface{}, error) {
+	
+	env.logger.Info("Upserting supply")
+
+	container, err := env.client.NewContainer("supplies")
+
+	partitionKey := azcosmos.NewPartitionKeyString(supply.UserID)
+
+	marshalled, err := json.Marshal(supply)
+	if err != nil {
+		return nil, err
+	}
+
+	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}
+
+func (env *env) RemoveSupply(ctx context.Context, userid string, supplyid string) (interface{}, error) {
+
+	env.logger.Info("Removing supply")
+
+	container, err := env.client.NewContainer("supplies")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, supplyid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

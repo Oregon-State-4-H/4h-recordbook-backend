@@ -167,6 +167,18 @@ definitions:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
+  api.GetSuppliesOutput:
+    properties:
+      supplies:
+        items:
+          $ref: '#/definitions/db.Supply'
+        type: array
+    type: object
+  api.GetSupplyOutput:
+    properties:
+      supply:
+        $ref: '#/definitions/db.Supply'
+    type: object
   api.GetUserProfileOutput:
     properties:
       user:
@@ -516,6 +528,22 @@ definitions:
     - times_given
     - topic
     - year
+    type: object
+  api.UpsertSupplyInput:
+    properties:
+      description:
+        type: string
+      end_value:
+        type: number
+      projectid:
+        type: string
+      start_value:
+        type: number
+    required:
+    - description
+    - end_value
+    - projectid
+    - start_value
     type: object
   db.Bookmark:
     properties:
@@ -969,6 +997,25 @@ definitions:
       userid:
         type: string
       year:
+        type: string
+    type: object
+  db.Supply:
+    properties:
+      created:
+        type: string
+      description:
+        type: string
+      end_value:
+        type: number
+      id:
+        type: string
+      projectid:
+        type: string
+      start_value:
+        type: number
+      updated:
+        type: string
+      userid:
         type: string
     type: object
   db.User:
@@ -2653,6 +2700,141 @@ paths:
       summary: Sign up
       tags:
       - User
+  /supply:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's supplies given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSuppliesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get supplies by project
+      tags:
+      - Supply
+    post:
+      consumes:
+      - application/json
+      description: Adds a supply to a user's personal records
+      parameters:
+      - description: Supply information
+        in: body
+        name: UpsertSupplyInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSupplyInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a supply
+      tags:
+      - Supply
+  /supply/{supplyId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's supply given the supply ID
+      parameters:
+      - description: Supply ID
+        in: path
+        name: supplyId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a supply
+      tags:
+      - Supply
+    get:
+      consumes:
+      - application/json
+      description: Get a user's supply by ID
+      parameters:
+      - description: Supply ID
+        in: path
+        name: supplyId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSupplyOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a supply
+      tags:
+      - Supply
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's supply information
+      parameters:
+      - description: Supply ID
+        in: path
+        name: supplyId
+        required: true
+        type: string
+      - description: Supply information
+        in: body
+        name: UpsertSupplyInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSupplyInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a supply
+      tags:
+      - Supply
   /user:
     get:
       consumes:

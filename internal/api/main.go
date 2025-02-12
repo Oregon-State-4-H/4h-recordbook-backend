@@ -231,13 +231,11 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 	router.GET("/expense/:expenseId", e.getExpense)
 	router.POST("/expense", e.addExpense)
 
-	/*
-	router.GET("/supply/:projectId", getSupplies)
-	router.GET("/supply/:supplyId", getSupply)
-	router.POST("/supply", addSupply)
-	router.PUT("/supply/:supplyId", updateSupply)
-	router.DELETE("/supply/:supplyId", deleteSupply)
-	*/
+	router.GET("/supply/", e.getSupplies)
+	router.GET("/supply/:supplyId", e.getSupply)
+	router.POST("/supply", e.addSupply)
+	router.PUT("/supply/:supplyId", e.updateSupply)
+	router.DELETE("/supply/:supplyId", e.deleteSupply)
 
 	e.api = router
 

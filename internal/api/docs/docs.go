@@ -2655,6 +2655,220 @@ const docTemplate = `{
                 }
             }
         },
+        "/supply": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's supplies given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Supply"
+                ],
+                "summary": "Get supplies by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSuppliesOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds a supply to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Supply"
+                ],
+                "summary": "Add a supply",
+                "parameters": [
+                    {
+                        "description": "Supply information",
+                        "name": "UpsertSupplyInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSupplyInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/supply/{supplyId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a user's supply by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Supply"
+                ],
+                "summary": "Get a supply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Supply ID",
+                        "name": "supplyId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSupplyOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's supply information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Supply"
+                ],
+                "summary": "Update a supply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Supply ID",
+                        "name": "supplyId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Supply information",
+                        "name": "UpsertSupplyInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSupplyInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's supply given the supply ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Supply"
+                ],
+                "summary": "Removes a supply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Supply ID",
+                        "name": "supplyId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "security": [
@@ -2995,6 +3209,25 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Section9"
                     }
+                }
+            }
+        },
+        "api.GetSuppliesOutput": {
+            "type": "object",
+            "properties": {
+                "supplies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Supply"
+                    }
+                }
+            }
+        },
+        "api.GetSupplyOutput": {
+            "type": "object",
+            "properties": {
+                "supply": {
+                    "$ref": "#/definitions/db.Supply"
                 }
             }
         },
@@ -3499,6 +3732,29 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSupplyInput": {
+            "type": "object",
+            "required": [
+                "description",
+                "end_value",
+                "projectid",
+                "start_value"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "end_value": {
+                    "type": "number"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "start_value": {
+                    "type": "number"
                 }
             }
         },
@@ -4189,6 +4445,35 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "year": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.Supply": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "end_value": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "start_value": {
+                    "type": "number"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
                     "type": "string"
                 }
             }

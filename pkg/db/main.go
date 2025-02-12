@@ -74,6 +74,10 @@ type Db interface {
 	GetExpensesByProject(ctx context.Context, userid string, projectid string) ([]Expense, error)
 	GetExpenseByID(ctx context.Context, userid string, expenseid string) (Expense, error)
 	UpsertExpense(ctx context.Context, expense Expense) (interface{}, error)
+	GetSuppliesByProject(ctx context.Context, userid string, projectid string) ([]Supply, error)
+	GetSupplyByID(ctx context.Context, userid string, supplyid string) (Supply, error)
+	UpsertSupply(ctx context.Context, supply Supply) (interface{}, error)
+	RemoveSupply(ctx context.Context, userid string, supplyid string) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {

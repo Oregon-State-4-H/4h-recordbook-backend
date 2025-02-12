@@ -19,7 +19,7 @@ type Expense struct {
 
 func (env *env) GetExpensesByProject(ctx context.Context, userid string, projectid string) ([]Expense, error) {
 
-	env.logger.Info("Getting Expenses by project")
+	env.logger.Info("Getting expenses by project")
 
 	container, err := env.client.NewContainer("expenses")
 	if err != nil {
@@ -28,7 +28,7 @@ func (env *env) GetExpensesByProject(ctx context.Context, userid string, project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userid)
 
-	query := "SELECT * FROM expenses f WHERE f.userid = @id AND f.projectid = @projectid"
+	query := "SELECT * FROM expenses e WHERE e.userid = @id AND e.projectid = @projectid"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

@@ -43,13 +43,3 @@ type DailyFeed struct {
 	UserID string `json:"userid"`
 	GenericDatabaseInfo
 }
-
-type Supplies struct {
-	ID string `json:"id"`
-	Description string `json:"description"`
-	StartValue float64 `json:"start_value"`
-	EndValue float64 `json:"end_value"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
-	GenericDatabaseInfo
-}
