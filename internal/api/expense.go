@@ -54,8 +54,6 @@ func (e *env) getExpenses(c *gin.Context) {
 		return
 	}
 
-	e.logger.Info("1")
-
 	var output GetExpensesOutput
 
 	output.Expenses, err = e.db.GetExpensesByProject(context.TODO(), claims.ID, projectID)

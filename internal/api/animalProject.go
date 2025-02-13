@@ -31,23 +31,3 @@ func updateAnimal(c *gin.Context) {
 func updateRateOfGain(c *gin.Context) {
 	
 }
-
-/*******************************
-* DAILY FEED
-********************************/
-
-func getDailyFeeds(c *gin.Context) {
-
-} 
-
-func getDailyFeed(c *gin.Context) {
-
-}
-
-func addDailyFeed(c *gin.Context) {
-
-}
-
-func updateDailyFeed(c *gin.Context) {
-
-}

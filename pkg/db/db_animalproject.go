@@ -31,15 +31,3 @@ type AnimalProjectRelation struct {
 	ProjectID string `json:"projectid"`
 	GenericDatabaseInfo
 }
-
-type DailyFeed struct {
-	ID string `json:"id"`
-	FeedDate string `json:"feed_date"`
-	FeedAmount float64 `json:"feed_amount"`
-	AnimalID string `json:"animalid"`
-	FeedID string `json:"feedid"`
-	FeedPurchaseID string `json:"feedpurchaseid"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
-	GenericDatabaseInfo
-}

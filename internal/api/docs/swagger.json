@@ -119,6 +119,189 @@
                 }
             }
         },
+        "/daily-feed": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's daily feeds for a given project and animal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Daily Feed"
+                ],
+                "summary": "Get daily feeds by project and animal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Animal ID",
+                        "name": "animalId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetDailyFeedsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds a daily feed to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Daily Feed"
+                ],
+                "summary": "Add a daily feed",
+                "parameters": [
+                    {
+                        "description": "Daily Feed information",
+                        "name": "UpsertDailyFeedInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertDailyFeedInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/daily-feed/{dailyFeedId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a user's daily feed by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Daily Feed"
+                ],
+                "summary": "Get a daily feed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Daily Feed ID",
+                        "name": "dailyFeedId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetDailyFeedOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's daily feed information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Daily Feed"
+                ],
+                "summary": "Update a daily feed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Daily Feed ID",
+                        "name": "dailyFeedId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "DailyFeed information",
+                        "name": "UpsertDailyFeedInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertDailyFeedInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/expense": {
             "get": {
                 "security": [
@@ -2964,6 +3147,25 @@
                 }
             }
         },
+        "api.GetDailyFeedOutput": {
+            "type": "object",
+            "properties": {
+                "daily_feed": {
+                    "$ref": "#/definitions/db.DailyFeed"
+                }
+            }
+        },
+        "api.GetDailyFeedsOutput": {
+            "type": "object",
+            "properties": {
+                "daily_feeds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.DailyFeed"
+                    }
+                }
+            }
+        },
         "api.GetExpenseOutput": {
             "type": "object",
             "properties": {
@@ -3287,6 +3489,37 @@
                     "type": "string"
                 },
                 "middle_name_initial": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertDailyFeedInput": {
+            "type": "object",
+            "required": [
+                "animalid",
+                "feed_amount",
+                "feed_date",
+                "feedid",
+                "feedpurchaseid",
+                "projectid"
+            ],
+            "properties": {
+                "animalid": {
+                    "type": "string"
+                },
+                "feed_amount": {
+                    "type": "number"
+                },
+                "feed_date": {
+                    "type": "string"
+                },
+                "feedid": {
+                    "type": "string"
+                },
+                "feedpurchaseid": {
+                    "type": "string"
+                },
+                "projectid": {
                     "type": "string"
                 }
             }
@@ -3761,6 +3994,41 @@
                     "type": "string"
                 },
                 "link": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.DailyFeed": {
+            "type": "object",
+            "properties": {
+                "animalid": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "feed_amount": {
+                    "type": "number"
+                },
+                "feed_date": {
+                    "type": "string"
+                },
+                "feedid": {
+                    "type": "string"
+                },
+                "feedpurchaseid": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "projectid": {
                     "type": "string"
                 },
                 "updated": {

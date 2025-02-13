@@ -220,12 +220,10 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 	router.POST("/feed-purchase", e.addFeedPurchase)
 	router.PUT("/feed-purchase/:feedPurchaseId", e.updateFeedPurchase)
 
-	/*
-	router.GET("/daily-feed/:projectId/:animalId", getDailyFeeds)
-	router.GET("/daily-feed/:dailyFeedId", getDailyFeed)
-	router.POST("/daily-feed", addDailyFeed)
-	router.PUT("/daily-feed", updateDailyFeed)
-	*/
+	router.GET("/daily-feed", e.getDailyFeeds)
+	router.GET("/daily-feed/:dailyFeedId", e.getDailyFeed)
+	router.POST("/daily-feed", e.addDailyFeed)
+	router.PUT("/daily-feed/:dailyFeedId", e.updateDailyFeed)
 
 	router.GET("/expense", e.getExpenses)
 	router.GET("/expense/:expenseId", e.getExpense)
