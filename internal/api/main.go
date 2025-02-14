@@ -202,13 +202,11 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 
 	router.DELETE("/section/:sectionId", e.deleteSection)
 
-	/*
-	router.GET("/animal/docs/:projectId", getAnimalDocs)
-	router.GET("/animal/:animalId", getAnimal)
-	router.POST("/animal", addAnimal)
-	router.PUT("/animal", updateAnimal)
-	router.PUT("/rate-of-gain", updateRateOfGain)
-	*/
+	router.GET("/animal", e.getAnimals)
+	router.GET("/animal/:animalId", e.getAnimal)
+	router.POST("/animal", e.addAnimal)
+	router.PUT("/animal/:animalId", e.updateAnimal)
+	router.PUT("/rate-of-gain/:animalId", e.updateRateOfGain)
 
 	router.GET("/feed", e.getFeeds)
 	router.GET("/feed/:feedId", e.getFeed)

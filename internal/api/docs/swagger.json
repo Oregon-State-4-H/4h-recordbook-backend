@@ -5,6 +5,182 @@
         "contact": {}
     },
     "paths": {
+        "/animal": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's animals for a given project",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Get animals by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetAnimalsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds an animal to a user's personal records",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Add an animal",
+                "parameters": [
+                    {
+                        "description": "Animal information",
+                        "name": "UpsertAnimalInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertAnimalInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/animal/{animalId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get a user's animal by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Get an animal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Animal ID",
+                        "name": "animalId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetAnimalOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's animal information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Update an animal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Animal ID",
+                        "name": "animalId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Animal information",
+                        "name": "UpsertAnimalInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertAnimalInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/bookmarks": {
             "get": {
                 "security": [
@@ -971,6 +1147,58 @@
                     },
                     "401": {
                         "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/rate-of-gain/{animalId}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's animal rate of gain information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Update an animal's rate of gain",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Animal ID",
+                        "name": "animalId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Animal rate of gain information",
+                        "name": "UpdateRateOfGainInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpdateRateOfGainInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             }
@@ -3136,6 +3364,25 @@
                 }
             }
         },
+        "api.GetAnimalOutput": {
+            "type": "object",
+            "properties": {
+                "animal": {
+                    "$ref": "#/definitions/db.Animal"
+                }
+            }
+        },
+        "api.GetAnimalsOutput": {
+            "type": "object",
+            "properties": {
+                "animals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/db.Animal"
+                    }
+                }
+            }
+        },
         "api.GetBookmarksOutput": {
             "type": "object",
             "properties": {
@@ -3470,6 +3717,29 @@
                 }
             }
         },
+        "api.UpdateRateOfGainInput": {
+            "type": "object",
+            "required": [
+                "beginning_date",
+                "beginning_weight",
+                "end_date",
+                "end_weight"
+            ],
+            "properties": {
+                "beginning_date": {
+                    "type": "string"
+                },
+                "beginning_weight": {
+                    "type": "number"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "end_weight": {
+                    "type": "number"
+                }
+            }
+        },
         "api.UpdateUserInput": {
             "type": "object",
             "properties": {
@@ -3489,6 +3759,57 @@
                     "type": "string"
                 },
                 "middle_name_initial": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.UpsertAnimalInput": {
+            "type": "object",
+            "required": [
+                "animal_cost",
+                "birth_date",
+                "dam_breed",
+                "name",
+                "projectid",
+                "purchase_date",
+                "quality_grade",
+                "sale_price",
+                "sire_breed",
+                "species",
+                "yield_grade"
+            ],
+            "properties": {
+                "animal_cost": {
+                    "type": "string"
+                },
+                "birth_date": {
+                    "type": "string"
+                },
+                "dam_breed": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "purchase_date": {
+                    "type": "string"
+                },
+                "quality_grade": {
+                    "type": "string"
+                },
+                "sale_price": {
+                    "type": "string"
+                },
+                "sire_breed": {
+                    "type": "string"
+                },
+                "species": {
+                    "type": "string"
+                },
+                "yield_grade": {
                     "type": "string"
                 }
             }
@@ -3978,6 +4299,68 @@
                 },
                 "start_value": {
                     "type": "number"
+                }
+            }
+        },
+        "db.Animal": {
+            "type": "object",
+            "properties": {
+                "animal_cost": {
+                    "type": "string"
+                },
+                "beginning_date": {
+                    "type": "string"
+                },
+                "beginning_weight": {
+                    "type": "number"
+                },
+                "birth_date": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string"
+                },
+                "dam_breed": {
+                    "type": "string"
+                },
+                "end_date": {
+                    "type": "string"
+                },
+                "end_weight": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "projectid": {
+                    "type": "string"
+                },
+                "purchase_date": {
+                    "type": "string"
+                },
+                "quality_grade": {
+                    "type": "string"
+                },
+                "sale_price": {
+                    "type": "string"
+                },
+                "sire_breed": {
+                    "type": "string"
+                },
+                "species": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "userid": {
+                    "type": "string"
+                },
+                "yield_grade": {
+                    "type": "string"
                 }
             }
         },

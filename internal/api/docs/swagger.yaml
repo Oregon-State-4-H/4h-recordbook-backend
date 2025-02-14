@@ -9,6 +9,18 @@ definitions:
     - label
     - link
     type: object
+  api.GetAnimalOutput:
+    properties:
+      animal:
+        $ref: '#/definitions/db.Animal'
+    type: object
+  api.GetAnimalsOutput:
+    properties:
+      animals:
+        items:
+          $ref: '#/definitions/db.Animal'
+        type: array
+    type: object
   api.GetBookmarksOutput:
     properties:
       bookmarks:
@@ -80,13 +92,6 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -179,6 +184,13 @@ definitions:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSuppliesOutput:
     properties:
       supplies:
@@ -223,6 +235,22 @@ definitions:
     - last_name_initial
     - middle_name_initial
     type: object
+  api.UpdateRateOfGainInput:
+    properties:
+      beginning_date:
+        type: string
+      beginning_weight:
+        type: number
+      end_date:
+        type: string
+      end_weight:
+        type: number
+    required:
+    - beginning_date
+    - beginning_weight
+    - end_date
+    - end_weight
+    type: object
   api.UpdateUserInput:
     properties:
       birthdate:
@@ -237,6 +265,43 @@ definitions:
         type: string
       middle_name_initial:
         type: string
+    type: object
+  api.UpsertAnimalInput:
+    properties:
+      animal_cost:
+        type: string
+      birth_date:
+        type: string
+      dam_breed:
+        type: string
+      name:
+        type: string
+      projectid:
+        type: string
+      purchase_date:
+        type: string
+      quality_grade:
+        type: string
+      sale_price:
+        type: string
+      sire_breed:
+        type: string
+      species:
+        type: string
+      yield_grade:
+        type: string
+    required:
+    - animal_cost
+    - birth_date
+    - dam_breed
+    - name
+    - projectid
+    - purchase_date
+    - quality_grade
+    - sale_price
+    - sire_breed
+    - species
+    - yield_grade
     type: object
   api.UpsertDailyFeedInput:
     properties:
@@ -328,31 +393,6 @@ definitions:
     - name
     - start_date
     - type
-    - year
-    type: object
-  api.UpsertSection1Input:
-    properties:
-      club_leader:
-        type: string
-      club_name:
-        type: string
-      grade:
-        type: integer
-      meetings_attended:
-        type: integer
-      meetings_held:
-        type: integer
-      num_in_club:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_leader
-    - club_name
-    - grade
-    - meetings_attended
-    - meetings_held
-    - num_in_club
     - year
     type: object
   api.UpsertSection2Input:
@@ -563,6 +603,31 @@ definitions:
     - recognition_type
     - year
     type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - num_in_club
+    - year
+    type: object
   api.UpsertSupplyInput:
     properties:
       description:
@@ -578,6 +643,47 @@ definitions:
     - end_value
     - projectid
     - start_value
+    type: object
+  db.Animal:
+    properties:
+      animal_cost:
+        type: string
+      beginning_date:
+        type: string
+      beginning_weight:
+        type: number
+      birth_date:
+        type: string
+      created:
+        type: string
+      dam_breed:
+        type: string
+      end_date:
+        type: string
+      end_weight:
+        type: number
+      id:
+        type: string
+      name:
+        type: string
+      projectid:
+        type: string
+      purchase_date:
+        type: string
+      quality_grade:
+        type: string
+      sale_price:
+        type: string
+      sire_breed:
+        type: string
+      species:
+        type: string
+      updated:
+        type: string
+      userid:
+        type: string
+      yield_grade:
+        type: string
     type: object
   db.Bookmark:
     properties:
@@ -1100,6 +1206,117 @@ info:
   contact: {}
   title: 4H Record Books API
 paths:
+  /animal:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's animals for a given project
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetAnimalsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get animals by project
+      tags:
+      - Animal
+    post:
+      consumes:
+      - application/json
+      description: Adds an animal to a user's personal records
+      parameters:
+      - description: Animal information
+        in: body
+        name: UpsertAnimalInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertAnimalInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add an animal
+      tags:
+      - Animal
+  /animal/{animalId}:
+    get:
+      consumes:
+      - application/json
+      description: Get a user's animal by ID
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetAnimalOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get an animal
+      tags:
+      - Animal
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's animal information
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalId
+        required: true
+        type: string
+      - description: Animal information
+        in: body
+        name: UpsertAnimalInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertAnimalInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an animal
+      tags:
+      - Animal
   /bookmarks:
     get:
       consumes:
@@ -1713,6 +1930,39 @@ paths:
       summary: Gets projects of the current year
       tags:
       - Projects
+  /rate-of-gain/{animalId}:
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's animal rate of gain information
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalId
+        required: true
+        type: string
+      - description: Animal rate of gain information
+        in: body
+        name: UpdateRateOfGainInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateRateOfGainInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an animal's rate of gain
+      tags:
+      - Animal
   /resume:
     get:
       consumes:
