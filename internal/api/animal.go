@@ -23,9 +23,9 @@ type UpsertAnimalInput struct {
 }
 
 type UpdateRateOfGainInput struct {
-	BeginningWeight float64 `json:"beginning_weight" validate:"required"`
+	BeginningWeight *float64 `json:"beginning_weight" validate:"required"`
 	BeginningDate string `json:"beginning_date" validate:"required"`
-	EndWeight float64 `json:"end_weight" validate:"required"`
+	EndWeight *float64 `json:"end_weight" validate:"required"`
 	EndDate string `json:"end_date" validate:"required"`
 }
 
@@ -406,9 +406,9 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 		SalePrice: animal.SalePrice,
 		YieldGrade: animal.YieldGrade,
 		QualityGrade: animal.QualityGrade,
-		BeginningWeight: input.BeginningWeight,
+		BeginningWeight: *input.BeginningWeight,
 		BeginningDate: beginningDate.ToString(),
-		EndWeight: input.EndWeight,
+		EndWeight: *input.EndWeight,
 		EndDate: endDate.ToString(),
 		ProjectID: animal.ProjectID,
 		UserID: claims.ID,

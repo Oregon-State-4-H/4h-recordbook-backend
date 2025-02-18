@@ -11,8 +11,8 @@ import (
 type UpsertExpenseInput struct {
 	Date string `json:"date" validate:"required"`
 	Items string `json:"items" validate:"required"`
-	Quantity float64 `json:"quantity" validate:"required"`
-	Cost float64 `json:"cost" validate:"required"`
+	Quantity *float64 `json:"quantity" validate:"required"`
+	Cost *float64 `json:"cost" validate:"required"`
 	ProjectID string `json:"projectid" validate:"required"`
 }
 
@@ -163,8 +163,8 @@ func (e *env) addExpense(c *gin.Context) {
 		ID: g.String(),
 		Date: date.ToString(),
 		Items: input.Items,
-		Quantity: input.Quantity,
-		Cost: input.Cost,
+		Quantity: *input.Quantity,
+		Cost: *input.Cost,
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {

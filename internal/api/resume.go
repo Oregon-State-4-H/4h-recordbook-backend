@@ -57,12 +57,12 @@ func (e *env) getResume(c *gin.Context) {
 
 type UpsertSection1Input struct {
 	Year string `json:"year" validate:"required"`
-	Grade int `json:"grade" validate:"required"`
+	Grade *int `json:"grade" validate:"required"`
 	ClubName string `json:"club_name" validate:"required"`
-	NumInClub int `json:"num_in_club" validate:"required"`
+	NumInClub *int `json:"num_in_club" validate:"required"`
 	ClubLeader string `json:"club_leader" validate:"required"`
-	MeetingsHeld int `json:"meetings_held" validate:"required"`
-	MeetingsAttended int `json:"meetings_attended" validate:"required"`
+	MeetingsHeld *int `json:"meetings_held" validate:"required"`
+	MeetingsAttended *int `json:"meetings_attended" validate:"required"`
 }
 
 type GetSection1Output struct {
@@ -150,12 +150,12 @@ func (e *env) addSection1(c *gin.Context) {
 		ID: g.String(),
 		Section: 1,
 		Year: input.Year,
-		Grade: input.Grade,
+		Grade: *input.Grade,
 		ClubName: input.ClubName,
-		NumInClub: input.NumInClub,
+		NumInClub: *input.NumInClub,
 		ClubLeader: input.ClubLeader,
-		MeetingsHeld: input.MeetingsHeld,
-		MeetingsAttended: input.MeetingsAttended,
+		MeetingsHeld: *input.MeetingsHeld,
+		MeetingsAttended: *input.MeetingsAttended,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -233,12 +233,12 @@ func (e *env) updateSection1(c *gin.Context) {
 		ID: existingSection.ID,
 		Section: 1,
 		Year: input.Year,
-		Grade: input.Grade,
+		Grade: *input.Grade,
 		ClubName: input.ClubName,
-		NumInClub: input.NumInClub,
+		NumInClub: *input.NumInClub,
 		ClubLeader: input.ClubLeader,
-		MeetingsHeld: input.MeetingsHeld,
-		MeetingsAttended: input.MeetingsAttended,
+		MeetingsHeld: *input.MeetingsHeld,
+		MeetingsAttended: *input.MeetingsAttended,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
@@ -860,8 +860,8 @@ func (e *env) updateSection4(c *gin.Context) {
 type UpsertSection5Input struct {
 	Year string `json:"year" validate:"required"`
 	LeadershipRole string `json:"leadership_role" validate:"required"`
-	HoursSpent int `json:"hours_spent" validate:"required"`
-	NumPeopleReached int `json:"num_people_reached" validate:"required"`
+	HoursSpent *int `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection5Output struct {
@@ -950,8 +950,8 @@ func (e *env) addSection5(c *gin.Context) {
 		Section: 5,
 		Year: input.Year,
 		LeadershipRole: input.LeadershipRole,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -1030,8 +1030,8 @@ func (e *env) updateSection5(c *gin.Context) {
 		Section: 5,
 		Year: input.Year,
 		LeadershipRole: input.LeadershipRole,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
@@ -1060,8 +1060,8 @@ type UpsertSection6Input struct {
 	Year string `json:"year" validate:"required"`
 	OrganizationName string `json:"organization_name" validate:"required"`
 	LeadershipRole string `json:"leadership_role" validate:"required"`
-	HoursSpent int `json:"hours_spent" validate:"required"`
-	NumPeopleReached int `json:"num_people_reached" validate:"required"`
+	HoursSpent *int `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection6Output struct {
@@ -1151,8 +1151,8 @@ func (e *env) addSection6(c *gin.Context) {
 		Year: input.Year,
 		OrganizationName: input.OrganizationName,
 		LeadershipRole: input.LeadershipRole,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -1232,8 +1232,8 @@ func (e *env) updateSection6(c *gin.Context) {
 		Year: input.Year,
 		OrganizationName: input.OrganizationName,
 		LeadershipRole: input.LeadershipRole,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
@@ -1261,8 +1261,8 @@ func (e *env) updateSection6(c *gin.Context) {
 type UpsertSection7Input struct {
 	Year string `json:"year" validate:"required"`
 	ClubMemberActivities string `json:"club_member_activities" validate:"required"`
-	HoursSpent int `json:"hours_spent" validate:"required"`
-	NumPeopleReached int `json:"num_people_reached" validate:"required"`
+	HoursSpent *int `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection7Output struct {
@@ -1351,8 +1351,8 @@ func (e *env) addSection7(c *gin.Context) {
 		Section: 7,
 		Year: input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -1431,8 +1431,8 @@ func (e *env) updateSection7(c *gin.Context) {
 		Section: 7,
 		Year: input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
@@ -1460,8 +1460,8 @@ func (e *env) updateSection7(c *gin.Context) {
 type UpsertSection8Input struct {
 	Year string `json:"year" validate:"required"`
 	IndividualGroupActivities string `json:"individual_group_activities" validate:"required"`
-	HoursSpent int `json:"hours_spent" validate:"required"`
-	NumPeopleReached int `json:"num_people_reached" validate:"required"`
+	HoursSpent *int `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection8Output struct {
@@ -1550,8 +1550,8 @@ func (e *env) addSection8(c *gin.Context) {
 		Section: 8,
 		Year: input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -1630,8 +1630,8 @@ func (e *env) updateSection8(c *gin.Context) {
 		Section: 8,
 		Year: input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
-		HoursSpent: input.HoursSpent,
-		NumPeopleReached: input.NumPeopleReached,
+		HoursSpent: *input.HoursSpent,
+		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
@@ -1660,9 +1660,9 @@ type UpsertSection9Input struct {
 	Year string `json:"year" validate:"required"`
 	CommunicationType string `json:"communication_type" validate:"required"`
 	Topic string `json:"topic" validate:"required"`
-	TimesGiven int `json:"times_given" validate:"required"`
+	TimesGiven *int `json:"times_given" validate:"required"`
 	Location string `json:"location" validate:"required"`
-	AudienceSize int `json:"audience_size" validate:"required"`
+	AudienceSize *int `json:"audience_size" validate:"required"`
 }
 
 type GetSection9Output struct {
@@ -1752,9 +1752,9 @@ func (e *env) addSection9(c *gin.Context) {
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
-		TimesGiven: input.TimesGiven,
+		TimesGiven: *input.TimesGiven,
 		Location: input.Location,
-		AudienceSize: input.AudienceSize,
+		AudienceSize: *input.AudienceSize,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -1834,9 +1834,9 @@ func (e *env) updateSection9(c *gin.Context) {
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
-		TimesGiven: input.TimesGiven,
+		TimesGiven: *input.TimesGiven,
 		Location: input.Location,
-		AudienceSize: input.AudienceSize,
+		AudienceSize: *input.AudienceSize,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
@@ -1865,9 +1865,9 @@ type UpsertSection10Input struct {
 	Year string `json:"year" validate:"required"`
 	CommunicationType string `json:"communication_type" validate:"required"`
 	Topic string `json:"topic" validate:"required"`
-	TimesGiven int `json:"times_given" validate:"required"`
+	TimesGiven *int `json:"times_given" validate:"required"`
 	Location string `json:"location" validate:"required"`
-	AudienceSize string `json:"audience_size" validate:"required"`
+	AudienceSize *int `json:"audience_size" validate:"required"`
 }
 
 type GetSection10Output struct {
@@ -1957,9 +1957,9 @@ func (e *env) addSection10(c *gin.Context) {
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
-		TimesGiven: input.TimesGiven,
+		TimesGiven: *input.TimesGiven,
 		Location: input.Location,
-		AudienceSize: input.AudienceSize,
+		AudienceSize: *input.AudienceSize,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
@@ -2039,9 +2039,9 @@ func (e *env) updateSection10(c *gin.Context) {
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
-		TimesGiven: input.TimesGiven,
+		TimesGiven: *input.TimesGiven,
 		Location: input.Location,
-		AudienceSize: input.AudienceSize,
+		AudienceSize: *input.AudienceSize,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,

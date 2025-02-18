@@ -10,8 +10,8 @@ import (
 
 type UpsertFeedPurchaseInput struct {
 	DatePurchased string `json:"date_purchased" validate:"required"`
-	AmountPurchased float64 `json:"amount_purchased" validate:"required"`
-	TotalCost float64 `json:"total_cost" validate:"required"`
+	AmountPurchased *float64 `json:"amount_purchased" validate:"required"`
+	TotalCost *float64 `json:"total_cost" validate:"required"`
 	FeedID string `json:"feedid" validate:"required"`
 	ProjectID string `json:"projectid" validate:"required"`
 }
@@ -162,8 +162,8 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 	feedPurchase := db.FeedPurchase{
 		ID: g.String(),
 		DatePurchased: datePurchased.ToString(),
-		AmountPurchased: input.AmountPurchased,
-		TotalCost: input.TotalCost,
+		AmountPurchased: *input.AmountPurchased,
+		TotalCost: *input.TotalCost,
 		FeedID: input.FeedID,
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
@@ -251,8 +251,8 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 	updatedFeedPurchase := db.FeedPurchase{
 		ID: feedPurchase.ID,
 		DatePurchased: datePurchased.ToString(),
-		AmountPurchased: input.AmountPurchased,
-		TotalCost: input.TotalCost,
+		AmountPurchased: *input.AmountPurchased,
+		TotalCost: *input.TotalCost,
 		FeedID: feedPurchase.FeedID,
 		ProjectID: feedPurchase.ProjectID,
 		UserID: claims.ID,

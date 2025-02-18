@@ -10,8 +10,8 @@ import (
 
 type UpsertSupplyInput struct {
 	Description string `json:"description" validate:"required"`
-	StartValue float64 `json:"start_value" validate:"required"`
-	EndValue float64 `json:"end_value" validate:"required"`
+	StartValue *float64 `json:"start_value" validate:"required"`
+	EndValue *float64 `json:"end_value" validate:"required"`
 	ProjectID string `json:"projectid" validate:"required"`
 }
 
@@ -152,8 +152,8 @@ func (e *env) addSupply(c *gin.Context) {
 	supply := db.Supply{
 		ID: g.String(),
 		Description: input.Description,
-		StartValue: input.StartValue,
-		EndValue: input.EndValue,
+		StartValue: *input.StartValue,
+		EndValue: *input.EndValue,
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
@@ -232,8 +232,8 @@ func (e *env) updateSupply(c *gin.Context) {
 	updatedSupply := db.Supply{
 		ID: supply.ID,
 		Description: input.Description,
-		StartValue: input.StartValue,
-		EndValue: input.EndValue,
+		StartValue: *input.StartValue,
+		EndValue: *input.EndValue,
 		ProjectID: supply.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {

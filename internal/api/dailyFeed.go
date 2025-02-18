@@ -10,7 +10,7 @@ import (
 
 type UpsertDailyFeedInput struct {
 	FeedDate string `json:"feed_date" validate:"required"`
-	FeedAmount float64 `json:"feed_amount" validate:"required"`
+	FeedAmount *float64 `json:"feed_amount" validate:"required"`
 	AnimalID string `json:"animalid" validate:"required"`
 	FeedID string `json:"feedid" validate:"required"`
 	FeedPurchaseID string `json:"feedpurchaseid" validate:"required"`
@@ -172,7 +172,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 	dailyFeed := db.DailyFeed{
 		ID: g.String(),
 		FeedDate: feedDate.ToString(),
-		FeedAmount: input.FeedAmount,
+		FeedAmount: *input.FeedAmount,
 		AnimalID: input.AnimalID,
 		FeedID: input.FeedID,
 		FeedPurchaseID: input.FeedPurchaseID,
@@ -262,7 +262,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 	updatedDailyFeed := db.DailyFeed{
 		ID: dailyFeed.ID,
 		FeedDate: feedDate.ToString(),
-		FeedAmount: input.FeedAmount,
+		FeedAmount: *input.FeedAmount,
 		AnimalID: dailyFeed.AnimalID,
 		FeedID: dailyFeed.FeedID,
 		FeedPurchaseID: dailyFeed.FeedPurchaseID,

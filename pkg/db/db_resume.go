@@ -135,7 +135,7 @@ type Section10 struct {
 	Topic string `json:"topic"`
 	TimesGiven int `json:"times_given"`
 	Location string `json:"location"`
-	AudienceSize string `json:"audience_size"`
+	AudienceSize int `json:"audience_size"`
 	UserID string `json:"userid"`
 	GenericDatabaseInfo
 }
