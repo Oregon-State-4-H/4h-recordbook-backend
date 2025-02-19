@@ -95,12 +95,22 @@ definitions:
     type: object
   api.GetSection2Output:
     properties:
+      section_2:
+        $ref: '#/definitions/db.Section2'
+    type: object
+  api.GetSection2sOutput:
+    properties:
       section_2_data:
         items:
           $ref: '#/definitions/db.Section2'
         type: array
     type: object
   api.GetSection3Output:
+    properties:
+      section_3:
+        $ref: '#/definitions/db.Section3'
+    type: object
+  api.GetSection3sOutput:
     properties:
       section_3_data:
         items:
@@ -109,12 +119,22 @@ definitions:
     type: object
   api.GetSection4Output:
     properties:
+      section_4:
+        $ref: '#/definitions/db.Section4'
+    type: object
+  api.GetSection4sOutput:
+    properties:
       section_4_data:
         items:
           $ref: '#/definitions/db.Section4'
         type: array
     type: object
   api.GetSection5Output:
+    properties:
+      section_5:
+        $ref: '#/definitions/db.Section5'
+    type: object
+  api.GetSection5sOutput:
     properties:
       section_5_data:
         items:
@@ -123,12 +143,22 @@ definitions:
     type: object
   api.GetSection6Output:
     properties:
+      section_6:
+        $ref: '#/definitions/db.Section6'
+    type: object
+  api.GetSection6sOutput:
+    properties:
       section_6_data:
         items:
           $ref: '#/definitions/db.Section6'
         type: array
     type: object
   api.GetSection7Output:
+    properties:
+      section_7:
+        $ref: '#/definitions/db.Section7'
+    type: object
+  api.GetSection7sOutput:
     properties:
       section_7_data:
         items:
@@ -137,12 +167,22 @@ definitions:
     type: object
   api.GetSection8Output:
     properties:
+      section_8:
+        $ref: '#/definitions/db.Section8'
+    type: object
+  api.GetSection8sOutput:
+    properties:
       section_8_data:
         items:
           $ref: '#/definitions/db.Section8'
         type: array
     type: object
   api.GetSection9Output:
+    properties:
+      section_9:
+        $ref: '#/definitions/db.Section9'
+    type: object
+  api.GetSection9sOutput:
     properties:
       section_9_data:
         items:
@@ -151,12 +191,22 @@ definitions:
     type: object
   api.GetSection10Output:
     properties:
+      section_10:
+        $ref: '#/definitions/db.Section10'
+    type: object
+  api.GetSection10sOutput:
+    properties:
       section_10_data:
         items:
           $ref: '#/definitions/db.Section10'
         type: array
     type: object
   api.GetSection11Output:
+    properties:
+      section_11:
+        $ref: '#/definitions/db.Section11'
+    type: object
+  api.GetSection11sOutput:
     properties:
       section_11_data:
         items:
@@ -165,12 +215,22 @@ definitions:
     type: object
   api.GetSection12Output:
     properties:
-      section_1_data:
+      section_12:
+        $ref: '#/definitions/db.Section12'
+    type: object
+  api.GetSection12sOutput:
+    properties:
+      section_12_data:
         items:
           $ref: '#/definitions/db.Section12'
         type: array
     type: object
   api.GetSection13Output:
+    properties:
+      section_13:
+        $ref: '#/definitions/db.Section13'
+    type: object
+  api.GetSection13sOutput:
     properties:
       section_13_data:
         items:
@@ -179,12 +239,22 @@ definitions:
     type: object
   api.GetSection14Output:
     properties:
+      section_14:
+        $ref: '#/definitions/db.Section14'
+    type: object
+  api.GetSection14sOutput:
+    properties:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
   api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
     properties:
       section_1_data:
         items:
@@ -395,6 +465,31 @@ definitions:
     - type
     - year
     type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - num_in_club
+    - year
+    type: object
   api.UpsertSection2Input:
     properties:
       project_name:
@@ -532,7 +627,7 @@ definitions:
   api.UpsertSection10Input:
     properties:
       audience_size:
-        type: string
+        type: integer
       communication_type:
         type: string
       location:
@@ -601,31 +696,6 @@ definitions:
         type: string
     required:
     - recognition_type
-    - year
-    type: object
-  api.UpsertSection1Input:
-    properties:
-      club_leader:
-        type: string
-      club_name:
-        type: string
-      grade:
-        type: integer
-      meetings_attended:
-        type: integer
-      meetings_held:
-        type: integer
-      num_in_club:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_leader
-    - club_name
-    - grade
-    - meetings_attended
-    - meetings_held
-    - num_in_club
     - year
     type: object
   api.UpsertSupplyInput:
@@ -1064,7 +1134,7 @@ definitions:
   db.Section10:
     properties:
       audience_size:
-        type: string
+        type: integer
       communication_type:
         type: string
       created:
@@ -2019,9 +2089,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection1Output'
+            $ref: '#/definitions/api.GetSection1sOutput'
         "401":
           description: Unauthorized
+        "404":
+          description: Not Found
       security:
       - ApiKeyAuth: []
       summary: Gets all Section 1 entries
@@ -2053,6 +2125,30 @@ paths:
       tags:
       - Resume Section 1
   /section1/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 1 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection1Output'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 1
+      tags:
+      - Resume Section 1
     put:
       consumes:
       - application/json
@@ -2094,7 +2190,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection2Output'
+            $ref: '#/definitions/api.GetSection2sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2128,6 +2224,32 @@ paths:
       tags:
       - Resume Section 2
   /section2/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 2 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection2Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 2
+      tags:
+      - Resume Section 2
     put:
       consumes:
       - application/json
@@ -2169,7 +2291,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection3Output'
+            $ref: '#/definitions/api.GetSection3sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2203,6 +2325,32 @@ paths:
       tags:
       - Resume Section 3
   /section3/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 3 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection3Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 3
+      tags:
+      - Resume Section 3
     put:
       consumes:
       - application/json
@@ -2244,7 +2392,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection4Output'
+            $ref: '#/definitions/api.GetSection4sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2278,6 +2426,32 @@ paths:
       tags:
       - Resume Section 4
   /section4/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 4 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection4Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 4
+      tags:
+      - Resume Section 4
     put:
       consumes:
       - application/json
@@ -2319,7 +2493,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection5Output'
+            $ref: '#/definitions/api.GetSection5sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2353,6 +2527,32 @@ paths:
       tags:
       - Resume Section 5
   /section5/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 5 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection5Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 5
+      tags:
+      - Resume Section 5
     put:
       consumes:
       - application/json
@@ -2394,7 +2594,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection6Output'
+            $ref: '#/definitions/api.GetSection6sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2428,6 +2628,32 @@ paths:
       tags:
       - Resume Section 6
   /section6/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 6 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection6Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 6
+      tags:
+      - Resume Section 6
     put:
       consumes:
       - application/json
@@ -2469,7 +2695,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection7Output'
+            $ref: '#/definitions/api.GetSection7sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2503,6 +2729,32 @@ paths:
       tags:
       - Resume Section 7
   /section7/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 7 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection7Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 7
+      tags:
+      - Resume Section 7
     put:
       consumes:
       - application/json
@@ -2544,7 +2796,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection8Output'
+            $ref: '#/definitions/api.GetSection8sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2578,6 +2830,32 @@ paths:
       tags:
       - Resume Section 8
   /section8/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 8 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection8Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 8
+      tags:
+      - Resume Section 8
     put:
       consumes:
       - application/json
@@ -2619,7 +2897,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection9Output'
+            $ref: '#/definitions/api.GetSection9sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2653,6 +2931,32 @@ paths:
       tags:
       - Resume Section 9
   /section9/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 9 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection9Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 9
+      tags:
+      - Resume Section 9
     put:
       consumes:
       - application/json
@@ -2694,7 +2998,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection10Output'
+            $ref: '#/definitions/api.GetSection10sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2728,6 +3032,32 @@ paths:
       tags:
       - Resume Section 10
   /section10/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 10 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection10Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 10
+      tags:
+      - Resume Section 10
     put:
       consumes:
       - application/json
@@ -2769,7 +3099,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection11Output'
+            $ref: '#/definitions/api.GetSection11sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2803,6 +3133,32 @@ paths:
       tags:
       - Resume Section 11
   /section11/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 11 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection11Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 11
+      tags:
+      - Resume Section 11
     put:
       consumes:
       - application/json
@@ -2844,7 +3200,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection12Output'
+            $ref: '#/definitions/api.GetSection12sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2878,6 +3234,32 @@ paths:
       tags:
       - Resume Section 12
   /section12/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 12 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection12Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 12
+      tags:
+      - Resume Section 12
     put:
       consumes:
       - application/json
@@ -2919,7 +3301,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection13Output'
+            $ref: '#/definitions/api.GetSection13sOutput'
         "401":
           description: Unauthorized
       security:
@@ -2953,6 +3335,32 @@ paths:
       tags:
       - Resume Section 13
   /section13/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 13 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection13Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 13
+      tags:
+      - Resume Section 13
     put:
       consumes:
       - application/json
@@ -2994,7 +3402,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.GetSection14Output'
+            $ref: '#/definitions/api.GetSection14sOutput'
         "401":
           description: Unauthorized
       security:
@@ -3028,6 +3436,32 @@ paths:
       tags:
       - Resume Section 14
   /section14/{sectionId}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 14 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection14Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 14
+      tags:
+      - Resume Section 14
     put:
       consumes:
       - application/json

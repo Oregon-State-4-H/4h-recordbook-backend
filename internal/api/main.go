@@ -144,59 +144,73 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 
 	router.GET("/resume", e.getResume)
 
-	router.GET("/section1", e.getSection1)
+	router.GET("/section1", e.getSection1s)
+	router.GET("/section1/:sectionId", e.getSection1)
 	router.POST("/section1", e.addSection1)
 	router.PUT("/section1/:sectionId", e.updateSection1)
 
-	router.GET("/section2", e.getSection2)
+	router.GET("/section2", e.getSection2s)
+	router.GET("/section2/:sectionId", e.getSection2)
 	router.POST("/section2", e.addSection2)
 	router.PUT("/section2/:sectionId", e.updateSection2)
 
-	router.GET("/section3", e.getSection3)
+	router.GET("/section3", e.getSection3s)
+	router.GET("/section3/:sectionId", e.getSection3)
 	router.POST("/section3", e.addSection3)
 	router.PUT("/section3/:sectionId", e.updateSection3)
 
-	router.GET("/section4", e.getSection4)
+	router.GET("/section4", e.getSection4s)
+	router.GET("/section4/:sectionId", e.getSection4)
 	router.POST("/section4", e.addSection4)
 	router.PUT("/section4/:sectionId", e.updateSection4)
 
-	router.GET("/section5", e.getSection5)
+	router.GET("/section5", e.getSection5s)
+	router.GET("/section5/:sectionId", e.getSection5)
 	router.POST("/section5", e.addSection5)
 	router.PUT("/section5/:sectionId", e.updateSection5)
 
-	router.GET("/section6", e.getSection6)
+	router.GET("/section6", e.getSection6s)
+	router.GET("/section6/:sectionId", e.getSection6)
 	router.POST("/section6", e.addSection6)
 	router.PUT("/section6/:sectionId", e.updateSection6)
 
-	router.GET("/section7", e.getSection7)
+	router.GET("/section7", e.getSection7s)
+	router.GET("/section7/:sectionId", e.getSection7)
 	router.POST("/section7", e.addSection7)
 	router.PUT("/section7/:sectionId", e.updateSection7)
 
-	router.GET("/section8", e.getSection8)
+	router.GET("/section8", e.getSection8s)
+	router.GET("/section8/:sectionId", e.getSection8)
 	router.POST("/section8", e.addSection8)
 	router.PUT("/section8/:sectionId", e.updateSection8)
 
-	router.GET("/section9", e.getSection9)
+	router.GET("/section9", e.getSection9s)
+	router.GET("/section9/:sectionId", e.getSection9)
 	router.POST("/section9", e.addSection9)
 	router.PUT("/section9/:sectionId", e.updateSection9)
 
-	router.GET("/section10", e.getSection10)
+	router.GET("/section10", e.getSection10s)
+	router.GET("/section10/:sectionId", e.getSection10)
 	router.POST("/section10", e.addSection10)
 	router.PUT("/section10/:sectionId", e.updateSection10)
 
-	router.GET("/section11", e.getSection11)
+	router.GET("/section11", e.getSection11s)
+	router.GET("/section11/:sectionId", e.getSection11)
 	router.POST("/section11", e.addSection11)
 	router.PUT("/section11/:sectionId", e.updateSection11)
 
-	router.GET("/section12", e.getSection12)
+	router.GET("/section12", e.getSection12s)
+	router.GET("/section12/:sectionId", e.getSection12)
 	router.POST("/section12", e.addSection12)
 	router.PUT("/section12/:sectionId", e.updateSection12)
 
-	router.GET("/section13", e.getSection13)
+	router.GET("/section13", e.getSection13s)
+	router.GET("/section13/:sectionId", e.getSection13)
 	router.POST("/section13", e.addSection13)
 	router.PUT("/section13/:sectionId", e.updateSection13)
 
-	router.GET("/section14", e.getSection14)
+	router.GET("/section14", e.getSection14s)
+	router.GET("/section14/:sectionId", e.getSection14)
 	router.POST("/section14", e.addSection14)
 	router.PUT("/section14/:sectionId", e.updateSection14)
 

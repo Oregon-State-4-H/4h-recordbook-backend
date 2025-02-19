@@ -1306,11 +1306,14 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection1Output"
+                            "$ref": "#/definitions/api.GetSection1sOutput"
                         }
                     },
                     "401": {
                         "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     }
                 }
             },
@@ -1356,6 +1359,44 @@ const docTemplate = `{
             }
         },
         "/section1/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 1 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 1"
+                ],
+                "summary": "Get a Section 1",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection1Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -1426,7 +1467,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection10Output"
+                            "$ref": "#/definitions/api.GetSection10sOutput"
                         }
                     },
                     "401": {
@@ -1476,6 +1517,47 @@ const docTemplate = `{
             }
         },
         "/section10/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 10 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 10"
+                ],
+                "summary": "Get a Section 10",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection10Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -1546,7 +1628,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection11Output"
+                            "$ref": "#/definitions/api.GetSection11sOutput"
                         }
                     },
                     "401": {
@@ -1596,6 +1678,47 @@ const docTemplate = `{
             }
         },
         "/section11/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 11 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 11"
+                ],
+                "summary": "Get a Section 11",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection11Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -1666,7 +1789,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection12Output"
+                            "$ref": "#/definitions/api.GetSection12sOutput"
                         }
                     },
                     "401": {
@@ -1716,6 +1839,47 @@ const docTemplate = `{
             }
         },
         "/section12/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 12 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 12"
+                ],
+                "summary": "Get a Section 12",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection12Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -1786,7 +1950,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection13Output"
+                            "$ref": "#/definitions/api.GetSection13sOutput"
                         }
                     },
                     "401": {
@@ -1836,6 +2000,47 @@ const docTemplate = `{
             }
         },
         "/section13/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 13 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 13"
+                ],
+                "summary": "Get a Section 13",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection13Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -1906,7 +2111,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection14Output"
+                            "$ref": "#/definitions/api.GetSection14sOutput"
                         }
                     },
                     "401": {
@@ -1956,6 +2161,47 @@ const docTemplate = `{
             }
         },
         "/section14/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 14 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 14"
+                ],
+                "summary": "Get a Section 14",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection14Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2026,7 +2272,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection2Output"
+                            "$ref": "#/definitions/api.GetSection2sOutput"
                         }
                     },
                     "401": {
@@ -2076,6 +2322,47 @@ const docTemplate = `{
             }
         },
         "/section2/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 2 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 2"
+                ],
+                "summary": "Get a Section 2",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection2Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2146,7 +2433,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection3Output"
+                            "$ref": "#/definitions/api.GetSection3sOutput"
                         }
                     },
                     "401": {
@@ -2196,6 +2483,47 @@ const docTemplate = `{
             }
         },
         "/section3/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 3 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 3"
+                ],
+                "summary": "Get a Section 3",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection3Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2266,7 +2594,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection4Output"
+                            "$ref": "#/definitions/api.GetSection4sOutput"
                         }
                     },
                     "401": {
@@ -2316,6 +2644,47 @@ const docTemplate = `{
             }
         },
         "/section4/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 4 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 4"
+                ],
+                "summary": "Get a Section 4",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection4Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2386,7 +2755,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection5Output"
+                            "$ref": "#/definitions/api.GetSection5sOutput"
                         }
                     },
                     "401": {
@@ -2436,6 +2805,47 @@ const docTemplate = `{
             }
         },
         "/section5/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 5 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 5"
+                ],
+                "summary": "Get a Section 5",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection5Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2506,7 +2916,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection6Output"
+                            "$ref": "#/definitions/api.GetSection6sOutput"
                         }
                     },
                     "401": {
@@ -2556,6 +2966,47 @@ const docTemplate = `{
             }
         },
         "/section6/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 6 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 6"
+                ],
+                "summary": "Get a Section 6",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection6Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2626,7 +3077,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection7Output"
+                            "$ref": "#/definitions/api.GetSection7sOutput"
                         }
                     },
                     "401": {
@@ -2676,6 +3127,47 @@ const docTemplate = `{
             }
         },
         "/section7/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 7 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 7"
+                ],
+                "summary": "Get a Section 7",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection7Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2746,7 +3238,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection8Output"
+                            "$ref": "#/definitions/api.GetSection8sOutput"
                         }
                     },
                     "401": {
@@ -2796,6 +3288,47 @@ const docTemplate = `{
             }
         },
         "/section8/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 8 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 8"
+                ],
+                "summary": "Get a Section 8",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection8Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -2866,7 +3399,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetSection9Output"
+                            "$ref": "#/definitions/api.GetSection9sOutput"
                         }
                     },
                     "401": {
@@ -2916,6 +3449,47 @@ const docTemplate = `{
             }
         },
         "/section9/{sectionId}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets a user's Section 9 by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Resume Section 9"
+                ],
+                "summary": "Get a Section 9",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Section ID",
+                        "name": "sectionId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSection9Output"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
             "put": {
                 "security": [
                     {
@@ -3510,6 +4084,14 @@ const docTemplate = `{
         "api.GetSection10Output": {
             "type": "object",
             "properties": {
+                "section_10": {
+                    "$ref": "#/definitions/db.Section10"
+                }
+            }
+        },
+        "api.GetSection10sOutput": {
+            "type": "object",
+            "properties": {
                 "section_10_data": {
                     "type": "array",
                     "items": {
@@ -3519,6 +4101,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection11Output": {
+            "type": "object",
+            "properties": {
+                "section_11": {
+                    "$ref": "#/definitions/db.Section11"
+                }
+            }
+        },
+        "api.GetSection11sOutput": {
             "type": "object",
             "properties": {
                 "section_11_data": {
@@ -3532,7 +4122,15 @@ const docTemplate = `{
         "api.GetSection12Output": {
             "type": "object",
             "properties": {
-                "section_1_data": {
+                "section_12": {
+                    "$ref": "#/definitions/db.Section12"
+                }
+            }
+        },
+        "api.GetSection12sOutput": {
+            "type": "object",
+            "properties": {
+                "section_12_data": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/db.Section12"
@@ -3541,6 +4139,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection13Output": {
+            "type": "object",
+            "properties": {
+                "section_13": {
+                    "$ref": "#/definitions/db.Section13"
+                }
+            }
+        },
+        "api.GetSection13sOutput": {
             "type": "object",
             "properties": {
                 "section_13_data": {
@@ -3554,6 +4160,14 @@ const docTemplate = `{
         "api.GetSection14Output": {
             "type": "object",
             "properties": {
+                "section_14": {
+                    "$ref": "#/definitions/db.Section14"
+                }
+            }
+        },
+        "api.GetSection14sOutput": {
+            "type": "object",
+            "properties": {
                 "section_14_data": {
                     "type": "array",
                     "items": {
@@ -3563,6 +4177,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection1Output": {
+            "type": "object",
+            "properties": {
+                "section_1": {
+                    "$ref": "#/definitions/db.Section1"
+                }
+            }
+        },
+        "api.GetSection1sOutput": {
             "type": "object",
             "properties": {
                 "section_1_data": {
@@ -3576,6 +4198,14 @@ const docTemplate = `{
         "api.GetSection2Output": {
             "type": "object",
             "properties": {
+                "section_2": {
+                    "$ref": "#/definitions/db.Section2"
+                }
+            }
+        },
+        "api.GetSection2sOutput": {
+            "type": "object",
+            "properties": {
                 "section_2_data": {
                     "type": "array",
                     "items": {
@@ -3585,6 +4215,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection3Output": {
+            "type": "object",
+            "properties": {
+                "section_3": {
+                    "$ref": "#/definitions/db.Section3"
+                }
+            }
+        },
+        "api.GetSection3sOutput": {
             "type": "object",
             "properties": {
                 "section_3_data": {
@@ -3598,6 +4236,14 @@ const docTemplate = `{
         "api.GetSection4Output": {
             "type": "object",
             "properties": {
+                "section_4": {
+                    "$ref": "#/definitions/db.Section4"
+                }
+            }
+        },
+        "api.GetSection4sOutput": {
+            "type": "object",
+            "properties": {
                 "section_4_data": {
                     "type": "array",
                     "items": {
@@ -3607,6 +4253,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection5Output": {
+            "type": "object",
+            "properties": {
+                "section_5": {
+                    "$ref": "#/definitions/db.Section5"
+                }
+            }
+        },
+        "api.GetSection5sOutput": {
             "type": "object",
             "properties": {
                 "section_5_data": {
@@ -3620,6 +4274,14 @@ const docTemplate = `{
         "api.GetSection6Output": {
             "type": "object",
             "properties": {
+                "section_6": {
+                    "$ref": "#/definitions/db.Section6"
+                }
+            }
+        },
+        "api.GetSection6sOutput": {
+            "type": "object",
+            "properties": {
                 "section_6_data": {
                     "type": "array",
                     "items": {
@@ -3629,6 +4291,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection7Output": {
+            "type": "object",
+            "properties": {
+                "section_7": {
+                    "$ref": "#/definitions/db.Section7"
+                }
+            }
+        },
+        "api.GetSection7sOutput": {
             "type": "object",
             "properties": {
                 "section_7_data": {
@@ -3642,6 +4312,14 @@ const docTemplate = `{
         "api.GetSection8Output": {
             "type": "object",
             "properties": {
+                "section_8": {
+                    "$ref": "#/definitions/db.Section8"
+                }
+            }
+        },
+        "api.GetSection8sOutput": {
+            "type": "object",
+            "properties": {
                 "section_8_data": {
                     "type": "array",
                     "items": {
@@ -3651,6 +4329,14 @@ const docTemplate = `{
             }
         },
         "api.GetSection9Output": {
+            "type": "object",
+            "properties": {
+                "section_9": {
+                    "$ref": "#/definitions/db.Section9"
+                }
+            }
+        },
+        "api.GetSection9sOutput": {
             "type": "object",
             "properties": {
                 "section_9_data": {
@@ -3967,7 +4653,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "audience_size": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "communication_type": {
                     "type": "string"
@@ -4688,7 +5374,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "audience_size": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "communication_type": {
                     "type": "string"

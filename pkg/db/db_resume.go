@@ -187,91 +187,78 @@ func (env *env) GetResume(ctx context.Context, userid string) (Resume, error) {
 
 	env.logger.Info("Getting resume")
 	resume := Resume{}
-	
-	section1Data, err := env.GetSection1(ctx, userid)
+
+	var err error
+
+	resume.Section1Data, err = env.GetSection1sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section2Data, err := env.GetSection2(ctx, userid)
+	resume.Section2Data, err = env.GetSection2sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section3Data, err := env.GetSection3(ctx, userid)
+	resume.Section3Data, err = env.GetSection3sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section4Data, err := env.GetSection4(ctx, userid)
+	resume.Section4Data, err = env.GetSection4sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section5Data, err := env.GetSection5(ctx, userid)
+	resume.Section5Data, err = env.GetSection5sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section6Data, err := env.GetSection6(ctx, userid)
+	resume.Section6Data, err = env.GetSection6sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section7Data, err := env.GetSection7(ctx, userid)
+	resume.Section7Data, err = env.GetSection7sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section8Data, err := env.GetSection8(ctx, userid)
+	resume.Section8Data, err = env.GetSection8sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section9Data, err := env.GetSection9(ctx, userid)
+	resume.Section9Data, err = env.GetSection9sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section10Data, err := env.GetSection10(ctx, userid)
+	resume.Section10Data, err = env.GetSection10sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section11Data, err := env.GetSection11(ctx, userid)
+	resume.Section11Data, err = env.GetSection11sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section12Data, err := env.GetSection12(ctx, userid)
+	resume.Section12Data, err = env.GetSection12sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section13Data, err := env.GetSection13(ctx, userid)
+	resume.Section13Data, err = env.GetSection13sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
 
-	section14Data, err := env.GetSection14(ctx, userid)
+	resume.Section14Data, err = env.GetSection14sByUser(ctx, userid)
 	if err != nil {
 		return resume, err
 	}
-
-	resume.Section1Data = section1Data
-	resume.Section2Data = section2Data
-	resume.Section3Data = section3Data
-	resume.Section4Data = section4Data
-	resume.Section5Data = section5Data
-	resume.Section6Data = section6Data
-	resume.Section7Data = section7Data
-	resume.Section8Data = section8Data
-	resume.Section9Data = section9Data
-	resume.Section10Data = section10Data
-	resume.Section11Data = section11Data
-	resume.Section12Data = section12Data
-	resume.Section13Data = section13Data
-	resume.Section14Data = section14Data
 
 	return resume, nil
 
@@ -307,7 +294,7 @@ func (env *env) GetSection1ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection1(ctx context.Context, userid string) ([]Section1, error) {
+func (env *env) GetSection1sByUser(ctx context.Context, userid string) ([]Section1, error) {
 
 	env.logger.Info("Getting all Section 1 records")
 
@@ -403,7 +390,7 @@ func (env *env) GetSection2ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection2(ctx context.Context, userid string) ([]Section2, error) {
+func (env *env) GetSection2sByUser(ctx context.Context, userid string) ([]Section2, error) {
 
 	env.logger.Info("Getting all Section 2 records")
 
@@ -499,7 +486,7 @@ func (env *env) GetSection3ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection3(ctx context.Context, userid string) ([]Section3, error) {
+func (env *env) GetSection3sByUser(ctx context.Context, userid string) ([]Section3, error) {
 
 	env.logger.Info("Getting all Section 3 records")
 
@@ -595,7 +582,7 @@ func (env *env) GetSection4ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection4(ctx context.Context, userid string) ([]Section4, error) {
+func (env *env) GetSection4sByUser(ctx context.Context, userid string) ([]Section4, error) {
 
 	env.logger.Info("Getting all Section 4 records")
 
@@ -691,7 +678,7 @@ func (env *env) GetSection5ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection5(ctx context.Context, userid string) ([]Section5, error) {
+func (env *env) GetSection5sByUser(ctx context.Context, userid string) ([]Section5, error) {
 
 	env.logger.Info("Getting all Section 5 records")
 
@@ -787,7 +774,7 @@ func (env *env) GetSection6ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection6(ctx context.Context, userid string) ([]Section6, error) {
+func (env *env) GetSection6sByUser(ctx context.Context, userid string) ([]Section6, error) {
 
 	env.logger.Info("Getting all Section 6 records")
 
@@ -883,7 +870,7 @@ func (env *env) GetSection7ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection7(ctx context.Context, userid string) ([]Section7, error) {
+func (env *env) GetSection7sByUser(ctx context.Context, userid string) ([]Section7, error) {
 
 	env.logger.Info("Getting all Section 7 records")
 
@@ -979,7 +966,7 @@ func (env *env) GetSection8ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection8(ctx context.Context, userid string) ([]Section8, error) {
+func (env *env) GetSection8sByUser(ctx context.Context, userid string) ([]Section8, error) {
 
 	env.logger.Info("Getting all Section 8 records")
 
@@ -1075,7 +1062,7 @@ func (env *env) GetSection9ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection9(ctx context.Context, userid string) ([]Section9, error) {
+func (env *env) GetSection9sByUser(ctx context.Context, userid string) ([]Section9, error) {
 
 	env.logger.Info("Getting all Section 9 records")
 
@@ -1171,7 +1158,7 @@ func (env *env) GetSection10ByID(ctx context.Context, userid string, sectionid s
 
 }
 
-func (env *env) GetSection10(ctx context.Context, userid string) ([]Section10, error) {
+func (env *env) GetSection10sByUser(ctx context.Context, userid string) ([]Section10, error) {
 
 	env.logger.Info("Getting all Section 10 records")
 
@@ -1267,7 +1254,7 @@ func (env *env) GetSection11ByID(ctx context.Context, userid string, sectionid s
 
 }
 
-func (env *env) GetSection11(ctx context.Context, userid string) ([]Section11, error) {
+func (env *env) GetSection11sByUser(ctx context.Context, userid string) ([]Section11, error) {
 
 	env.logger.Info("Getting all Section 11 records")
 
@@ -1363,7 +1350,7 @@ func (env *env) GetSection12ByID(ctx context.Context, userid string, sectionid s
 
 }
 
-func (env *env) GetSection12(ctx context.Context, userid string) ([]Section12, error) {
+func (env *env) GetSection12sByUser(ctx context.Context, userid string) ([]Section12, error) {
 
 	env.logger.Info("Getting all Section 10 records")
 
@@ -1459,7 +1446,7 @@ func (env *env) GetSection13ByID(ctx context.Context, userid string, sectionid s
 
 }
 
-func (env *env) GetSection13(ctx context.Context, userid string) ([]Section13, error) {
+func (env *env) GetSection13sByUser(ctx context.Context, userid string) ([]Section13, error) {
 
 	env.logger.Info("Getting all Section 13 records")
 
@@ -1555,7 +1542,7 @@ func (env *env) GetSection14ByID(ctx context.Context, userid string, sectionid s
 
 }
 
-func (env *env) GetSection14(ctx context.Context, userid string) ([]Section14, error) {
+func (env *env) GetSection14sByUser(ctx context.Context, userid string) ([]Section14, error) {
 
 	env.logger.Info("Getting all Section 14 records")
 
