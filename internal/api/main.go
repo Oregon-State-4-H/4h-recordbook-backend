@@ -24,11 +24,11 @@ type Api interface {
 }
 
 type env struct {
-	logger	  *zap.SugaredLogger  `validate:"required"`
+	logger *zap.SugaredLogger `validate:"required"`
 	validator *validator.Validate `validate:"required"`
-	config    *config.Config	  `validate:"required"`
-	db 		  db.Db				  `validate:"required"`
-	api		  *gin.Engine		  `validate:"required"`
+	config *config.Config `validate:"required"`
+	db db.Db `validate:"required"`
+	api *gin.Engine `validate:"required"`
 }
 
 func ternary(s1 string, s2 string) (string){

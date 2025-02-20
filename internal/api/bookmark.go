@@ -9,7 +9,7 @@ import (
 )
 
 type AddBookmarkInput struct {
-	Link  string `json:"link" validate:"required"`
+	Link string `json:"link" validate:"required"`
 	Label string `json:"label" validate:"required"`
 }
 

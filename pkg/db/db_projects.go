@@ -9,14 +9,14 @@ import (
 )
 
 type Project struct {
-	ID			string `json:"id"`
-	Year 		string `json:"year"`
-	Name 		string `json:"name"`
+	ID string `json:"id"`
+	Year string `json:"year"`
+	Name string `json:"name"`
 	Description string `json:"description"`
-	Type 		string `json:"type"`
-	StartDate   string `json:"start_date"`
-	EndDate		string `json:"end_date"`
-	UserID		string `json:"userid"`
+	Type string `json:"type"`
+	StartDate string `json:"start_date"`
+	EndDate string `json:"end_date"`
+	UserID string `json:"userid"`
 	GenericDatabaseInfo
 }
 

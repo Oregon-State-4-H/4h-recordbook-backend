@@ -90,9 +90,9 @@ type GenericDatabaseInfo struct {
 }
 
 type env struct {
-	logger	  *zap.SugaredLogger  	   `validate:"required"`
-	validator *validator.Validate 	   `validate:"required"`
-	client	  *azcosmos.DatabaseClient `validate:"required"`
+	logger *zap.SugaredLogger `validate:"required"`
+	validator *validator.Validate `validate:"required"`
+	client *azcosmos.DatabaseClient `validate:"required"`
 }
 
 func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {

@@ -9,12 +9,12 @@ import (
 )
 
 type UpsertProjectInput struct {
-	Year 		string `json:"year" validate:"required"`
-	Name 		string `json:"name" validate:"required"`
+	Year string `json:"year" validate:"required"`
+	Name string `json:"name" validate:"required"`
 	Description string `json:"description" validate:"required"`
-	Type 		string `json:"type" validate:"required"`
-	StartDate   string `json:"start_date" validate:"required"`
-	EndDate		string `json:"end_date" validate:"required"`
+	Type string `json:"type" validate:"required"`
+	StartDate string `json:"start_date" validate:"required"`
+	EndDate string `json:"end_date" validate:"required"`
 }
 
 type GetProjectsOutput struct {
@@ -194,14 +194,14 @@ func (e *env) addProject(c *gin.Context) {
 	}
 
 	project := db.Project{
-		ID: 			   g.String(),
-		Year: 			   input.Year,
-		Name: 			   input.Name,
-		Description:	   input.Description,
-		Type:			   input.Type,
-		StartDate:		   startDate.ToString(),
-		EndDate:		   endDate.ToString(),
-		UserID: 		   claims.ID,
+		ID: g.String(),
+		Year: input.Year,
+		Name: input.Name,
+		Description: input.Description,
+		Type: input.Type,
+		StartDate: startDate.ToString(),
+		EndDate: endDate.ToString(),
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),
@@ -293,14 +293,14 @@ func (e *env) updateProject(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedProject := db.Project{
-		ID: 			   project.ID,
-		Year: 			   input.Year,
-		Name: 		   	   input.Name,
-		Description: 	   input.Description,
-		Type: 			   input.Type,
-		StartDate: 	   	   startDate.ToString(),
-		EndDate: 	       endDate.ToString(),
-		UserID:			   claims.ID,
+		ID: project.ID,
+		Year: input.Year,
+		Name: input.Name,
+		Description: input.Description,
+		Type: input.Type,
+		StartDate: startDate.ToString(),
+		EndDate: endDate.ToString(),
+		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: project.Created,
 			Updated: timestamp.ToString(),

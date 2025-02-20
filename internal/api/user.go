@@ -9,12 +9,12 @@ import (
 )
 
 type UpdateUserInput struct {
-	Email 				string	`json:"email"`
-	Birthdate 			string	`json:"birthdate"`
-	FirstName 			string	`json:"first_name"`
-	MiddleNameInitial 	string	`json:"middle_name_initial"`
-	LastNameInitial 	string	`json:"last_name_initial"`
-	CountyName 			string	`json:"county_name"`
+	Email string `json:"email"`
+	Birthdate string `json:"birthdate"`
+	FirstName string `json:"first_name"`
+	MiddleNameInitial string `json:"middle_name_initial"`
+	LastNameInitial string `json:"last_name_initial"`
+	CountyName string `json:"county_name"`
 }
 
 type GetUserProfileOutput struct {
@@ -201,12 +201,12 @@ func (e *env) signout(c *gin.Context) {
 }
 
 type SignUpInput struct {
-	Email 				string	`json:"email" validate:"required"`
-	Birthdate 			string	`json:"birthdate" validate:"required"`
-	FirstName 			string	`json:"first_name" validate:"required"`
-	MiddleNameInitial 	string	`json:"middle_name_initial" validate:"required"`
-	LastNameInitial 	string	`json:"last_name_initial" validate:"required"`
-	CountyName 			string	`json:"county_name" validate:"required"`
+	Email string `json:"email" validate:"required"`
+	Birthdate string `json:"birthdate" validate:"required"`
+	FirstName string `json:"first_name" validate:"required"`
+	MiddleNameInitial string `json:"middle_name_initial" validate:"required"`
+	LastNameInitial string `json:"last_name_initial" validate:"required"`
+	CountyName string `json:"county_name" validate:"required"`
 }
 
 // Signup godoc
@@ -235,12 +235,12 @@ func (e *env) signup(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	user := db.User{
-		ID: 			   g.String(),
-		Email: 			   input.Email,
-		Birthdate: 		   input.Birthdate,
-		FirstName: 		   input.FirstName,
+		ID: g.String(),
+		Email: input.Email,
+		Birthdate: input.Birthdate,
+		FirstName: input.FirstName,
 		MiddleNameInitial: input.MiddleNameInitial,
-		CountyName: 	   input.CountyName,
+		CountyName: input.CountyName,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: timestamp.ToString(),
 			Updated: timestamp.ToString(),

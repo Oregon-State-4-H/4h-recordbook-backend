@@ -7,10 +7,10 @@ import (
 )
 
 type Bookmark struct {
-	ID		string	`json:"id"`
-	Link 	string	`json:"link"`
-	Label 	string	`json:"label"`
-	UserID 	string	`json:"userid"`
+	ID string `json:"id"`
+	Link string	`json:"link"`
+	Label string `json:"label"`
+	UserID string `json:"userid"`
 	GenericDatabaseInfo
 }
 

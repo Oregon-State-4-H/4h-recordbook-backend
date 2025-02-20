@@ -7,13 +7,13 @@ import (
 )
 
 type User struct {
-	ID					string	`json:"id"`
-	Email 				string	`json:"email"`
-	Birthdate 			string	`json:"birthdate"`
-	FirstName 			string	`json:"first_name"`
-	MiddleNameInitial 	string	`json:"middle_name_initial"`
-	LastNameInitial 	string	`json:"last_name_initial"`
-	CountyName 			string	`json:"county_name"`
+	ID string `json:"id"`
+	Email string `json:"email"`
+	Birthdate string `json:"birthdate"`
+	FirstName string `json:"first_name"`
+	MiddleNameInitial string `json:"middle_name_initial"`
+	LastNameInitial string `json:"last_name_initial"`
+	CountyName string `json:"county_name"`
 	GenericDatabaseInfo
 }
 
