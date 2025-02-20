@@ -199,12 +199,12 @@ func (e *env) addProject(c *gin.Context) {
 		Name: input.Name,
 		Description: input.Description,
 		Type: input.Type,
-		StartDate: startDate.ToString(),
-		EndDate: endDate.ToString(),
+		StartDate: startDate.String(),
+		EndDate: endDate.String(),
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -298,12 +298,12 @@ func (e *env) updateProject(c *gin.Context) {
 		Name: input.Name,
 		Description: input.Description,
 		Type: input.Type,
-		StartDate: startDate.ToString(),
-		EndDate: endDate.ToString(),
+		StartDate: startDate.String(),
+		EndDate: endDate.String(),
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: project.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 

@@ -161,15 +161,15 @@ func (e *env) addExpense(c *gin.Context) {
 
 	expense := db.Expense{
 		ID: g.String(),
-		Date: date.ToString(),
+		Date: date.String(),
 		Items: input.Items,
 		Quantity: *input.Quantity,
 		Cost: *input.Cost,
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 

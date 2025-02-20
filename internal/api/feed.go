@@ -153,8 +153,8 @@ func (e *env) addFeed(c *gin.Context) {
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -232,7 +232,7 @@ func (e *env) updateFeed(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: feed.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 

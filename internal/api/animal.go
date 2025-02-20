@@ -184,8 +184,8 @@ func (e *env) addAnimal(c *gin.Context) {
 		ID: g.String(),
 		Name: input.Name,
 		Species: input.Species,
-		BirthDate: birthDate.ToString(),
-		PurchaseDate: purchaseDate.ToString(),
+		BirthDate: birthDate.String(),
+		PurchaseDate: purchaseDate.String(),
 		SireBreed: input.SireBreed,
 		DamBreed: input.DamBreed,
 		AnimalCost: input.AnimalCost,
@@ -199,8 +199,8 @@ func (e *env) addAnimal(c *gin.Context) {
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -291,8 +291,8 @@ func (e *env) updateAnimal(c *gin.Context) {
 		ID: animal.ID,
 		Name: input.Name,
 		Species: input.Species,
-		BirthDate: birthDate.ToString(),
-		PurchaseDate: purchaseDate.ToString(),
+		BirthDate: birthDate.String(),
+		PurchaseDate: purchaseDate.String(),
 		SireBreed: input.SireBreed,
 		DamBreed: input.DamBreed,
 		AnimalCost: input.AnimalCost,
@@ -307,7 +307,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: animal.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -407,14 +407,14 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 		YieldGrade: animal.YieldGrade,
 		QualityGrade: animal.QualityGrade,
 		BeginningWeight: *input.BeginningWeight,
-		BeginningDate: beginningDate.ToString(),
+		BeginningDate: beginningDate.String(),
 		EndWeight: *input.EndWeight,
-		EndDate: endDate.ToString(),
+		EndDate: endDate.String(),
 		ProjectID: animal.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: animal.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 

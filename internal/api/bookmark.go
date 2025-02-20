@@ -102,8 +102,8 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		Label: input.Label,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 

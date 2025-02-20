@@ -161,15 +161,15 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 
 	feedPurchase := db.FeedPurchase{
 		ID: g.String(),
-		DatePurchased: datePurchased.ToString(),
+		DatePurchased: datePurchased.String(),
 		AmountPurchased: *input.AmountPurchased,
 		TotalCost: *input.TotalCost,
 		FeedID: input.FeedID,
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -250,7 +250,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 
 	updatedFeedPurchase := db.FeedPurchase{
 		ID: feedPurchase.ID,
-		DatePurchased: datePurchased.ToString(),
+		DatePurchased: datePurchased.String(),
 		AmountPurchased: *input.AmountPurchased,
 		TotalCost: *input.TotalCost,
 		FeedID: feedPurchase.FeedID,
@@ -258,7 +258,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: feedPurchase.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 

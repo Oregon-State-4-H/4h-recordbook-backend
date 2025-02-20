@@ -11,7 +11,7 @@ func TimeNow() Timestamp {
 	return Timestamp(time.Now().UTC())
 }
 
-func (t Timestamp) ToString() string {
+func (t Timestamp) String() string {
 	return time.Time(t).Format(time.RFC3339Nano)
 }
 

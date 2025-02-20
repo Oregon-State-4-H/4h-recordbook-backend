@@ -209,8 +209,8 @@ func (e *env) addSection1(c *gin.Context) {
 		MeetingsAttended: *input.MeetingsAttended,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -293,7 +293,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -459,8 +459,8 @@ func (e *env) addSection2(c *gin.Context) {
 		ProjectScope: input.ProjectScope,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -539,7 +539,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -707,8 +707,8 @@ func (e *env) addSection3(c *gin.Context) {
 		Level: input.Level,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -788,7 +788,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -956,8 +956,8 @@ func (e *env) addSection4(c *gin.Context) {
 		Level: input.Level,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1037,7 +1037,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1205,8 +1205,8 @@ func (e *env) addSection5(c *gin.Context) {
 		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1286,7 +1286,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1456,8 +1456,8 @@ func (e *env) addSection6(c *gin.Context) {
 		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1538,7 +1538,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1706,8 +1706,8 @@ func (e *env) addSection7(c *gin.Context) {
 		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1787,7 +1787,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -1955,8 +1955,8 @@ func (e *env) addSection8(c *gin.Context) {
 		NumPeopleReached: *input.NumPeopleReached,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2036,7 +2036,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2208,8 +2208,8 @@ func (e *env) addSection9(c *gin.Context) {
 		AudienceSize: *input.AudienceSize,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2291,7 +2291,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2463,8 +2463,8 @@ func (e *env) addSection10(c *gin.Context) {
 		AudienceSize: *input.AudienceSize,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2546,7 +2546,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2714,8 +2714,8 @@ func (e *env) addSection11(c *gin.Context) {
 		RibbonOrPlacings: input.RibbonOrPlacings,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2795,7 +2795,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -2963,8 +2963,8 @@ func (e *env) addSection12(c *gin.Context) {
 		Level: input.Level,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -3044,7 +3044,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -3208,8 +3208,8 @@ func (e *env) addSection13(c *gin.Context) {
 		RecognitionType: input.RecognitionType,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -3287,7 +3287,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -3451,8 +3451,8 @@ func (e *env) addSection14(c *gin.Context) {
 		RecognitionType: input.RecognitionType,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -3530,7 +3530,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: existingSection.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 

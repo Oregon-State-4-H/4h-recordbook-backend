@@ -109,7 +109,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		CountyName: ternary(input.CountyName, user.CountyName),
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: user.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -242,8 +242,8 @@ func (e *env) signup(c *gin.Context) {
 		MiddleNameInitial: input.MiddleNameInitial,
 		CountyName: input.CountyName,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 

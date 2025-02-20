@@ -171,7 +171,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 
 	dailyFeed := db.DailyFeed{
 		ID: g.String(),
-		FeedDate: feedDate.ToString(),
+		FeedDate: feedDate.String(),
 		FeedAmount: *input.FeedAmount,
 		AnimalID: input.AnimalID,
 		FeedID: input.FeedID,
@@ -179,8 +179,8 @@ func (e *env) addDailyFeed(c *gin.Context) {
 		ProjectID: input.ProjectID,
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
-			Created: timestamp.ToString(),
-			Updated: timestamp.ToString(),
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
 		},
 	}
 
@@ -261,7 +261,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 
 	updatedDailyFeed := db.DailyFeed{
 		ID: dailyFeed.ID,
-		FeedDate: feedDate.ToString(),
+		FeedDate: feedDate.String(),
 		FeedAmount: *input.FeedAmount,
 		AnimalID: dailyFeed.AnimalID,
 		FeedID: dailyFeed.FeedID,
@@ -270,7 +270,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 		UserID: claims.ID,
 		GenericDatabaseInfo: db.GenericDatabaseInfo {
 			Created: dailyFeed.Created,
-			Updated: timestamp.ToString(),
+			Updated: timestamp.String(),
 		},
 	}
 
