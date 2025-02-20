@@ -110,3 +110,20 @@ func (env *env) UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (inter
 	return response, nil
 
 }
+
+func (env *env) RemoveDailyFeed(ctx context.Context, userid string, dailyfeedid string) (interface{}, error) {
+
+	env.logger.Info("Removing daily feed")
+
+	container, err := env.client.NewContainer("dailyfeeds")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, dailyfeedid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

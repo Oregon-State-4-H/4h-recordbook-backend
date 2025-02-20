@@ -108,3 +108,20 @@ func (env *env) UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchas
 	return response, nil
 
 }
+
+func (env *env) RemoveFeedPurchase(ctx context.Context, userid string, feedpurchaseid string) (interface{}, error) {
+
+	env.logger.Info("Removing feed purchase")
+
+	container, err := env.client.NewContainer("feedpurchases")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, feedpurchaseid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

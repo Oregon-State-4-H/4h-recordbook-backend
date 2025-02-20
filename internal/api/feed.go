@@ -248,3 +248,40 @@ func (e *env) updateFeed(c *gin.Context) {
 	c.JSON(204, response)
 
 }
+
+// DeleteFeed godoc
+// @Summary Removes a feed
+// @Description Deletes a user's feed given the feed ID
+// @Tags Feed
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param feedId path string true "Feed ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
+// @Router /feed/{feedId} [delete]
+func (e *env) deleteFeed(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	id := c.Param("feedId")
+
+	response, err := e.db.RemoveFeed(context.TODO(), claims.ID, id)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}

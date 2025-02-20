@@ -118,3 +118,20 @@ func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (interface{}, e
 	return response, nil
 
 }
+
+func (env *env) RemoveAnimal(ctx context.Context, userid string, animalid string) (interface{}, error) {
+
+	env.logger.Info("Removing animal")
+
+	container, err := env.client.NewContainer("animals")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, animalid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

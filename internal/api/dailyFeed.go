@@ -286,3 +286,40 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 	c.JSON(204, response)
 
 }
+
+// DeleteDailyFeed godoc
+// @Summary Removes a daily feed
+// @Description Deletes a user's daily feed given the daily feed ID
+// @Tags Daily Feed
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param dailyFeedId path string true "Daily Feed ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
+// @Router /daily-feed/{dailyFeedId} [delete]
+func (e *env) deleteDailyFeed(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	id := c.Param("dailyFeedId")
+
+	response, err := e.db.RemoveDailyFeed(context.TODO(), claims.ID, id)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}

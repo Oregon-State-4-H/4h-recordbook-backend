@@ -157,3 +157,20 @@ func (env *env) UpsertProject(ctx context.Context, project Project) (interface{}
 	return response, nil
 
 }
+
+func (env *env) RemoveProject(ctx context.Context, userid string, projectid string) (interface{}, error) {
+
+	env.logger.Info("Removing project")
+
+	container, err := env.client.NewContainer("projects")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, projectid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

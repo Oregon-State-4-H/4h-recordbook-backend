@@ -28,7 +28,7 @@ type GetProjectOutput struct {
 // GetCurrentProjects godoc
 // @Summary Gets projects of the current year
 // @Description Gets all of a user's projects that take place in the last 12 months
-// @Tags Projects
+// @Tags Project
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -63,7 +63,7 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 // GetProjects godoc
 // @Summary Get all of a user's projects
 // @Description Gets all of a user's saved projects regardless of year
-// @Tags Projects
+// @Tags Project
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
@@ -98,7 +98,7 @@ func (e *env) getProjects(c *gin.Context) {
 // GetProject godoc
 // @Summary Get a project
 // @Description Get a user's project by ID
-// @Tags Projects
+// @Tags Project
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
@@ -137,7 +137,7 @@ func (e *env) getProject(c *gin.Context) {
 // AddProject godoc
 // @Summary Add a project
 // @Description Adds a project to a user's personal records
-// @Tags Projects
+// @Tags Project
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
@@ -224,7 +224,7 @@ func (e *env) addProject(c *gin.Context) {
 // UpdateProject godoc
 // @Summary Update a project
 // @Description Updates a user's project information
-// @Tags Projects
+// @Tags Project
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
@@ -308,6 +308,43 @@ func (e *env) updateProject(c *gin.Context) {
 	}
 
 	response, err := e.db.UpsertProject(context.TODO(), updatedProject)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}
+
+// DeleteProject godoc
+// @Summary Removes a project
+// @Description Deletes a user's project given the project ID
+// @Tags Project
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param projectId path string true "Project ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
+// @Router /project/{projectId} [delete]
+func (e *env) deleteProject(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	id := c.Param("projectId")
+
+	response, err := e.db.RemoveProject(context.TODO(), claims.ID, id)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

@@ -108,3 +108,20 @@ func (env *env) UpsertExpense(ctx context.Context, expense Expense) (interface{}
 	return response, nil
 
 }
+
+func (env *env) RemoveExpense(ctx context.Context, userid string, expenseid string) (interface{}, error) {
+
+	env.logger.Info("Removing expense")
+
+	container, err := env.client.NewContainer("expenses")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, expenseid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

@@ -128,7 +128,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 
 }
 
-// RemoveUserBookmark godoc
+// DeleteUserBookmark godoc
 // @Summary Removes a bookmark
 // @Description Deletes a user's bookmark given the bookmark ID
 // @Tags User Bookmarks
@@ -140,7 +140,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 // @Failure 401
 // @Failure 404 
 // @Router /bookmarks/{bookmarkId} [delete]
-func (e *env) removeUserBookmark(c *gin.Context) {
+func (e *env) deleteUserBookmark(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
 	if err != nil {

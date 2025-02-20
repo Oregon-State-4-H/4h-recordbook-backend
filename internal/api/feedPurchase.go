@@ -274,3 +274,40 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 	c.JSON(204, response)
 
 }
+
+// DeleteFeedPurchase godoc
+// @Summary Removes a feed purchase
+// @Description Deletes a user's feed purchase given the feed purchase ID
+// @Tags Feed Purchase
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param feedPurchaseId path string true "Feed Purchase ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
+// @Router /feed-purchase/{feedPurchaseId} [delete]
+func (e *env) deleteFeedPurchase(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	id := c.Param("feedPurchaseId")
+
+	response, err := e.db.RemoveFeedPurchase(context.TODO(), claims.ID, id)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}

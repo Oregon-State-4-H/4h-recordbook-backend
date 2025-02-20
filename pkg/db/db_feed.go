@@ -105,3 +105,20 @@ func (env *env) UpsertFeed(ctx context.Context, feed Feed) (interface{}, error) 
 	return response, nil
 
 }
+
+func (env *env) RemoveFeed(ctx context.Context, userid string, feedid string) (interface{}, error) {
+
+	env.logger.Info("Removing feed")
+
+	container, err := env.client.NewContainer("feeds")
+
+	partitionKey := azcosmos.NewPartitionKeyString(userid)
+
+	response, err := container.DeleteItem(ctx, partitionKey, feedid, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+
+}

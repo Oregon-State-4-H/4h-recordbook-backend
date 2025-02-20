@@ -189,6 +189,44 @@ const docTemplate = `{
                         "description": "Not Found"
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's animal given the animal ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Removes an animal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Animal ID",
+                        "name": "animalId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
             }
         },
         "/bookmarks": {
@@ -486,6 +524,44 @@ const docTemplate = `{
                         "description": "Not Found"
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's daily feed given the daily feed ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Daily Feed"
+                ],
+                "summary": "Removes a daily feed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Daily Feed ID",
+                        "name": "dailyFeedId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
             }
         },
         "/expense": {
@@ -604,6 +680,94 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/api.GetExpenseOutput"
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Updates a user's expense information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Expense"
+                ],
+                "summary": "Update an expense",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Expense ID",
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Expense information",
+                        "name": "UpsertExpenseInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertExpenseInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's expense given the expense ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Expense"
+                ],
+                "summary": "Removes an expense",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Expense ID",
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
                     },
                     "401": {
                         "description": "Unauthorized"
@@ -871,6 +1035,44 @@ const docTemplate = `{
                         "description": "Not Found"
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's feed purchase given the feed purchase ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed Purchase"
+                ],
+                "summary": "Removes a feed purchase",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Feed Purchase ID",
+                        "name": "feedPurchaseId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
             }
         },
         "/feed/{feedId}": {
@@ -964,6 +1166,44 @@ const docTemplate = `{
                         "description": "Not Found"
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's feed given the feed ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Removes a feed",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Feed ID",
+                        "name": "feedId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
             }
         },
         "/project": {
@@ -981,7 +1221,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Projects"
+                    "Project"
                 ],
                 "summary": "Get all of a user's projects",
                 "responses": {
@@ -1010,7 +1250,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Projects"
+                    "Project"
                 ],
                 "summary": "Add a project",
                 "parameters": [
@@ -1052,7 +1292,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Projects"
+                    "Project"
                 ],
                 "summary": "Get a project",
                 "parameters": [
@@ -1093,7 +1333,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Projects"
+                    "Project"
                 ],
                 "summary": "Update a project",
                 "parameters": [
@@ -1128,6 +1368,44 @@ const docTemplate = `{
                         "description": "Not Found"
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deletes a user's project given the project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Removes a project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
             }
         },
         "/projects": {
@@ -1145,7 +1423,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Projects"
+                    "Project"
                 ],
                 "summary": "Gets projects of the current year",
                 "responses": {

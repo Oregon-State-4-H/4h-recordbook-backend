@@ -1329,6 +1329,30 @@ paths:
       tags:
       - Animal
   /animal/{animalId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's animal given the animal ID
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes an animal
+      tags:
+      - Animal
     get:
       consumes:
       - application/json
@@ -1519,6 +1543,30 @@ paths:
       tags:
       - Daily Feed
   /daily-feed/{dailyFeedId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's daily feed given the daily feed ID
+      parameters:
+      - description: Daily Feed ID
+        in: path
+        name: dailyFeedId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a daily feed
+      tags:
+      - Daily Feed
     get:
       consumes:
       - application/json
@@ -1630,6 +1678,30 @@ paths:
       tags:
       - Expense
   /expense/{expenseId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's expense given the expense ID
+      parameters:
+      - description: Expense ID
+        in: path
+        name: expenseId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes an expense
+      tags:
+      - Expense
     get:
       consumes:
       - application/json
@@ -1654,6 +1726,38 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Get an expense
+      tags:
+      - Expense
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's expense information
+      parameters:
+      - description: Expense ID
+        in: path
+        name: expenseId
+        required: true
+        type: string
+      - description: Expense information
+        in: body
+        name: UpsertExpenseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertExpenseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an expense
       tags:
       - Expense
   /feed:
@@ -1761,6 +1865,30 @@ paths:
       tags:
       - Feed Purchase
   /feed-purchase/{feedPurchaseId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's feed purchase given the feed purchase ID
+      parameters:
+      - description: Feed Purchase ID
+        in: path
+        name: feedPurchaseId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a feed purchase
+      tags:
+      - Feed Purchase
     get:
       consumes:
       - application/json
@@ -1820,6 +1948,30 @@ paths:
       tags:
       - Feed Purchase
   /feed/{feedId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's feed given the feed ID
+      parameters:
+      - description: Feed ID
+        in: path
+        name: feedId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a feed
+      tags:
+      - Feed
     get:
       consumes:
       - application/json
@@ -1896,7 +2048,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get all of a user's projects
       tags:
-      - Projects
+      - Project
     post:
       consumes:
       - application/json
@@ -1921,8 +2073,32 @@ paths:
       - ApiKeyAuth: []
       summary: Add a project
       tags:
-      - Projects
+      - Project
   /project/{projectId}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's project given the project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a project
+      tags:
+      - Project
     get:
       consumes:
       - application/json
@@ -1948,7 +2124,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a project
       tags:
-      - Projects
+      - Project
     put:
       consumes:
       - application/json
@@ -1980,7 +2156,7 @@ paths:
       - ApiKeyAuth: []
       summary: Update a project
       tags:
-      - Projects
+      - Project
   /projects:
     get:
       consumes:
@@ -1999,7 +2175,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets projects of the current year
       tags:
-      - Projects
+      - Project
   /rate-of-gain/{animalId}:
     put:
       consumes:

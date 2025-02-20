@@ -185,3 +185,129 @@ func (e *env) addExpense(c *gin.Context) {
 	c.JSON(204, response)
 
 }
+
+// UpdateExpense godoc
+// @Summary Update an expense
+// @Description Updates a user's expense information
+// @Tags Expense
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param expenseId path string true "Expense ID"
+// @Param UpsertExpenseInput body api.UpsertExpenseInput true "Expense information"
+// @Success 204 
+// @Failure 400
+// @Failure 401
+// @Failure 404
+// @Router /expense/{expenseId} [put]
+func (e *env) updateExpense(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	var input UpsertExpenseInput
+	err = c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+	
+	err = e.validator.Struct(input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	date, err := utils.StringToTimestamp(input.Date)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": HTTPResponseCodeMap[400],
+		})
+		return
+	}
+
+	id := c.Param("expenseId")
+
+	expense, err := e.db.GetExpenseByID(context.TODO(), claims.ID, id)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	timestamp := utils.TimeNow()
+
+	updatedExpense := db.Expense{
+		ID: expense.ID,
+		Date: date.String(),
+		Items: input.Items,
+		Quantity: *input.Quantity,
+		Cost: *input.Cost,
+		ProjectID: expense.ProjectID,
+		UserID: claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo {
+			Created: expense.Created,
+			Updated: timestamp.String(),
+		},
+	}
+
+	response, err := e.db.UpsertExpense(context.TODO(), updatedExpense)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}
+
+// DeleteExpense godoc
+// @Summary Removes an expense
+// @Description Deletes a user's expense given the expense ID
+// @Tags Expense
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param expenseId path string true "Expense ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
+// @Router /expense/{expenseId} [delete]
+func (e *env) deleteExpense(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	id := c.Param("expenseId")
+
+	response, err := e.db.RemoveExpense(context.TODO(), claims.ID, id)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}

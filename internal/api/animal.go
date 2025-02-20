@@ -430,3 +430,40 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 	c.JSON(204, response)
 
 }
+
+// DeleteAnimal godoc
+// @Summary Removes an animal
+// @Description Deletes a user's animal given the animal ID
+// @Tags Animal
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param animalId path string true "Animal ID"
+// @Success 204
+// @Failure 401
+// @Failure 404 
+// @Router /animal/{animalId} [delete]
+func (e *env) deleteAnimal(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	id := c.Param("animalId")
+
+	response, err := e.db.RemoveAnimal(context.TODO(), claims.ID, id)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}

@@ -134,13 +134,14 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 
 	router.GET("/bookmarks", e.getUserBookmarks)
 	router.POST("/bookmarks", e.addUserBookmark)
-	router.DELETE("/bookmarks/:bookmarkId", e.removeUserBookmark)
+	router.DELETE("/bookmarks/:bookmarkId", e.deleteUserBookmark)
 
 	router.GET("/projects", e.getCurrentProjects)
   	router.GET("/project", e.getProjects)
   	router.GET("/project/:projectId", e.getProject)
   	router.POST("/project", e.addProject)
 	router.PUT("/project/:projectId", e.updateProject)
+	router.DELETE("/project/:projectId", e.deleteProject)
 
 	router.GET("/resume", e.getResume)
 
@@ -221,25 +222,31 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 	router.POST("/animal", e.addAnimal)
 	router.PUT("/animal/:animalId", e.updateAnimal)
 	router.PUT("/rate-of-gain/:animalId", e.updateRateOfGain)
+	router.DELETE("/animal/:animalId", e.deleteAnimal)
 
 	router.GET("/feed", e.getFeeds)
 	router.GET("/feed/:feedId", e.getFeed)
 	router.POST("/feed", e.addFeed)
 	router.PUT("/feed/:feedId", e.updateFeed)
-	
+	router.DELETE("/feed/:feedId", e.deleteFeed)
+
 	router.GET("/feed-purchase", e.getFeedPurchases)
 	router.GET("/feed-purchase/:feedPurchaseId", e.getFeedPurchase)
 	router.POST("/feed-purchase", e.addFeedPurchase)
 	router.PUT("/feed-purchase/:feedPurchaseId", e.updateFeedPurchase)
+	router.DELETE("/feed-purchase/:feedPurchaseId", e.deleteFeedPurchase)
 
 	router.GET("/daily-feed", e.getDailyFeeds)
 	router.GET("/daily-feed/:dailyFeedId", e.getDailyFeed)
 	router.POST("/daily-feed", e.addDailyFeed)
 	router.PUT("/daily-feed/:dailyFeedId", e.updateDailyFeed)
+	router.DELETE("/daily-feed/:dailyFeedId", e.deleteDailyFeed)
 
 	router.GET("/expense", e.getExpenses)
 	router.GET("/expense/:expenseId", e.getExpense)
 	router.POST("/expense", e.addExpense)
+	router.PUT("/expense/:expenseId", e.updateExpense)
+	router.DELETE("/expense/:expenseId", e.deleteExpense)
 
 	router.GET("/supply/", e.getSupplies)
 	router.GET("/supply/:supplyId", e.getSupply)
