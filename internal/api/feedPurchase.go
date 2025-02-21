@@ -31,7 +31,7 @@ type GetFeedPurchaseOutput struct {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId query string true "Project ID"
+// @Param projectID query string true "Project ID"
 // @Success 200 {object} api.GetFeedPurchasesOutput
 // @Failure 400
 // @Failure 401
@@ -46,7 +46,7 @@ func (e *env) getFeedPurchases(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectId", "")
+	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -77,11 +77,11 @@ func (e *env) getFeedPurchases(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param feedPurchaseId path string true "Feed Purchase ID"
+// @Param feedPurchaseID path string true "Feed Purchase ID"
 // @Success 200 {object} api.GetFeedPurchaseOutput
 // @Failure 401
 // @Failure 404
-// @Router /feed-purchase/{feedPurchaseId} [get]
+// @Router /feed-purchase/{feedPurchaseID} [get]
 func (e *env) getFeedPurchase(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -92,11 +92,11 @@ func (e *env) getFeedPurchase(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("feedPurchaseId")
+	feedPurchaseID := c.Param("feedPurchaseID")
 
 	var output GetFeedPurchaseOutput
 
-	output.FeedPurchase, err = e.db.GetFeedPurchaseByID(context.TODO(), claims.ID, id)
+	output.FeedPurchase, err = e.db.GetFeedPurchaseByID(context.TODO(), claims.ID, feedPurchaseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -193,13 +193,13 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param feedPurchaseId path string true "Feed Purchase ID"
+// @Param feedPurchaseID path string true "Feed Purchase ID"
 // @Param UpsertFeedPurchaseInput body api.UpsertFeedPurchaseInput true "Feed purchase information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /feed-purchase/{feedPurchaseId} [put]
+// @Router /feed-purchase/{feedPurchaseID} [put]
 func (e *env) updateFeedPurchase(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -235,9 +235,9 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("feedPurchaseId")
+	feedPurchaseID := c.Param("feedPurchaseID")
 
-	feedPurchase, err := e.db.GetFeedPurchaseByID(context.TODO(), claims.ID, id)
+	feedPurchase, err := e.db.GetFeedPurchaseByID(context.TODO(), claims.ID, feedPurchaseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -282,11 +282,11 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param feedPurchaseId path string true "Feed Purchase ID"
+// @Param feedPurchaseID path string true "Feed Purchase ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /feed-purchase/{feedPurchaseId} [delete]
+// @Router /feed-purchase/{feedPurchaseID} [delete]
 func (e *env) deleteFeedPurchase(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -297,9 +297,9 @@ func (e *env) deleteFeedPurchase(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("feedPurchaseId")
+	feedPurchaseID := c.Param("feedPurchaseID")
 
-	response, err := e.db.RemoveFeedPurchase(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveFeedPurchase(context.TODO(), claims.ID, feedPurchaseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

@@ -93,6 +93,18 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -247,18 +259,6 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -1284,7 +1284,7 @@ paths:
       parameters:
       - description: Project ID
         in: query
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -1328,7 +1328,7 @@ paths:
       summary: Add an animal
       tags:
       - Animal
-  /animal/{animalId}:
+  /animal/{animalID}:
     delete:
       consumes:
       - application/json
@@ -1336,7 +1336,7 @@ paths:
       parameters:
       - description: Animal ID
         in: path
-        name: animalId
+        name: animalID
         required: true
         type: string
       produces:
@@ -1360,7 +1360,7 @@ paths:
       parameters:
       - description: Animal ID
         in: path
-        name: animalId
+        name: animalID
         required: true
         type: string
       produces:
@@ -1386,7 +1386,7 @@ paths:
       parameters:
       - description: Animal ID
         in: path
-        name: animalId
+        name: animalID
         required: true
         type: string
       - description: Animal information
@@ -1460,7 +1460,7 @@ paths:
       summary: Adds a bookmark
       tags:
       - User Bookmarks
-  /bookmarks/{bookmarkId}:
+  /bookmarks/{bookmarkID}:
     delete:
       consumes:
       - application/json
@@ -1468,7 +1468,7 @@ paths:
       parameters:
       - description: Bookmark ID
         in: path
-        name: bookmarkId
+        name: bookmarkID
         required: true
         type: string
       produces:
@@ -1493,12 +1493,12 @@ paths:
       parameters:
       - description: Project ID
         in: query
-        name: projectId
+        name: projectID
         required: true
         type: string
       - description: Animal ID
         in: query
-        name: animalId
+        name: animalID
         required: true
         type: string
       produces:
@@ -1542,7 +1542,7 @@ paths:
       summary: Add a daily feed
       tags:
       - Daily Feed
-  /daily-feed/{dailyFeedId}:
+  /daily-feed/{dailyFeedID}:
     delete:
       consumes:
       - application/json
@@ -1550,7 +1550,7 @@ paths:
       parameters:
       - description: Daily Feed ID
         in: path
-        name: dailyFeedId
+        name: dailyFeedID
         required: true
         type: string
       produces:
@@ -1574,7 +1574,7 @@ paths:
       parameters:
       - description: Daily Feed ID
         in: path
-        name: dailyFeedId
+        name: dailyFeedID
         required: true
         type: string
       produces:
@@ -1600,7 +1600,7 @@ paths:
       parameters:
       - description: Daily Feed ID
         in: path
-        name: dailyFeedId
+        name: dailyFeedID
         required: true
         type: string
       - description: DailyFeed information
@@ -1633,7 +1633,7 @@ paths:
       parameters:
       - description: Project ID
         in: query
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -1677,7 +1677,7 @@ paths:
       summary: Adds an expense
       tags:
       - Expense
-  /expense/{expenseId}:
+  /expense/{expenseID}:
     delete:
       consumes:
       - application/json
@@ -1685,7 +1685,7 @@ paths:
       parameters:
       - description: Expense ID
         in: path
-        name: expenseId
+        name: expenseID
         required: true
         type: string
       produces:
@@ -1709,7 +1709,7 @@ paths:
       parameters:
       - description: Expense ID
         in: path
-        name: expenseId
+        name: expenseID
         required: true
         type: string
       produces:
@@ -1735,7 +1735,7 @@ paths:
       parameters:
       - description: Expense ID
         in: path
-        name: expenseId
+        name: expenseID
         required: true
         type: string
       - description: Expense information
@@ -1768,7 +1768,7 @@ paths:
       parameters:
       - description: Project ID
         in: query
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -1820,7 +1820,7 @@ paths:
       parameters:
       - description: Project ID
         in: query
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -1864,7 +1864,7 @@ paths:
       summary: Add a feed purchase
       tags:
       - Feed Purchase
-  /feed-purchase/{feedPurchaseId}:
+  /feed-purchase/{feedPurchaseID}:
     delete:
       consumes:
       - application/json
@@ -1872,7 +1872,7 @@ paths:
       parameters:
       - description: Feed Purchase ID
         in: path
-        name: feedPurchaseId
+        name: feedPurchaseID
         required: true
         type: string
       produces:
@@ -1896,7 +1896,7 @@ paths:
       parameters:
       - description: Feed Purchase ID
         in: path
-        name: feedPurchaseId
+        name: feedPurchaseID
         required: true
         type: string
       produces:
@@ -1922,7 +1922,7 @@ paths:
       parameters:
       - description: Feed Purchase ID
         in: path
-        name: feedPurchaseId
+        name: feedPurchaseID
         required: true
         type: string
       - description: Feed purchase information
@@ -1947,7 +1947,7 @@ paths:
       summary: Update a feed purchase
       tags:
       - Feed Purchase
-  /feed/{feedId}:
+  /feed/{feedID}:
     delete:
       consumes:
       - application/json
@@ -1955,7 +1955,7 @@ paths:
       parameters:
       - description: Feed ID
         in: path
-        name: feedId
+        name: feedID
         required: true
         type: string
       produces:
@@ -1979,7 +1979,7 @@ paths:
       parameters:
       - description: Feed ID
         in: path
-        name: feedId
+        name: feedID
         required: true
         type: string
       produces:
@@ -2005,7 +2005,7 @@ paths:
       parameters:
       - description: Feed ID
         in: path
-        name: feedId
+        name: feedID
         required: true
         type: string
       - description: Feed information
@@ -2074,7 +2074,7 @@ paths:
       summary: Add a project
       tags:
       - Project
-  /project/{projectId}:
+  /project/{projectID}:
     delete:
       consumes:
       - application/json
@@ -2082,7 +2082,7 @@ paths:
       parameters:
       - description: Project ID
         in: path
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -2106,7 +2106,7 @@ paths:
       parameters:
       - description: Project ID
         in: path
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -2132,7 +2132,7 @@ paths:
       parameters:
       - description: Project ID
         in: path
-        name: projectId
+        name: projectID
         required: true
         type: string
       - description: Project information
@@ -2176,7 +2176,7 @@ paths:
       summary: Gets projects of the current year
       tags:
       - Project
-  /rate-of-gain/{animalId}:
+  /rate-of-gain/{animalID}:
     put:
       consumes:
       - application/json
@@ -2184,7 +2184,7 @@ paths:
       parameters:
       - description: Animal ID
         in: path
-        name: animalId
+        name: animalID
         required: true
         type: string
       - description: Animal rate of gain information
@@ -2228,7 +2228,7 @@ paths:
       summary: Gets full resume
       tags:
       - Resume
-  /section/{sectionId}:
+  /section/{sectionID}:
     delete:
       consumes:
       - application/json
@@ -2237,7 +2237,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2274,7 +2274,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 1 entries
       tags:
-      - Resume Section 1
+      - Resume Section 01
     post:
       consumes:
       - application/json
@@ -2299,8 +2299,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 1 entry
       tags:
-      - Resume Section 1
-  /section1/{sectionId}:
+      - Resume Section 01
+  /section1/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2308,7 +2308,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2324,7 +2324,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 1
       tags:
-      - Resume Section 1
+      - Resume Section 01
     put:
       consumes:
       - application/json
@@ -2332,7 +2332,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 1 information
@@ -2354,7 +2354,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 1 entry
       tags:
-      - Resume Section 1
+      - Resume Section 01
   /section2:
     get:
       consumes:
@@ -2373,7 +2373,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 2 entries
       tags:
-      - Resume Section 2
+      - Resume Section 02
     post:
       consumes:
       - application/json
@@ -2398,8 +2398,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 2 entry
       tags:
-      - Resume Section 2
-  /section2/{sectionId}:
+      - Resume Section 02
+  /section2/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2407,7 +2407,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2425,7 +2425,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 2
       tags:
-      - Resume Section 2
+      - Resume Section 02
     put:
       consumes:
       - application/json
@@ -2433,7 +2433,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 2 information
@@ -2455,7 +2455,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 2 entry
       tags:
-      - Resume Section 2
+      - Resume Section 02
   /section3:
     get:
       consumes:
@@ -2474,7 +2474,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 3 entries
       tags:
-      - Resume Section 3
+      - Resume Section 03
     post:
       consumes:
       - application/json
@@ -2499,8 +2499,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 3 entry
       tags:
-      - Resume Section 3
-  /section3/{sectionId}:
+      - Resume Section 03
+  /section3/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2508,7 +2508,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2526,7 +2526,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 3
       tags:
-      - Resume Section 3
+      - Resume Section 03
     put:
       consumes:
       - application/json
@@ -2534,7 +2534,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 3 information
@@ -2556,7 +2556,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 3 entry
       tags:
-      - Resume Section 3
+      - Resume Section 03
   /section4:
     get:
       consumes:
@@ -2575,7 +2575,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 4 entries
       tags:
-      - Resume Section 4
+      - Resume Section 04
     post:
       consumes:
       - application/json
@@ -2600,8 +2600,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 4 entry
       tags:
-      - Resume Section 4
-  /section4/{sectionId}:
+      - Resume Section 04
+  /section4/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2609,7 +2609,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2627,7 +2627,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 4
       tags:
-      - Resume Section 4
+      - Resume Section 04
     put:
       consumes:
       - application/json
@@ -2635,7 +2635,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 4 information
@@ -2657,7 +2657,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 4 entry
       tags:
-      - Resume Section 4
+      - Resume Section 04
   /section5:
     get:
       consumes:
@@ -2676,7 +2676,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 5 entries
       tags:
-      - Resume Section 5
+      - Resume Section 05
     post:
       consumes:
       - application/json
@@ -2701,8 +2701,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 5 entry
       tags:
-      - Resume Section 5
-  /section5/{sectionId}:
+      - Resume Section 05
+  /section5/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2710,7 +2710,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2728,7 +2728,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 5
       tags:
-      - Resume Section 5
+      - Resume Section 05
     put:
       consumes:
       - application/json
@@ -2736,7 +2736,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 5 information
@@ -2758,7 +2758,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 5 entry
       tags:
-      - Resume Section 5
+      - Resume Section 05
   /section6:
     get:
       consumes:
@@ -2777,7 +2777,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 6 entries
       tags:
-      - Resume Section 6
+      - Resume Section 06
     post:
       consumes:
       - application/json
@@ -2802,8 +2802,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 6 entry
       tags:
-      - Resume Section 6
-  /section6/{sectionId}:
+      - Resume Section 06
+  /section6/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2811,7 +2811,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2829,7 +2829,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 6
       tags:
-      - Resume Section 6
+      - Resume Section 06
     put:
       consumes:
       - application/json
@@ -2837,7 +2837,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 6 information
@@ -2859,7 +2859,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 6 entry
       tags:
-      - Resume Section 6
+      - Resume Section 06
   /section7:
     get:
       consumes:
@@ -2878,7 +2878,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 7 entries
       tags:
-      - Resume Section 7
+      - Resume Section 07
     post:
       consumes:
       - application/json
@@ -2903,8 +2903,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 7 entry
       tags:
-      - Resume Section 7
-  /section7/{sectionId}:
+      - Resume Section 07
+  /section7/{sectionID}:
     get:
       consumes:
       - application/json
@@ -2912,7 +2912,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -2930,7 +2930,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 7
       tags:
-      - Resume Section 7
+      - Resume Section 07
     put:
       consumes:
       - application/json
@@ -2938,7 +2938,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 7 information
@@ -2960,7 +2960,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 7 entry
       tags:
-      - Resume Section 7
+      - Resume Section 07
   /section8:
     get:
       consumes:
@@ -2979,7 +2979,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 8 entries
       tags:
-      - Resume Section 8
+      - Resume Section 08
     post:
       consumes:
       - application/json
@@ -3004,8 +3004,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 8 entry
       tags:
-      - Resume Section 8
-  /section8/{sectionId}:
+      - Resume Section 08
+  /section8/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3013,7 +3013,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3031,7 +3031,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 8
       tags:
-      - Resume Section 8
+      - Resume Section 08
     put:
       consumes:
       - application/json
@@ -3039,7 +3039,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 8 information
@@ -3061,7 +3061,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 8 entry
       tags:
-      - Resume Section 8
+      - Resume Section 08
   /section9:
     get:
       consumes:
@@ -3080,7 +3080,7 @@ paths:
       - ApiKeyAuth: []
       summary: Gets all Section 9 entries
       tags:
-      - Resume Section 9
+      - Resume Section 09
     post:
       consumes:
       - application/json
@@ -3105,8 +3105,8 @@ paths:
       - ApiKeyAuth: []
       summary: Add a Section 9 entry
       tags:
-      - Resume Section 9
-  /section9/{sectionId}:
+      - Resume Section 09
+  /section9/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3114,7 +3114,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3132,7 +3132,7 @@ paths:
       - ApiKeyAuth: []
       summary: Get a Section 9
       tags:
-      - Resume Section 9
+      - Resume Section 09
     put:
       consumes:
       - application/json
@@ -3140,7 +3140,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 9 information
@@ -3162,7 +3162,7 @@ paths:
       - ApiKeyAuth: []
       summary: Updates a Section 9 entry
       tags:
-      - Resume Section 9
+      - Resume Section 09
   /section10:
     get:
       consumes:
@@ -3207,7 +3207,7 @@ paths:
       summary: Add a Section 10 entry
       tags:
       - Resume Section 10
-  /section10/{sectionId}:
+  /section10/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3215,7 +3215,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3241,7 +3241,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 10 information
@@ -3308,7 +3308,7 @@ paths:
       summary: Add a Section 11 entry
       tags:
       - Resume Section 11
-  /section11/{sectionId}:
+  /section11/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3316,7 +3316,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3342,7 +3342,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 11 information
@@ -3409,7 +3409,7 @@ paths:
       summary: Add a Section 12 entry
       tags:
       - Resume Section 12
-  /section12/{sectionId}:
+  /section12/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3417,7 +3417,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3443,7 +3443,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 12 information
@@ -3510,7 +3510,7 @@ paths:
       summary: Add a Section 13 entry
       tags:
       - Resume Section 13
-  /section13/{sectionId}:
+  /section13/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3518,7 +3518,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3544,7 +3544,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 13 information
@@ -3611,7 +3611,7 @@ paths:
       summary: Add a Section 14 entry
       tags:
       - Resume Section 14
-  /section14/{sectionId}:
+  /section14/{sectionID}:
     get:
       consumes:
       - application/json
@@ -3619,7 +3619,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       produces:
@@ -3645,7 +3645,7 @@ paths:
       parameters:
       - description: Section ID
         in: path
-        name: sectionId
+        name: sectionID
         required: true
         type: string
       - description: Section 14 information
@@ -3741,7 +3741,7 @@ paths:
       parameters:
       - description: Project ID
         in: query
-        name: projectId
+        name: projectID
         required: true
         type: string
       produces:
@@ -3785,7 +3785,7 @@ paths:
       summary: Add a supply
       tags:
       - Supply
-  /supply/{supplyId}:
+  /supply/{supplyID}:
     delete:
       consumes:
       - application/json
@@ -3793,7 +3793,7 @@ paths:
       parameters:
       - description: Supply ID
         in: path
-        name: supplyId
+        name: supplyID
         required: true
         type: string
       produces:
@@ -3817,7 +3817,7 @@ paths:
       parameters:
       - description: Supply ID
         in: path
-        name: supplyId
+        name: supplyID
         required: true
         type: string
       produces:
@@ -3843,7 +3843,7 @@ paths:
       parameters:
       - description: Supply ID
         in: path
-        name: supplyId
+        name: supplyID
         required: true
         type: string
       - description: Supply information

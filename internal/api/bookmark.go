@@ -135,11 +135,11 @@ func (e *env) addUserBookmark(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param bookmarkId path string true "Bookmark ID"
+// @Param bookmarkID path string true "Bookmark ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /bookmarks/{bookmarkId} [delete]
+// @Router /bookmarks/{bookmarkID} [delete]
 func (e *env) deleteUserBookmark(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -150,9 +150,9 @@ func (e *env) deleteUserBookmark(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("bookmarkId")
+	bookmarkID := c.Param("bookmarkID")
 
-	response, err := e.db.RemoveBookmark(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveBookmark(context.TODO(), claims.ID, bookmarkID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

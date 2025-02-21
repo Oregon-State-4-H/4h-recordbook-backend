@@ -32,8 +32,8 @@ type GetDailyFeedOutput struct {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId query string true "Project ID"
-// @Param animalId query string true "Animal ID"
+// @Param projectID query string true "Project ID"
+// @Param animalID query string true "Animal ID"
 // @Success 200 {object} api.GetDailyFeedsOutput
 // @Failure 400
 // @Failure 401
@@ -48,7 +48,7 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectId", "")
+	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -56,7 +56,7 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 		return
 	}
 
-	animalID := c.DefaultQuery("animalId", "")
+	animalID := c.DefaultQuery("animalID", "")
 	if animalID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -87,11 +87,11 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param dailyFeedId path string true "Daily Feed ID"
+// @Param dailyFeedID path string true "Daily Feed ID"
 // @Success 200 {object} api.GetDailyFeedOutput
 // @Failure 401
 // @Failure 404
-// @Router /daily-feed/{dailyFeedId} [get]
+// @Router /daily-feed/{dailyFeedID} [get]
 func (e *env) getDailyFeed(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -102,11 +102,11 @@ func (e *env) getDailyFeed(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("dailyFeedId")
+	dailyFeedID := c.Param("dailyFeedID")
 
 	var output GetDailyFeedOutput
 
-	output.DailyFeed, err = e.db.GetDailyFeedByID(context.TODO(), claims.ID, id)
+	output.DailyFeed, err = e.db.GetDailyFeedByID(context.TODO(), claims.ID, dailyFeedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -204,13 +204,13 @@ func (e *env) addDailyFeed(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param dailyFeedId path string true "Daily Feed ID"
+// @Param dailyFeedID path string true "Daily Feed ID"
 // @Param UpsertDailyFeedInput body api.UpsertDailyFeedInput true "DailyFeed information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /daily-feed/{dailyFeedId} [put]
+// @Router /daily-feed/{dailyFeedID} [put]
 func (e *env) updateDailyFeed(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -246,9 +246,9 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("dailyFeedId")
+	dailyFeedID := c.Param("dailyFeedID")
 
-	dailyFeed, err := e.db.GetDailyFeedByID(context.TODO(), claims.ID, id)
+	dailyFeed, err := e.db.GetDailyFeedByID(context.TODO(), claims.ID, dailyFeedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -294,11 +294,11 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param dailyFeedId path string true "Daily Feed ID"
+// @Param dailyFeedID path string true "Daily Feed ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /daily-feed/{dailyFeedId} [delete]
+// @Router /daily-feed/{dailyFeedID} [delete]
 func (e *env) deleteDailyFeed(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -309,9 +309,9 @@ func (e *env) deleteDailyFeed(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("dailyFeedId")
+	dailyFeedID := c.Param("dailyFeedID")
 
-	response, err := e.db.RemoveDailyFeed(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveDailyFeed(context.TODO(), claims.ID, dailyFeedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

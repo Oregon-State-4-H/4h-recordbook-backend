@@ -44,7 +44,7 @@ type GetAnimalOutput struct {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId query string true "Project ID"
+// @Param projectID query string true "Project ID"
 // @Success 200 {object} api.GetAnimalsOutput
 // @Failure 400
 // @Failure 401
@@ -59,7 +59,7 @@ func (e *env) getAnimals(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectId", "")
+	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -90,11 +90,11 @@ func (e *env) getAnimals(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param animalId path string true "Animal ID"
+// @Param animalID path string true "Animal ID"
 // @Success 200 {object} api.GetAnimalOutput
 // @Failure 401
 // @Failure 404
-// @Router /animal/{animalId} [get]
+// @Router /animal/{animalID} [get]
 func (e *env) getAnimal(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -105,11 +105,11 @@ func (e *env) getAnimal(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("animalId")
+	animalID := c.Param("animalID")
 
 	var output GetAnimalOutput
 
-	output.Animal, err = e.db.GetAnimalByID(context.TODO(), claims.ID, id)
+	output.Animal, err = e.db.GetAnimalByID(context.TODO(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -224,13 +224,13 @@ func (e *env) addAnimal(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param animalId path string true "Animal ID"
+// @Param animalID path string true "Animal ID"
 // @Param UpsertAnimalInput body api.UpsertAnimalInput true "Animal information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /animal/{animalId} [put]
+// @Router /animal/{animalID} [put]
 func (e *env) updateAnimal(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -274,9 +274,9 @@ func (e *env) updateAnimal(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("animalId")
+	animalID := c.Param("animalID")
 
-	animal, err := e.db.GetAnimalByID(context.TODO(), claims.ID, id)
+	animal, err := e.db.GetAnimalByID(context.TODO(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -331,13 +331,13 @@ func (e *env) updateAnimal(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param animalId path string true "Animal ID"
+// @Param animalID path string true "Animal ID"
 // @Param UpdateRateOfGainInput body api.UpdateRateOfGainInput true "Animal rate of gain information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /rate-of-gain/{animalId} [put]
+// @Router /rate-of-gain/{animalID} [put]
 func (e *env) updateRateOfGain(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -381,9 +381,9 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("animalId")
+	animalID := c.Param("animalID")
 
-	animal, err := e.db.GetAnimalByID(context.TODO(), claims.ID, id)
+	animal, err := e.db.GetAnimalByID(context.TODO(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -438,11 +438,11 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param animalId path string true "Animal ID"
+// @Param animalID path string true "Animal ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /animal/{animalId} [delete]
+// @Router /animal/{animalID} [delete]
 func (e *env) deleteAnimal(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -453,9 +453,9 @@ func (e *env) deleteAnimal(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("animalId")
+	animalID := c.Param("animalID")
 
-	response, err := e.db.RemoveAnimal(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveAnimal(context.TODO(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

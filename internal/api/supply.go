@@ -30,7 +30,7 @@ type GetSupplyOutput struct {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId query string true "Project ID"
+// @Param projectID query string true "Project ID"
 // @Success 200 {object} api.GetSuppliesOutput
 // @Failure 400
 // @Failure 401
@@ -45,7 +45,7 @@ func (e *env) getSupplies(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectId", "")
+	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -75,11 +75,11 @@ func (e *env) getSupplies(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param supplyId path string true "Supply ID"
+// @Param supplyID path string true "Supply ID"
 // @Success 200 {object} api.GetSupplyOutput
 // @Failure 401
 // @Failure 404
-// @Router /supply/{supplyId} [get]
+// @Router /supply/{supplyID} [get]
 func (e *env) getSupply(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -90,11 +90,11 @@ func (e *env) getSupply(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("supplyId")
+	supplyID := c.Param("supplyID")
 
 	var output GetSupplyOutput
 
-	output.Supply, err = e.db.GetSupplyByID(context.TODO(), claims.ID, id)
+	output.Supply, err = e.db.GetSupplyByID(context.TODO(), claims.ID, supplyID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -182,13 +182,13 @@ func (e *env) addSupply(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param supplyId path string true "Supply ID"
+// @Param supplyID path string true "Supply ID"
 // @Param UpsertSupplyInput body api.UpsertSupplyInput true "Supply information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /supply/{supplyId} [put]
+// @Router /supply/{supplyID} [put]
 func (e *env) updateSupply(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -216,9 +216,9 @@ func (e *env) updateSupply(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("supplyId")
+	supplyID := c.Param("supplyID")
 
-	supply, err := e.db.GetSupplyByID(context.TODO(), claims.ID, id)
+	supply, err := e.db.GetSupplyByID(context.TODO(), claims.ID, supplyID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -262,11 +262,11 @@ func (e *env) updateSupply(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param supplyId path string true "Supply ID"
+// @Param supplyID path string true "Supply ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /supply/{supplyId} [delete]
+// @Router /supply/{supplyID} [delete]
 func (e *env) deleteSupply(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -277,9 +277,9 @@ func (e *env) deleteSupply(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("supplyId")
+	supplyID := c.Param("supplyID")
 
-	response, err := e.db.RemoveSupply(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveSupply(context.TODO(), claims.ID, supplyID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

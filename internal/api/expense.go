@@ -31,7 +31,7 @@ type GetExpenseOutput struct {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId query string true "Project ID"
+// @Param projectID query string true "Project ID"
 // @Success 200 {object} api.GetExpensesOutput
 // @Failure 400
 // @Failure 401
@@ -46,7 +46,7 @@ func (e *env) getExpenses(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectId", "")
+	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -77,11 +77,11 @@ func (e *env) getExpenses(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param expenseId path string true "Expense ID"
+// @Param expenseID path string true "Expense ID"
 // @Success 200 {object} api.GetExpenseOutput
 // @Failure 401
 // @Failure 404
-// @Router /expense/{expenseId} [get]
+// @Router /expense/{expenseID} [get]
 func (e *env) getExpense(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -92,11 +92,11 @@ func (e *env) getExpense(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("expenseId")
+	expenseID := c.Param("expenseID")
 
 	var output GetExpenseOutput
 
-	output.Expense, err = e.db.GetExpenseByID(context.TODO(), claims.ID, id)
+	output.Expense, err = e.db.GetExpenseByID(context.TODO(), claims.ID, expenseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -193,13 +193,13 @@ func (e *env) addExpense(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param expenseId path string true "Expense ID"
+// @Param expenseID path string true "Expense ID"
 // @Param UpsertExpenseInput body api.UpsertExpenseInput true "Expense information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /expense/{expenseId} [put]
+// @Router /expense/{expenseID} [put]
 func (e *env) updateExpense(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -235,9 +235,9 @@ func (e *env) updateExpense(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("expenseId")
+	expenseID := c.Param("expenseID")
 
-	expense, err := e.db.GetExpenseByID(context.TODO(), claims.ID, id)
+	expense, err := e.db.GetExpenseByID(context.TODO(), claims.ID, expenseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -282,11 +282,11 @@ func (e *env) updateExpense(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param expenseId path string true "Expense ID"
+// @Param expenseID path string true "Expense ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /expense/{expenseId} [delete]
+// @Router /expense/{expenseID} [delete]
 func (e *env) deleteExpense(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -297,9 +297,9 @@ func (e *env) deleteExpense(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("expenseId")
+	expenseID := c.Param("expenseID")
 
-	response, err := e.db.RemoveExpense(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveExpense(context.TODO(), claims.ID, expenseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

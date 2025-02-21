@@ -102,11 +102,11 @@ func (e *env) getProjects(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId path string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Success 200 {object} api.GetProjectOutput
 // @Failure 401
 // @Failure 404
-// @Router /project/{projectId} [get]
+// @Router /project/{projectID} [get]
 func (e *env) getProject(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -117,11 +117,11 @@ func (e *env) getProject(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("projectId")
+	projectID := c.Param("projectID")
 
 	var output GetProjectOutput
 
-	output.Project, err = e.db.GetProjectByID(context.TODO(), claims.ID, id)
+	output.Project, err = e.db.GetProjectByID(context.TODO(), claims.ID, projectID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -228,13 +228,13 @@ func (e *env) addProject(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId path string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /project/{projectId} [put]
+// @Router /project/{projectID} [put]
 func (e *env) updateProject(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -279,9 +279,9 @@ func (e *env) updateProject(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("projectId")
+	projectID := c.Param("projectID")
 
-	project, err := e.db.GetProjectByID(context.TODO(), claims.ID, id)
+	project, err := e.db.GetProjectByID(context.TODO(), claims.ID, projectID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -327,11 +327,11 @@ func (e *env) updateProject(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId path string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /project/{projectId} [delete]
+// @Router /project/{projectID} [delete]
 func (e *env) deleteProject(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -342,9 +342,9 @@ func (e *env) deleteProject(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("projectId")
+	projectID := c.Param("projectID")
 
-	response, err := e.db.RemoveProject(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveProject(context.TODO(), claims.ID, projectID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

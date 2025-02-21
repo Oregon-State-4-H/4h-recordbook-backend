@@ -37,7 +37,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "query",
                         "required": true
                     }
@@ -98,7 +98,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/animal/{animalId}": {
+        "/animal/{animalID}": {
             "get": {
                 "security": [
                     {
@@ -120,7 +120,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Animal ID",
-                        "name": "animalId",
+                        "name": "animalID",
                         "in": "path",
                         "required": true
                     }
@@ -161,7 +161,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Animal ID",
-                        "name": "animalId",
+                        "name": "animalID",
                         "in": "path",
                         "required": true
                     },
@@ -211,7 +211,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Animal ID",
-                        "name": "animalId",
+                        "name": "animalID",
                         "in": "path",
                         "required": true
                     }
@@ -303,7 +303,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/bookmarks/{bookmarkId}": {
+        "/bookmarks/{bookmarkID}": {
             "delete": {
                 "security": [
                     {
@@ -325,7 +325,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Bookmark ID",
-                        "name": "bookmarkId",
+                        "name": "bookmarkID",
                         "in": "path",
                         "required": true
                     }
@@ -365,14 +365,14 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Animal ID",
-                        "name": "animalId",
+                        "name": "animalID",
                         "in": "query",
                         "required": true
                     }
@@ -433,7 +433,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/daily-feed/{dailyFeedId}": {
+        "/daily-feed/{dailyFeedID}": {
             "get": {
                 "security": [
                     {
@@ -455,7 +455,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Daily Feed ID",
-                        "name": "dailyFeedId",
+                        "name": "dailyFeedID",
                         "in": "path",
                         "required": true
                     }
@@ -496,7 +496,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Daily Feed ID",
-                        "name": "dailyFeedId",
+                        "name": "dailyFeedID",
                         "in": "path",
                         "required": true
                     },
@@ -546,7 +546,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Daily Feed ID",
-                        "name": "dailyFeedId",
+                        "name": "dailyFeedID",
                         "in": "path",
                         "required": true
                     }
@@ -586,7 +586,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "query",
                         "required": true
                     }
@@ -647,7 +647,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/expense/{expenseId}": {
+        "/expense/{expenseID}": {
             "get": {
                 "security": [
                     {
@@ -669,7 +669,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Expense ID",
-                        "name": "expenseId",
+                        "name": "expenseID",
                         "in": "path",
                         "required": true
                     }
@@ -710,7 +710,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Expense ID",
-                        "name": "expenseId",
+                        "name": "expenseID",
                         "in": "path",
                         "required": true
                     },
@@ -760,7 +760,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Expense ID",
-                        "name": "expenseId",
+                        "name": "expenseID",
                         "in": "path",
                         "required": true
                     }
@@ -800,7 +800,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "query",
                         "required": true
                     }
@@ -883,7 +883,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "query",
                         "required": true
                     }
@@ -944,7 +944,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/feed-purchase/{feedPurchaseId}": {
+        "/feed-purchase/{feedPurchaseID}": {
             "get": {
                 "security": [
                     {
@@ -966,7 +966,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Feed Purchase ID",
-                        "name": "feedPurchaseId",
+                        "name": "feedPurchaseID",
                         "in": "path",
                         "required": true
                     }
@@ -1007,7 +1007,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Feed Purchase ID",
-                        "name": "feedPurchaseId",
+                        "name": "feedPurchaseID",
                         "in": "path",
                         "required": true
                     },
@@ -1057,7 +1057,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Feed Purchase ID",
-                        "name": "feedPurchaseId",
+                        "name": "feedPurchaseID",
                         "in": "path",
                         "required": true
                     }
@@ -1075,7 +1075,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/feed/{feedId}": {
+        "/feed/{feedID}": {
             "get": {
                 "security": [
                     {
@@ -1097,7 +1097,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Feed ID",
-                        "name": "feedId",
+                        "name": "feedID",
                         "in": "path",
                         "required": true
                     }
@@ -1138,7 +1138,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Feed ID",
-                        "name": "feedId",
+                        "name": "feedID",
                         "in": "path",
                         "required": true
                     },
@@ -1188,7 +1188,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Feed ID",
-                        "name": "feedId",
+                        "name": "feedID",
                         "in": "path",
                         "required": true
                     }
@@ -1277,7 +1277,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/project/{projectId}": {
+        "/project/{projectID}": {
             "get": {
                 "security": [
                     {
@@ -1299,7 +1299,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "path",
                         "required": true
                     }
@@ -1340,7 +1340,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "path",
                         "required": true
                     },
@@ -1390,7 +1390,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "path",
                         "required": true
                     }
@@ -1439,7 +1439,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/rate-of-gain/{animalId}": {
+        "/rate-of-gain/{animalID}": {
             "put": {
                 "security": [
                     {
@@ -1461,7 +1461,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Animal ID",
-                        "name": "animalId",
+                        "name": "animalID",
                         "in": "path",
                         "required": true
                     },
@@ -1522,7 +1522,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section/{sectionId}": {
+        "/section/{sectionID}": {
             "delete": {
                 "security": [
                     {
@@ -1544,7 +1544,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -1577,7 +1577,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 1"
+                    "Resume Section 01"
                 ],
                 "summary": "Gets all Section 1 entries",
                 "responses": {
@@ -1609,7 +1609,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 1"
+                    "Resume Section 01"
                 ],
                 "summary": "Add a Section 1 entry",
                 "parameters": [
@@ -1636,7 +1636,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section1/{sectionId}": {
+        "/section1/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -1651,14 +1651,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 1"
+                    "Resume Section 01"
                 ],
                 "summary": "Get a Section 1",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -1689,14 +1689,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 1"
+                    "Resume Section 01"
                 ],
                 "summary": "Updates a Section 1 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -1794,7 +1794,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section10/{sectionId}": {
+        "/section10/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -1816,7 +1816,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -1857,7 +1857,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -1955,7 +1955,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section11/{sectionId}": {
+        "/section11/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -1977,7 +1977,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2018,7 +2018,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -2116,7 +2116,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section12/{sectionId}": {
+        "/section12/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -2138,7 +2138,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2179,7 +2179,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -2277,7 +2277,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section13/{sectionId}": {
+        "/section13/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -2299,7 +2299,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2340,7 +2340,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -2438,7 +2438,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section14/{sectionId}": {
+        "/section14/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -2460,7 +2460,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2501,7 +2501,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -2543,7 +2543,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 2"
+                    "Resume Section 02"
                 ],
                 "summary": "Gets all Section 2 entries",
                 "responses": {
@@ -2572,7 +2572,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 2"
+                    "Resume Section 02"
                 ],
                 "summary": "Add a Section 2 entry",
                 "parameters": [
@@ -2599,7 +2599,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section2/{sectionId}": {
+        "/section2/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -2614,14 +2614,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 2"
+                    "Resume Section 02"
                 ],
                 "summary": "Get a Section 2",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2655,14 +2655,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 2"
+                    "Resume Section 02"
                 ],
                 "summary": "Updates a Section 2 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -2704,7 +2704,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 3"
+                    "Resume Section 03"
                 ],
                 "summary": "Gets all Section 3 entries",
                 "responses": {
@@ -2733,7 +2733,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 3"
+                    "Resume Section 03"
                 ],
                 "summary": "Add a Section 3 entry",
                 "parameters": [
@@ -2760,7 +2760,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section3/{sectionId}": {
+        "/section3/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -2775,14 +2775,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 3"
+                    "Resume Section 03"
                 ],
                 "summary": "Get a Section 3",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2816,14 +2816,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 3"
+                    "Resume Section 03"
                 ],
                 "summary": "Updates a Section 3 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -2865,7 +2865,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 4"
+                    "Resume Section 04"
                 ],
                 "summary": "Gets all Section 4 entries",
                 "responses": {
@@ -2894,7 +2894,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 4"
+                    "Resume Section 04"
                 ],
                 "summary": "Add a Section 4 entry",
                 "parameters": [
@@ -2921,7 +2921,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section4/{sectionId}": {
+        "/section4/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -2936,14 +2936,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 4"
+                    "Resume Section 04"
                 ],
                 "summary": "Get a Section 4",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -2977,14 +2977,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 4"
+                    "Resume Section 04"
                 ],
                 "summary": "Updates a Section 4 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -3026,7 +3026,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 5"
+                    "Resume Section 05"
                 ],
                 "summary": "Gets all Section 5 entries",
                 "responses": {
@@ -3055,7 +3055,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 5"
+                    "Resume Section 05"
                 ],
                 "summary": "Add a Section 5 entry",
                 "parameters": [
@@ -3082,7 +3082,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section5/{sectionId}": {
+        "/section5/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -3097,14 +3097,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 5"
+                    "Resume Section 05"
                 ],
                 "summary": "Get a Section 5",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -3138,14 +3138,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 5"
+                    "Resume Section 05"
                 ],
                 "summary": "Updates a Section 5 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -3187,7 +3187,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 6"
+                    "Resume Section 06"
                 ],
                 "summary": "Gets all Section 6 entries",
                 "responses": {
@@ -3216,7 +3216,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 6"
+                    "Resume Section 06"
                 ],
                 "summary": "Add a Section 6 entry",
                 "parameters": [
@@ -3243,7 +3243,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section6/{sectionId}": {
+        "/section6/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -3258,14 +3258,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 6"
+                    "Resume Section 06"
                 ],
                 "summary": "Get a Section 6",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -3299,14 +3299,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 6"
+                    "Resume Section 06"
                 ],
                 "summary": "Updates a Section 6 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -3348,7 +3348,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 7"
+                    "Resume Section 07"
                 ],
                 "summary": "Gets all Section 7 entries",
                 "responses": {
@@ -3377,7 +3377,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 7"
+                    "Resume Section 07"
                 ],
                 "summary": "Add a Section 7 entry",
                 "parameters": [
@@ -3404,7 +3404,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section7/{sectionId}": {
+        "/section7/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -3419,14 +3419,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 7"
+                    "Resume Section 07"
                 ],
                 "summary": "Get a Section 7",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -3460,14 +3460,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 7"
+                    "Resume Section 07"
                 ],
                 "summary": "Updates a Section 7 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -3509,7 +3509,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 8"
+                    "Resume Section 08"
                 ],
                 "summary": "Gets all Section 8 entries",
                 "responses": {
@@ -3538,7 +3538,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 8"
+                    "Resume Section 08"
                 ],
                 "summary": "Add a Section 8 entry",
                 "parameters": [
@@ -3565,7 +3565,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section8/{sectionId}": {
+        "/section8/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -3580,14 +3580,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 8"
+                    "Resume Section 08"
                 ],
                 "summary": "Get a Section 8",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -3621,14 +3621,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 8"
+                    "Resume Section 08"
                 ],
                 "summary": "Updates a Section 8 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -3670,7 +3670,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 9"
+                    "Resume Section 09"
                 ],
                 "summary": "Gets all Section 9 entries",
                 "responses": {
@@ -3699,7 +3699,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 9"
+                    "Resume Section 09"
                 ],
                 "summary": "Add a Section 9 entry",
                 "parameters": [
@@ -3726,7 +3726,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/section9/{sectionId}": {
+        "/section9/{sectionID}": {
             "get": {
                 "security": [
                     {
@@ -3741,14 +3741,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 9"
+                    "Resume Section 09"
                 ],
                 "summary": "Get a Section 9",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     }
@@ -3782,14 +3782,14 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Resume Section 9"
+                    "Resume Section 09"
                 ],
                 "summary": "Updates a Section 9 entry",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Section ID",
-                        "name": "sectionId",
+                        "name": "sectionID",
                         "in": "path",
                         "required": true
                     },
@@ -3940,7 +3940,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Project ID",
-                        "name": "projectId",
+                        "name": "projectID",
                         "in": "query",
                         "required": true
                     }
@@ -4001,7 +4001,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/supply/{supplyId}": {
+        "/supply/{supplyID}": {
             "get": {
                 "security": [
                     {
@@ -4023,7 +4023,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Supply ID",
-                        "name": "supplyId",
+                        "name": "supplyID",
                         "in": "path",
                         "required": true
                     }
@@ -4064,7 +4064,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Supply ID",
-                        "name": "supplyId",
+                        "name": "supplyID",
                         "in": "path",
                         "required": true
                     },
@@ -4114,7 +4114,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "Supply ID",
-                        "name": "supplyId",
+                        "name": "supplyID",
                         "in": "path",
                         "required": true
                     }

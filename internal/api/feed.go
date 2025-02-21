@@ -28,7 +28,7 @@ type GetFeedOutput struct {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectId query string true "Project ID"
+// @Param projectID query string true "Project ID"
 // @Success 200 {object} api.GetFeedsOutput
 // @Failure 400
 // @Failure 401
@@ -43,7 +43,7 @@ func (e *env) getFeeds(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectId", "")
+	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
 			"message": HTTPResponseCodeMap[400],
@@ -73,11 +73,11 @@ func (e *env) getFeeds(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param feedId path string true "Feed ID"
+// @Param feedID path string true "Feed ID"
 // @Success 200 {object} api.GetFeedOutput
 // @Failure 401
 // @Failure 404
-// @Router /feed/{feedId} [get]
+// @Router /feed/{feedID} [get]
 func (e *env) getFeed(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -88,11 +88,11 @@ func (e *env) getFeed(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("feedId")
+	feedID := c.Param("feedID")
 
 	var output GetFeedOutput
 
-	output.Feed, err = e.db.GetFeedByID(context.TODO(), claims.ID, id)
+	output.Feed, err = e.db.GetFeedByID(context.TODO(), claims.ID, feedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -178,13 +178,13 @@ func (e *env) addFeed(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param feedId path string true "Feed ID"
+// @Param feedID path string true "Feed ID"
 // @Param UpsertFeedInput body api.UpsertFeedInput true "Feed information"
 // @Success 204 
 // @Failure 400
 // @Failure 401
 // @Failure 404
-// @Router /feed/{feedId} [put]
+// @Router /feed/{feedID} [put]
 func (e *env) updateFeed(c *gin.Context) {
 	
 	claims, err := decodeJWT(c)
@@ -212,9 +212,9 @@ func (e *env) updateFeed(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("feedId")
+	feedID := c.Param("feedID")
 
-	feed, err := e.db.GetFeedByID(context.TODO(), claims.ID, id)
+	feed, err := e.db.GetFeedByID(context.TODO(), claims.ID, feedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -256,11 +256,11 @@ func (e *env) updateFeed(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param feedId path string true "Feed ID"
+// @Param feedID path string true "Feed ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /feed/{feedId} [delete]
+// @Router /feed/{feedID} [delete]
 func (e *env) deleteFeed(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -271,9 +271,9 @@ func (e *env) deleteFeed(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("feedId")
+	feedID := c.Param("feedID")
 
-	response, err := e.db.RemoveFeed(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveFeed(context.TODO(), claims.ID, feedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

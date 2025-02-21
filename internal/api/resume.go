@@ -76,7 +76,7 @@ type GetSection1Output struct {
 // GetSection1s godoc
 // @Summary Gets all Section 1 entries
 // @Description Gets all of a user's Section 1 entries
-// @Tags Resume Section 1
+// @Tags Resume Section 01
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -112,14 +112,14 @@ func (e *env) getSection1s(c *gin.Context) {
 // GetSection1 godoc
 // @Summary Get a Section 1
 // @Description Gets a user's Section 1 by ID
-// @Tags Resume Section 1
+// @Tags Resume Section 01
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection1Output
 // @Failure 401
-// @Router /section1/{sectionId} [get]
+// @Router /section1/{sectionID} [get]
 func (e *env) getSection1(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -130,11 +130,11 @@ func (e *env) getSection1(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection1Output
 
-	output.Section, err = e.db.GetSection1ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection1ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -158,7 +158,7 @@ func (e *env) getSection1(c *gin.Context) {
 // AddSection1 godoc
 // @Summary Add a Section 1 entry
 // @Description Adds a Section 1 entry to a user's personal records
-// @Tags Resume Section 1
+// @Tags Resume Section 01
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -230,16 +230,16 @@ func (e *env) addSection1(c *gin.Context) {
 // UpdateSection1 godoc
 // @Summary Updates a Section 1 entry
 // @Description Updates a user's Section 1 entry information
-// @Tags Resume Section 1
+// @Tags Resume Section 01
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection1Input body api.UpsertSection1Input true "Section 1 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section1/{sectionId} [put]
+// @Router /section1/{sectionID} [put]
 func (e *env) updateSection1(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -250,7 +250,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection1Input
 	err = c.BindJSON(&input)
@@ -269,7 +269,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection1ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection1ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -331,7 +331,7 @@ type GetSection2Output struct {
 // GetSection2s godoc
 // @Summary Gets all Section 2 entries
 // @Description Gets all of a user's Section 2 entries
-// @Tags Resume Section 2
+// @Tags Resume Section 02
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -366,15 +366,15 @@ func (e *env) getSection2s(c *gin.Context) {
 // GetSection2 godoc
 // @Summary Get a Section 2
 // @Description Gets a user's Section 2 by ID
-// @Tags Resume Section 2
+// @Tags Resume Section 02
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection2Output
 // @Failure 401
 // @Failure 404
-// @Router /section2/{sectionId} [get]
+// @Router /section2/{sectionID} [get]
 func (e *env) getSection2(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -385,11 +385,11 @@ func (e *env) getSection2(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection2Output
 
-	output.Section, err = e.db.GetSection2ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection2ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -412,7 +412,7 @@ func (e *env) getSection2(c *gin.Context) {
 // AddSection2 godoc
 // @Summary Add a Section 2 entry
 // @Description Adds a Section 2 entry to a user's personal records
-// @Tags Resume Section 2
+// @Tags Resume Section 02
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -480,16 +480,16 @@ func (e *env) addSection2(c *gin.Context) {
 // UpdateSection2 godoc
 // @Summary Updates a Section 2 entry
 // @Description Updates a user's Section 2 entry information
-// @Tags Resume Section 2
+// @Tags Resume Section 02
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection2Input body api.UpsertSection2Input true "Section 2 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section2/{sectionId} [put]
+// @Router /section2/{sectionID} [put]
 func (e *env) updateSection2(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -500,7 +500,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection2Input
 	err = c.BindJSON(&input)
@@ -519,7 +519,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection2ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection2ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -578,7 +578,7 @@ type GetSection3Output struct {
 // GetSection3s godoc
 // @Summary Gets all Section 3 entries
 // @Description Gets all of a user's Section 3 entries
-// @Tags Resume Section 3
+// @Tags Resume Section 03
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -613,15 +613,15 @@ func (e *env) getSection3s(c *gin.Context) {
 // GetSection3 godoc
 // @Summary Get a Section 3
 // @Description Gets a user's Section 3 by ID
-// @Tags Resume Section 3
+// @Tags Resume Section 03
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection3Output
 // @Failure 401
 // @Failure 404
-// @Router /section3/{sectionId} [get]
+// @Router /section3/{sectionID} [get]
 func (e *env) getSection3(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -632,11 +632,11 @@ func (e *env) getSection3(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection3Output
 
-	output.Section, err = e.db.GetSection3ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection3ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -659,7 +659,7 @@ func (e *env) getSection3(c *gin.Context) {
 // AddSection3 godoc
 // @Summary Add a Section 3 entry
 // @Description Adds a Section 3 entry to a user's personal records
-// @Tags Resume Section 3
+// @Tags Resume Section 03
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -728,16 +728,16 @@ func (e *env) addSection3(c *gin.Context) {
 // UpdateSection3 godoc
 // @Summary Updates a Section 3 entry
 // @Description Updates a user's Section 3 entry information
-// @Tags Resume Section 3
+// @Tags Resume Section 03
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection3Input body api.UpsertSection3Input true "Section 3 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section3/{sectionId} [put]
+// @Router /section3/{sectionID} [put]
 func (e *env) updateSection3(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -748,7 +748,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection3Input
 	err = c.BindJSON(&input)
@@ -767,7 +767,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection3ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection3ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -827,7 +827,7 @@ type GetSection4Output struct {
 // GetSection4s godoc
 // @Summary Gets all Section 4 entries
 // @Description Gets all of a user's Section 4 entries
-// @Tags Resume Section 4
+// @Tags Resume Section 04
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -862,15 +862,15 @@ func (e *env) getSection4s(c *gin.Context) {
 // GetSection4 godoc
 // @Summary Get a Section 4
 // @Description Gets a user's Section 4 by ID
-// @Tags Resume Section 4
+// @Tags Resume Section 04
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection4Output
 // @Failure 401
 // @Failure 404
-// @Router /section4/{sectionId} [get]
+// @Router /section4/{sectionID} [get]
 func (e *env) getSection4(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -881,11 +881,11 @@ func (e *env) getSection4(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection4Output
 
-	output.Section, err = e.db.GetSection4ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection4ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -908,7 +908,7 @@ func (e *env) getSection4(c *gin.Context) {
 // AddSection4 godoc
 // @Summary Add a Section 4 entry
 // @Description Adds a Section 4 entry to a user's personal records
-// @Tags Resume Section 4
+// @Tags Resume Section 04
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -977,16 +977,16 @@ func (e *env) addSection4(c *gin.Context) {
 // UpdateSection4 godoc
 // @Summary Updates a Section 4 entry
 // @Description Updates a user's Section 4 entry information
-// @Tags Resume Section 4
+// @Tags Resume Section 04
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection4Input body api.UpsertSection4Input true "Section 4 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section4/{sectionId} [put]
+// @Router /section4/{sectionID} [put]
 func (e *env) updateSection4(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -997,7 +997,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection4Input
 	err = c.BindJSON(&input)
@@ -1016,7 +1016,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection4ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection4ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1076,7 +1076,7 @@ type GetSection5Output struct {
 // GetSection5s godoc
 // @Summary Gets all Section 5 entries
 // @Description Gets all of a user's Section 5 entries
-// @Tags Resume Section 5
+// @Tags Resume Section 05
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1111,15 +1111,15 @@ func (e *env) getSection5s(c *gin.Context) {
 // GetSection5 godoc
 // @Summary Get a Section 5
 // @Description Gets a user's Section 5 by ID
-// @Tags Resume Section 5
+// @Tags Resume Section 05
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection5Output
 // @Failure 401
 // @Failure 404
-// @Router /section5/{sectionId} [get]
+// @Router /section5/{sectionID} [get]
 func (e *env) getSection5(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1130,11 +1130,11 @@ func (e *env) getSection5(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection5Output
 
-	output.Section, err = e.db.GetSection5ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection5ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1157,7 +1157,7 @@ func (e *env) getSection5(c *gin.Context) {
 // AddSection5 godoc
 // @Summary Add a Section 5 entry
 // @Description Adds a Section 5 entry to a user's personal records
-// @Tags Resume Section 5
+// @Tags Resume Section 05
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1226,16 +1226,16 @@ func (e *env) addSection5(c *gin.Context) {
 // UpdateSection5 godoc
 // @Summary Updates a Section 5 entry
 // @Description Updates a user's Section 5 entry information
-// @Tags Resume Section 5
+// @Tags Resume Section 05
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection5Input body api.UpsertSection5Input true "Section 5 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section5/{sectionId} [put]
+// @Router /section5/{sectionID} [put]
 func (e *env) updateSection5(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1246,7 +1246,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection5Input
 	err = c.BindJSON(&input)
@@ -1265,7 +1265,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection5ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection5ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1326,7 +1326,7 @@ type GetSection6Output struct {
 // GetSection6s godoc
 // @Summary Gets all Section 6 entries
 // @Description Gets all of a user's Section 6 entries
-// @Tags Resume Section 6
+// @Tags Resume Section 06
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1361,15 +1361,15 @@ func (e *env) getSection6s(c *gin.Context) {
 // GetSection6 godoc
 // @Summary Get a Section 6
 // @Description Gets a user's Section 6 by ID
-// @Tags Resume Section 6
+// @Tags Resume Section 06
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection6Output
 // @Failure 401
 // @Failure 404
-// @Router /section6/{sectionId} [get]
+// @Router /section6/{sectionID} [get]
 func (e *env) getSection6(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1380,11 +1380,11 @@ func (e *env) getSection6(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection6Output
 
-	output.Section, err = e.db.GetSection6ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection6ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1407,7 +1407,7 @@ func (e *env) getSection6(c *gin.Context) {
 // AddSection6 godoc
 // @Summary Add a Section 6 entry
 // @Description Adds a Section 6 entry to a user's personal records
-// @Tags Resume Section 6
+// @Tags Resume Section 06
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1477,16 +1477,16 @@ func (e *env) addSection6(c *gin.Context) {
 // UpdateSection6 godoc
 // @Summary Updates a Section 6 entry
 // @Description Updates a user's Section 6 entry information
-// @Tags Resume Section 6
+// @Tags Resume Section 06
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection6Input body api.UpsertSection6Input true "Section 6 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section6/{sectionId} [put]
+// @Router /section6/{sectionID} [put]
 func (e *env) updateSection6(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1497,7 +1497,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection6Input
 	err = c.BindJSON(&input)
@@ -1516,7 +1516,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection6ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection6ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1577,7 +1577,7 @@ type GetSection7Output struct {
 // GetSection7s godoc
 // @Summary Gets all Section 7 entries
 // @Description Gets all of a user's Section 7 entries
-// @Tags Resume Section 7
+// @Tags Resume Section 07
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1612,15 +1612,15 @@ func (e *env) getSection7s(c *gin.Context) {
 // GetSection7 godoc
 // @Summary Get a Section 7
 // @Description Gets a user's Section 7 by ID
-// @Tags Resume Section 7
+// @Tags Resume Section 07
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection7Output
 // @Failure 401
 // @Failure 404
-// @Router /section7/{sectionId} [get]
+// @Router /section7/{sectionID} [get]
 func (e *env) getSection7(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1631,11 +1631,11 @@ func (e *env) getSection7(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection7Output
 
-	output.Section, err = e.db.GetSection7ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection7ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1658,7 +1658,7 @@ func (e *env) getSection7(c *gin.Context) {
 // AddSection7 godoc
 // @Summary Add a Section 7 entry
 // @Description Adds a Section 7 entry to a user's personal records
-// @Tags Resume Section 7
+// @Tags Resume Section 07
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1727,16 +1727,16 @@ func (e *env) addSection7(c *gin.Context) {
 // UpdateSection7 godoc
 // @Summary Updates a Section 7 entry
 // @Description Updates a user's Section 7 entry information
-// @Tags Resume Section 7
+// @Tags Resume Section 07
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection7Input body api.UpsertSection7Input true "Section 7 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section7/{sectionId} [put]
+// @Router /section7/{sectionID} [put]
 func (e *env) updateSection7(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1747,7 +1747,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection7Input
 	err = c.BindJSON(&input)
@@ -1766,7 +1766,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection7ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection7ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1826,7 +1826,7 @@ type GetSection8Output struct {
 // GetSection8s godoc
 // @Summary Gets all Section 8 entries
 // @Description Gets all of a user's Section 8 entries
-// @Tags Resume Section 8
+// @Tags Resume Section 08
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1861,15 +1861,15 @@ func (e *env) getSection8s(c *gin.Context) {
 // GetSection8 godoc
 // @Summary Get a Section 8
 // @Description Gets a user's Section 8 by ID
-// @Tags Resume Section 8
+// @Tags Resume Section 08
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection8Output
 // @Failure 401
 // @Failure 404
-// @Router /section8/{sectionId} [get]
+// @Router /section8/{sectionID} [get]
 func (e *env) getSection8(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1880,11 +1880,11 @@ func (e *env) getSection8(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection8Output
 
-	output.Section, err = e.db.GetSection8ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection8ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1907,7 +1907,7 @@ func (e *env) getSection8(c *gin.Context) {
 // AddSection8 godoc
 // @Summary Add a Section 8 entry
 // @Description Adds a Section 8 entry to a user's personal records
-// @Tags Resume Section 8
+// @Tags Resume Section 08
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -1976,16 +1976,16 @@ func (e *env) addSection8(c *gin.Context) {
 // UpdateSection8 godoc
 // @Summary Updates a Section 8 entry
 // @Description Updates a user's Section 8 entry information
-// @Tags Resume Section 8
+// @Tags Resume Section 08
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection8Input body api.UpsertSection8Input true "Section 8 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section8/{sectionId} [put]
+// @Router /section8/{sectionID} [put]
 func (e *env) updateSection8(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -1996,7 +1996,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection8Input
 	err = c.BindJSON(&input)
@@ -2015,7 +2015,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection8ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection8ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2077,7 +2077,7 @@ type GetSection9Output struct {
 // GetSection9s godoc
 // @Summary Gets all Section 9 entries
 // @Description Gets all of a user's Section 9 entries
-// @Tags Resume Section 9
+// @Tags Resume Section 09
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -2112,15 +2112,15 @@ func (e *env) getSection9s(c *gin.Context) {
 // GetSection9 godoc
 // @Summary Get a Section 9
 // @Description Gets a user's Section 9 by ID
-// @Tags Resume Section 9
+// @Tags Resume Section 09
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection9Output
 // @Failure 401
 // @Failure 404
-// @Router /section9/{sectionId} [get]
+// @Router /section9/{sectionID} [get]
 func (e *env) getSection9(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2131,11 +2131,11 @@ func (e *env) getSection9(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection9Output
 
-	output.Section, err = e.db.GetSection9ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection9ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2158,7 +2158,7 @@ func (e *env) getSection9(c *gin.Context) {
 // AddSection9 godoc
 // @Summary Add a Section 9 entry
 // @Description Adds a Section 9 entry to a user's personal records
-// @Tags Resume Section 9
+// @Tags Resume Section 09
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
@@ -2229,16 +2229,16 @@ func (e *env) addSection9(c *gin.Context) {
 // UpdateSection9 godoc
 // @Summary Updates a Section 9 entry
 // @Description Updates a user's Section 9 entry information
-// @Tags Resume Section 9
+// @Tags Resume Section 09
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection9Input body api.UpsertSection9Input true "Section 9 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section9/{sectionId} [put]
+// @Router /section9/{sectionID} [put]
 func (e *env) updateSection9(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2249,7 +2249,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection9Input
 	err = c.BindJSON(&input)
@@ -2268,7 +2268,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection9ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection9ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2371,11 +2371,11 @@ func (e *env) getSection10s(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection10Output
 // @Failure 401
 // @Failure 404
-// @Router /section10/{sectionId} [get]
+// @Router /section10/{sectionID} [get]
 func (e *env) getSection10(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2386,11 +2386,11 @@ func (e *env) getSection10(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection10Output
 
-	output.Section, err = e.db.GetSection10ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection10ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2488,12 +2488,12 @@ func (e *env) addSection10(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection10Input body api.UpsertSection10Input true "Section 10 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section10/{sectionId} [put]
+// @Router /section10/{sectionID} [put]
 func (e *env) updateSection10(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2504,7 +2504,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection10Input
 	err = c.BindJSON(&input)
@@ -2523,7 +2523,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection10ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection10ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2624,11 +2624,11 @@ func (e *env) getSection11s(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection11Output
 // @Failure 401
 // @Failure 404
-// @Router /section11/{sectionId} [get]
+// @Router /section11/{sectionID} [get]
 func (e *env) getSection11(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2639,11 +2639,11 @@ func (e *env) getSection11(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection11Output
 
-	output.Section, err = e.db.GetSection11ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection11ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2739,12 +2739,12 @@ func (e *env) addSection11(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection11Input body api.UpsertSection11Input true "Section 11 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section11/{sectionId} [put]
+// @Router /section11/{sectionID} [put]
 func (e *env) updateSection11(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2755,7 +2755,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection11Input
 	err = c.BindJSON(&input)
@@ -2774,7 +2774,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection11ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection11ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2873,11 +2873,11 @@ func (e *env) getSection12s(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection12Output
 // @Failure 401
 // @Failure 404
-// @Router /section12/{sectionId} [get]
+// @Router /section12/{sectionID} [get]
 func (e *env) getSection12(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -2888,11 +2888,11 @@ func (e *env) getSection12(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection12Output
 
-	output.Section, err = e.db.GetSection12ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection12ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2988,12 +2988,12 @@ func (e *env) addSection12(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection12Input body api.UpsertSection12Input true "Section 12 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section12/{sectionId} [put]
+// @Router /section12/{sectionID} [put]
 func (e *env) updateSection12(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -3004,7 +3004,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection12Input
 	err = c.BindJSON(&input)
@@ -3023,7 +3023,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection12ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection12ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3120,11 +3120,11 @@ func (e *env) getSection13s(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection13Output
 // @Failure 401
 // @Failure 404
-// @Router /section13/{sectionId} [get]
+// @Router /section13/{sectionID} [get]
 func (e *env) getSection13(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -3135,11 +3135,11 @@ func (e *env) getSection13(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection13Output
 
-	output.Section, err = e.db.GetSection13ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection13ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3233,12 +3233,12 @@ func (e *env) addSection13(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection13Input body api.UpsertSection13Input true "Section 13 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section13/{sectionId} [put]
+// @Router /section13/{sectionID} [put]
 func (e *env) updateSection13(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -3249,7 +3249,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection13Input
 	err = c.BindJSON(&input)
@@ -3268,7 +3268,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection13ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection13ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3363,11 +3363,11 @@ func (e *env) getSection14s(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 200 {object} api.GetSection14Output
 // @Failure 401
 // @Failure 404
-// @Router /section14/{sectionId} [get]
+// @Router /section14/{sectionID} [get]
 func (e *env) getSection14(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -3378,11 +3378,11 @@ func (e *env) getSection14(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var output GetSection14Output
 
-	output.Section, err = e.db.GetSection14ByID(context.TODO(), claims.ID, id)
+	output.Section, err = e.db.GetSection14ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3476,12 +3476,12 @@ func (e *env) addSection14(c *gin.Context) {
 // @Accept json 
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Param UpsertSection14Input body api.UpsertSection14Input true "Section 14 information"
 // @Success 204
 // @Failure 400
 // @Failure 401
-// @Router /section14/{sectionId} [put]
+// @Router /section14/{sectionID} [put]
 func (e *env) updateSection14(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -3492,7 +3492,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
 	var input UpsertSection14Input
 	err = c.BindJSON(&input)
@@ -3511,7 +3511,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection14ByID(context.TODO(), claims.ID, id)
+	existingSection, err := e.db.GetSection14ByID(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3558,11 +3558,11 @@ func (e *env) updateSection14(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param sectionId path string true "Section ID"
+// @Param sectionID path string true "Section ID"
 // @Success 204
 // @Failure 401
 // @Failure 404 
-// @Router /section/{sectionId} [delete]
+// @Router /section/{sectionID} [delete]
 func (e *env) deleteSection(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -3573,9 +3573,9 @@ func (e *env) deleteSection(c *gin.Context) {
 		return
 	}
 
-	id := c.Param("sectionId")
+	sectionID := c.Param("sectionID")
 
-	response, err := e.db.RemoveSection(context.TODO(), claims.ID, id)
+	response, err := e.db.RemoveSection(context.TODO(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
