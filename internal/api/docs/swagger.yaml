@@ -93,18 +93,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -261,6 +249,18 @@ definitions:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSuppliesOutput:
     properties:
       supplies:
@@ -346,7 +346,7 @@ definitions:
         type: string
       name:
         type: string
-      projectid:
+      project_id:
         type: string
       purchase_date:
         type: string
@@ -365,7 +365,7 @@ definitions:
     - birth_date
     - dam_breed
     - name
-    - projectid
+    - project_id
     - purchase_date
     - quality_grade
     - sale_price
@@ -375,25 +375,25 @@ definitions:
     type: object
   api.UpsertDailyFeedInput:
     properties:
-      animalid:
+      animal_id:
         type: string
       feed_amount:
         type: number
       feed_date:
         type: string
-      feedid:
+      feed_id:
         type: string
-      feedpurchaseid:
+      feed_purchase_id:
         type: string
-      projectid:
+      project_id:
         type: string
     required:
-    - animalid
+    - animal_id
     - feed_amount
     - feed_date
-    - feedid
-    - feedpurchaseid
-    - projectid
+    - feed_id
+    - feed_purchase_id
+    - project_id
     type: object
   api.UpsertExpenseInput:
     properties:
@@ -403,7 +403,7 @@ definitions:
         type: string
       items:
         type: string
-      projectid:
+      project_id:
         type: string
       quantity:
         type: number
@@ -411,18 +411,18 @@ definitions:
     - cost
     - date
     - items
-    - projectid
+    - project_id
     - quantity
     type: object
   api.UpsertFeedInput:
     properties:
       name:
         type: string
-      projectid:
+      project_id:
         type: string
     required:
     - name
-    - projectid
+    - project_id
     type: object
   api.UpsertFeedPurchaseInput:
     properties:
@@ -430,17 +430,17 @@ definitions:
         type: number
       date_purchased:
         type: string
-      feedid:
+      feed_id:
         type: string
-      projectid:
+      project_id:
         type: string
       total_cost:
         type: number
     required:
     - amount_purchased
     - date_purchased
-    - feedid
-    - projectid
+    - feed_id
+    - project_id
     - total_cost
     type: object
   api.UpsertProjectInput:
@@ -463,6 +463,80 @@ definitions:
     - name
     - start_date
     - type
+    - year
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
     - year
     type: object
   api.UpsertSection1Input:
@@ -624,94 +698,20 @@ definitions:
     - topic
     - year
     type: object
-  api.UpsertSection10Input:
-    properties:
-      audience_size:
-        type: integer
-      communication_type:
-        type: string
-      location:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection11Input:
-    properties:
-      event_and_level:
-        type: string
-      exhibits_or_division:
-        type: string
-      ribbon_or_placings:
-        type: string
-      year:
-        type: string
-    required:
-    - event_and_level
-    - exhibits_or_division
-    - ribbon_or_placings
-    - year
-    type: object
-  api.UpsertSection12Input:
-    properties:
-      contest_or_event:
-        type: string
-      level:
-        type: string
-      recognition_received:
-        type: string
-      year:
-        type: string
-    required:
-    - contest_or_event
-    - level
-    - recognition_received
-    - year
-    type: object
-  api.UpsertSection13Input:
-    properties:
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection14Input:
-    properties:
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - recognition_type
-    - year
-    type: object
   api.UpsertSupplyInput:
     properties:
       description:
         type: string
       end_value:
         type: number
-      projectid:
+      project_id:
         type: string
       start_value:
         type: number
     required:
     - description
     - end_value
-    - projectid
+    - project_id
     - start_value
     type: object
   db.Animal:
@@ -736,7 +736,7 @@ definitions:
         type: string
       name:
         type: string
-      projectid:
+      project_id:
         type: string
       purchase_date:
         type: string
@@ -750,7 +750,7 @@ definitions:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       yield_grade:
         type: string
@@ -767,12 +767,12 @@ definitions:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
     type: object
   db.DailyFeed:
     properties:
-      animalid:
+      animal_id:
         type: string
       created:
         type: string
@@ -780,17 +780,17 @@ definitions:
         type: number
       feed_date:
         type: string
-      feedid:
+      feed_id:
         type: string
-      feedpurchaseid:
+      feed_purchase_id:
         type: string
       id:
         type: string
-      projectid:
+      project_id:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
     type: object
   db.Expense:
@@ -805,13 +805,13 @@ definitions:
         type: string
       items:
         type: string
-      projectid:
+      project_id:
         type: string
       quantity:
         type: number
       updated:
         type: string
-      userid:
+      user_id:
         type: string
     type: object
   db.Feed:
@@ -822,11 +822,11 @@ definitions:
         type: string
       name:
         type: string
-      projectid:
+      project_id:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
     type: object
   db.FeedPurchase:
@@ -837,17 +837,17 @@ definitions:
         type: string
       date_purchased:
         type: string
-      feedid:
+      feed_id:
         type: string
       id:
         type: string
-      projectid:
+      project_id:
         type: string
       total_cost:
         type: number
       updated:
         type: string
-      userid:
+      user_id:
         type: string
     type: object
   db.Project:
@@ -868,7 +868,7 @@ definitions:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -954,7 +954,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -973,7 +973,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -994,7 +994,7 @@ definitions:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1015,7 +1015,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1036,7 +1036,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1059,7 +1059,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1080,7 +1080,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1101,7 +1101,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1126,7 +1126,7 @@ definitions:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1151,7 +1151,7 @@ definitions:
         type: string
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1172,7 +1172,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1193,7 +1193,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1210,7 +1210,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1227,7 +1227,7 @@ definitions:
         type: integer
       updated:
         type: string
-      userid:
+      user_id:
         type: string
       year:
         type: string
@@ -1242,13 +1242,13 @@ definitions:
         type: number
       id:
         type: string
-      projectid:
+      project_id:
         type: string
       start_value:
         type: number
       updated:
         type: string
-      userid:
+      user_id:
         type: string
     type: object
   db.User:

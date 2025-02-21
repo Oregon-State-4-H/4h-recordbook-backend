@@ -11,9 +11,9 @@ type FeedPurchase struct {
 	DatePurchased string `json:"date_purchased"`
 	AmountPurchased float64 `json:"amount_purchased"`
 	TotalCost float64 `json:"total_cost"`
-	FeedID string `json:"feedid"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
+	FeedID string `json:"feed_id"`
+	ProjectID string `json:"project_id"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -28,7 +28,7 @@ func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, pr
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM feedpurchases fp WHERE fp.userid = @user_id AND fp.projectid = @project_id"
+	query := "SELECT * FROM feedpurchases fp WHERE fp.user_id = @user_id AND fp.project_id = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

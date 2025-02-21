@@ -4734,7 +4734,7 @@
                 "birth_date",
                 "dam_breed",
                 "name",
-                "projectid",
+                "project_id",
                 "purchase_date",
                 "quality_grade",
                 "sale_price",
@@ -4755,7 +4755,7 @@
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "purchase_date": {
@@ -4781,15 +4781,15 @@
         "api.UpsertDailyFeedInput": {
             "type": "object",
             "required": [
-                "animalid",
+                "animal_id",
                 "feed_amount",
                 "feed_date",
-                "feedid",
-                "feedpurchaseid",
-                "projectid"
+                "feed_id",
+                "feed_purchase_id",
+                "project_id"
             ],
             "properties": {
-                "animalid": {
+                "animal_id": {
                     "type": "string"
                 },
                 "feed_amount": {
@@ -4798,13 +4798,13 @@
                 "feed_date": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
-                "feedpurchaseid": {
+                "feed_purchase_id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 }
             }
@@ -4815,7 +4815,7 @@
                 "cost",
                 "date",
                 "items",
-                "projectid",
+                "project_id",
                 "quantity"
             ],
             "properties": {
@@ -4828,7 +4828,7 @@
                 "items": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "quantity": {
@@ -4840,13 +4840,13 @@
             "type": "object",
             "required": [
                 "name",
-                "projectid"
+                "project_id"
             ],
             "properties": {
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 }
             }
@@ -4856,8 +4856,8 @@
             "required": [
                 "amount_purchased",
                 "date_purchased",
-                "feedid",
-                "projectid",
+                "feed_id",
+                "project_id",
                 "total_cost"
             ],
             "properties": {
@@ -4867,10 +4867,10 @@
                 "date_purchased": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "total_cost": {
@@ -5248,7 +5248,7 @@
             "required": [
                 "description",
                 "end_value",
-                "projectid",
+                "project_id",
                 "start_value"
             ],
             "properties": {
@@ -5258,7 +5258,7 @@
                 "end_value": {
                     "type": "number"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "start_value": {
@@ -5299,7 +5299,7 @@
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "purchase_date": {
@@ -5320,7 +5320,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "yield_grade": {
@@ -5346,7 +5346,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5354,7 +5354,7 @@
         "db.DailyFeed": {
             "type": "object",
             "properties": {
-                "animalid": {
+                "animal_id": {
                     "type": "string"
                 },
                 "created": {
@@ -5366,22 +5366,22 @@
                 "feed_date": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
-                "feedpurchaseid": {
+                "feed_purchase_id": {
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5404,7 +5404,7 @@
                 "items": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "quantity": {
@@ -5413,7 +5413,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5430,13 +5430,13 @@
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5453,13 +5453,13 @@
                 "date_purchased": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "total_cost": {
@@ -5468,7 +5468,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5500,7 +5500,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5630,7 +5630,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5668,7 +5668,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5700,7 +5700,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5732,7 +5732,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5758,7 +5758,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5784,7 +5784,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5813,7 +5813,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5845,7 +5845,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5877,7 +5877,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5909,7 +5909,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5944,7 +5944,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5976,7 +5976,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -6008,7 +6008,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -6046,7 +6046,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -6069,7 +6069,7 @@
                 "id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "start_value": {
@@ -6078,7 +6078,7 @@
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }

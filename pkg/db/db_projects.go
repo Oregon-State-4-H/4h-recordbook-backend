@@ -16,7 +16,7 @@ type Project struct {
 	Type string `json:"type"`
 	StartDate string `json:"start_date"`
 	EndDate string `json:"end_date"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -60,7 +60,7 @@ func (env *env) GetCurrentProjects(ctx context.Context, userID string) ([]Projec
 	now := time.Now()
 	year := strconv.Itoa(now.Year())
 	
-	query := "SELECT * FROM projects p WHERE p.userid = @user_id AND p.year = @year"
+	query := "SELECT * FROM projects p WHERE p.user_id = @user_id AND p.year = @year"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -104,7 +104,7 @@ func (env *env) GetProjectsByUser(ctx context.Context, userID string) ([]Project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM projects p WHERE p.userid = @user_id"
+	query := "SELECT * FROM projects p WHERE p.user_id = @user_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

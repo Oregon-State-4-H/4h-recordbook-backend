@@ -10,11 +10,11 @@ type DailyFeed struct {
 	ID string `json:"id"`
 	FeedDate string `json:"feed_date"`
 	FeedAmount float64 `json:"feed_amount"`
-	AnimalID string `json:"animalid"`
-	FeedID string `json:"feedid"`
-	FeedPurchaseID string `json:"feedpurchaseid"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
+	AnimalID string `json:"animal_id"`
+	FeedID string `json:"feed_id"`
+	FeedPurchaseID string `json:"feed_purchase_id"`
+	ProjectID string `json:"project_id"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -29,7 +29,7 @@ func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID stri
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM dailyfeeds df WHERE df.userid = @user_id AND df.projectid = @project_id AND df.animalid = @animal_id"
+	query := "SELECT * FROM dailyfeeds df WHERE df.user_id = @user_id AND df.project_id = @project_id AND df.animal_id = @animal_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

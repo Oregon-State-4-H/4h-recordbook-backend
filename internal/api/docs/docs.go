@@ -4744,7 +4744,7 @@ const docTemplate = `{
                 "birth_date",
                 "dam_breed",
                 "name",
-                "projectid",
+                "project_id",
                 "purchase_date",
                 "quality_grade",
                 "sale_price",
@@ -4765,7 +4765,7 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "purchase_date": {
@@ -4791,15 +4791,15 @@ const docTemplate = `{
         "api.UpsertDailyFeedInput": {
             "type": "object",
             "required": [
-                "animalid",
+                "animal_id",
                 "feed_amount",
                 "feed_date",
-                "feedid",
-                "feedpurchaseid",
-                "projectid"
+                "feed_id",
+                "feed_purchase_id",
+                "project_id"
             ],
             "properties": {
-                "animalid": {
+                "animal_id": {
                     "type": "string"
                 },
                 "feed_amount": {
@@ -4808,13 +4808,13 @@ const docTemplate = `{
                 "feed_date": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
-                "feedpurchaseid": {
+                "feed_purchase_id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 }
             }
@@ -4825,7 +4825,7 @@ const docTemplate = `{
                 "cost",
                 "date",
                 "items",
-                "projectid",
+                "project_id",
                 "quantity"
             ],
             "properties": {
@@ -4838,7 +4838,7 @@ const docTemplate = `{
                 "items": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "quantity": {
@@ -4850,13 +4850,13 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "name",
-                "projectid"
+                "project_id"
             ],
             "properties": {
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 }
             }
@@ -4866,8 +4866,8 @@ const docTemplate = `{
             "required": [
                 "amount_purchased",
                 "date_purchased",
-                "feedid",
-                "projectid",
+                "feed_id",
+                "project_id",
                 "total_cost"
             ],
             "properties": {
@@ -4877,10 +4877,10 @@ const docTemplate = `{
                 "date_purchased": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "total_cost": {
@@ -5258,7 +5258,7 @@ const docTemplate = `{
             "required": [
                 "description",
                 "end_value",
-                "projectid",
+                "project_id",
                 "start_value"
             ],
             "properties": {
@@ -5268,7 +5268,7 @@ const docTemplate = `{
                 "end_value": {
                     "type": "number"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "start_value": {
@@ -5309,7 +5309,7 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "purchase_date": {
@@ -5330,7 +5330,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "yield_grade": {
@@ -5356,7 +5356,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5364,7 +5364,7 @@ const docTemplate = `{
         "db.DailyFeed": {
             "type": "object",
             "properties": {
-                "animalid": {
+                "animal_id": {
                     "type": "string"
                 },
                 "created": {
@@ -5376,22 +5376,22 @@ const docTemplate = `{
                 "feed_date": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
-                "feedpurchaseid": {
+                "feed_purchase_id": {
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5414,7 +5414,7 @@ const docTemplate = `{
                 "items": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "quantity": {
@@ -5423,7 +5423,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5440,13 +5440,13 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5463,13 +5463,13 @@ const docTemplate = `{
                 "date_purchased": {
                     "type": "string"
                 },
-                "feedid": {
+                "feed_id": {
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "total_cost": {
@@ -5478,7 +5478,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -5510,7 +5510,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5640,7 +5640,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5678,7 +5678,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5710,7 +5710,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5742,7 +5742,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5768,7 +5768,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5794,7 +5794,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5823,7 +5823,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5855,7 +5855,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5887,7 +5887,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5919,7 +5919,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5954,7 +5954,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -5986,7 +5986,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -6018,7 +6018,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -6056,7 +6056,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 },
                 "year": {
@@ -6079,7 +6079,7 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "projectid": {
+                "project_id": {
                     "type": "string"
                 },
                 "start_value": {
@@ -6088,7 +6088,7 @@ const docTemplate = `{
                 "updated": {
                     "type": "string"
                 },
-                "userid": {
+                "user_id": {
                     "type": "string"
                 }
             }

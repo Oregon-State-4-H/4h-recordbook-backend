@@ -12,7 +12,7 @@ type UpsertSupplyInput struct {
 	Description string `json:"description" validate:"required"`
 	StartValue *float64 `json:"start_value" validate:"required"`
 	EndValue *float64 `json:"end_value" validate:"required"`
-	ProjectID string `json:"projectid" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type GetSuppliesOutput struct {

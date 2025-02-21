@@ -10,7 +10,7 @@ type Bookmark struct {
 	ID string `json:"id"`
 	Link string	`json:"link"`
 	Label string `json:"label"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -25,7 +25,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link strin
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM bookmarks b WHERE b.userid = @user_id AND b.link = @link"
+	query := "SELECT * FROM bookmarks b WHERE b.user_id = @user_id AND b.link = @link"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -73,7 +73,7 @@ func (env *env) GetBookmarks(ctx context.Context, userID string) ([]Bookmark, er
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM bookmarks b WHERE b.userid = @user_id"
+	query := "SELECT * FROM bookmarks b WHERE b.user_id = @user_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

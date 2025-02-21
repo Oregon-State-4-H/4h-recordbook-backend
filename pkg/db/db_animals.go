@@ -22,8 +22,8 @@ type Animal struct {
 	SalePrice string `json:"sale_price"`
 	YieldGrade string `json:"yield_grade"`
 	QualityGrade string `json:"quality_grade"`
-	UserID string `json:"userid"`
-	ProjectID string `json:"projectid"`
+	UserID string `json:"user_id"`
+	ProjectID string `json:"project_id"`
 	GenericDatabaseInfo
 }
 
@@ -38,7 +38,7 @@ func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectI
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM animals a WHERE a.userid = @user_id AND a.projectid = @project_id"
+	query := "SELECT * FROM animals a WHERE a.user_id = @user_id AND a.project_id = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

@@ -11,8 +11,8 @@ type Supply struct {
 	Description string `json:"description"`
 	StartValue float64 `json:"start_value"`
 	EndValue float64 `json:"end_value"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
+	ProjectID string `json:"project_id"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -27,7 +27,7 @@ func (env *env) GetSuppliesByProject(ctx context.Context, userID string, project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM supplies s WHERE s.userid = @user_id AND s.projectid = @project_id"
+	query := "SELECT * FROM supplies s WHERE s.user_id = @user_id AND s.project_id = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

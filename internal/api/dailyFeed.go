@@ -11,10 +11,10 @@ import (
 type UpsertDailyFeedInput struct {
 	FeedDate string `json:"feed_date" validate:"required"`
 	FeedAmount *float64 `json:"feed_amount" validate:"required"`
-	AnimalID string `json:"animalid" validate:"required"`
-	FeedID string `json:"feedid" validate:"required"`
-	FeedPurchaseID string `json:"feedpurchaseid" validate:"required"`
-	ProjectID string `json:"projectid" validate:"required"`
+	AnimalID string `json:"animal_id" validate:"required"`
+	FeedID string `json:"feed_id" validate:"required"`
+	FeedPurchaseID string `json:"feed_purchase_id" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type GetDailyFeedsOutput struct {

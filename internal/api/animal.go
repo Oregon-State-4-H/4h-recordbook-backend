@@ -19,7 +19,7 @@ type UpsertAnimalInput struct {
 	SalePrice string `json:"sale_price" validate:"required"`
 	YieldGrade string `json:"yield_grade" validate:"required"`
 	QualityGrade string `json:"quality_grade" validate:"required"`
-	ProjectID string `json:"projectid" validate:"required"` 
+	ProjectID string `json:"project_id" validate:"required"` 
 }
 
 type UpdateRateOfGainInput struct {

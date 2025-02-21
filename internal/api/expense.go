@@ -13,7 +13,7 @@ type UpsertExpenseInput struct {
 	Items string `json:"items" validate:"required"`
 	Quantity *float64 `json:"quantity" validate:"required"`
 	Cost *float64 `json:"cost" validate:"required"`
-	ProjectID string `json:"projectid" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type GetExpensesOutput struct {

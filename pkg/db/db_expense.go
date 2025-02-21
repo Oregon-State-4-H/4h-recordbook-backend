@@ -12,8 +12,8 @@ type Expense struct {
 	Items string `json:"items"`
 	Quantity float64 `json:"quantity"`
 	Cost float64 `json:"cost"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
+	ProjectID string `json:"project_id"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -28,7 +28,7 @@ func (env *env) GetExpensesByProject(ctx context.Context, userID string, project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM expenses e WHERE e.userid = @user_id AND e.projectid = @project_id"
+	query := "SELECT * FROM expenses e WHERE e.user_id = @user_id AND e.project_id = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

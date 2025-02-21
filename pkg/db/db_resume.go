@@ -33,7 +33,7 @@ type Section1 struct {
 	ClubLeader string `json:"club_leader"`
 	MeetingsHeld int `json:"meetings_held"`
 	MeetingsAttended int `json:"meetings_attended"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -43,7 +43,7 @@ type Section2 struct {
 	Year string `json:"year"`
 	ProjectName string `json:"project_name"`
 	ProjectScope string `json:"project_scope"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -54,7 +54,7 @@ type Section3 struct {
 	ActivityKind string `json:"activity_kind"`
 	ThingsLearned string `json:"things_learned"`
 	Level string `json:"level"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -65,7 +65,7 @@ type Section4 struct {
 	ActivityKind string `json:"activity_kind"`
 	Scope string `json:"scope"`
 	Level string `json:"level"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -76,7 +76,7 @@ type Section5 struct {
 	LeadershipRole string `json:"leadership_role"`
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -88,7 +88,7 @@ type Section6 struct {
 	LeadershipRole string `json:"leadership_role"`
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -99,7 +99,7 @@ type Section7 struct {
 	ClubMemberActivities string `json:"club_member_activities"`
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -110,7 +110,7 @@ type Section8 struct {
 	IndividualGroupActivities string `json:"individual_group_activities"`
 	HoursSpent int `json:"hours_spent"`
 	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -123,7 +123,7 @@ type Section9 struct {
 	TimesGiven int `json:"times_given"`
 	Location string `json:"location"`
 	AudienceSize int `json:"audience_size"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -136,7 +136,7 @@ type Section10 struct {
 	TimesGiven int `json:"times_given"`
 	Location string `json:"location"`
 	AudienceSize int `json:"audience_size"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -147,7 +147,7 @@ type Section11 struct {
 	EventAndLevel string `json:"event_and_level"`
 	ExhibitsOrDivision string `json:"exhibits_or_division"`
 	RibbonOrPlacings string `json:"ribbon_or_placings"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -158,7 +158,7 @@ type Section12 struct {
 	ContestOrEvent string `json:"contest_or_event"`
 	RecognitionReceived string `json:"recognition_received"`
 	Level string `json:"level"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -167,7 +167,7 @@ type Section13 struct {
 	Section int `json:"section"`
 	Year string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -176,7 +176,7 @@ type Section14 struct {
 	Section int `json:"section"`
 	Year string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
-	UserID string `json:"userid"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -305,7 +305,7 @@ func (env *env) GetSection1sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -401,7 +401,7 @@ func (env *env) GetSection2sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -497,7 +497,7 @@ func (env *env) GetSection3sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -593,7 +593,7 @@ func (env *env) GetSection4sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -689,7 +689,7 @@ func (env *env) GetSection5sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -785,7 +785,7 @@ func (env *env) GetSection6sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -881,7 +881,7 @@ func (env *env) GetSection7sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -977,7 +977,7 @@ func (env *env) GetSection8sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -1073,7 +1073,7 @@ func (env *env) GetSection9sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -1169,7 +1169,7 @@ func (env *env) GetSection10sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -1265,7 +1265,7 @@ func (env *env) GetSection11sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -1361,7 +1361,7 @@ func (env *env) GetSection12sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -1457,7 +1457,7 @@ func (env *env) GetSection13sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -1553,7 +1553,7 @@ func (env *env) GetSection14sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

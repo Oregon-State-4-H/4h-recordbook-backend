@@ -12,8 +12,8 @@ type UpsertFeedPurchaseInput struct {
 	DatePurchased string `json:"date_purchased" validate:"required"`
 	AmountPurchased *float64 `json:"amount_purchased" validate:"required"`
 	TotalCost *float64 `json:"total_cost" validate:"required"`
-	FeedID string `json:"feedid" validate:"required"`
-	ProjectID string `json:"projectid" validate:"required"`
+	FeedID string `json:"feed_id" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type GetFeedPurchasesOutput struct {

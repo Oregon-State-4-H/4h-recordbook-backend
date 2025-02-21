@@ -9,8 +9,8 @@ import (
 type Feed struct {
 	ID string `json:"id"`
 	Name string `json:"name"`
-	ProjectID string `json:"projectid"`
-	UserID string `json:"userid"`
+	ProjectID string `json:"project_id"`
+	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -25,7 +25,7 @@ func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID 
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM feeds f WHERE f.userid = @user_id AND f.projectid = @project_id"
+	query := "SELECT * FROM feeds f WHERE f.user_id = @user_id AND f.project_id = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

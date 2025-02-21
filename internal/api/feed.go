@@ -10,7 +10,7 @@ import (
 
 type UpsertFeedInput struct {
 	Name string `json:"name" validate:"required"`
-	ProjectID string `json:"projectid" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type GetFeedsOutput struct {
