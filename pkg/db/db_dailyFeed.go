@@ -18,7 +18,7 @@ type DailyFeed struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userid string, projectid string, animalid string) ([]DailyFeed, error) {
+func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID string, projectID string, animalID string) ([]DailyFeed, error) {
 
 	env.logger.Info("Getting daily feeds by project and animal")
 
@@ -27,15 +27,15 @@ func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userid stri
 		return []DailyFeed{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM dailyfeeds df WHERE df.userid = @id AND df.projectid = @projectid AND df.animalid = @animalid"
+	query := "SELECT * FROM dailyfeeds df WHERE df.userid = @user_id AND df.projectid = @project_id AND df.animalid = @animal_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
-			{Name: "@projectid", Value: projectid},
-			{Name: "@animalid", Value: animalid},
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
+			{Name: "@animal_id", Value: animalID},
 		},
 	}
 
@@ -63,7 +63,7 @@ func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userid stri
 
 }
 
-func (env *env) GetDailyFeedByID(ctx context.Context, userid string, dailyFeedID string) (DailyFeed, error) {
+func (env *env) GetDailyFeedByID(ctx context.Context, userID string, dailyFeedID string) (DailyFeed, error) {
 
 	env.logger.Info("Getting daily feed by ID")
 	dailyFeed := DailyFeed{}
@@ -73,7 +73,7 @@ func (env *env) GetDailyFeedByID(ctx context.Context, userid string, dailyFeedID
 		return dailyFeed, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
 	response, err := container.ReadItem(ctx, partitionKey, dailyFeedID, nil)
 	if err != nil {
@@ -111,15 +111,15 @@ func (env *env) UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (inter
 
 }
 
-func (env *env) RemoveDailyFeed(ctx context.Context, userid string, dailyfeedid string) (interface{}, error) {
+func (env *env) RemoveDailyFeed(ctx context.Context, userID string, dailyFeedID string) (interface{}, error) {
 
 	env.logger.Info("Removing daily feed")
 
 	container, err := env.client.NewContainer("dailyfeeds")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, dailyfeedid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, dailyFeedID, nil)
 	if err != nil {
 		return nil, err
 	}

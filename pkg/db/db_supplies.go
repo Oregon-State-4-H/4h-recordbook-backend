@@ -16,7 +16,7 @@ type Supply struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetSuppliesByProject(ctx context.Context, userid string, projectid string) ([]Supply, error) {
+func (env *env) GetSuppliesByProject(ctx context.Context, userID string, projectID string) ([]Supply, error) {
 
 	env.logger.Info("Getting supplies by project")
 
@@ -25,14 +25,14 @@ func (env *env) GetSuppliesByProject(ctx context.Context, userid string, project
 		return []Supply{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM supplies s WHERE s.userid = @id AND s.projectid = @projectid"
+	query := "SELECT * FROM supplies s WHERE s.userid = @user_id AND s.projectid = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
-			{Name: "@projectid", Value: projectid},
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
 		},
 	}
 
@@ -60,7 +60,7 @@ func (env *env) GetSuppliesByProject(ctx context.Context, userid string, project
 
 }
 
-func (env *env) GetSupplyByID(ctx context.Context, userid string, supplyid string) (Supply, error) {
+func (env *env) GetSupplyByID(ctx context.Context, userID string, supplyID string) (Supply, error) {
 
 	env.logger.Info("Getting supply by ID")
 	supply := Supply{}
@@ -70,9 +70,9 @@ func (env *env) GetSupplyByID(ctx context.Context, userid string, supplyid strin
 		return supply, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, supplyid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, supplyID, nil)
 	if err != nil {
 		return supply, err
 	}
@@ -108,15 +108,15 @@ func (env *env) UpsertSupply(ctx context.Context, supply Supply) (interface{}, e
 
 }
 
-func (env *env) RemoveSupply(ctx context.Context, userid string, supplyid string) (interface{}, error) {
+func (env *env) RemoveSupply(ctx context.Context, userID string, supplyID string) (interface{}, error) {
 
 	env.logger.Info("Removing supply")
 
 	container, err := env.client.NewContainer("supplies")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, supplyid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, supplyID, nil)
 	if err != nil {
 		return nil, err
 	}

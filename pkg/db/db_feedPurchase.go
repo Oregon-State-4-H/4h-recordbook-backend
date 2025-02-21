@@ -17,7 +17,7 @@ type FeedPurchase struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetFeedPurchasesByProject(ctx context.Context, userid string, projectid string) ([]FeedPurchase, error) {
+func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, projectID string) ([]FeedPurchase, error) {
 
 	env.logger.Info("Getting feed purchases by project")
 
@@ -26,14 +26,14 @@ func (env *env) GetFeedPurchasesByProject(ctx context.Context, userid string, pr
 		return []FeedPurchase{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM feedpurchases fp WHERE fp.userid = @id AND fp.projectid = @projectid"
+	query := "SELECT * FROM feedpurchases fp WHERE fp.userid = @user_id AND fp.projectid = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
-			{Name: "@projectid", Value: projectid},
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
 		},
 	}
 
@@ -61,7 +61,7 @@ func (env *env) GetFeedPurchasesByProject(ctx context.Context, userid string, pr
 
 }
 
-func (env *env) GetFeedPurchaseByID(ctx context.Context, userid string, feedPurchaseID string) (FeedPurchase, error) {
+func (env *env) GetFeedPurchaseByID(ctx context.Context, userID string, feedPurchaseID string) (FeedPurchase, error) {
 
 	env.logger.Info("Getting feed purchase by ID")
 	feedPurchase := FeedPurchase{}
@@ -71,7 +71,7 @@ func (env *env) GetFeedPurchaseByID(ctx context.Context, userid string, feedPurc
 		return feedPurchase, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
 	response, err := container.ReadItem(ctx, partitionKey, feedPurchaseID, nil)
 	if err != nil {
@@ -109,15 +109,15 @@ func (env *env) UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchas
 
 }
 
-func (env *env) RemoveFeedPurchase(ctx context.Context, userid string, feedpurchaseid string) (interface{}, error) {
+func (env *env) RemoveFeedPurchase(ctx context.Context, userID string, feedPurchaseID string) (interface{}, error) {
 
 	env.logger.Info("Removing feed purchase")
 
 	container, err := env.client.NewContainer("feedpurchases")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, feedpurchaseid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, feedPurchaseID, nil)
 	if err != nil {
 		return nil, err
 	}

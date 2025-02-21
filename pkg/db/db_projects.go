@@ -20,7 +20,7 @@ type Project struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetProjectByID(ctx context.Context, userid string, projectid string) (Project, error) {
+func (env *env) GetProjectByID(ctx context.Context, userID string, projectID string) (Project, error) {
 
 	env.logger.Info("Getting project by ID")
 	project := Project{}
@@ -30,9 +30,9 @@ func (env *env) GetProjectByID(ctx context.Context, userid string, projectid str
 		return project, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, projectid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, projectID, nil)
 	if err != nil {
 		return project, err
 	}
@@ -46,7 +46,7 @@ func (env *env) GetProjectByID(ctx context.Context, userid string, projectid str
 
 }
 
-func (env *env) GetCurrentProjects(ctx context.Context, userid string) ([]Project, error) {
+func (env *env) GetCurrentProjects(ctx context.Context, userID string) ([]Project, error) {
 
 	env.logger.Info("Getting current projects")
 
@@ -55,16 +55,16 @@ func (env *env) GetCurrentProjects(ctx context.Context, userid string) ([]Projec
 		return []Project{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
 	now := time.Now()
 	year := strconv.Itoa(now.Year())
 	
-	query := "SELECT * FROM projects p WHERE p.userid = @id AND p.year = @year"
+	query := "SELECT * FROM projects p WHERE p.userid = @user_id AND p.year = @year"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
+			{Name: "@user_id", Value: userID},
 			{Name: "@year", Value: year},
 		},
 	}
@@ -93,7 +93,7 @@ func (env *env) GetCurrentProjects(ctx context.Context, userid string) ([]Projec
 
 }
 
-func (env *env) GetProjectsByUser(ctx context.Context, userid string) ([]Project, error) {
+func (env *env) GetProjectsByUser(ctx context.Context, userID string) ([]Project, error) {
 
 	env.logger.Info("Getting projects")
 
@@ -102,13 +102,13 @@ func (env *env) GetProjectsByUser(ctx context.Context, userid string) ([]Project
 		return []Project{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM projects p WHERE p.userid = @id"
+	query := "SELECT * FROM projects p WHERE p.userid = @user_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
+			{Name: "@user_id", Value: userID},
 		},
 	}
 
@@ -158,15 +158,15 @@ func (env *env) UpsertProject(ctx context.Context, project Project) (interface{}
 
 }
 
-func (env *env) RemoveProject(ctx context.Context, userid string, projectid string) (interface{}, error) {
+func (env *env) RemoveProject(ctx context.Context, userID string, projectID string) (interface{}, error) {
 
 	env.logger.Info("Removing project")
 
 	container, err := env.client.NewContainer("projects")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, projectid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, projectID, nil)
 	if err != nil {
 		return nil, err
 	}

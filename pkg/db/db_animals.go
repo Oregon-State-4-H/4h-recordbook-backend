@@ -27,7 +27,7 @@ type Animal struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetAnimalsByProject(ctx context.Context, userid string, projectid string) ([]Animal, error) {
+func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectID string) ([]Animal, error) {
 
 	env.logger.Info("Getting animals by project")
 
@@ -36,14 +36,14 @@ func (env *env) GetAnimalsByProject(ctx context.Context, userid string, projecti
 		return []Animal{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM animals a WHERE a.userid = @id AND a.projectid = @projectid"
+	query := "SELECT * FROM animals a WHERE a.userid = @user_id AND a.projectid = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
-			{Name: "@projectid", Value: projectid},
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
 		},
 	}
 
@@ -71,7 +71,7 @@ func (env *env) GetAnimalsByProject(ctx context.Context, userid string, projecti
 
 }
 
-func (env *env) GetAnimalByID(ctx context.Context, userid string, animalid string) (Animal, error) {
+func (env *env) GetAnimalByID(ctx context.Context, userID string, animalID string) (Animal, error) {
 
 	env.logger.Info("Getting animal by ID")
 	animal := Animal{}
@@ -81,9 +81,9 @@ func (env *env) GetAnimalByID(ctx context.Context, userid string, animalid strin
 		return animal, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, animalid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, animalID, nil)
 	if err != nil {
 		return animal, err
 	}
@@ -119,15 +119,15 @@ func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (interface{}, e
 
 }
 
-func (env *env) RemoveAnimal(ctx context.Context, userid string, animalid string) (interface{}, error) {
+func (env *env) RemoveAnimal(ctx context.Context, userID string, animalID string) (interface{}, error) {
 
 	env.logger.Info("Removing animal")
 
 	container, err := env.client.NewContainer("animals")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, animalid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, animalID, nil)
 	if err != nil {
 		return nil, err
 	}

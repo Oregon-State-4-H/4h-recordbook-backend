@@ -183,79 +183,79 @@ type Section14 struct {
 /*******************************
 * ALL SECTIONS
 ********************************/
-func (env *env) GetResume(ctx context.Context, userid string) (Resume, error) {
+func (env *env) GetResume(ctx context.Context, userID string) (Resume, error) {
 
 	env.logger.Info("Getting resume")
 	resume := Resume{}
 
 	var err error
 
-	resume.Section1Data, err = env.GetSection1sByUser(ctx, userid)
+	resume.Section1Data, err = env.GetSection1sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section2Data, err = env.GetSection2sByUser(ctx, userid)
+	resume.Section2Data, err = env.GetSection2sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section3Data, err = env.GetSection3sByUser(ctx, userid)
+	resume.Section3Data, err = env.GetSection3sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section4Data, err = env.GetSection4sByUser(ctx, userid)
+	resume.Section4Data, err = env.GetSection4sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section5Data, err = env.GetSection5sByUser(ctx, userid)
+	resume.Section5Data, err = env.GetSection5sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section6Data, err = env.GetSection6sByUser(ctx, userid)
+	resume.Section6Data, err = env.GetSection6sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section7Data, err = env.GetSection7sByUser(ctx, userid)
+	resume.Section7Data, err = env.GetSection7sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section8Data, err = env.GetSection8sByUser(ctx, userid)
+	resume.Section8Data, err = env.GetSection8sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section9Data, err = env.GetSection9sByUser(ctx, userid)
+	resume.Section9Data, err = env.GetSection9sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section10Data, err = env.GetSection10sByUser(ctx, userid)
+	resume.Section10Data, err = env.GetSection10sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section11Data, err = env.GetSection11sByUser(ctx, userid)
+	resume.Section11Data, err = env.GetSection11sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section12Data, err = env.GetSection12sByUser(ctx, userid)
+	resume.Section12Data, err = env.GetSection12sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section13Data, err = env.GetSection13sByUser(ctx, userid)
+	resume.Section13Data, err = env.GetSection13sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section14Data, err = env.GetSection14sByUser(ctx, userid)
+	resume.Section14Data, err = env.GetSection14sByUser(ctx, userID)
 	if err != nil {
 		return resume, err
 	}
@@ -268,7 +268,7 @@ func (env *env) GetResume(ctx context.Context, userid string) (Resume, error) {
 * SECTION 1
 ********************************/
 
-func (env *env) GetSection1ByID(ctx context.Context, userid string, sectionid string) (Section1, error) {
+func (env *env) GetSection1ByID(ctx context.Context, userID string, sectionID string) (Section1, error) {
 
 	env.logger.Info("Getting Section 1 by ID")
 	section := Section1{}
@@ -278,9 +278,9 @@ func (env *env) GetSection1ByID(ctx context.Context, userid string, sectionid st
 		return section, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, sectionid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, sectionID, nil)
 	if err != nil {
 		return section, err
 	}
@@ -294,7 +294,7 @@ func (env *env) GetSection1ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection1sByUser(ctx context.Context, userid string) ([]Section1, error) {
+func (env *env) GetSection1sByUser(ctx context.Context, userID string) ([]Section1, error) {
 
 	env.logger.Info("Getting all Section 1 records")
 
@@ -303,13 +303,13 @@ func (env *env) GetSection1sByUser(ctx context.Context, userid string) ([]Sectio
 		return []Section1{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
+			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 1},
 		},
 	}
@@ -364,7 +364,7 @@ func (env *env) UpsertSection1(ctx context.Context, section Section1) (interface
 * SECTION 2
 ********************************/
 
-func (env *env) GetSection2ByID(ctx context.Context, userid string, sectionid string) (Section2, error) {
+func (env *env) GetSection2ByID(ctx context.Context, userID string, sectionID string) (Section2, error) {
 
 	env.logger.Info("Getting Section 2 by ID")
 	section := Section2{}
@@ -374,9 +374,9 @@ func (env *env) GetSection2ByID(ctx context.Context, userid string, sectionid st
 		return section, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, sectionid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, sectionID, nil)
 	if err != nil {
 		return section, err
 	}
@@ -390,7 +390,7 @@ func (env *env) GetSection2ByID(ctx context.Context, userid string, sectionid st
 
 }
 
-func (env *env) GetSection2sByUser(ctx context.Context, userid string) ([]Section2, error) {
+func (env *env) GetSection2sByUser(ctx context.Context, userID string) ([]Section2, error) {
 
 	env.logger.Info("Getting all Section 2 records")
 
@@ -399,13 +399,13 @@ func (env *env) GetSection2sByUser(ctx context.Context, userid string) ([]Sectio
 		return []Section2{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.userid = @id AND s.section = @section"
+	query := "SELECT * FROM sections s WHERE s.userid = @user_id AND s.section = @section"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
+			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 2},
 		},
 	}

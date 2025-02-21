@@ -14,7 +14,7 @@ type Bookmark struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetBookmarkByLink(ctx context.Context, userid string, link string) (Bookmark, error) {
+func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link string) (Bookmark, error) {
 
 	env.logger.Info("Getting bookmark by link")
 
@@ -23,13 +23,13 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userid string, link strin
 		return Bookmark{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM bookmarks b WHERE b.userid = @id AND b.link = @link"
+	query := "SELECT * FROM bookmarks b WHERE b.userid = @user_id AND b.link = @link"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
+			{Name: "@user_id", Value: userID},
 			{Name: "@link", Value: link},
 		},
 	}
@@ -62,7 +62,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userid string, link strin
 
 }
 
-func (env *env) GetBookmarks(ctx context.Context, userid string) ([]Bookmark, error) {
+func (env *env) GetBookmarks(ctx context.Context, userID string) ([]Bookmark, error) {
 
 	env.logger.Info("Getting bookmarks")
 
@@ -71,13 +71,13 @@ func (env *env) GetBookmarks(ctx context.Context, userid string) ([]Bookmark, er
 		return []Bookmark{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM bookmarks b WHERE b.userid = @id"
+	query := "SELECT * FROM bookmarks b WHERE b.userid = @user_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
+			{Name: "@user_id", Value: userID},
 		},
 	}
 
@@ -129,15 +129,15 @@ func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (interface{}
 }
 
 
-func (env *env) RemoveBookmark(ctx context.Context, userid string, bookmarkid string) (interface{}, error) {
+func (env *env) RemoveBookmark(ctx context.Context, userID string, bookmarkID string) (interface{}, error) {
 
 	env.logger.Info("Removing bookmark")
 
 	container, err := env.client.NewContainer("bookmarks")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, bookmarkid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, bookmarkID, nil)
 	if err != nil {
 		return nil, err
 	}

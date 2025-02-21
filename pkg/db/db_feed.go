@@ -14,7 +14,7 @@ type Feed struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetFeedsByProject(ctx context.Context, userid string, projectid string) ([]Feed, error) {
+func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID string) ([]Feed, error) {
 
 	env.logger.Info("Getting feeds by project")
 
@@ -23,14 +23,14 @@ func (env *env) GetFeedsByProject(ctx context.Context, userid string, projectid 
 		return []Feed{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM feeds f WHERE f.userid = @id AND f.projectid = @projectid"
+	query := "SELECT * FROM feeds f WHERE f.userid = @user_id AND f.projectid = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
-			{Name: "@projectid", Value: projectid},
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
 		},
 	}
 
@@ -58,7 +58,7 @@ func (env *env) GetFeedsByProject(ctx context.Context, userid string, projectid 
 
 }
 
-func (env *env) GetFeedByID(ctx context.Context, userid string, feedid string) (Feed, error) {
+func (env *env) GetFeedByID(ctx context.Context, userID string, feedID string) (Feed, error) {
 
 	env.logger.Info("Getting feed by ID")
 	feed := Feed{}
@@ -68,9 +68,9 @@ func (env *env) GetFeedByID(ctx context.Context, userid string, feedid string) (
 		return feed, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, feedid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, feedID, nil)
 	if err != nil {
 		return feed, err
 	}
@@ -106,15 +106,15 @@ func (env *env) UpsertFeed(ctx context.Context, feed Feed) (interface{}, error) 
 
 }
 
-func (env *env) RemoveFeed(ctx context.Context, userid string, feedid string) (interface{}, error) {
+func (env *env) RemoveFeed(ctx context.Context, userID string, feedID string) (interface{}, error) {
 
 	env.logger.Info("Removing feed")
 
 	container, err := env.client.NewContainer("feeds")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, feedid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, feedID, nil)
 	if err != nil {
 		return nil, err
 	}

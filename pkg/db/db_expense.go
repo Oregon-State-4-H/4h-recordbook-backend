@@ -17,7 +17,7 @@ type Expense struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetExpensesByProject(ctx context.Context, userid string, projectid string) ([]Expense, error) {
+func (env *env) GetExpensesByProject(ctx context.Context, userID string, projectID string) ([]Expense, error) {
 
 	env.logger.Info("Getting expenses by project")
 
@@ -26,14 +26,14 @@ func (env *env) GetExpensesByProject(ctx context.Context, userid string, project
 		return []Expense{}, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM expenses e WHERE e.userid = @id AND e.projectid = @projectid"
+	query := "SELECT * FROM expenses e WHERE e.userid = @user_id AND e.projectid = @project_id"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
-			{Name: "@id", Value: userid},
-			{Name: "@projectid", Value: projectid},
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
 		},
 	}
 
@@ -61,7 +61,7 @@ func (env *env) GetExpensesByProject(ctx context.Context, userid string, project
 
 }
 
-func (env *env) GetExpenseByID(ctx context.Context, userid string, expenseid string) (Expense, error) {
+func (env *env) GetExpenseByID(ctx context.Context, userID string, expenseID string) (Expense, error) {
 
 	env.logger.Info("Getting expense by ID")
 	expense := Expense{}
@@ -71,9 +71,9 @@ func (env *env) GetExpenseByID(ctx context.Context, userid string, expenseid str
 		return expense, err
 	}
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.ReadItem(ctx, partitionKey, expenseid, nil)
+	response, err := container.ReadItem(ctx, partitionKey, expenseID, nil)
 	if err != nil {
 		return expense, err
 	}
@@ -109,15 +109,15 @@ func (env *env) UpsertExpense(ctx context.Context, expense Expense) (interface{}
 
 }
 
-func (env *env) RemoveExpense(ctx context.Context, userid string, expenseid string) (interface{}, error) {
+func (env *env) RemoveExpense(ctx context.Context, userID string, expenseID string) (interface{}, error) {
 
 	env.logger.Info("Removing expense")
 
 	container, err := env.client.NewContainer("expenses")
 
-	partitionKey := azcosmos.NewPartitionKeyString(userid)
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	response, err := container.DeleteItem(ctx, partitionKey, expenseid, nil)
+	response, err := container.DeleteItem(ctx, partitionKey, expenseID, nil)
 	if err != nil {
 		return nil, err
 	}
