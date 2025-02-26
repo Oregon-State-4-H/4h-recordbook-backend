@@ -278,6 +278,13 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 1 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section1 {
@@ -528,6 +535,13 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 2 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section2 {
@@ -772,6 +786,13 @@ func (e *env) updateSection3(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
+		})
+		return
+	}
+
+	if existingSection.Section != 3 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
 		})
 		return
 	}
@@ -1025,6 +1046,13 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 4 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section4 {
@@ -1270,6 +1298,13 @@ func (e *env) updateSection5(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
+		})
+		return
+	}
+
+	if existingSection.Section != 5 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
 		})
 		return
 	}
@@ -1525,6 +1560,13 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 6 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section6 {
@@ -1771,6 +1813,13 @@ func (e *env) updateSection7(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
+		})
+		return
+	}
+
+	if existingSection.Section != 7 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
 		})
 		return
 	}
@@ -2024,6 +2073,13 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 8 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section8 {
@@ -2273,6 +2329,13 @@ func (e *env) updateSection9(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
+		})
+		return
+	}
+
+	if existingSection.Section != 9 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
 		})
 		return
 	}
@@ -2532,6 +2595,13 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 10 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section10 {
@@ -2779,6 +2849,13 @@ func (e *env) updateSection11(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
+		})
+		return
+	}
+
+	if existingSection.Section != 11 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
 		})
 		return
 	}
@@ -3032,6 +3109,13 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 12 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section12 {
@@ -3277,6 +3361,13 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
+	if existingSection.Section != 13 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
+		})
+		return
+	}
+
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section13 {
@@ -3516,6 +3607,13 @@ func (e *env) updateSection14(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
+		})
+		return
+	}
+
+	if existingSection.Section != 14 {
+		c.JSON(404, gin.H{
+			"message": HTTPResponseCodeMap[404],
 		})
 		return
 	}
