@@ -93,6 +93,18 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -247,18 +259,6 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -465,80 +465,6 @@ definitions:
     - type
     - year
     type: object
-  api.UpsertSection10Input:
-    properties:
-      audience_size:
-        type: integer
-      communication_type:
-        type: string
-      location:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection11Input:
-    properties:
-      event_and_level:
-        type: string
-      exhibits_or_division:
-        type: string
-      ribbon_or_placings:
-        type: string
-      year:
-        type: string
-    required:
-    - event_and_level
-    - exhibits_or_division
-    - ribbon_or_placings
-    - year
-    type: object
-  api.UpsertSection12Input:
-    properties:
-      contest_or_event:
-        type: string
-      level:
-        type: string
-      recognition_received:
-        type: string
-      year:
-        type: string
-    required:
-    - contest_or_event
-    - level
-    - recognition_received
-    - year
-    type: object
-  api.UpsertSection13Input:
-    properties:
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection14Input:
-    properties:
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - recognition_type
-    - year
-    type: object
   api.UpsertSection1Input:
     properties:
       club_leader:
@@ -696,6 +622,80 @@ definitions:
     - location
     - times_given
     - topic
+    - year
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
     - year
     type: object
   api.UpsertSupplyInput:
@@ -1270,6 +1270,31 @@ definitions:
       middle_name_initial:
         type: string
       updated:
+        type: string
+    type: object
+  upc.Product:
+    properties:
+      ASIN:
+        type: string
+      alias:
+        type: string
+      barcode:
+        type: string
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      manufacturer:
+        type: string
+      mpn:
+        type: string
+      msrp:
+        type: string
+      success:
+        type: boolean
+      title:
         type: string
     type: object
 info:
@@ -3868,6 +3893,32 @@ paths:
       summary: Update a supply
       tags:
       - Supply
+  /upc/{code}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: UPC code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/upc.Product'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get a UPC product
+      tags:
+      - UPC
   /user:
     get:
       consumes:

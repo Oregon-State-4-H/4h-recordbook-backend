@@ -4122,6 +4122,48 @@
                 }
             }
         },
+        "/upc/{code}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UPC"
+                ],
+                "summary": "Get a UPC product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "UPC code",
+                        "name": "code",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/upc.Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/user": {
             "get": {
                 "security": [
@@ -6111,6 +6153,44 @@
                     "type": "string"
                 },
                 "updated": {
+                    "type": "string"
+                }
+            }
+        },
+        "upc.Product": {
+            "type": "object",
+            "properties": {
+                "ASIN": {
+                    "type": "string"
+                },
+                "alias": {
+                    "type": "string"
+                },
+                "barcode": {
+                    "type": "string"
+                },
+                "brand": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "type": "string"
+                },
+                "mpn": {
+                    "type": "string"
+                },
+                "msrp": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "title": {
                     "type": "string"
                 }
             }

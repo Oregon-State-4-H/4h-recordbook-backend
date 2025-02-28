@@ -8,6 +8,7 @@ import (
 	_ "4h-recordbook-backend/internal/api/docs"
 	"4h-recordbook-backend/internal/config"
 	"4h-recordbook-backend/pkg/db"
+	"4h-recordbook-backend/pkg/upc"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
@@ -28,6 +29,7 @@ type env struct {
 	validator *validator.Validate `validate:"required"`
 	config *config.Config `validate:"required"`
 	db db.Db `validate:"required"`
+	upc upc.Upc `validate:"required"`
 	api *gin.Engine `validate:"required"`
 }
 
@@ -97,7 +99,7 @@ func (e *env) RunLocal() error {
 	return http.ListenAndServe("localhost:8080", e.api)
 }
 
-func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, error) {
+func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcInstance upc.Upc) (Api, error) {
 
 	logger.Info("Setting up API")
 
@@ -105,9 +107,10 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 
 	e := &env {
 		validator: validator,
-		logger:    logger,
-		config:    cfg,
-		db:        dbInstance,
+		logger: logger,
+		config: cfg,
+		db: dbInstance,
+		upc: upcInstance,
 	}
 
 	router := gin.Default()
@@ -253,6 +256,8 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db) (Api, 
 	router.POST("/supply", e.addSupply)
 	router.PUT("/supply/:supplyID", e.updateSupply)
 	router.DELETE("/supply/:supplyID", e.deleteSupply)
+
+	router.GET("/upc/:code", e.getUpcProduct)
 
 	e.api = router
 
