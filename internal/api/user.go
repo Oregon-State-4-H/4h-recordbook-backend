@@ -84,7 +84,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -148,7 +148,7 @@ func (e *env) signin(c *gin.Context) {
 	err := c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -165,7 +165,7 @@ func (e *env) signin(c *gin.Context) {
 	jwt, err := generateJWT(user.ID, user.FirstName)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -226,7 +226,7 @@ func (e *env) signup(c *gin.Context) {
 	err := c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}

@@ -80,7 +80,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -88,7 +88,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -110,7 +110,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), claims.ID, input.Link)
 	if existingBookmark != (db.Bookmark{}) {
 		c.JSON(409, gin.H{
-			"message": HTTPResponseCodeMap[409],
+			"message": ErrBookmarkConflict,
 		})
 		return
 	}

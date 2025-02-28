@@ -48,7 +48,7 @@ func (e *env) getSupplies(c *gin.Context) {
 	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrNoQuery,
 		})
 		return
 	}
@@ -133,7 +133,7 @@ func (e *env) addSupply(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -141,7 +141,7 @@ func (e *env) addSupply(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -203,7 +203,7 @@ func (e *env) updateSupply(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -211,7 +211,7 @@ func (e *env) updateSupply(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}

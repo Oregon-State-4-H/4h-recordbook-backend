@@ -51,7 +51,7 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrNoQuery,
 		})
 		return
 	}
@@ -59,7 +59,7 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 	animalID := c.DefaultQuery("animalID", "")
 	if animalID == "" {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrNoQuery,
 		})
 		return
 	}
@@ -145,7 +145,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -153,7 +153,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -161,7 +161,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 	feedDate, err := utils.StringToTimestamp(input.FeedDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -225,7 +225,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -233,7 +233,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -241,7 +241,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 	feedDate, err := utils.StringToTimestamp(input.FeedDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}

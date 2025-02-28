@@ -146,7 +146,7 @@ func (e *env) getSection1(c *gin.Context) {
 	//todo: filter this in the db package
 	if output.Section.Section != 1 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -181,7 +181,7 @@ func (e *env) addSection1(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -189,7 +189,7 @@ func (e *env) addSection1(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -256,7 +256,7 @@ func (e *env) updateSection1(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -264,7 +264,7 @@ func (e *env) updateSection1(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -280,7 +280,7 @@ func (e *env) updateSection1(c *gin.Context) {
 
 	if existingSection.Section != 1 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -407,7 +407,7 @@ func (e *env) getSection2(c *gin.Context) {
 
 	if output.Section.Section != 2 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -442,7 +442,7 @@ func (e *env) addSection2(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -450,7 +450,7 @@ func (e *env) addSection2(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -513,7 +513,7 @@ func (e *env) updateSection2(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -521,7 +521,7 @@ func (e *env) updateSection2(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -537,7 +537,7 @@ func (e *env) updateSection2(c *gin.Context) {
 
 	if existingSection.Section != 2 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -661,7 +661,7 @@ func (e *env) getSection3(c *gin.Context) {
 
 	if output.Section.Section != 3 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -696,7 +696,7 @@ func (e *env) addSection3(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -704,7 +704,7 @@ func (e *env) addSection3(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -768,7 +768,7 @@ func (e *env) updateSection3(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -776,7 +776,7 @@ func (e *env) updateSection3(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -792,7 +792,7 @@ func (e *env) updateSection3(c *gin.Context) {
 
 	if existingSection.Section != 3 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -917,7 +917,7 @@ func (e *env) getSection4(c *gin.Context) {
 
 	if output.Section.Section != 4 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -952,7 +952,7 @@ func (e *env) addSection4(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -960,7 +960,7 @@ func (e *env) addSection4(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1024,7 +1024,7 @@ func (e *env) updateSection4(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1032,7 +1032,7 @@ func (e *env) updateSection4(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1048,7 +1048,7 @@ func (e *env) updateSection4(c *gin.Context) {
 
 	if existingSection.Section != 4 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1173,7 +1173,7 @@ func (e *env) getSection5(c *gin.Context) {
 
 	if output.Section.Section != 5 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1208,7 +1208,7 @@ func (e *env) addSection5(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1216,7 +1216,7 @@ func (e *env) addSection5(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1280,7 +1280,7 @@ func (e *env) updateSection5(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1288,7 +1288,7 @@ func (e *env) updateSection5(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1304,7 +1304,7 @@ func (e *env) updateSection5(c *gin.Context) {
 
 	if existingSection.Section != 5 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1430,7 +1430,7 @@ func (e *env) getSection6(c *gin.Context) {
 
 	if output.Section.Section != 6 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1465,7 +1465,7 @@ func (e *env) addSection6(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1473,7 +1473,7 @@ func (e *env) addSection6(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1538,7 +1538,7 @@ func (e *env) updateSection6(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1546,7 +1546,7 @@ func (e *env) updateSection6(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1562,7 +1562,7 @@ func (e *env) updateSection6(c *gin.Context) {
 
 	if existingSection.Section != 6 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1688,7 +1688,7 @@ func (e *env) getSection7(c *gin.Context) {
 
 	if output.Section.Section != 7 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1723,7 +1723,7 @@ func (e *env) addSection7(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1731,7 +1731,7 @@ func (e *env) addSection7(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1795,7 +1795,7 @@ func (e *env) updateSection7(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1803,7 +1803,7 @@ func (e *env) updateSection7(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -1819,7 +1819,7 @@ func (e *env) updateSection7(c *gin.Context) {
 
 	if existingSection.Section != 7 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1944,7 +1944,7 @@ func (e *env) getSection8(c *gin.Context) {
 
 	if output.Section.Section != 8 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1979,7 +1979,7 @@ func (e *env) addSection8(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -1987,7 +1987,7 @@ func (e *env) addSection8(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2051,7 +2051,7 @@ func (e *env) updateSection8(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2059,7 +2059,7 @@ func (e *env) updateSection8(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2075,7 +2075,7 @@ func (e *env) updateSection8(c *gin.Context) {
 
 	if existingSection.Section != 8 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2202,7 +2202,7 @@ func (e *env) getSection9(c *gin.Context) {
 
 	if output.Section.Section != 9 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2237,7 +2237,7 @@ func (e *env) addSection9(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2245,7 +2245,7 @@ func (e *env) addSection9(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2311,7 +2311,7 @@ func (e *env) updateSection9(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2319,7 +2319,7 @@ func (e *env) updateSection9(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2335,7 +2335,7 @@ func (e *env) updateSection9(c *gin.Context) {
 
 	if existingSection.Section != 9 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2464,7 +2464,7 @@ func (e *env) getSection10(c *gin.Context) {
 
 	if output.Section.Section != 10 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2499,7 +2499,7 @@ func (e *env) addSection10(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2507,7 +2507,7 @@ func (e *env) addSection10(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2573,7 +2573,7 @@ func (e *env) updateSection10(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2581,7 +2581,7 @@ func (e *env) updateSection10(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2597,7 +2597,7 @@ func (e *env) updateSection10(c *gin.Context) {
 
 	if existingSection.Section != 10 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2724,7 +2724,7 @@ func (e *env) getSection11(c *gin.Context) {
 
 	if output.Section.Section != 11 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2759,7 +2759,7 @@ func (e *env) addSection11(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2767,7 +2767,7 @@ func (e *env) addSection11(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2831,7 +2831,7 @@ func (e *env) updateSection11(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -2839,7 +2839,7 @@ func (e *env) updateSection11(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -2855,7 +2855,7 @@ func (e *env) updateSection11(c *gin.Context) {
 
 	if existingSection.Section != 11 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2980,7 +2980,7 @@ func (e *env) getSection12(c *gin.Context) {
 
 	if output.Section.Section != 12 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3015,7 +3015,7 @@ func (e *env) addSection12(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -3023,7 +3023,7 @@ func (e *env) addSection12(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -3087,7 +3087,7 @@ func (e *env) updateSection12(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -3095,7 +3095,7 @@ func (e *env) updateSection12(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -3111,7 +3111,7 @@ func (e *env) updateSection12(c *gin.Context) {
 
 	if existingSection.Section != 12 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3234,7 +3234,7 @@ func (e *env) getSection13(c *gin.Context) {
 
 	if output.Section.Section != 13 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3269,7 +3269,7 @@ func (e *env) addSection13(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -3277,7 +3277,7 @@ func (e *env) addSection13(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -3339,7 +3339,7 @@ func (e *env) updateSection13(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -3347,7 +3347,7 @@ func (e *env) updateSection13(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -3363,7 +3363,7 @@ func (e *env) updateSection13(c *gin.Context) {
 
 	if existingSection.Section != 13 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3484,7 +3484,7 @@ func (e *env) getSection14(c *gin.Context) {
 
 	if output.Section.Section != 14 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3519,7 +3519,7 @@ func (e *env) addSection14(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -3527,7 +3527,7 @@ func (e *env) addSection14(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -3589,7 +3589,7 @@ func (e *env) updateSection14(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -3597,7 +3597,7 @@ func (e *env) updateSection14(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -3613,7 +3613,7 @@ func (e *env) updateSection14(c *gin.Context) {
 
 	if existingSection.Section != 14 {
 		c.JSON(404, gin.H{
-			"message": HTTPResponseCodeMap[404],
+			"message": ErrNotFound,
 		})
 		return
 	}

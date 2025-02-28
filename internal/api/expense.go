@@ -49,7 +49,7 @@ func (e *env) getExpenses(c *gin.Context) {
 	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrNoQuery,
 		})
 		return
 	}
@@ -135,7 +135,7 @@ func (e *env) addExpense(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -143,7 +143,7 @@ func (e *env) addExpense(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -151,7 +151,7 @@ func (e *env) addExpense(c *gin.Context) {
 	date, err := utils.StringToTimestamp(input.Date)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -214,7 +214,7 @@ func (e *env) updateExpense(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -222,7 +222,7 @@ func (e *env) updateExpense(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -230,7 +230,7 @@ func (e *env) updateExpense(c *gin.Context) {
 	date, err := utils.StringToTimestamp(input.Date)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}

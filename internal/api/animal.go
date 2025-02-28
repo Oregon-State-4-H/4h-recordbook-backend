@@ -62,7 +62,7 @@ func (e *env) getAnimals(c *gin.Context) {
 	projectID := c.DefaultQuery("projectID", "")
 	if projectID == "" {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrNoQuery,
 		})
 		return
 	}
@@ -148,7 +148,7 @@ func (e *env) addAnimal(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -156,7 +156,7 @@ func (e *env) addAnimal(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -164,7 +164,7 @@ func (e *env) addAnimal(c *gin.Context) {
 	birthDate, err := utils.StringToTimestamp(input.BirthDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -172,7 +172,7 @@ func (e *env) addAnimal(c *gin.Context) {
 	purchaseDate, err := utils.StringToTimestamp(input.PurchaseDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -245,7 +245,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -253,7 +253,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -261,7 +261,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 	birthDate, err := utils.StringToTimestamp(input.BirthDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -269,7 +269,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 	purchaseDate, err := utils.StringToTimestamp(input.PurchaseDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -352,7 +352,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -360,7 +360,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -368,7 +368,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 	beginningDate, err := utils.StringToTimestamp(input.BeginningDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -376,7 +376,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 	endDate, err := utils.StringToTimestamp(input.EndDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}

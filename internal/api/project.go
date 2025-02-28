@@ -160,7 +160,7 @@ func (e *env) addProject(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -168,7 +168,7 @@ func (e *env) addProject(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
@@ -176,11 +176,10 @@ func (e *env) addProject(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 	
-	//verify StartDate and EndDate are properly formatted
 	startDate, err := utils.StringToTimestamp(input.StartDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -188,7 +187,7 @@ func (e *env) addProject(c *gin.Context) {
 	endDate, err := utils.StringToTimestamp(input.EndDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -249,7 +248,7 @@ func (e *env) updateProject(c *gin.Context) {
 	err = c.BindJSON(&input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadRequest,
 		})
 		return
 	}
@@ -257,16 +256,15 @@ func (e *env) updateProject(c *gin.Context) {
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrMissingFields,
 		})
 		return
 	}
 
-	//verify StartDate and EndDate are properly formatted
 	startDate, err := utils.StringToTimestamp(input.StartDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
@@ -274,7 +272,7 @@ func (e *env) updateProject(c *gin.Context) {
 	endDate, err := utils.StringToTimestamp(input.EndDate)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"message": HTTPResponseCodeMap[400],
+			"message": ErrBadDate,
 		})
 		return
 	}
