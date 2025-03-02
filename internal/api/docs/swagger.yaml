@@ -1,110 +1,3975 @@
+definitions:
+  api.AddBookmarkInput:
+    properties:
+      label:
+        type: string
+      link:
+        type: string
+    required:
+    - label
+    - link
+    type: object
+  api.GetAnimalOutput:
+    properties:
+      animal:
+        $ref: '#/definitions/db.Animal'
+    type: object
+  api.GetAnimalsOutput:
+    properties:
+      animals:
+        items:
+          $ref: '#/definitions/db.Animal'
+        type: array
+    type: object
+  api.GetBookmarksOutput:
+    properties:
+      bookmarks:
+        items:
+          $ref: '#/definitions/db.Bookmark'
+        type: array
+    type: object
+  api.GetDailyFeedOutput:
+    properties:
+      daily_feed:
+        $ref: '#/definitions/db.DailyFeed'
+    type: object
+  api.GetDailyFeedsOutput:
+    properties:
+      daily_feeds:
+        items:
+          $ref: '#/definitions/db.DailyFeed'
+        type: array
+    type: object
+  api.GetExpenseOutput:
+    properties:
+      expense:
+        $ref: '#/definitions/db.Expense'
+    type: object
+  api.GetExpensesOutput:
+    properties:
+      expenses:
+        items:
+          $ref: '#/definitions/db.Expense'
+        type: array
+    type: object
+  api.GetFeedOutput:
+    properties:
+      feed:
+        $ref: '#/definitions/db.Feed'
+    type: object
+  api.GetFeedPurchaseOutput:
+    properties:
+      feed_purchase:
+        $ref: '#/definitions/db.FeedPurchase'
+    type: object
+  api.GetFeedPurchasesOutput:
+    properties:
+      feed_purchases:
+        items:
+          $ref: '#/definitions/db.FeedPurchase'
+        type: array
+    type: object
+  api.GetFeedsOutput:
+    properties:
+      feeds:
+        items:
+          $ref: '#/definitions/db.Feed'
+        type: array
+    type: object
+  api.GetProjectOutput:
+    properties:
+      project:
+        $ref: '#/definitions/db.Project'
+    type: object
+  api.GetProjectsOutput:
+    properties:
+      projects:
+        items:
+          $ref: '#/definitions/db.Project'
+        type: array
+    type: object
+  api.GetResumeOutput:
+    properties:
+      resume:
+        $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
+  api.GetSection2Output:
+    properties:
+      section_2:
+        $ref: '#/definitions/db.Section2'
+    type: object
+  api.GetSection2sOutput:
+    properties:
+      section_2_data:
+        items:
+          $ref: '#/definitions/db.Section2'
+        type: array
+    type: object
+  api.GetSection3Output:
+    properties:
+      section_3:
+        $ref: '#/definitions/db.Section3'
+    type: object
+  api.GetSection3sOutput:
+    properties:
+      section_3_data:
+        items:
+          $ref: '#/definitions/db.Section3'
+        type: array
+    type: object
+  api.GetSection4Output:
+    properties:
+      section_4:
+        $ref: '#/definitions/db.Section4'
+    type: object
+  api.GetSection4sOutput:
+    properties:
+      section_4_data:
+        items:
+          $ref: '#/definitions/db.Section4'
+        type: array
+    type: object
+  api.GetSection5Output:
+    properties:
+      section_5:
+        $ref: '#/definitions/db.Section5'
+    type: object
+  api.GetSection5sOutput:
+    properties:
+      section_5_data:
+        items:
+          $ref: '#/definitions/db.Section5'
+        type: array
+    type: object
+  api.GetSection6Output:
+    properties:
+      section_6:
+        $ref: '#/definitions/db.Section6'
+    type: object
+  api.GetSection6sOutput:
+    properties:
+      section_6_data:
+        items:
+          $ref: '#/definitions/db.Section6'
+        type: array
+    type: object
+  api.GetSection7Output:
+    properties:
+      section_7:
+        $ref: '#/definitions/db.Section7'
+    type: object
+  api.GetSection7sOutput:
+    properties:
+      section_7_data:
+        items:
+          $ref: '#/definitions/db.Section7'
+        type: array
+    type: object
+  api.GetSection8Output:
+    properties:
+      section_8:
+        $ref: '#/definitions/db.Section8'
+    type: object
+  api.GetSection8sOutput:
+    properties:
+      section_8_data:
+        items:
+          $ref: '#/definitions/db.Section8'
+        type: array
+    type: object
+  api.GetSection9Output:
+    properties:
+      section_9:
+        $ref: '#/definitions/db.Section9'
+    type: object
+  api.GetSection9sOutput:
+    properties:
+      section_9_data:
+        items:
+          $ref: '#/definitions/db.Section9'
+        type: array
+    type: object
+  api.GetSection10Output:
+    properties:
+      section_10:
+        $ref: '#/definitions/db.Section10'
+    type: object
+  api.GetSection10sOutput:
+    properties:
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+    type: object
+  api.GetSection11Output:
+    properties:
+      section_11:
+        $ref: '#/definitions/db.Section11'
+    type: object
+  api.GetSection11sOutput:
+    properties:
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+    type: object
+  api.GetSection12Output:
+    properties:
+      section_12:
+        $ref: '#/definitions/db.Section12'
+    type: object
+  api.GetSection12sOutput:
+    properties:
+      section_12_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+    type: object
+  api.GetSection13Output:
+    properties:
+      section_13:
+        $ref: '#/definitions/db.Section13'
+    type: object
+  api.GetSection13sOutput:
+    properties:
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+    type: object
+  api.GetSection14Output:
+    properties:
+      section_14:
+        $ref: '#/definitions/db.Section14'
+    type: object
+  api.GetSection14sOutput:
+    properties:
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSuppliesOutput:
+    properties:
+      supplies:
+        items:
+          $ref: '#/definitions/db.Supply'
+        type: array
+    type: object
+  api.GetSupplyOutput:
+    properties:
+      supply:
+        $ref: '#/definitions/db.Supply'
+    type: object
+  api.GetUserProfileOutput:
+    properties:
+      user:
+        $ref: '#/definitions/db.User'
+    type: object
+  api.SignInInput:
+    properties:
+      id:
+        type: string
+    type: object
+  api.SignUpInput:
+    properties:
+      birthdate:
+        type: string
+      county_name:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name_initial:
+        type: string
+      middle_name_initial:
+        type: string
+    required:
+    - birthdate
+    - county_name
+    - email
+    - first_name
+    - last_name_initial
+    - middle_name_initial
+    type: object
+  api.UpdateRateOfGainInput:
+    properties:
+      beginning_date:
+        type: string
+      beginning_weight:
+        type: number
+      end_date:
+        type: string
+      end_weight:
+        type: number
+    required:
+    - beginning_date
+    - beginning_weight
+    - end_date
+    - end_weight
+    type: object
+  api.UpdateUserInput:
+    properties:
+      birthdate:
+        type: string
+      county_name:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name_initial:
+        type: string
+      middle_name_initial:
+        type: string
+    type: object
+  api.UpsertAnimalInput:
+    properties:
+      animal_cost:
+        type: string
+      birth_date:
+        type: string
+      dam_breed:
+        type: string
+      name:
+        type: string
+      project_id:
+        type: string
+      purchase_date:
+        type: string
+      quality_grade:
+        type: string
+      sale_price:
+        type: string
+      sire_breed:
+        type: string
+      species:
+        type: string
+      yield_grade:
+        type: string
+    required:
+    - animal_cost
+    - birth_date
+    - dam_breed
+    - name
+    - project_id
+    - purchase_date
+    - quality_grade
+    - sale_price
+    - sire_breed
+    - species
+    - yield_grade
+    type: object
+  api.UpsertDailyFeedInput:
+    properties:
+      animal_id:
+        type: string
+      feed_amount:
+        type: number
+      feed_date:
+        type: string
+      feed_id:
+        type: string
+      feed_purchase_id:
+        type: string
+      project_id:
+        type: string
+    required:
+    - animal_id
+    - feed_amount
+    - feed_date
+    - feed_id
+    - feed_purchase_id
+    - project_id
+    type: object
+  api.UpsertExpenseInput:
+    properties:
+      cost:
+        type: number
+      date:
+        type: string
+      items:
+        type: string
+      project_id:
+        type: string
+      quantity:
+        type: number
+    required:
+    - cost
+    - date
+    - items
+    - project_id
+    - quantity
+    type: object
+  api.UpsertFeedInput:
+    properties:
+      name:
+        type: string
+      project_id:
+        type: string
+    required:
+    - name
+    - project_id
+    type: object
+  api.UpsertFeedPurchaseInput:
+    properties:
+      amount_purchased:
+        type: number
+      date_purchased:
+        type: string
+      feed_id:
+        type: string
+      project_id:
+        type: string
+      total_cost:
+        type: number
+    required:
+    - amount_purchased
+    - date_purchased
+    - feed_id
+    - project_id
+    - total_cost
+    type: object
+  api.UpsertProjectInput:
+    properties:
+      description:
+        type: string
+      end_date:
+        type: string
+      name:
+        type: string
+      start_date:
+        type: string
+      type:
+        type: string
+      year:
+        type: string
+    required:
+    - description
+    - end_date
+    - name
+    - start_date
+    - type
+    - year
+    type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - num_in_club
+    - year
+    type: object
+  api.UpsertSection2Input:
+    properties:
+      project_name:
+        type: string
+      project_scope:
+        type: string
+      year:
+        type: string
+    required:
+    - project_name
+    - project_scope
+    - year
+    type: object
+  api.UpsertSection3Input:
+    properties:
+      activity_kind:
+        type: string
+      level:
+        type: string
+      things_learned:
+        type: string
+      year:
+        type: string
+    required:
+    - activity_kind
+    - level
+    - things_learned
+    - year
+    type: object
+  api.UpsertSection4Input:
+    properties:
+      activity_kind:
+        type: string
+      level:
+        type: string
+      scope:
+        type: string
+      year:
+        type: string
+    required:
+    - activity_kind
+    - level
+    - scope
+    - year
+    type: object
+  api.UpsertSection5Input:
+    properties:
+      hours_spent:
+        type: integer
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - hours_spent
+    - leadership_role
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection6Input:
+    properties:
+      hours_spent:
+        type: integer
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      organization_name:
+        type: string
+      year:
+        type: string
+    required:
+    - hours_spent
+    - leadership_role
+    - num_people_reached
+    - organization_name
+    - year
+    type: object
+  api.UpsertSection7Input:
+    properties:
+      club_member_activities:
+        type: string
+      hours_spent:
+        type: integer
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_member_activities
+    - hours_spent
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection8Input:
+    properties:
+      hours_spent:
+        type: integer
+      individual_group_activities:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - hours_spent
+    - individual_group_activities
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection9Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSupplyInput:
+    properties:
+      description:
+        type: string
+      end_value:
+        type: number
+      project_id:
+        type: string
+      start_value:
+        type: number
+    required:
+    - description
+    - end_value
+    - project_id
+    - start_value
+    type: object
+  db.Animal:
+    properties:
+      animal_cost:
+        type: string
+      beginning_date:
+        type: string
+      beginning_weight:
+        type: number
+      birth_date:
+        type: string
+      created:
+        type: string
+      dam_breed:
+        type: string
+      end_date:
+        type: string
+      end_weight:
+        type: number
+      id:
+        type: string
+      name:
+        type: string
+      project_id:
+        type: string
+      purchase_date:
+        type: string
+      quality_grade:
+        type: string
+      sale_price:
+        type: string
+      sire_breed:
+        type: string
+      species:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+      yield_grade:
+        type: string
+    type: object
+  db.Bookmark:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      label:
+        type: string
+      link:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.DailyFeed:
+    properties:
+      animal_id:
+        type: string
+      created:
+        type: string
+      feed_amount:
+        type: number
+      feed_date:
+        type: string
+      feed_id:
+        type: string
+      feed_purchase_id:
+        type: string
+      id:
+        type: string
+      project_id:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.Expense:
+    properties:
+      cost:
+        type: number
+      created:
+        type: string
+      date:
+        type: string
+      id:
+        type: string
+      items:
+        type: string
+      project_id:
+        type: string
+      quantity:
+        type: number
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.Feed:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      project_id:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.FeedPurchase:
+    properties:
+      amount_purchased:
+        type: number
+      created:
+        type: string
+      date_purchased:
+        type: string
+      feed_id:
+        type: string
+      id:
+        type: string
+      project_id:
+        type: string
+      total_cost:
+        type: number
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.Project:
+    properties:
+      created:
+        type: string
+      description:
+        type: string
+      end_date:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      start_date:
+        type: string
+      type:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Resume:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+      section_2_data:
+        items:
+          $ref: '#/definitions/db.Section2'
+        type: array
+      section_3_data:
+        items:
+          $ref: '#/definitions/db.Section3'
+        type: array
+      section_4_data:
+        items:
+          $ref: '#/definitions/db.Section4'
+        type: array
+      section_5_data:
+        items:
+          $ref: '#/definitions/db.Section5'
+        type: array
+      section_6_data:
+        items:
+          $ref: '#/definitions/db.Section6'
+        type: array
+      section_7_data:
+        items:
+          $ref: '#/definitions/db.Section7'
+        type: array
+      section_8_data:
+        items:
+          $ref: '#/definitions/db.Section8'
+        type: array
+      section_9_data:
+        items:
+          $ref: '#/definitions/db.Section9'
+        type: array
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+      section_12_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  db.Section1:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      created:
+        type: string
+      grade:
+        type: integer
+      id:
+        type: string
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      num_in_club:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section2:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      project_name:
+        type: string
+      project_scope:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section3:
+    properties:
+      activity_kind:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      level:
+        type: string
+      section:
+        type: integer
+      things_learned:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section4:
+    properties:
+      activity_kind:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      level:
+        type: string
+      scope:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section5:
+    properties:
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section6:
+    properties:
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      leadership_role:
+        type: string
+      num_people_reached:
+        type: integer
+      organization_name:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section7:
+    properties:
+      club_member_activities:
+        type: string
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      num_people_reached:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section8:
+    properties:
+      created:
+        type: string
+      hours_spent:
+        type: integer
+      id:
+        type: string
+      individual_group_activities:
+        type: string
+      num_people_reached:
+        type: integer
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section9:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      section:
+        type: integer
+      times_given:
+        type: integer
+      topic:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section10:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      section:
+        type: integer
+      times_given:
+        type: integer
+      topic:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section11:
+    properties:
+      created:
+        type: string
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      id:
+        type: string
+      ribbon_or_placings:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section12:
+    properties:
+      contest_or_event:
+        type: string
+      created:
+        type: string
+      id:
+        type: string
+      level:
+        type: string
+      recognition_received:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section13:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      recognition_type:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Section14:
+    properties:
+      created:
+        type: string
+      id:
+        type: string
+      recognition_type:
+        type: string
+      section:
+        type: integer
+      updated:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: string
+    type: object
+  db.Supply:
+    properties:
+      created:
+        type: string
+      description:
+        type: string
+      end_value:
+        type: number
+      id:
+        type: string
+      project_id:
+        type: string
+      start_value:
+        type: number
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.User:
+    properties:
+      birthdate:
+        type: string
+      county_name:
+        type: string
+      created:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name_initial:
+        type: string
+      middle_name_initial:
+        type: string
+      updated:
+        type: string
+    type: object
+  upc.Product:
+    properties:
+      ASIN:
+        type: string
+      alias:
+        type: string
+      barcode:
+        type: string
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      manufacturer:
+        type: string
+      mpn:
+        type: string
+      msrp:
+        type: string
+      success:
+        type: boolean
+      title:
+        type: string
+    type: object
 info:
   contact: {}
+  title: 4H Record Books API
 paths:
+  /animal:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's animals for a given project
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetAnimalsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get animals by project
+      tags:
+      - Animal
+    post:
+      consumes:
+      - application/json
+      description: Adds an animal to a user's personal records
+      parameters:
+      - description: Animal information
+        in: body
+        name: UpsertAnimalInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertAnimalInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add an animal
+      tags:
+      - Animal
+  /animal/{animalID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's animal given the animal ID
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes an animal
+      tags:
+      - Animal
+    get:
+      consumes:
+      - application/json
+      description: Get a user's animal by ID
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetAnimalOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get an animal
+      tags:
+      - Animal
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's animal information
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      - description: Animal information
+        in: body
+        name: UpsertAnimalInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertAnimalInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an animal
+      tags:
+      - Animal
   /bookmarks:
     get:
       consumes:
       - application/json
+      description: Returns an array of all the user's bookmarks, queried using JWT
+        claims
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetBookmarksOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get all of a user's bookmarks
       tags:
       - User Bookmarks
     post:
       consumes:
       - application/json
+      description: |-
+        Adds a bookmark to a user's personal records.
+        The new bookmark can not have the same link as another of the user's bookmarks
+      parameters:
+      - description: Bookmark information
+        in: body
+        name: AddBookmarkInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.AddBookmarkInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "409":
+          description: Conflict
+      security:
+      - ApiKeyAuth: []
+      summary: Adds a bookmark
       tags:
       - User Bookmarks
-  /bookmarks/{bookmarkId}:
+  /bookmarks/{bookmarkID}:
     delete:
       consumes:
       - application/json
+      description: Deletes a user's bookmark given the bookmark ID
+      parameters:
+      - description: Bookmark ID
+        in: path
+        name: bookmarkID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a bookmark
+      tags:
+      - User Bookmarks
+  /daily-feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's daily feeds for a given project and animal
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectID
+        required: true
+        type: string
+      - description: Animal ID
+        in: query
+        name: animalID
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetDailyFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get daily feeds by project and animal
       tags:
-      - User Bookmarks
+      - Daily Feed
+    post:
+      consumes:
+      - application/json
+      description: Adds a daily feed to a user's personal records
+      parameters:
+      - description: Daily Feed information
+        in: body
+        name: UpsertDailyFeedInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertDailyFeedInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a daily feed
+      tags:
+      - Daily Feed
+  /daily-feed/{dailyFeedID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's daily feed given the daily feed ID
+      parameters:
+      - description: Daily Feed ID
+        in: path
+        name: dailyFeedID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a daily feed
+      tags:
+      - Daily Feed
+    get:
+      consumes:
+      - application/json
+      description: Get a user's daily feed by ID
+      parameters:
+      - description: Daily Feed ID
+        in: path
+        name: dailyFeedID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetDailyFeedOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a daily feed
+      tags:
+      - Daily Feed
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's daily feed information
+      parameters:
+      - description: Daily Feed ID
+        in: path
+        name: dailyFeedID
+        required: true
+        type: string
+      - description: DailyFeed information
+        in: body
+        name: UpsertDailyFeedInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertDailyFeedInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a daily feed
+      tags:
+      - Daily Feed
+  /expense:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's expenses given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetExpensesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get expenses by project
+      tags:
+      - Expense
+    post:
+      consumes:
+      - application/json
+      description: Adds an expense to a user's personal records
+      parameters:
+      - description: Expense information
+        in: body
+        name: UpsertExpenseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertExpenseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Adds an expense
+      tags:
+      - Expense
+  /expense/{expenseID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's expense given the expense ID
+      parameters:
+      - description: Expense ID
+        in: path
+        name: expenseID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes an expense
+      tags:
+      - Expense
+    get:
+      consumes:
+      - application/json
+      description: Get a user's expense by ID
+      parameters:
+      - description: Expense ID
+        in: path
+        name: expenseID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetExpenseOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get an expense
+      tags:
+      - Expense
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's expense information
+      parameters:
+      - description: Expense ID
+        in: path
+        name: expenseID
+        required: true
+        type: string
+      - description: Expense information
+        in: body
+        name: UpsertExpenseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertExpenseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an expense
+      tags:
+      - Expense
+  /feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feeds given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feeds by project
+      tags:
+      - Feed
+    post:
+      consumes:
+      - application/json
+      description: Adds a feed to a user's personal records
+      parameters:
+      - description: Feed information
+        in: body
+        name: UpsertFeedInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a feed
+      tags:
+      - Feed
+  /feed-purchase:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feed purchases given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedPurchasesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feed purchases by project
+      tags:
+      - Feed Purchase
+    post:
+      consumes:
+      - application/json
+      description: Adds a feed purchase to a user's personal records
+      parameters:
+      - description: Feed Purchase information
+        in: body
+        name: UpsertFeedPurchaseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedPurchaseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a feed purchase
+      tags:
+      - Feed Purchase
+  /feed-purchase/{feedPurchaseID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's feed purchase given the feed purchase ID
+      parameters:
+      - description: Feed Purchase ID
+        in: path
+        name: feedPurchaseID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a feed purchase
+      tags:
+      - Feed Purchase
+    get:
+      consumes:
+      - application/json
+      description: Get a user's feed purchase by ID
+      parameters:
+      - description: Feed Purchase ID
+        in: path
+        name: feedPurchaseID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedPurchaseOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a feed purchase
+      tags:
+      - Feed Purchase
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's feed purchase information
+      parameters:
+      - description: Feed Purchase ID
+        in: path
+        name: feedPurchaseID
+        required: true
+        type: string
+      - description: Feed purchase information
+        in: body
+        name: UpsertFeedPurchaseInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedPurchaseInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a feed purchase
+      tags:
+      - Feed Purchase
+  /feed/{feedID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's feed given the feed ID
+      parameters:
+      - description: Feed ID
+        in: path
+        name: feedID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a feed
+      tags:
+      - Feed
+    get:
+      consumes:
+      - application/json
+      description: Get a user's feed by ID
+      parameters:
+      - description: Feed ID
+        in: path
+        name: feedID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a feed
+      tags:
+      - Feed
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's feed information
+      parameters:
+      - description: Feed ID
+        in: path
+        name: feedID
+        required: true
+        type: string
+      - description: Feed information
+        in: body
+        name: UpsertFeedInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertFeedInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a feed
+      tags:
+      - Feed
   /project:
     get:
       consumes:
       - application/json
+      description: Gets all of a user's saved projects regardless of year
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetProjectsOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get all of a user's projects
       tags:
-      - Projects
+      - Project
     post:
       consumes:
       - application/json
+      description: Adds a project to a user's personal records
+      parameters:
+      - description: Project information
+        in: body
+        name: UpsertProjectInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertProjectInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a project
       tags:
-      - Projects
-  /project/{projectId}:
+      - Project
+  /project/{projectID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's project given the project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a project
+      tags:
+      - Project
     get:
       consumes:
       - application/json
+      description: Get a user's project by ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetProjectOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a project
       tags:
-      - Projects
+      - Project
     put:
       consumes:
       - application/json
+      description: Updates a user's project information
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Project information
+        in: body
+        name: UpsertProjectInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertProjectInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a project
       tags:
-      - Projects
+      - Project
   /projects:
     get:
       consumes:
       - application/json
+      description: Gets all of a user's projects that take place in the last 12 months
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetProjectsOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets projects of the current year
       tags:
-      - Projects
+      - Project
+  /rate-of-gain/{animalID}:
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's animal rate of gain information
+      parameters:
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      - description: Animal rate of gain information
+        in: body
+        name: UpdateRateOfGainInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateRateOfGainInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an animal's rate of gain
+      tags:
+      - Animal
+  /resume:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's entries for every resume section
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetResumeOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets full resume
+      tags:
+      - Resume
+  /section/{sectionID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's resume section given the section ID. Can be any
+        resume section
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a resume section
+      tags:
+      - Resume
+  /section1:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 1 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection1sOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 1 entries
+      tags:
+      - Resume Section 01
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 1 entry to a user's personal records
+      parameters:
+      - description: Section 1 information
+        in: body
+        name: UpsertSection1Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection1Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 1 entry
+      tags:
+      - Resume Section 01
+  /section1/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 1 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection1Output'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 1
+      tags:
+      - Resume Section 01
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 1 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 1 information
+        in: body
+        name: UpsertSection1Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection1Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 1 entry
+      tags:
+      - Resume Section 01
+  /section2:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 2 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection2sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 2 entries
+      tags:
+      - Resume Section 02
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 2 entry to a user's personal records
+      parameters:
+      - description: Section 2 information
+        in: body
+        name: UpsertSection2Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection2Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 2 entry
+      tags:
+      - Resume Section 02
+  /section2/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 2 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection2Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 2
+      tags:
+      - Resume Section 02
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 2 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 2 information
+        in: body
+        name: UpsertSection2Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection2Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 2 entry
+      tags:
+      - Resume Section 02
+  /section3:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 3 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection3sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 3 entries
+      tags:
+      - Resume Section 03
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 3 entry to a user's personal records
+      parameters:
+      - description: Section 3 information
+        in: body
+        name: UpsertSection3Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection3Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 3 entry
+      tags:
+      - Resume Section 03
+  /section3/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 3 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection3Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 3
+      tags:
+      - Resume Section 03
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 3 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 3 information
+        in: body
+        name: UpsertSection3Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection3Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 3 entry
+      tags:
+      - Resume Section 03
+  /section4:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 4 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection4sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 4 entries
+      tags:
+      - Resume Section 04
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 4 entry to a user's personal records
+      parameters:
+      - description: Section 4 information
+        in: body
+        name: UpsertSection4Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection4Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 4 entry
+      tags:
+      - Resume Section 04
+  /section4/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 4 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection4Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 4
+      tags:
+      - Resume Section 04
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 4 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 4 information
+        in: body
+        name: UpsertSection4Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection4Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 4 entry
+      tags:
+      - Resume Section 04
+  /section5:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 5 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection5sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 5 entries
+      tags:
+      - Resume Section 05
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 5 entry to a user's personal records
+      parameters:
+      - description: Section 5 information
+        in: body
+        name: UpsertSection5Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection5Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 5 entry
+      tags:
+      - Resume Section 05
+  /section5/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 5 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection5Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 5
+      tags:
+      - Resume Section 05
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 5 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 5 information
+        in: body
+        name: UpsertSection5Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection5Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 5 entry
+      tags:
+      - Resume Section 05
+  /section6:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 6 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection6sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 6 entries
+      tags:
+      - Resume Section 06
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 6 entry to a user's personal records
+      parameters:
+      - description: Section 6 information
+        in: body
+        name: UpsertSection6Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection6Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 6 entry
+      tags:
+      - Resume Section 06
+  /section6/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 6 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection6Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 6
+      tags:
+      - Resume Section 06
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 6 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 6 information
+        in: body
+        name: UpsertSection6Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection6Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 6 entry
+      tags:
+      - Resume Section 06
+  /section7:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 7 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection7sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 7 entries
+      tags:
+      - Resume Section 07
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 7 entry to a user's personal records
+      parameters:
+      - description: Section 7 information
+        in: body
+        name: UpsertSection7Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection7Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 7 entry
+      tags:
+      - Resume Section 07
+  /section7/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 7 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection7Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 7
+      tags:
+      - Resume Section 07
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 7 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 7 information
+        in: body
+        name: UpsertSection7Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection7Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 7 entry
+      tags:
+      - Resume Section 07
+  /section8:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 8 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection8sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 8 entries
+      tags:
+      - Resume Section 08
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 8 entry to a user's personal records
+      parameters:
+      - description: Section 8 information
+        in: body
+        name: UpsertSection8Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection8Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 8 entry
+      tags:
+      - Resume Section 08
+  /section8/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 8 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection8Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 8
+      tags:
+      - Resume Section 08
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 8 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 8 information
+        in: body
+        name: UpsertSection8Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection8Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 8 entry
+      tags:
+      - Resume Section 08
+  /section9:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 9 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection9sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 9 entries
+      tags:
+      - Resume Section 09
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 9 entry to a user's personal records
+      parameters:
+      - description: Section 9 information
+        in: body
+        name: UpsertSection9Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection9Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 9 entry
+      tags:
+      - Resume Section 09
+  /section9/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 9 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection9Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 9
+      tags:
+      - Resume Section 09
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 9 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 9 information
+        in: body
+        name: UpsertSection9Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection9Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 9 entry
+      tags:
+      - Resume Section 09
+  /section10:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 10 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection10sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 10 entries
+      tags:
+      - Resume Section 10
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 10 entry to a user's personal records
+      parameters:
+      - description: Section 10 information
+        in: body
+        name: UpsertSection10Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection10Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 10 entry
+      tags:
+      - Resume Section 10
+  /section10/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 10 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection10Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 10
+      tags:
+      - Resume Section 10
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 10 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 10 information
+        in: body
+        name: UpsertSection10Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection10Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 10 entry
+      tags:
+      - Resume Section 10
+  /section11:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 11 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection11sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 11 entries
+      tags:
+      - Resume Section 11
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 11 entry to a user's personal records
+      parameters:
+      - description: Section 11 information
+        in: body
+        name: UpsertSection11Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection11Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 11 entry
+      tags:
+      - Resume Section 11
+  /section11/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 11 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection11Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 11
+      tags:
+      - Resume Section 11
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 11 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 11 information
+        in: body
+        name: UpsertSection11Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection11Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 11 entry
+      tags:
+      - Resume Section 11
+  /section12:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 12 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection12sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 12 entries
+      tags:
+      - Resume Section 12
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 12 entry to a user's personal records
+      parameters:
+      - description: Section 12 information
+        in: body
+        name: UpsertSection12Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection12Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 12 entry
+      tags:
+      - Resume Section 12
+  /section12/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 12 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection12Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 12
+      tags:
+      - Resume Section 12
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 12 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 12 information
+        in: body
+        name: UpsertSection12Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection12Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 12 entry
+      tags:
+      - Resume Section 12
+  /section13:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 13 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection13sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 13 entries
+      tags:
+      - Resume Section 13
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 13 entry to a user's personal records
+      parameters:
+      - description: Section 13 information
+        in: body
+        name: UpsertSection13Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection13Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 13 entry
+      tags:
+      - Resume Section 13
+  /section13/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 13 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection13Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 13
+      tags:
+      - Resume Section 13
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 13 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 13 information
+        in: body
+        name: UpsertSection13Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection13Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 13 entry
+      tags:
+      - Resume Section 13
+  /section14:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's Section 14 entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection14sOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Gets all Section 14 entries
+      tags:
+      - Resume Section 14
+    post:
+      consumes:
+      - application/json
+      description: Adds a Section 14 entry to a user's personal records
+      parameters:
+      - description: Section 14 information
+        in: body
+        name: UpsertSection14Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection14Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a Section 14 entry
+      tags:
+      - Resume Section 14
+  /section14/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Gets a user's Section 14 by ID
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSection14Output'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a Section 14
+      tags:
+      - Resume Section 14
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's Section 14 entry information
+      parameters:
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      - description: Section 14 information
+        in: body
+        name: UpsertSection14Input
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSection14Input'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Updates a Section 14 entry
+      tags:
+      - Resume Section 14
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: Placeholder route, sign in with ID
+      parameters:
+      - description: User ID
+        in: body
+        name: ID
+        required: true
+        schema:
+          $ref: '#/definitions/api.SignInInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+      summary: Sign in
+      tags:
+      - User
+  /signout:
+    post:
+      consumes:
+      - application/json
+      description: Placeholder route, sign out with JWT
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Sign out
+      tags:
+      - User
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Placeholder route, sign up with custom user information
+      parameters:
+      - description: User information
+        in: body
+        name: ID
+        required: true
+        schema:
+          $ref: '#/definitions/api.SignUpInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "409":
+          description: Conflict
+      summary: Sign up
+      tags:
+      - User
+  /supply:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's supplies given a project ID
+      parameters:
+      - description: Project ID
+        in: query
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSuppliesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get supplies by project
+      tags:
+      - Supply
+    post:
+      consumes:
+      - application/json
+      description: Adds a supply to a user's personal records
+      parameters:
+      - description: Supply information
+        in: body
+        name: UpsertSupplyInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSupplyInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Add a supply
+      tags:
+      - Supply
+  /supply/{supplyID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's supply given the supply ID
+      parameters:
+      - description: Supply ID
+        in: path
+        name: supplyID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes a supply
+      tags:
+      - Supply
+    get:
+      consumes:
+      - application/json
+      description: Get a user's supply by ID
+      parameters:
+      - description: Supply ID
+        in: path
+        name: supplyID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSupplyOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a supply
+      tags:
+      - Supply
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's supply information
+      parameters:
+      - description: Supply ID
+        in: path
+        name: supplyID
+        required: true
+        type: string
+      - description: Supply information
+        in: body
+        name: UpsertSupplyInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertSupplyInput'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a supply
+      tags:
+      - Supply
+  /upc/{code}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: UPC code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/upc.Product'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get a UPC product
+      tags:
+      - UPC
   /user:
     get:
       consumes:
       - application/json
+      description: Get user by JWT
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/api.GetUserProfileOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get a user
       tags:
       - User
     put:
       consumes:
       - application/json
+      description: Update the signed-in user's information
+      parameters:
+      - description: User information
+        in: body
+        name: UpdateUserInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpdateUserInput'
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update a user
       tags:
       - User
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

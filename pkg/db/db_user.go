@@ -7,14 +7,14 @@ import (
 )
 
 type User struct {
-	ID					string	`json:"id"`
-	Email 				string	`json:"email"`
-	Birthdate 			string	`json:"birthdate"`
-	FirstName 			string	`json:"first_name"`
-	MiddleNameInitial 	string	`json:"middle_name_initial"`
-	LastNameInitial 	string	`json:"last_name_initial"`
-	CountyName 			string	`json:"county_name"`
-	JoinDate 			string	`json:"join_date"`
+	ID string `json:"id"`
+	Email string `json:"email"`
+	Birthdate string `json:"birthdate"`
+	FirstName string `json:"first_name"`
+	MiddleNameInitial string `json:"middle_name_initial"`
+	LastNameInitial string `json:"last_name_initial"`
+	CountyName string `json:"county_name"`
+	GenericDatabaseInfo
 }
 
 func (env *env) GetUser(ctx context.Context, id string) (User, error) {
@@ -34,11 +34,9 @@ func (env *env) GetUser(ctx context.Context, id string) (User, error) {
 		return user, err
 	}
 
-	if response.RawResponse.StatusCode == 200 {
-		err := json.Unmarshal(response.Value, &user)
-		if err != nil {
-			return user, err
-		}
+	err = json.Unmarshal(response.Value, &user)
+	if err != nil {
+		return user, err
 	}
 
 	return user, nil

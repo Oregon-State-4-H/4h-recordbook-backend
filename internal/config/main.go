@@ -16,19 +16,31 @@ const (
 )
 
 type Config struct {
-	MaxPageSize int 		`json:"max_page_size"`
-	Database	Database	`json:"cosmos"`
+	MaxPageSize int `json:"max_page_size"`
+	Database Database `json:"cosmos"`
+	Upc Upc	`json:"upc"`
 }
 
 type Database struct {
-	Current		DatabaseParams
-	Production	DatabaseParams `json:"production"`
+	Current	DatabaseParams
+	Production DatabaseParams `json:"production"`
 	Development	DatabaseParams `json:"development"`
 }
 
 type DatabaseParams struct {
 	Endpoint string `json:"endpoint"`
-	Key 	 string `json:"key"`
+	Key string `json:"key"`
+}
+
+type Upc struct {
+	Endpoint string `json:"endpoint"`
+	Current UpcParams 
+	Production UpcParams `json:"production"`
+	Development UpcParams `json:"development"`
+}
+
+type UpcParams struct {
+	Key string `json:"key"`
 }
 
 func New(logger *zap.SugaredLogger) (*Config, error) {
@@ -49,9 +61,11 @@ func New(logger *zap.SugaredLogger) (*Config, error) {
 	if env == PRODUCTION_ENV {
 		logger.Debug("Running with production config")
 		c.Database.Current = c.Database.Production
+		c.Upc.Current = c.Upc.Production
 	} else {
 		logger.Debug("Running with development config")
 		c.Database.Current = c.Database.Development
+		c.Upc.Current = c.Upc.Development
 	}
 
 	return &c, nil

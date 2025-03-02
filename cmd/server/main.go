@@ -7,6 +7,7 @@ import (
     "4h-recordbook-backend/internal/config"
     "4h-recordbook-backend/pkg/db"
     "4h-recordbook-backend/pkg/log"
+    "4h-recordbook-backend/pkg/upc"
     "go.uber.org/zap"
 
 )
@@ -42,7 +43,12 @@ func main() {
         panic(err)
     }
 
-    apiInstance, err := api.New(logger, cfg, dbInstance)
+    upcInstance, err := upc.New(logger, cfg)
+    if err != nil {
+        panic(err)
+    }
+
+    apiInstance, err := api.New(logger, cfg, dbInstance, upcInstance)
     if err != nil {
         panic(err)
     }
