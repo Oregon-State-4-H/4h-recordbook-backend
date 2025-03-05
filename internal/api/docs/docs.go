@@ -4967,6 +4967,7 @@ const docTemplate = `{
                 "audience_size",
                 "communication_type",
                 "location",
+                "nickname",
                 "times_given",
                 "topic",
                 "year"
@@ -4979,6 +4980,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "times_given": {
@@ -4997,6 +5001,7 @@ const docTemplate = `{
             "required": [
                 "event_and_level",
                 "exhibits_or_division",
+                "nickname",
                 "ribbon_or_placings",
                 "year"
             ],
@@ -5005,6 +5010,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "exhibits_or_division": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "ribbon_or_placings": {
@@ -5020,6 +5028,7 @@ const docTemplate = `{
             "required": [
                 "contest_or_event",
                 "level",
+                "nickname",
                 "recognition_received",
                 "year"
             ],
@@ -5028,6 +5037,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "recognition_received": {
@@ -5041,10 +5053,14 @@ const docTemplate = `{
         "api.UpsertSection13Input": {
             "type": "object",
             "required": [
+                "nickname",
                 "recognition_type",
                 "year"
             ],
             "properties": {
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_type": {
                     "type": "string"
                 },
@@ -5056,10 +5072,14 @@ const docTemplate = `{
         "api.UpsertSection14Input": {
             "type": "object",
             "required": [
+                "nickname",
                 "recognition_type",
                 "year"
             ],
             "properties": {
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_type": {
                     "type": "string"
                 },
@@ -5076,6 +5096,7 @@ const docTemplate = `{
                 "grade",
                 "meetings_attended",
                 "meetings_held",
+                "nickname",
                 "num_in_club",
                 "year"
             ],
@@ -5094,6 +5115,9 @@ const docTemplate = `{
                 },
                 "meetings_held": {
                     "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
                 },
                 "num_in_club": {
                     "type": "integer"
@@ -5127,6 +5151,7 @@ const docTemplate = `{
             "required": [
                 "activity_kind",
                 "level",
+                "nickname",
                 "things_learned",
                 "year"
             ],
@@ -5135,6 +5160,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "things_learned": {
@@ -5150,6 +5178,7 @@ const docTemplate = `{
             "required": [
                 "activity_kind",
                 "level",
+                "nickname",
                 "scope",
                 "year"
             ],
@@ -5158,6 +5187,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "scope": {
@@ -5173,6 +5205,7 @@ const docTemplate = `{
             "required": [
                 "hours_spent",
                 "leadership_role",
+                "nickname",
                 "num_people_reached",
                 "year"
             ],
@@ -5181,6 +5214,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "leadership_role": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -5196,6 +5232,7 @@ const docTemplate = `{
             "required": [
                 "hours_spent",
                 "leadership_role",
+                "nickname",
                 "num_people_reached",
                 "organization_name",
                 "year"
@@ -5205,6 +5242,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "leadership_role": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -5223,6 +5263,7 @@ const docTemplate = `{
             "required": [
                 "club_member_activities",
                 "hours_spent",
+                "nickname",
                 "num_people_reached",
                 "year"
             ],
@@ -5232,6 +5273,9 @@ const docTemplate = `{
                 },
                 "hours_spent": {
                     "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
                 },
                 "num_people_reached": {
                     "type": "integer"
@@ -5246,6 +5290,7 @@ const docTemplate = `{
             "required": [
                 "hours_spent",
                 "individual_group_activities",
+                "nickname",
                 "num_people_reached",
                 "year"
             ],
@@ -5254,6 +5299,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "individual_group_activities": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -5270,6 +5318,7 @@ const docTemplate = `{
                 "audience_size",
                 "communication_type",
                 "location",
+                "nickname",
                 "times_given",
                 "topic",
                 "year"
@@ -5282,6 +5331,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "times_given": {
@@ -5673,6 +5725,9 @@ const docTemplate = `{
                 "meetings_held": {
                     "type": "integer"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "num_in_club": {
                     "type": "integer"
                 },
@@ -5706,6 +5761,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "section": {
@@ -5743,6 +5801,9 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "ribbon_or_placings": {
                     "type": "string"
                 },
@@ -5775,6 +5836,9 @@ const docTemplate = `{
                 "level": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_received": {
                     "type": "string"
                 },
@@ -5801,6 +5865,9 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_type": {
                     "type": "string"
                 },
@@ -5825,6 +5892,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "recognition_type": {
@@ -5888,6 +5958,9 @@ const docTemplate = `{
                 "level": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "section": {
                     "type": "integer"
                 },
@@ -5918,6 +5991,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "scope": {
@@ -5952,6 +6028,9 @@ const docTemplate = `{
                 "leadership_role": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "num_people_reached": {
                     "type": "integer"
                 },
@@ -5982,6 +6061,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "leadership_role": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -6019,6 +6101,9 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "num_people_reached": {
                     "type": "integer"
                 },
@@ -6049,6 +6134,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "individual_group_activities": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -6084,6 +6172,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "section": {
