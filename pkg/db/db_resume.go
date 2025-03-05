@@ -26,6 +26,7 @@ type Resume struct {
 type Section1 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	Grade int `json:"grade"`
 	ClubName string `json:"club_name"`
@@ -50,6 +51,7 @@ type Section2 struct {
 type Section3 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	ActivityKind string `json:"activity_kind"`
 	ThingsLearned string `json:"things_learned"`
@@ -61,6 +63,7 @@ type Section3 struct {
 type Section4 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	ActivityKind string `json:"activity_kind"`
 	Scope string `json:"scope"`
@@ -72,6 +75,7 @@ type Section4 struct {
 type Section5 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	LeadershipRole string `json:"leadership_role"`
 	HoursSpent int `json:"hours_spent"`
@@ -83,6 +87,7 @@ type Section5 struct {
 type Section6 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	OrganizationName string `json:"organization_name"`
 	LeadershipRole string `json:"leadership_role"`
@@ -95,6 +100,7 @@ type Section6 struct {
 type Section7 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	ClubMemberActivities string `json:"club_member_activities"`
 	HoursSpent int `json:"hours_spent"`
@@ -106,6 +112,7 @@ type Section7 struct {
 type Section8 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	IndividualGroupActivities string `json:"individual_group_activities"`
 	HoursSpent int `json:"hours_spent"`
@@ -117,6 +124,7 @@ type Section8 struct {
 type Section9 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	CommunicationType string `json:"communication_type"`
 	Topic string `json:"topic"`
@@ -130,6 +138,7 @@ type Section9 struct {
 type Section10 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	CommunicationType string `json:"communication_type"`
 	Topic string `json:"topic"`
@@ -143,6 +152,7 @@ type Section10 struct {
 type Section11 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	EventAndLevel string `json:"event_and_level"`
 	ExhibitsOrDivision string `json:"exhibits_or_division"`
@@ -154,6 +164,7 @@ type Section11 struct {
 type Section12 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	ContestOrEvent string `json:"contest_or_event"`
 	RecognitionReceived string `json:"recognition_received"`
@@ -165,6 +176,7 @@ type Section12 struct {
 type Section13 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
 	UserID string `json:"user_id"`
@@ -174,6 +186,7 @@ type Section13 struct {
 type Section14 struct {
 	ID string `json:"id"`
 	Section int `json:"section"`
+	Nickname string `json:"nickname"`
 	Year string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
 	UserID string `json:"user_id"`

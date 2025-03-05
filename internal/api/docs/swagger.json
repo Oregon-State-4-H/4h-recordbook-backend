@@ -4957,6 +4957,7 @@
                 "audience_size",
                 "communication_type",
                 "location",
+                "nickname",
                 "times_given",
                 "topic",
                 "year"
@@ -4969,6 +4970,9 @@
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "times_given": {
@@ -4987,6 +4991,7 @@
             "required": [
                 "event_and_level",
                 "exhibits_or_division",
+                "nickname",
                 "ribbon_or_placings",
                 "year"
             ],
@@ -4995,6 +5000,9 @@
                     "type": "string"
                 },
                 "exhibits_or_division": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "ribbon_or_placings": {
@@ -5010,6 +5018,7 @@
             "required": [
                 "contest_or_event",
                 "level",
+                "nickname",
                 "recognition_received",
                 "year"
             ],
@@ -5018,6 +5027,9 @@
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "recognition_received": {
@@ -5031,10 +5043,14 @@
         "api.UpsertSection13Input": {
             "type": "object",
             "required": [
+                "nickname",
                 "recognition_type",
                 "year"
             ],
             "properties": {
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_type": {
                     "type": "string"
                 },
@@ -5046,10 +5062,14 @@
         "api.UpsertSection14Input": {
             "type": "object",
             "required": [
+                "nickname",
                 "recognition_type",
                 "year"
             ],
             "properties": {
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_type": {
                     "type": "string"
                 },
@@ -5066,6 +5086,7 @@
                 "grade",
                 "meetings_attended",
                 "meetings_held",
+                "nickname",
                 "num_in_club",
                 "year"
             ],
@@ -5084,6 +5105,9 @@
                 },
                 "meetings_held": {
                     "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
                 },
                 "num_in_club": {
                     "type": "integer"
@@ -5117,6 +5141,7 @@
             "required": [
                 "activity_kind",
                 "level",
+                "nickname",
                 "things_learned",
                 "year"
             ],
@@ -5125,6 +5150,9 @@
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "things_learned": {
@@ -5140,6 +5168,7 @@
             "required": [
                 "activity_kind",
                 "level",
+                "nickname",
                 "scope",
                 "year"
             ],
@@ -5148,6 +5177,9 @@
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "scope": {
@@ -5163,6 +5195,7 @@
             "required": [
                 "hours_spent",
                 "leadership_role",
+                "nickname",
                 "num_people_reached",
                 "year"
             ],
@@ -5171,6 +5204,9 @@
                     "type": "integer"
                 },
                 "leadership_role": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -5186,6 +5222,7 @@
             "required": [
                 "hours_spent",
                 "leadership_role",
+                "nickname",
                 "num_people_reached",
                 "organization_name",
                 "year"
@@ -5195,6 +5232,9 @@
                     "type": "integer"
                 },
                 "leadership_role": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -5213,6 +5253,7 @@
             "required": [
                 "club_member_activities",
                 "hours_spent",
+                "nickname",
                 "num_people_reached",
                 "year"
             ],
@@ -5222,6 +5263,9 @@
                 },
                 "hours_spent": {
                     "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
                 },
                 "num_people_reached": {
                     "type": "integer"
@@ -5236,6 +5280,7 @@
             "required": [
                 "hours_spent",
                 "individual_group_activities",
+                "nickname",
                 "num_people_reached",
                 "year"
             ],
@@ -5244,6 +5289,9 @@
                     "type": "integer"
                 },
                 "individual_group_activities": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -5260,6 +5308,7 @@
                 "audience_size",
                 "communication_type",
                 "location",
+                "nickname",
                 "times_given",
                 "topic",
                 "year"
@@ -5272,6 +5321,9 @@
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "times_given": {
@@ -5663,6 +5715,9 @@
                 "meetings_held": {
                     "type": "integer"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "num_in_club": {
                     "type": "integer"
                 },
@@ -5696,6 +5751,9 @@
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "section": {
@@ -5733,6 +5791,9 @@
                 "id": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "ribbon_or_placings": {
                     "type": "string"
                 },
@@ -5765,6 +5826,9 @@
                 "level": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_received": {
                     "type": "string"
                 },
@@ -5791,6 +5855,9 @@
                 "id": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "recognition_type": {
                     "type": "string"
                 },
@@ -5815,6 +5882,9 @@
                     "type": "string"
                 },
                 "id": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "recognition_type": {
@@ -5878,6 +5948,9 @@
                 "level": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "section": {
                     "type": "integer"
                 },
@@ -5908,6 +5981,9 @@
                     "type": "string"
                 },
                 "level": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "scope": {
@@ -5942,6 +6018,9 @@
                 "leadership_role": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "num_people_reached": {
                     "type": "integer"
                 },
@@ -5972,6 +6051,9 @@
                     "type": "string"
                 },
                 "leadership_role": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -6009,6 +6091,9 @@
                 "id": {
                     "type": "string"
                 },
+                "nickname": {
+                    "type": "string"
+                },
                 "num_people_reached": {
                     "type": "integer"
                 },
@@ -6039,6 +6124,9 @@
                     "type": "string"
                 },
                 "individual_group_activities": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "num_people_reached": {
@@ -6074,6 +6162,9 @@
                     "type": "string"
                 },
                 "location": {
+                    "type": "string"
+                },
+                "nickname": {
                     "type": "string"
                 },
                 "section": {

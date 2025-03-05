@@ -56,6 +56,7 @@ func (e *env) getResume(c *gin.Context) {
 ********************************/
 
 type UpsertSection1Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	Grade *int `json:"grade" validate:"required"`
 	ClubName string `json:"club_name" validate:"required"`
@@ -200,6 +201,7 @@ func (e *env) addSection1(c *gin.Context) {
 	section := db.Section1 {
 		ID: g.String(),
 		Section: 1,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		Grade: *input.Grade,
 		ClubName: input.ClubName,
@@ -290,6 +292,7 @@ func (e *env) updateSection1(c *gin.Context) {
 	updatedSection := db.Section1 {
 		ID: existingSection.ID,
 		Section: 1,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		Grade: *input.Grade,
 		ClubName: input.ClubName,
@@ -575,6 +578,7 @@ func (e *env) updateSection2(c *gin.Context) {
 ********************************/
 
 type UpsertSection3Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	ActivityKind string `json:"activity_kind" validate:"required"`
 	ThingsLearned string `json:"things_learned" validate:"required"`
@@ -715,6 +719,7 @@ func (e *env) addSection3(c *gin.Context) {
 	section := db.Section3 {
 		ID: g.String(),
 		Section: 3,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ActivityKind: input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
@@ -802,6 +807,7 @@ func (e *env) updateSection3(c *gin.Context) {
 	updatedSection := db.Section3 {
 		ID: existingSection.ID,
 		Section: 3,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ActivityKind: input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
@@ -831,6 +837,7 @@ func (e *env) updateSection3(c *gin.Context) {
 ********************************/
 
 type UpsertSection4Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	ActivityKind string `json:"activity_kind" validate:"required"`
 	Scope string `json:"scope" validate:"required"`
@@ -971,6 +978,7 @@ func (e *env) addSection4(c *gin.Context) {
 	section := db.Section4 {
 		ID: g.String(),
 		Section: 4,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ActivityKind: input.ActivityKind,
 		Scope: input.Scope,
@@ -1058,6 +1066,7 @@ func (e *env) updateSection4(c *gin.Context) {
 	updatedSection := db.Section4 {
 		ID: existingSection.ID,
 		Section: 4,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ActivityKind: input.ActivityKind,
 		Scope: input.Scope,
@@ -1087,6 +1096,7 @@ func (e *env) updateSection4(c *gin.Context) {
 ********************************/
 
 type UpsertSection5Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	LeadershipRole string `json:"leadership_role" validate:"required"`
 	HoursSpent *int `json:"hours_spent" validate:"required"`
@@ -1227,6 +1237,7 @@ func (e *env) addSection5(c *gin.Context) {
 	section := db.Section5 {
 		ID: g.String(),
 		Section: 5,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		LeadershipRole: input.LeadershipRole,
 		HoursSpent: *input.HoursSpent,
@@ -1314,6 +1325,7 @@ func (e *env) updateSection5(c *gin.Context) {
 	updatedSection := db.Section5 {
 		ID: existingSection.ID,
 		Section: 5,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		LeadershipRole: input.LeadershipRole,
 		HoursSpent: *input.HoursSpent,
@@ -1343,6 +1355,7 @@ func (e *env) updateSection5(c *gin.Context) {
 ********************************/
 
 type UpsertSection6Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	OrganizationName string `json:"organization_name" validate:"required"`
 	LeadershipRole string `json:"leadership_role" validate:"required"`
@@ -1484,6 +1497,7 @@ func (e *env) addSection6(c *gin.Context) {
 	section := db.Section6 {
 		ID: g.String(),
 		Section: 6,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		OrganizationName: input.OrganizationName,
 		LeadershipRole: input.LeadershipRole,
@@ -1572,6 +1586,7 @@ func (e *env) updateSection6(c *gin.Context) {
 	updatedSection := db.Section6 {
 		ID: existingSection.ID,
 		Section: 6,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		OrganizationName: input.OrganizationName,
 		LeadershipRole: input.LeadershipRole,
@@ -1602,6 +1617,7 @@ func (e *env) updateSection6(c *gin.Context) {
 ********************************/
 
 type UpsertSection7Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	ClubMemberActivities string `json:"club_member_activities" validate:"required"`
 	HoursSpent *int `json:"hours_spent" validate:"required"`
@@ -1742,6 +1758,7 @@ func (e *env) addSection7(c *gin.Context) {
 	section := db.Section7 {
 		ID: g.String(),
 		Section: 7,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
 		HoursSpent: *input.HoursSpent,
@@ -1829,6 +1846,7 @@ func (e *env) updateSection7(c *gin.Context) {
 	updatedSection := db.Section7 {
 		ID: existingSection.ID,
 		Section: 7,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
 		HoursSpent: *input.HoursSpent,
@@ -1858,6 +1876,7 @@ func (e *env) updateSection7(c *gin.Context) {
 ********************************/
 
 type UpsertSection8Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	IndividualGroupActivities string `json:"individual_group_activities" validate:"required"`
 	HoursSpent *int `json:"hours_spent" validate:"required"`
@@ -1998,6 +2017,7 @@ func (e *env) addSection8(c *gin.Context) {
 	section := db.Section8 {
 		ID: g.String(),
 		Section: 8,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
 		HoursSpent: *input.HoursSpent,
@@ -2085,6 +2105,7 @@ func (e *env) updateSection8(c *gin.Context) {
 	updatedSection := db.Section8 {
 		ID: existingSection.ID,
 		Section: 8,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
 		HoursSpent: *input.HoursSpent,
@@ -2114,6 +2135,7 @@ func (e *env) updateSection8(c *gin.Context) {
 ********************************/
 
 type UpsertSection9Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	CommunicationType string `json:"communication_type" validate:"required"`
 	Topic string `json:"topic" validate:"required"`
@@ -2256,6 +2278,7 @@ func (e *env) addSection9(c *gin.Context) {
 	section := db.Section9 {
 		ID: g.String(),
 		Section: 9,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
@@ -2345,6 +2368,7 @@ func (e *env) updateSection9(c *gin.Context) {
 	updatedSection := db.Section9 {
 		ID: existingSection.ID,
 		Section: 9,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
@@ -2376,6 +2400,7 @@ func (e *env) updateSection9(c *gin.Context) {
 ********************************/
 
 type UpsertSection10Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	CommunicationType string `json:"communication_type" validate:"required"`
 	Topic string `json:"topic" validate:"required"`
@@ -2518,6 +2543,7 @@ func (e *env) addSection10(c *gin.Context) {
 	section := db.Section10 {
 		ID: g.String(),
 		Section: 10,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
@@ -2607,6 +2633,7 @@ func (e *env) updateSection10(c *gin.Context) {
 	updatedSection := db.Section10 {
 		ID: existingSection.ID,
 		Section: 10,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic: input.Topic,
@@ -2638,6 +2665,7 @@ func (e *env) updateSection10(c *gin.Context) {
 ********************************/
 
 type UpsertSection11Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	EventAndLevel string `json:"event_and_level" validate:"required"`
 	ExhibitsOrDivision string `json:"exhibits_or_division" validate:"required"`
@@ -2778,6 +2806,7 @@ func (e *env) addSection11(c *gin.Context) {
 	section := db.Section11 {
 		ID: g.String(),
 		Section: 11,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		EventAndLevel: input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
@@ -2865,6 +2894,7 @@ func (e *env) updateSection11(c *gin.Context) {
 	updatedSection := db.Section11 {
 		ID: existingSection.ID,
 		Section: 11,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		EventAndLevel: input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
@@ -2894,6 +2924,7 @@ func (e *env) updateSection11(c *gin.Context) {
 ********************************/
 
 type UpsertSection12Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	ContestOrEvent string `json:"contest_or_event" validate:"required"`
 	RecognitionReceived string `json:"recognition_received" validate:"required"`
@@ -3034,6 +3065,7 @@ func (e *env) addSection12(c *gin.Context) {
 	section := db.Section12 {
 		ID: g.String(),
 		Section: 12,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ContestOrEvent: input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
@@ -3121,6 +3153,7 @@ func (e *env) updateSection12(c *gin.Context) {
 	updatedSection := db.Section12 {
 		ID: existingSection.ID,
 		Section: 12,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		ContestOrEvent: input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
@@ -3150,6 +3183,7 @@ func (e *env) updateSection12(c *gin.Context) {
 ********************************/
 
 type UpsertSection13Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	RecognitionType string `json:"recognition_type" validate:"required"`
 }
@@ -3288,6 +3322,7 @@ func (e *env) addSection13(c *gin.Context) {
 	section := db.Section13 {
 		ID: g.String(),
 		Section: 13,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: claims.ID,
@@ -3373,6 +3408,7 @@ func (e *env) updateSection13(c *gin.Context) {
 	updatedSection := db.Section13 {
 		ID: existingSection.ID,
 		Section: 13,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: claims.ID,
@@ -3400,6 +3436,7 @@ func (e *env) updateSection13(c *gin.Context) {
 ********************************/
 
 type UpsertSection14Input struct {
+	Nickname string `json:"nickname" validate:"required"`
 	Year string `json:"year" validate:"required"`
 	RecognitionType string `json:"recognition_type" validate:"required"`
 }
@@ -3538,6 +3575,7 @@ func (e *env) addSection14(c *gin.Context) {
 	section := db.Section14 {
 		ID: g.String(),
 		Section: 14,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: claims.ID,
@@ -3623,6 +3661,7 @@ func (e *env) updateSection14(c *gin.Context) {
 	updatedSection := db.Section14 {
 		ID: existingSection.ID,
 		Section: 14,
+		Nickname: input.Nickname,
 		Year: input.Year,
 		RecognitionType: input.RecognitionType,
 		UserID: claims.ID,

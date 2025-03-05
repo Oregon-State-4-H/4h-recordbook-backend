@@ -93,18 +93,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -259,6 +247,18 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -477,6 +477,8 @@ definitions:
         type: integer
       meetings_held:
         type: integer
+      nickname:
+        type: string
       num_in_club:
         type: integer
       year:
@@ -487,6 +489,7 @@ definitions:
     - grade
     - meetings_attended
     - meetings_held
+    - nickname
     - num_in_club
     - year
     type: object
@@ -509,6 +512,8 @@ definitions:
         type: string
       level:
         type: string
+      nickname:
+        type: string
       things_learned:
         type: string
       year:
@@ -516,6 +521,7 @@ definitions:
     required:
     - activity_kind
     - level
+    - nickname
     - things_learned
     - year
     type: object
@@ -525,6 +531,8 @@ definitions:
         type: string
       level:
         type: string
+      nickname:
+        type: string
       scope:
         type: string
       year:
@@ -532,6 +540,7 @@ definitions:
     required:
     - activity_kind
     - level
+    - nickname
     - scope
     - year
     type: object
@@ -541,6 +550,8 @@ definitions:
         type: integer
       leadership_role:
         type: string
+      nickname:
+        type: string
       num_people_reached:
         type: integer
       year:
@@ -548,6 +559,7 @@ definitions:
     required:
     - hours_spent
     - leadership_role
+    - nickname
     - num_people_reached
     - year
     type: object
@@ -556,6 +568,8 @@ definitions:
       hours_spent:
         type: integer
       leadership_role:
+        type: string
+      nickname:
         type: string
       num_people_reached:
         type: integer
@@ -566,6 +580,7 @@ definitions:
     required:
     - hours_spent
     - leadership_role
+    - nickname
     - num_people_reached
     - organization_name
     - year
@@ -576,6 +591,8 @@ definitions:
         type: string
       hours_spent:
         type: integer
+      nickname:
+        type: string
       num_people_reached:
         type: integer
       year:
@@ -583,6 +600,7 @@ definitions:
     required:
     - club_member_activities
     - hours_spent
+    - nickname
     - num_people_reached
     - year
     type: object
@@ -592,6 +610,8 @@ definitions:
         type: integer
       individual_group_activities:
         type: string
+      nickname:
+        type: string
       num_people_reached:
         type: integer
       year:
@@ -599,6 +619,7 @@ definitions:
     required:
     - hours_spent
     - individual_group_activities
+    - nickname
     - num_people_reached
     - year
     type: object
@@ -610,6 +631,8 @@ definitions:
         type: string
       location:
         type: string
+      nickname:
+        type: string
       times_given:
         type: integer
       topic:
@@ -620,6 +643,7 @@ definitions:
     - audience_size
     - communication_type
     - location
+    - nickname
     - times_given
     - topic
     - year
@@ -632,6 +656,8 @@ definitions:
         type: string
       location:
         type: string
+      nickname:
+        type: string
       times_given:
         type: integer
       topic:
@@ -642,6 +668,7 @@ definitions:
     - audience_size
     - communication_type
     - location
+    - nickname
     - times_given
     - topic
     - year
@@ -652,6 +679,8 @@ definitions:
         type: string
       exhibits_or_division:
         type: string
+      nickname:
+        type: string
       ribbon_or_placings:
         type: string
       year:
@@ -659,6 +688,7 @@ definitions:
     required:
     - event_and_level
     - exhibits_or_division
+    - nickname
     - ribbon_or_placings
     - year
     type: object
@@ -668,6 +698,8 @@ definitions:
         type: string
       level:
         type: string
+      nickname:
+        type: string
       recognition_received:
         type: string
       year:
@@ -675,26 +707,33 @@ definitions:
     required:
     - contest_or_event
     - level
+    - nickname
     - recognition_received
     - year
     type: object
   api.UpsertSection13Input:
     properties:
+      nickname:
+        type: string
       recognition_type:
         type: string
       year:
         type: string
     required:
+    - nickname
     - recognition_type
     - year
     type: object
   api.UpsertSection14Input:
     properties:
+      nickname:
+        type: string
       recognition_type:
         type: string
       year:
         type: string
     required:
+    - nickname
     - recognition_type
     - year
     type: object
@@ -948,6 +987,8 @@ definitions:
         type: integer
       meetings_held:
         type: integer
+      nickname:
+        type: string
       num_in_club:
         type: integer
       section:
@@ -988,6 +1029,8 @@ definitions:
         type: string
       level:
         type: string
+      nickname:
+        type: string
       section:
         type: integer
       things_learned:
@@ -1008,6 +1051,8 @@ definitions:
       id:
         type: string
       level:
+        type: string
+      nickname:
         type: string
       scope:
         type: string
@@ -1030,6 +1075,8 @@ definitions:
         type: string
       leadership_role:
         type: string
+      nickname:
+        type: string
       num_people_reached:
         type: integer
       section:
@@ -1050,6 +1097,8 @@ definitions:
       id:
         type: string
       leadership_role:
+        type: string
+      nickname:
         type: string
       num_people_reached:
         type: integer
@@ -1074,6 +1123,8 @@ definitions:
         type: integer
       id:
         type: string
+      nickname:
+        type: string
       num_people_reached:
         type: integer
       section:
@@ -1094,6 +1145,8 @@ definitions:
       id:
         type: string
       individual_group_activities:
+        type: string
+      nickname:
         type: string
       num_people_reached:
         type: integer
@@ -1117,6 +1170,8 @@ definitions:
       id:
         type: string
       location:
+        type: string
+      nickname:
         type: string
       section:
         type: integer
@@ -1143,6 +1198,8 @@ definitions:
         type: string
       location:
         type: string
+      nickname:
+        type: string
       section:
         type: integer
       times_given:
@@ -1166,6 +1223,8 @@ definitions:
         type: string
       id:
         type: string
+      nickname:
+        type: string
       ribbon_or_placings:
         type: string
       section:
@@ -1187,6 +1246,8 @@ definitions:
         type: string
       level:
         type: string
+      nickname:
+        type: string
       recognition_received:
         type: string
       section:
@@ -1204,6 +1265,8 @@ definitions:
         type: string
       id:
         type: string
+      nickname:
+        type: string
       recognition_type:
         type: string
       section:
@@ -1220,6 +1283,8 @@ definitions:
       created:
         type: string
       id:
+        type: string
+      nickname:
         type: string
       recognition_type:
         type: string
