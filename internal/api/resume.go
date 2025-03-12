@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
-	"4h-recordbook-backend/pkg/db"
 	"4h-recordbook-backend/internal/utils"
+	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 /*******************************
@@ -20,7 +21,7 @@ type GetResumeOutput struct {
 // @Summary Gets full resume
 // @Description Gets all of a user's entries for every resume section
 // @Tags Resume
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetResumeOutput
@@ -56,14 +57,14 @@ func (e *env) getResume(c *gin.Context) {
 ********************************/
 
 type UpsertSection1Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
-	Grade *int `json:"grade" validate:"required"`
-	ClubName string `json:"club_name" validate:"required"`
-	NumInClub *int `json:"num_in_club" validate:"required"`
-	ClubLeader string `json:"club_leader" validate:"required"`
-	MeetingsHeld *int `json:"meetings_held" validate:"required"`
-	MeetingsAttended *int `json:"meetings_attended" validate:"required"`
+	Nickname         string `json:"nickname" validate:"required"`
+	Year             string `json:"year" validate:"required"`
+	Grade            *int   `json:"grade" validate:"required"`
+	ClubName         string `json:"club_name" validate:"required"`
+	NumInClub        *int   `json:"num_in_club" validate:"required"`
+	ClubLeader       string `json:"club_leader" validate:"required"`
+	MeetingsHeld     *int   `json:"meetings_held" validate:"required"`
+	MeetingsAttended *int   `json:"meetings_attended" validate:"required"`
 }
 
 type GetSection1sOutput struct {
@@ -78,7 +79,7 @@ type GetSection1Output struct {
 // @Summary Gets all Section 1 entries
 // @Description Gets all of a user's Section 1 entries
 // @Tags Resume Section 01
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection1sOutput
@@ -114,7 +115,7 @@ func (e *env) getSection1s(c *gin.Context) {
 // @Summary Get a Section 1
 // @Description Gets a user's Section 1 by ID
 // @Tags Resume Section 01
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -157,10 +158,10 @@ func (e *env) getSection1(c *gin.Context) {
 }
 
 // AddSection1 godoc
-// @Summary Add a Section 1 entry
+// @Summary Add a Section 1 entry, return added Section 1 entry
 // @Description Adds a Section 1 entry to a user's personal records
 // @Tags Resume Section 01
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection1Input body api.UpsertSection1Input true "Section 1 information"
@@ -198,19 +199,19 @@ func (e *env) addSection1(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section1 {
-		ID: g.String(),
-		Section: 1,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		Grade: *input.Grade,
-		ClubName: input.ClubName,
-		NumInClub: *input.NumInClub,
-		ClubLeader: input.ClubLeader,
-		MeetingsHeld: *input.MeetingsHeld,
+	section := db.Section1{
+		ID:               g.String(),
+		Section:          1,
+		Nickname:         input.Nickname,
+		Year:             input.Year,
+		Grade:            *input.Grade,
+		ClubName:         input.ClubName,
+		NumInClub:        *input.NumInClub,
+		ClubLeader:       input.ClubLeader,
+		MeetingsHeld:     *input.MeetingsHeld,
 		MeetingsAttended: *input.MeetingsAttended,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:           claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -224,16 +225,17 @@ func (e *env) addSection1(c *gin.Context) {
 		})
 		return
 	}
-
-	c.JSON(204, response)
-
+	_ = response
+	var newEntry GetSection1Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 }
 
 // UpdateSection1 godoc
 // @Summary Updates a Section 1 entry
 // @Description Updates a user's Section 1 entry information
 // @Tags Resume Section 01
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -289,19 +291,19 @@ func (e *env) updateSection1(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section1 {
-		ID: existingSection.ID,
-		Section: 1,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		Grade: *input.Grade,
-		ClubName: input.ClubName,
-		NumInClub: *input.NumInClub,
-		ClubLeader: input.ClubLeader,
-		MeetingsHeld: *input.MeetingsHeld,
+	updatedSection := db.Section1{
+		ID:               existingSection.ID,
+		Section:          1,
+		Nickname:         input.Nickname,
+		Year:             input.Year,
+		Grade:            *input.Grade,
+		ClubName:         input.ClubName,
+		NumInClub:        *input.NumInClub,
+		ClubLeader:       input.ClubLeader,
+		MeetingsHeld:     *input.MeetingsHeld,
 		MeetingsAttended: *input.MeetingsAttended,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:           claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -316,8 +318,10 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
-
+	_ = response
+	var newEntry GetSection1Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 }
 
 /*******************************
@@ -325,8 +329,8 @@ func (e *env) updateSection1(c *gin.Context) {
 ********************************/
 
 type UpsertSection2Input struct {
-	Year string `json:"year" validate:"required"`
-	ProjectName string `json:"project_name" validate:"required"`
+	Year         string `json:"year" validate:"required"`
+	ProjectName  string `json:"project_name" validate:"required"`
 	ProjectScope string `json:"project_scope" validate:"required"`
 }
 
@@ -342,7 +346,7 @@ type GetSection2Output struct {
 // @Summary Gets all Section 2 entries
 // @Description Gets all of a user's Section 2 entries
 // @Tags Resume Section 02
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection2sOutput
@@ -377,7 +381,7 @@ func (e *env) getSection2s(c *gin.Context) {
 // @Summary Get a Section 2
 // @Description Gets a user's Section 2 by ID
 // @Tags Resume Section 02
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -423,7 +427,7 @@ func (e *env) getSection2(c *gin.Context) {
 // @Summary Add a Section 2 entry
 // @Description Adds a Section 2 entry to a user's personal records
 // @Tags Resume Section 02
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection2Input body api.UpsertSection2Input true "Section 2 information"
@@ -461,14 +465,14 @@ func (e *env) addSection2(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section2 {
-		ID: g.String(),
-		Section: 2,
-		Year: input.Year,
-		ProjectName: input.ProjectName,
+	section := db.Section2{
+		ID:           g.String(),
+		Section:      2,
+		Year:         input.Year,
+		ProjectName:  input.ProjectName,
 		ProjectScope: input.ProjectScope,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:       claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -483,7 +487,10 @@ func (e *env) addSection2(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection2Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -491,7 +498,7 @@ func (e *env) addSection2(c *gin.Context) {
 // @Summary Updates a Section 2 entry
 // @Description Updates a user's Section 2 entry information
 // @Tags Resume Section 02
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -547,14 +554,14 @@ func (e *env) updateSection2(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section2 {
-		ID: existingSection.ID,
-		Section: 2,
-		Year: input.Year,
-		ProjectName: input.ProjectName,
+	updatedSection := db.Section2{
+		ID:           existingSection.ID,
+		Section:      2,
+		Year:         input.Year,
+		ProjectName:  input.ProjectName,
 		ProjectScope: input.ProjectScope,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:       claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -569,7 +576,10 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection2Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -578,11 +588,11 @@ func (e *env) updateSection2(c *gin.Context) {
 ********************************/
 
 type UpsertSection3Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
-	ActivityKind string `json:"activity_kind" validate:"required"`
+	Nickname      string `json:"nickname" validate:"required"`
+	Year          string `json:"year" validate:"required"`
+	ActivityKind  string `json:"activity_kind" validate:"required"`
 	ThingsLearned string `json:"things_learned" validate:"required"`
-	Level string `json:"level" validate:"required"`
+	Level         string `json:"level" validate:"required"`
 }
 
 type GetSection3sOutput struct {
@@ -597,7 +607,7 @@ type GetSection3Output struct {
 // @Summary Gets all Section 3 entries
 // @Description Gets all of a user's Section 3 entries
 // @Tags Resume Section 03
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection3sOutput
@@ -632,7 +642,7 @@ func (e *env) getSection3s(c *gin.Context) {
 // @Summary Get a Section 3
 // @Description Gets a user's Section 3 by ID
 // @Tags Resume Section 03
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -678,7 +688,7 @@ func (e *env) getSection3(c *gin.Context) {
 // @Summary Add a Section 3 entry
 // @Description Adds a Section 3 entry to a user's personal records
 // @Tags Resume Section 03
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection3Input body api.UpsertSection3Input true "Section 3 information"
@@ -716,16 +726,16 @@ func (e *env) addSection3(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section3 {
-		ID: g.String(),
-		Section: 3,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		ActivityKind: input.ActivityKind,
+	section := db.Section3{
+		ID:            g.String(),
+		Section:       3,
+		Nickname:      input.Nickname,
+		Year:          input.Year,
+		ActivityKind:  input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
-		Level: input.Level,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Level:         input.Level,
+		UserID:        claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -740,7 +750,10 @@ func (e *env) addSection3(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection3Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -748,7 +761,7 @@ func (e *env) addSection3(c *gin.Context) {
 // @Summary Updates a Section 3 entry
 // @Description Updates a user's Section 3 entry information
 // @Tags Resume Section 03
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -804,16 +817,16 @@ func (e *env) updateSection3(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section3 {
-		ID: existingSection.ID,
-		Section: 3,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		ActivityKind: input.ActivityKind,
+	updatedSection := db.Section3{
+		ID:            existingSection.ID,
+		Section:       3,
+		Nickname:      input.Nickname,
+		Year:          input.Year,
+		ActivityKind:  input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
-		Level: input.Level,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Level:         input.Level,
+		UserID:        claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -828,7 +841,10 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection3Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -837,11 +853,11 @@ func (e *env) updateSection3(c *gin.Context) {
 ********************************/
 
 type UpsertSection4Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname     string `json:"nickname" validate:"required"`
+	Year         string `json:"year" validate:"required"`
 	ActivityKind string `json:"activity_kind" validate:"required"`
-	Scope string `json:"scope" validate:"required"`
-	Level string `json:"level" validate:"required"`
+	Scope        string `json:"scope" validate:"required"`
+	Level        string `json:"level" validate:"required"`
 }
 
 type GetSection4sOutput struct {
@@ -856,7 +872,7 @@ type GetSection4Output struct {
 // @Summary Gets all Section 4 entries
 // @Description Gets all of a user's Section 4 entries
 // @Tags Resume Section 04
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection4sOutput
@@ -891,7 +907,7 @@ func (e *env) getSection4s(c *gin.Context) {
 // @Summary Get a Section 4
 // @Description Gets a user's Section 4 by ID
 // @Tags Resume Section 04
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -937,7 +953,7 @@ func (e *env) getSection4(c *gin.Context) {
 // @Summary Add a Section 4 entry
 // @Description Adds a Section 4 entry to a user's personal records
 // @Tags Resume Section 04
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection4Input body api.UpsertSection4Input true "Section 4 information"
@@ -975,16 +991,16 @@ func (e *env) addSection4(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section4 {
-		ID: g.String(),
-		Section: 4,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section4{
+		ID:           g.String(),
+		Section:      4,
+		Nickname:     input.Nickname,
+		Year:         input.Year,
 		ActivityKind: input.ActivityKind,
-		Scope: input.Scope,
-		Level: input.Level,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Scope:        input.Scope,
+		Level:        input.Level,
+		UserID:       claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -999,7 +1015,10 @@ func (e *env) addSection4(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection4Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -1007,7 +1026,7 @@ func (e *env) addSection4(c *gin.Context) {
 // @Summary Updates a Section 4 entry
 // @Description Updates a user's Section 4 entry information
 // @Tags Resume Section 04
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1063,16 +1082,16 @@ func (e *env) updateSection4(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section4 {
-		ID: existingSection.ID,
-		Section: 4,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section4{
+		ID:           existingSection.ID,
+		Section:      4,
+		Nickname:     input.Nickname,
+		Year:         input.Year,
 		ActivityKind: input.ActivityKind,
-		Scope: input.Scope,
-		Level: input.Level,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Scope:        input.Scope,
+		Level:        input.Level,
+		UserID:       claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -1087,7 +1106,10 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection4Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -1096,11 +1118,11 @@ func (e *env) updateSection4(c *gin.Context) {
 ********************************/
 
 type UpsertSection5Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
-	LeadershipRole string `json:"leadership_role" validate:"required"`
-	HoursSpent *int `json:"hours_spent" validate:"required"`
-	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
+	Nickname         string `json:"nickname" validate:"required"`
+	Year             string `json:"year" validate:"required"`
+	LeadershipRole   string `json:"leadership_role" validate:"required"`
+	HoursSpent       *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int   `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection5sOutput struct {
@@ -1115,7 +1137,7 @@ type GetSection5Output struct {
 // @Summary Gets all Section 5 entries
 // @Description Gets all of a user's Section 5 entries
 // @Tags Resume Section 05
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection5sOutput
@@ -1150,7 +1172,7 @@ func (e *env) getSection5s(c *gin.Context) {
 // @Summary Get a Section 5
 // @Description Gets a user's Section 5 by ID
 // @Tags Resume Section 05
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1196,7 +1218,7 @@ func (e *env) getSection5(c *gin.Context) {
 // @Summary Add a Section 5 entry
 // @Description Adds a Section 5 entry to a user's personal records
 // @Tags Resume Section 05
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection5Input body api.UpsertSection5Input true "Section 5 information"
@@ -1231,19 +1253,19 @@ func (e *env) addSection5(c *gin.Context) {
 		return
 	}
 
-	g := guid.New()	
+	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section5 {
-		ID: g.String(),
-		Section: 5,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		LeadershipRole: input.LeadershipRole,
-		HoursSpent: *input.HoursSpent,
+	section := db.Section5{
+		ID:               g.String(),
+		Section:          5,
+		Nickname:         input.Nickname,
+		Year:             input.Year,
+		LeadershipRole:   input.LeadershipRole,
+		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:           claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -1258,7 +1280,10 @@ func (e *env) addSection5(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection5Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -1266,7 +1291,7 @@ func (e *env) addSection5(c *gin.Context) {
 // @Summary Updates a Section 5 entry
 // @Description Updates a user's Section 5 entry information
 // @Tags Resume Section 05
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1322,16 +1347,16 @@ func (e *env) updateSection5(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section5 {
-		ID: existingSection.ID,
-		Section: 5,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		LeadershipRole: input.LeadershipRole,
-		HoursSpent: *input.HoursSpent,
+	updatedSection := db.Section5{
+		ID:               existingSection.ID,
+		Section:          5,
+		Nickname:         input.Nickname,
+		Year:             input.Year,
+		LeadershipRole:   input.LeadershipRole,
+		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:           claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -1346,7 +1371,10 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection5Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -1355,12 +1383,12 @@ func (e *env) updateSection5(c *gin.Context) {
 ********************************/
 
 type UpsertSection6Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname         string `json:"nickname" validate:"required"`
+	Year             string `json:"year" validate:"required"`
 	OrganizationName string `json:"organization_name" validate:"required"`
-	LeadershipRole string `json:"leadership_role" validate:"required"`
-	HoursSpent *int `json:"hours_spent" validate:"required"`
-	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
+	LeadershipRole   string `json:"leadership_role" validate:"required"`
+	HoursSpent       *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int   `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection6sOutput struct {
@@ -1375,7 +1403,7 @@ type GetSection6Output struct {
 // @Summary Gets all Section 6 entries
 // @Description Gets all of a user's Section 6 entries
 // @Tags Resume Section 06
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection6sOutput
@@ -1410,7 +1438,7 @@ func (e *env) getSection6s(c *gin.Context) {
 // @Summary Get a Section 6
 // @Description Gets a user's Section 6 by ID
 // @Tags Resume Section 06
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1456,7 +1484,7 @@ func (e *env) getSection6(c *gin.Context) {
 // @Summary Add a Section 6 entry
 // @Description Adds a Section 6 entry to a user's personal records
 // @Tags Resume Section 06
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection6Input body api.UpsertSection6Input true "Section 6 information"
@@ -1494,17 +1522,17 @@ func (e *env) addSection6(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section6 {
-		ID: g.String(),
-		Section: 6,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section6{
+		ID:               g.String(),
+		Section:          6,
+		Nickname:         input.Nickname,
+		Year:             input.Year,
 		OrganizationName: input.OrganizationName,
-		LeadershipRole: input.LeadershipRole,
-		HoursSpent: *input.HoursSpent,
+		LeadershipRole:   input.LeadershipRole,
+		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:           claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -1519,7 +1547,10 @@ func (e *env) addSection6(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection6Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -1527,7 +1558,7 @@ func (e *env) addSection6(c *gin.Context) {
 // @Summary Updates a Section 6 entry
 // @Description Updates a user's Section 6 entry information
 // @Tags Resume Section 06
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1583,17 +1614,17 @@ func (e *env) updateSection6(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section6 {
-		ID: existingSection.ID,
-		Section: 6,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section6{
+		ID:               existingSection.ID,
+		Section:          6,
+		Nickname:         input.Nickname,
+		Year:             input.Year,
 		OrganizationName: input.OrganizationName,
-		LeadershipRole: input.LeadershipRole,
-		HoursSpent: *input.HoursSpent,
+		LeadershipRole:   input.LeadershipRole,
+		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:           claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -1608,7 +1639,10 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection6Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -1617,11 +1651,11 @@ func (e *env) updateSection6(c *gin.Context) {
 ********************************/
 
 type UpsertSection7Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname             string `json:"nickname" validate:"required"`
+	Year                 string `json:"year" validate:"required"`
 	ClubMemberActivities string `json:"club_member_activities" validate:"required"`
-	HoursSpent *int `json:"hours_spent" validate:"required"`
-	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
+	HoursSpent           *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached     *int   `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection7sOutput struct {
@@ -1636,7 +1670,7 @@ type GetSection7Output struct {
 // @Summary Gets all Section 7 entries
 // @Description Gets all of a user's Section 7 entries
 // @Tags Resume Section 07
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection7sOutput
@@ -1671,7 +1705,7 @@ func (e *env) getSection7s(c *gin.Context) {
 // @Summary Get a Section 7
 // @Description Gets a user's Section 7 by ID
 // @Tags Resume Section 07
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1717,7 +1751,7 @@ func (e *env) getSection7(c *gin.Context) {
 // @Summary Add a Section 7 entry
 // @Description Adds a Section 7 entry to a user's personal records
 // @Tags Resume Section 07
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection7Input body api.UpsertSection7Input true "Section 7 information"
@@ -1755,16 +1789,16 @@ func (e *env) addSection7(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section7 {
-		ID: g.String(),
-		Section: 7,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section7{
+		ID:                   g.String(),
+		Section:              7,
+		Nickname:             input.Nickname,
+		Year:                 input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
-		HoursSpent: *input.HoursSpent,
-		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		HoursSpent:           *input.HoursSpent,
+		NumPeopleReached:     *input.NumPeopleReached,
+		UserID:               claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -1779,7 +1813,10 @@ func (e *env) addSection7(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection7Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -1787,7 +1824,7 @@ func (e *env) addSection7(c *gin.Context) {
 // @Summary Updates a Section 7 entry
 // @Description Updates a user's Section 7 entry information
 // @Tags Resume Section 07
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1843,16 +1880,16 @@ func (e *env) updateSection7(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section7 {
-		ID: existingSection.ID,
-		Section: 7,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section7{
+		ID:                   existingSection.ID,
+		Section:              7,
+		Nickname:             input.Nickname,
+		Year:                 input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
-		HoursSpent: *input.HoursSpent,
-		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		HoursSpent:           *input.HoursSpent,
+		NumPeopleReached:     *input.NumPeopleReached,
+		UserID:               claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -1867,7 +1904,10 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection7Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -1876,11 +1916,11 @@ func (e *env) updateSection7(c *gin.Context) {
 ********************************/
 
 type UpsertSection8Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname                  string `json:"nickname" validate:"required"`
+	Year                      string `json:"year" validate:"required"`
 	IndividualGroupActivities string `json:"individual_group_activities" validate:"required"`
-	HoursSpent *int `json:"hours_spent" validate:"required"`
-	NumPeopleReached *int `json:"num_people_reached" validate:"required"`
+	HoursSpent                *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached          *int   `json:"num_people_reached" validate:"required"`
 }
 
 type GetSection8sOutput struct {
@@ -1895,7 +1935,7 @@ type GetSection8Output struct {
 // @Summary Gets all Section 8 entries
 // @Description Gets all of a user's Section 8 entries
 // @Tags Resume Section 08
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection8sOutput
@@ -1930,7 +1970,7 @@ func (e *env) getSection8s(c *gin.Context) {
 // @Summary Get a Section 8
 // @Description Gets a user's Section 8 by ID
 // @Tags Resume Section 08
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -1976,7 +2016,7 @@ func (e *env) getSection8(c *gin.Context) {
 // @Summary Add a Section 8 entry
 // @Description Adds a Section 8 entry to a user's personal records
 // @Tags Resume Section 08
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection8Input body api.UpsertSection8Input true "Section 8 information"
@@ -2014,16 +2054,16 @@ func (e *env) addSection8(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section8 {
-		ID: g.String(),
-		Section: 8,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section8{
+		ID:                        g.String(),
+		Section:                   8,
+		Nickname:                  input.Nickname,
+		Year:                      input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
-		HoursSpent: *input.HoursSpent,
-		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		HoursSpent:                *input.HoursSpent,
+		NumPeopleReached:          *input.NumPeopleReached,
+		UserID:                    claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -2038,7 +2078,10 @@ func (e *env) addSection8(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection8Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -2046,7 +2089,7 @@ func (e *env) addSection8(c *gin.Context) {
 // @Summary Updates a Section 8 entry
 // @Description Updates a user's Section 8 entry information
 // @Tags Resume Section 08
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2102,16 +2145,16 @@ func (e *env) updateSection8(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section8 {
-		ID: existingSection.ID,
-		Section: 8,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section8{
+		ID:                        existingSection.ID,
+		Section:                   8,
+		Nickname:                  input.Nickname,
+		Year:                      input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
-		HoursSpent: *input.HoursSpent,
-		NumPeopleReached: *input.NumPeopleReached,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		HoursSpent:                *input.HoursSpent,
+		NumPeopleReached:          *input.NumPeopleReached,
+		UserID:                    claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -2126,7 +2169,10 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection8Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -2135,13 +2181,13 @@ func (e *env) updateSection8(c *gin.Context) {
 ********************************/
 
 type UpsertSection9Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname          string `json:"nickname" validate:"required"`
+	Year              string `json:"year" validate:"required"`
 	CommunicationType string `json:"communication_type" validate:"required"`
-	Topic string `json:"topic" validate:"required"`
-	TimesGiven *int `json:"times_given" validate:"required"`
-	Location string `json:"location" validate:"required"`
-	AudienceSize *int `json:"audience_size" validate:"required"`
+	Topic             string `json:"topic" validate:"required"`
+	TimesGiven        *int   `json:"times_given" validate:"required"`
+	Location          string `json:"location" validate:"required"`
+	AudienceSize      *int   `json:"audience_size" validate:"required"`
 }
 
 type GetSection9sOutput struct {
@@ -2156,7 +2202,7 @@ type GetSection9Output struct {
 // @Summary Gets all Section 9 entries
 // @Description Gets all of a user's Section 9 entries
 // @Tags Resume Section 09
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection9sOutput
@@ -2191,7 +2237,7 @@ func (e *env) getSection9s(c *gin.Context) {
 // @Summary Get a Section 9
 // @Description Gets a user's Section 9 by ID
 // @Tags Resume Section 09
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2237,7 +2283,7 @@ func (e *env) getSection9(c *gin.Context) {
 // @Summary Add a Section 9 entry
 // @Description Adds a Section 9 entry to a user's personal records
 // @Tags Resume Section 09
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection9Input body api.UpsertSection9Input true "Section 9 information"
@@ -2275,18 +2321,18 @@ func (e *env) addSection9(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section9 {
-		ID: g.String(),
-		Section: 9,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section9{
+		ID:                g.String(),
+		Section:           9,
+		Nickname:          input.Nickname,
+		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
-		Topic: input.Topic,
-		TimesGiven: *input.TimesGiven,
-		Location: input.Location,
-		AudienceSize: *input.AudienceSize,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Topic:             input.Topic,
+		TimesGiven:        *input.TimesGiven,
+		Location:          input.Location,
+		AudienceSize:      *input.AudienceSize,
+		UserID:            claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -2301,7 +2347,10 @@ func (e *env) addSection9(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection9Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -2309,7 +2358,7 @@ func (e *env) addSection9(c *gin.Context) {
 // @Summary Updates a Section 9 entry
 // @Description Updates a user's Section 9 entry information
 // @Tags Resume Section 09
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2365,18 +2414,18 @@ func (e *env) updateSection9(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section9 {
-		ID: existingSection.ID,
-		Section: 9,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section9{
+		ID:                existingSection.ID,
+		Section:           9,
+		Nickname:          input.Nickname,
+		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
-		Topic: input.Topic,
-		TimesGiven: *input.TimesGiven,
-		Location: input.Location,
-		AudienceSize: *input.AudienceSize,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Topic:             input.Topic,
+		TimesGiven:        *input.TimesGiven,
+		Location:          input.Location,
+		AudienceSize:      *input.AudienceSize,
+		UserID:            claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -2391,7 +2440,10 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection9Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -2400,13 +2452,13 @@ func (e *env) updateSection9(c *gin.Context) {
 ********************************/
 
 type UpsertSection10Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname          string `json:"nickname" validate:"required"`
+	Year              string `json:"year" validate:"required"`
 	CommunicationType string `json:"communication_type" validate:"required"`
-	Topic string `json:"topic" validate:"required"`
-	TimesGiven *int `json:"times_given" validate:"required"`
-	Location string `json:"location" validate:"required"`
-	AudienceSize *int `json:"audience_size" validate:"required"`
+	Topic             string `json:"topic" validate:"required"`
+	TimesGiven        *int   `json:"times_given" validate:"required"`
+	Location          string `json:"location" validate:"required"`
+	AudienceSize      *int   `json:"audience_size" validate:"required"`
 }
 
 type GetSection10sOutput struct {
@@ -2421,7 +2473,7 @@ type GetSection10Output struct {
 // @Summary Gets all Section 10 entries
 // @Description Gets all of a user's Section 10 entries
 // @Tags Resume Section 10
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection10sOutput
@@ -2456,7 +2508,7 @@ func (e *env) getSection10s(c *gin.Context) {
 // @Summary Get a Section 10
 // @Description Gets a user's Section 10 by ID
 // @Tags Resume Section 10
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2502,7 +2554,7 @@ func (e *env) getSection10(c *gin.Context) {
 // @Summary Add a Section 10 entry
 // @Description Adds a Section 10 entry to a user's personal records
 // @Tags Resume Section 10
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection10Input body api.UpsertSection10Input true "Section 10 information"
@@ -2540,18 +2592,18 @@ func (e *env) addSection10(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section10 {
-		ID: g.String(),
-		Section: 10,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section10{
+		ID:                g.String(),
+		Section:           10,
+		Nickname:          input.Nickname,
+		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
-		Topic: input.Topic,
-		TimesGiven: *input.TimesGiven,
-		Location: input.Location,
-		AudienceSize: *input.AudienceSize,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Topic:             input.Topic,
+		TimesGiven:        *input.TimesGiven,
+		Location:          input.Location,
+		AudienceSize:      *input.AudienceSize,
+		UserID:            claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -2566,7 +2618,10 @@ func (e *env) addSection10(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection10Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -2574,7 +2629,7 @@ func (e *env) addSection10(c *gin.Context) {
 // @Summary Updates a Section 10 entry
 // @Description Updates a user's Section 10 entry information
 // @Tags Resume Section 10
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2630,18 +2685,18 @@ func (e *env) updateSection10(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section10 {
-		ID: existingSection.ID,
-		Section: 10,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section10{
+		ID:                existingSection.ID,
+		Section:           10,
+		Nickname:          input.Nickname,
+		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
-		Topic: input.Topic,
-		TimesGiven: *input.TimesGiven,
-		Location: input.Location,
-		AudienceSize: *input.AudienceSize,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Topic:             input.Topic,
+		TimesGiven:        *input.TimesGiven,
+		Location:          input.Location,
+		AudienceSize:      *input.AudienceSize,
+		UserID:            claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -2656,7 +2711,10 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection10Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -2665,11 +2723,11 @@ func (e *env) updateSection10(c *gin.Context) {
 ********************************/
 
 type UpsertSection11Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
-	EventAndLevel string `json:"event_and_level" validate:"required"`
+	Nickname           string `json:"nickname" validate:"required"`
+	Year               string `json:"year" validate:"required"`
+	EventAndLevel      string `json:"event_and_level" validate:"required"`
 	ExhibitsOrDivision string `json:"exhibits_or_division" validate:"required"`
-	RibbonOrPlacings string `json:"ribbon_or_placings" validate:"required"`
+	RibbonOrPlacings   string `json:"ribbon_or_placings" validate:"required"`
 }
 
 type GetSection11sOutput struct {
@@ -2684,7 +2742,7 @@ type GetSection11Output struct {
 // @Summary Gets all Section 11 entries
 // @Description Gets all of a user's Section 11 entries
 // @Tags Resume Section 11
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection11sOutput
@@ -2719,7 +2777,7 @@ func (e *env) getSection11s(c *gin.Context) {
 // @Summary Get a Section 11
 // @Description Gets a user's Section 11 by ID
 // @Tags Resume Section 11
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2765,7 +2823,7 @@ func (e *env) getSection11(c *gin.Context) {
 // @Summary Add a Section 11 entry
 // @Description Adds a Section 11 entry to a user's personal records
 // @Tags Resume Section 11
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection11Input body api.UpsertSection11Input true "Section 11 information"
@@ -2803,16 +2861,16 @@ func (e *env) addSection11(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section11 {
-		ID: g.String(),
-		Section: 11,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		EventAndLevel: input.EventAndLevel,
+	section := db.Section11{
+		ID:                 g.String(),
+		Section:            11,
+		Nickname:           input.Nickname,
+		Year:               input.Year,
+		EventAndLevel:      input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
-		RibbonOrPlacings: input.RibbonOrPlacings,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		RibbonOrPlacings:   input.RibbonOrPlacings,
+		UserID:             claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -2827,7 +2885,10 @@ func (e *env) addSection11(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection11Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -2835,7 +2896,7 @@ func (e *env) addSection11(c *gin.Context) {
 // @Summary Updates a Section 11 entry
 // @Description Updates a user's Section 11 entry information
 // @Tags Resume Section 11
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -2891,16 +2952,16 @@ func (e *env) updateSection11(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section11 {
-		ID: existingSection.ID,
-		Section: 11,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		EventAndLevel: input.EventAndLevel,
+	updatedSection := db.Section11{
+		ID:                 existingSection.ID,
+		Section:            11,
+		Nickname:           input.Nickname,
+		Year:               input.Year,
+		EventAndLevel:      input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
-		RibbonOrPlacings: input.RibbonOrPlacings,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		RibbonOrPlacings:   input.RibbonOrPlacings,
+		UserID:             claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -2915,7 +2976,10 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection11Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -2924,11 +2988,11 @@ func (e *env) updateSection11(c *gin.Context) {
 ********************************/
 
 type UpsertSection12Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
-	ContestOrEvent string `json:"contest_or_event" validate:"required"`
+	Nickname            string `json:"nickname" validate:"required"`
+	Year                string `json:"year" validate:"required"`
+	ContestOrEvent      string `json:"contest_or_event" validate:"required"`
 	RecognitionReceived string `json:"recognition_received" validate:"required"`
-	Level string `json:"level" validate:"required"`
+	Level               string `json:"level" validate:"required"`
 }
 
 type GetSection12sOutput struct {
@@ -2943,7 +3007,7 @@ type GetSection12Output struct {
 // @Summary Gets all Section 12 entries
 // @Description Gets all of a user's Section 12 entries
 // @Tags Resume Section 12
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection12sOutput
@@ -2978,7 +3042,7 @@ func (e *env) getSection12s(c *gin.Context) {
 // @Summary Get a Section 12
 // @Description Gets a user's Section 12 by ID
 // @Tags Resume Section 12
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -3024,7 +3088,7 @@ func (e *env) getSection12(c *gin.Context) {
 // @Summary Add a Section 12 entry
 // @Description Adds a Section 12 entry to a user's personal records
 // @Tags Resume Section 12
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection12Input body api.UpsertSection12Input true "Section 12 information"
@@ -3062,16 +3126,16 @@ func (e *env) addSection12(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section12 {
-		ID: g.String(),
-		Section: 12,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		ContestOrEvent: input.ContestOrEvent,
+	section := db.Section12{
+		ID:                  g.String(),
+		Section:             12,
+		Nickname:            input.Nickname,
+		Year:                input.Year,
+		ContestOrEvent:      input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
-		Level: input.Level,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Level:               input.Level,
+		UserID:              claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -3086,7 +3150,10 @@ func (e *env) addSection12(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection12Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -3094,7 +3161,7 @@ func (e *env) addSection12(c *gin.Context) {
 // @Summary Updates a Section 12 entry
 // @Description Updates a user's Section 12 entry information
 // @Tags Resume Section 12
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -3150,16 +3217,16 @@ func (e *env) updateSection12(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section12 {
-		ID: existingSection.ID,
-		Section: 12,
-		Nickname: input.Nickname,
-		Year: input.Year,
-		ContestOrEvent: input.ContestOrEvent,
+	updatedSection := db.Section12{
+		ID:                  existingSection.ID,
+		Section:             12,
+		Nickname:            input.Nickname,
+		Year:                input.Year,
+		ContestOrEvent:      input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
-		Level: input.Level,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Level:               input.Level,
+		UserID:              claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -3174,7 +3241,10 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection12Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -3183,8 +3253,8 @@ func (e *env) updateSection12(c *gin.Context) {
 ********************************/
 
 type UpsertSection13Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname        string `json:"nickname" validate:"required"`
+	Year            string `json:"year" validate:"required"`
 	RecognitionType string `json:"recognition_type" validate:"required"`
 }
 
@@ -3200,7 +3270,7 @@ type GetSection13Output struct {
 // @Summary Gets all Section 13 entries
 // @Description Gets all of a user's Section 13 entries
 // @Tags Resume Section 13
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection13sOutput
@@ -3235,7 +3305,7 @@ func (e *env) getSection13s(c *gin.Context) {
 // @Summary Get a Section 13
 // @Description Gets a user's Section 13 by ID
 // @Tags Resume Section 13
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -3281,7 +3351,7 @@ func (e *env) getSection13(c *gin.Context) {
 // @Summary Add a Section 13 entry
 // @Description Adds a Section 13 entry to a user's personal records
 // @Tags Resume Section 13
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection13Input body api.UpsertSection13Input true "Section 13 information"
@@ -3319,14 +3389,14 @@ func (e *env) addSection13(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section13 {
-		ID: g.String(),
-		Section: 13,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section13{
+		ID:              g.String(),
+		Section:         13,
+		Nickname:        input.Nickname,
+		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -3341,7 +3411,10 @@ func (e *env) addSection13(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection13Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -3349,7 +3422,7 @@ func (e *env) addSection13(c *gin.Context) {
 // @Summary Updates a Section 13 entry
 // @Description Updates a user's Section 13 entry information
 // @Tags Resume Section 13
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -3405,14 +3478,14 @@ func (e *env) updateSection13(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section13 {
-		ID: existingSection.ID,
-		Section: 13,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section13{
+		ID:              existingSection.ID,
+		Section:         13,
+		Nickname:        input.Nickname,
+		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -3427,8 +3500,10 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
-
+	_ = response
+	var newEntry GetSection13Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 }
 
 /*******************************
@@ -3436,8 +3511,8 @@ func (e *env) updateSection13(c *gin.Context) {
 ********************************/
 
 type UpsertSection14Input struct {
-	Nickname string `json:"nickname" validate:"required"`
-	Year string `json:"year" validate:"required"`
+	Nickname        string `json:"nickname" validate:"required"`
+	Year            string `json:"year" validate:"required"`
 	RecognitionType string `json:"recognition_type" validate:"required"`
 }
 
@@ -3453,7 +3528,7 @@ type GetSection14Output struct {
 // @Summary Gets all Section 14 entries
 // @Description Gets all of a user's Section 14 entries
 // @Tags Resume Section 14
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetSection14sOutput
@@ -3488,7 +3563,7 @@ func (e *env) getSection14s(c *gin.Context) {
 // @Summary Get a Section 14
 // @Description Gets a user's Section 14 by ID
 // @Tags Resume Section 14
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -3534,7 +3609,7 @@ func (e *env) getSection14(c *gin.Context) {
 // @Summary Add a Section 14 entry
 // @Description Adds a Section 14 entry to a user's personal records
 // @Tags Resume Section 14
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection14Input body api.UpsertSection14Input true "Section 14 information"
@@ -3572,14 +3647,14 @@ func (e *env) addSection14(c *gin.Context) {
 	g := guid.New()
 	timestamp := utils.TimeNow()
 
-	section := db.Section14 {
-		ID: g.String(),
-		Section: 14,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	section := db.Section14{
+		ID:              g.String(),
+		Section:         14,
+		Nickname:        input.Nickname,
+		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -3594,7 +3669,10 @@ func (e *env) addSection14(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection14Output
+	newEntry.Section = section
+	c.JSON(201, newEntry)
 
 }
 
@@ -3602,7 +3680,7 @@ func (e *env) addSection14(c *gin.Context) {
 // @Summary Updates a Section 14 entry
 // @Description Updates a user's Section 14 entry information
 // @Tags Resume Section 14
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
@@ -3658,14 +3736,14 @@ func (e *env) updateSection14(c *gin.Context) {
 
 	timestamp := utils.TimeNow()
 
-	updatedSection := db.Section14 {
-		ID: existingSection.ID,
-		Section: 14,
-		Nickname: input.Nickname,
-		Year: input.Year,
+	updatedSection := db.Section14{
+		ID:              existingSection.ID,
+		Section:         14,
+		Nickname:        input.Nickname,
+		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: existingSection.Created,
 			Updated: timestamp.String(),
 		},
@@ -3680,7 +3758,10 @@ func (e *env) updateSection14(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	var newEntry GetSection14Output
+	newEntry.Section = updatedSection
+	c.JSON(201, newEntry)
 
 }
 
@@ -3698,7 +3779,7 @@ func (e *env) updateSection14(c *gin.Context) {
 // @Param sectionID path string true "Section ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /section/{sectionID} [delete]
 func (e *env) deleteSection(c *gin.Context) {
 
