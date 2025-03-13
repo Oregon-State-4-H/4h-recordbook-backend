@@ -288,8 +288,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.AddBookmarkOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -339,6 +342,46 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/bookmarks/{link}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a bookmark with the searched link, queried using JWT claims",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User Bookmarks"
+                ],
+                "summary": "Get a bookmark by the link",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bookmark link",
+                        "name": "link",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetBookmarkOutput"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             }
@@ -1611,7 +1654,7 @@ const docTemplate = `{
                 "tags": [
                     "Resume Section 01"
                 ],
-                "summary": "Add a Section 1 entry",
+                "summary": "Add a Section 1 entry, return added Section 1 entry",
                 "parameters": [
                     {
                         "description": "Section 1 information",
@@ -4268,6 +4311,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.AddBookmarkOutput": {
+            "type": "object",
+            "properties": {
+                "bookmark": {
+                    "$ref": "#/definitions/db.Bookmark"
+                }
+            }
+        },
         "api.GetAnimalOutput": {
             "type": "object",
             "properties": {
@@ -4284,6 +4335,14 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Animal"
                     }
+                }
+            }
+        },
+        "api.GetBookmarkOutput": {
+            "type": "object",
+            "properties": {
+                "bookmark": {
+                    "$ref": "#/definitions/db.Bookmark"
                 }
             }
         },

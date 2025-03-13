@@ -151,6 +151,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/signup", e.signup)
 
 	router.GET("/bookmarks", e.getUserBookmarks)
+	router.GET("/bookmarks/:link", e.getBookmarkByLink)
 	router.POST("/bookmarks", e.addUserBookmark)
 	router.DELETE("/bookmarks/:bookmarkID", e.deleteUserBookmark)
 
