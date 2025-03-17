@@ -95,6 +95,18 @@ func generateJWT(userid string, firstName string) (string, error){
 
 }
 
+func CookieToTokenMiddleware(cookieName string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token, err := c.Cookie(cookieName)
+		if err != nil {
+			c.Next()
+			return
+		}
+		c.Request.Header.Set("Authorization", "Bearer " + token)
+		c.Next()
+	}
+}
+
 func (e *env) RunLocal() error {
 	return http.ListenAndServe("localhost:8080", e.api)
 }
@@ -115,10 +127,13 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 
 	router := gin.Default()
 
+	router.Use(CookieToTokenMiddleware("authtoken"))
+
 	router.Use(cors.New(cors.Config{
-		AllowHeaders: 	 []string{"Authorization", "Content-Type"},
-		AllowAllOrigins: true,
-		AllowMethods:	 []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
+		AllowCredentials: true,
+		AllowHeaders: []string{"Authorization", "Content-Type"},
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 	}))
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -136,6 +151,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/signup", e.signup)
 
 	router.GET("/bookmarks", e.getUserBookmarks)
+	router.GET("/bookmarks/:link", e.getBookmarkByLink)
 	router.POST("/bookmarks", e.addUserBookmark)
 	router.DELETE("/bookmarks/:bookmarkID", e.deleteUserBookmark)
 

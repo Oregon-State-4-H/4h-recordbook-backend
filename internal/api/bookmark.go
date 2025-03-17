@@ -13,6 +13,12 @@ type AddBookmarkInput struct {
 	Label string `json:"label" validate:"required"`
 }
 
+type GetBookmarkOutput struct {
+	Bookmark db.Bookmark `json:"bookmark"`
+}
+
+type AddBookmarkOutput GetBookmarkOutput
+
 type GetBookmarksOutput struct {
 	Bookmarks []db.Bookmark `json:"bookmarks"`
 }
@@ -52,6 +58,51 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 
 }
 
+// GetBookmarkByLink godoc
+// @Summary Get a bookmark by the link
+// @Description Returns a bookmark with the searched link, queried using JWT claims
+// @Tags User Bookmarks
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param link path string true "Bookmark link"
+// @Success 200 {object} api.GetBookmarkOutput
+// @Failure 401 
+// @Router /bookmarks/{link} [get]
+func (e *env) getBookmarkByLink(c *gin.Context) {
+
+	claims, err := decodeJWT(c)
+	if err != nil {
+		c.JSON(401, gin.H{
+			"message": HTTPResponseCodeMap[401],
+		})
+		return
+	}
+
+	var output GetBookmarkOutput
+
+	link := c.Param("link")
+
+	output.Bookmark, err = e.db.GetBookmarkByLink(context.TODO(), claims.ID, link)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	if output.Bookmark == (db.Bookmark{}) {
+		c.JSON(404, gin.H{
+			"message": ErrNotFound,
+		})
+		return
+	}
+
+	c.JSON(200, output)
+
+}
+
 // AddUserBookmark godoc
 // @Summary Adds a bookmark
 // @Description Adds a bookmark to a user's personal records. 
@@ -61,7 +112,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param AddBookmarkInput body api.AddBookmarkInput true "Bookmark information"
-// @Success 204 
+// @Success 201 {object} api.AddBookmarkOutput 
 // @Failure 400
 // @Failure 401
 // @Failure 409
@@ -115,6 +166,8 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		return
 	}
 
+	var output AddBookmarkOutput
+
 	response, err := e.db.AddBookmark(context.TODO(), bookmark)
 	if err != nil {
 		response := InterpretCosmosError(err)
@@ -124,7 +177,10 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	_ = response
+	output.Bookmark = bookmark
+
+	c.JSON(201, output)
 
 }
 
