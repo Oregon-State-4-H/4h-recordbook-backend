@@ -9,6 +9,11 @@ definitions:
     - label
     - link
     type: object
+  api.AddBookmarkOutput:
+    properties:
+      bookmark:
+        $ref: '#/definitions/db.Bookmark'
+    type: object
   api.GetAnimalOutput:
     properties:
       animal:
@@ -20,6 +25,11 @@ definitions:
         items:
           $ref: '#/definitions/db.Animal'
         type: array
+    type: object
+  api.GetBookmarkOutput:
+    properties:
+      bookmark:
+        $ref: '#/definitions/db.Bookmark'
     type: object
   api.GetBookmarksOutput:
     properties:
@@ -92,6 +102,18 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -247,18 +269,6 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -463,34 +473,6 @@ definitions:
     - name
     - start_date
     - type
-    - year
-    type: object
-  api.UpsertSection1Input:
-    properties:
-      club_leader:
-        type: string
-      club_name:
-        type: string
-      grade:
-        type: integer
-      meetings_attended:
-        type: integer
-      meetings_held:
-        type: integer
-      nickname:
-        type: string
-      num_in_club:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_leader
-    - club_name
-    - grade
-    - meetings_attended
-    - meetings_held
-    - nickname
-    - num_in_club
     - year
     type: object
   api.UpsertSection2Input:
@@ -735,6 +717,34 @@ definitions:
     required:
     - nickname
     - recognition_type
+    - year
+    type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      nickname:
+        type: string
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - nickname
+    - num_in_club
     - year
     type: object
   api.UpsertSupplyInput:
@@ -1537,8 +1547,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.AddBookmarkOutput'
         "400":
           description: Bad Request
         "401":
@@ -1573,6 +1585,31 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Removes a bookmark
+      tags:
+      - User Bookmarks
+  /bookmarks/{link}:
+    get:
+      consumes:
+      - application/json
+      description: Returns a bookmark with the searched link, queried using JWT claims
+      parameters:
+      - description: Bookmark link
+        in: path
+        name: link
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetBookmarkOutput'
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get a bookmark by the link
       tags:
       - User Bookmarks
   /daily-feed:
@@ -2387,7 +2424,7 @@ paths:
           description: Unauthorized
       security:
       - ApiKeyAuth: []
-      summary: Add a Section 1 entry
+      summary: Add a Section 1 entry, return added Section 1 entry
       tags:
       - Resume Section 01
   /section1/{sectionID}:
