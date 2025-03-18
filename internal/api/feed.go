@@ -21,6 +21,8 @@ type GetFeedOutput struct {
 	Feed db.Feed `json:"feed"`
 }
 
+type UpsertFeedOutput GetFeedOutput
+
 // GetFeeds godoc
 // @Summary Get feeds by project
 // @Description Gets all of a user's feeds given a project ID
@@ -113,7 +115,7 @@ func (e *env) getFeed(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertFeedInput body api.UpsertFeedInput true "Feed information"
-// @Success 204
+// @Success 201 {object} api.UpsertFeedOutput
 // @Failure 400
 // @Failure 401
 // @Router /feed [post]
@@ -158,7 +160,9 @@ func (e *env) addFeed(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertFeed(context.TODO(), feed)
+	var output UpsertFeedOutput
+
+	output.Feed, err = e.db.UpsertFeed(context.TODO(), feed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -167,7 +171,7 @@ func (e *env) addFeed(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 
@@ -180,7 +184,7 @@ func (e *env) addFeed(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param feedID path string true "Feed ID"
 // @Param UpsertFeedInput body api.UpsertFeedInput true "Feed information"
-// @Success 204 
+// @Success 200 {object} api.UpsertFeedOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -236,7 +240,9 @@ func (e *env) updateFeed(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertFeed(context.TODO(), updatedFeed)
+	var output UpsertFeedOutput
+
+	output.Feed, err = e.db.UpsertFeed(context.TODO(), updatedFeed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -245,7 +251,7 @@ func (e *env) updateFeed(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 

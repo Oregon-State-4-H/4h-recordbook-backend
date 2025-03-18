@@ -70,7 +70,7 @@ type Db interface {
 	RemoveAnimal(ctx context.Context, userID string, animalID string) (interface{}, error)
 	GetFeedsByProject(ctx context.Context, userID string, projectID string) ([]Feed, error)
 	GetFeedByID(ctx context.Context, userID string, feedID string) (Feed, error)
-	UpsertFeed(ctx context.Context, feed Feed) (interface{}, error)
+	UpsertFeed(ctx context.Context, feed Feed) (Feed, error)
 	RemoveFeed(ctx context.Context, userID string, feedID string) (interface{}, error)
 	GetFeedPurchasesByProject(ctx context.Context, userID string, projectID string) ([]FeedPurchase, error)
 	GetFeedPurchaseByID(ctx context.Context, userID string, feedPurchaseID string) (FeedPurchase, error)

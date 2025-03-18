@@ -103,18 +103,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -269,6 +257,18 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -449,6 +449,11 @@ definitions:
     - name
     - project_id
     type: object
+  api.UpsertFeedOutput:
+    properties:
+      feed:
+        $ref: '#/definitions/db.Feed'
+    type: object
   api.UpsertFeedPurchaseInput:
     properties:
       amount_purchased:
@@ -488,123 +493,6 @@ definitions:
     - name
     - start_date
     - type
-    - year
-    type: object
-  api.UpsertSection10Input:
-    properties:
-      audience_size:
-        type: integer
-      communication_type:
-        type: string
-      location:
-        type: string
-      nickname:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - nickname
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection11Input:
-    properties:
-      event_and_level:
-        type: string
-      exhibits_or_division:
-        type: string
-      nickname:
-        type: string
-      ribbon_or_placings:
-        type: string
-      year:
-        type: string
-    required:
-    - event_and_level
-    - exhibits_or_division
-    - nickname
-    - ribbon_or_placings
-    - year
-    type: object
-  api.UpsertSection12Input:
-    properties:
-      contest_or_event:
-        type: string
-      level:
-        type: string
-      nickname:
-        type: string
-      recognition_received:
-        type: string
-      year:
-        type: string
-    required:
-    - contest_or_event
-    - level
-    - nickname
-    - recognition_received
-    - year
-    type: object
-  api.UpsertSection13Input:
-    properties:
-      nickname:
-        type: string
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - nickname
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection14Input:
-    properties:
-      nickname:
-        type: string
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - nickname
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection1Input:
-    properties:
-      club_leader:
-        type: string
-      club_name:
-        type: string
-      grade:
-        type: integer
-      meetings_attended:
-        type: integer
-      meetings_held:
-        type: integer
-      nickname:
-        type: string
-      num_in_club:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_leader
-    - club_name
-    - grade
-    - meetings_attended
-    - meetings_held
-    - nickname
-    - num_in_club
     - year
     type: object
   api.UpsertSection2Input:
@@ -760,6 +648,123 @@ definitions:
     - nickname
     - times_given
     - topic
+    - year
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      nickname:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - nickname
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      nickname:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - nickname
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      nickname:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - nickname
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      nickname:
+        type: string
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - nickname
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      nickname:
+        type: string
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - nickname
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      nickname:
+        type: string
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - nickname
+    - num_in_club
     - year
     type: object
   api.UpsertSupplyInput:
@@ -1955,8 +1960,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertFeedOutput'
         "400":
           description: Bad Request
         "401":
@@ -2171,8 +2178,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertFeedOutput'
         "400":
           description: Bad Request
         "401":
