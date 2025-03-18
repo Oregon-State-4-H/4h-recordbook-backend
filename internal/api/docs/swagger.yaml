@@ -103,6 +103,18 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -257,18 +269,6 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -472,6 +472,11 @@ definitions:
     - feed_id
     - project_id
     - total_cost
+    type: object
+  api.UpsertFeedPurchaseOutput:
+    properties:
+      feed_purchase:
+        $ref: '#/definitions/db.FeedPurchase'
     type: object
   api.UpsertProjectInput:
     properties:
@@ -2014,8 +2019,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertFeedPurchaseOutput'
         "400":
           description: Bad Request
         "401":
@@ -2095,8 +2102,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertFeedPurchaseOutput'
         "400":
           description: Bad Request
         "401":

@@ -996,8 +996,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertFeedPurchaseOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1086,8 +1089,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertFeedPurchaseOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -5045,6 +5051,14 @@ const docTemplate = `{
                 },
                 "total_cost": {
                     "type": "number"
+                }
+            }
+        },
+        "api.UpsertFeedPurchaseOutput": {
+            "type": "object",
+            "properties": {
+                "feed_purchase": {
+                    "$ref": "#/definitions/db.FeedPurchase"
                 }
             }
         },
