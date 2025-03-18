@@ -87,7 +87,7 @@ func (env *env) GetExpenseByID(ctx context.Context, userID string, expenseID str
 
 }
 
-func (env *env) UpsertExpense(ctx context.Context, expense Expense) (interface{}, error) {
+func (env *env) UpsertExpense(ctx context.Context, expense Expense) (Expense, error) {
 	
 	env.logger.Info("Upserting expense")
 
@@ -97,15 +97,15 @@ func (env *env) UpsertExpense(ctx context.Context, expense Expense) (interface{}
 
 	marshalled, err := json.Marshal(expense)
 	if err != nil {
-		return nil, err
+		return expense, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return expense, err
 	}
 
-	return response, nil
+	return expense, nil
 
 }
 

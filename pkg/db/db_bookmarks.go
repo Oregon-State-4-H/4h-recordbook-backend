@@ -106,7 +106,7 @@ func (env *env) GetBookmarks(ctx context.Context, userID string) ([]Bookmark, er
 
 } 
 
-func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (interface{}, error) {
+func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (Bookmark, error) {
 	
 	env.logger.Info("Adding bookmark")
 
@@ -116,15 +116,15 @@ func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (interface{}
 
 	marshalled, err := json.Marshal(bookmark)
 	if err != nil {
-		return nil, err
+		return bookmark, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return bookmark, err
 	}
 
-	return response, nil
+	return bookmark, nil
 
 }
 

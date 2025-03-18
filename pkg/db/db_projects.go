@@ -136,7 +136,7 @@ func (env *env) GetProjectsByUser(ctx context.Context, userID string) ([]Project
 
 }
 
-func (env *env) UpsertProject(ctx context.Context, project Project) (interface{}, error) {
+func (env *env) UpsertProject(ctx context.Context, project Project) (Project, error) {
 	
 	env.logger.Info("Upserting project")
 
@@ -146,15 +146,15 @@ func (env *env) UpsertProject(ctx context.Context, project Project) (interface{}
 
 	marshalled, err := json.Marshal(project)
 	if err != nil {
-		return nil, err
+		return project, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return project, err
 	}
 
-	return response, nil
+	return project, nil
 
 }
 

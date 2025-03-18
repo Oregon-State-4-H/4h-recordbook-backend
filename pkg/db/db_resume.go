@@ -351,7 +351,7 @@ func (env *env) GetSection1sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection1(ctx context.Context, section Section1) (interface{}, error) {
+func (env *env) UpsertSection1(ctx context.Context, section Section1) (Section1, error) {
 
 	env.logger.Info("Upserting section 1")
 
@@ -361,15 +361,15 @@ func (env *env) UpsertSection1(ctx context.Context, section Section1) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -447,7 +447,7 @@ func (env *env) GetSection2sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection2(ctx context.Context, section Section2) (interface{}, error) {
+func (env *env) UpsertSection2(ctx context.Context, section Section2) (Section2, error) {
 
 	env.logger.Info("Upserting section 2")
 
@@ -457,15 +457,15 @@ func (env *env) UpsertSection2(ctx context.Context, section Section2) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -543,7 +543,7 @@ func (env *env) GetSection3sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection3(ctx context.Context, section Section3) (interface{}, error) {
+func (env *env) UpsertSection3(ctx context.Context, section Section3) (Section3, error) {
 
 	env.logger.Info("Upserting section 3")
 
@@ -553,15 +553,15 @@ func (env *env) UpsertSection3(ctx context.Context, section Section3) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -639,7 +639,7 @@ func (env *env) GetSection4sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection4(ctx context.Context, section Section4) (interface{}, error) {
+func (env *env) UpsertSection4(ctx context.Context, section Section4) (Section4, error) {
 
 	env.logger.Info("Upserting section 4")
 
@@ -649,15 +649,15 @@ func (env *env) UpsertSection4(ctx context.Context, section Section4) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -735,7 +735,7 @@ func (env *env) GetSection5sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection5(ctx context.Context, section Section5) (interface{}, error) {
+func (env *env) UpsertSection5(ctx context.Context, section Section5) (Section5, error) {
 
 	env.logger.Info("Upserting section 5")
 
@@ -745,15 +745,15 @@ func (env *env) UpsertSection5(ctx context.Context, section Section5) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -831,7 +831,7 @@ func (env *env) GetSection6sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection6(ctx context.Context, section Section6) (interface{}, error) {
+func (env *env) UpsertSection6(ctx context.Context, section Section6) (Section6, error) {
 
 	env.logger.Info("Upserting section 6")
 
@@ -841,15 +841,15 @@ func (env *env) UpsertSection6(ctx context.Context, section Section6) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -927,7 +927,7 @@ func (env *env) GetSection7sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection7(ctx context.Context, section Section7) (interface{}, error) {
+func (env *env) UpsertSection7(ctx context.Context, section Section7) (Section7, error) {
 
 	env.logger.Info("Upserting section 7")
 
@@ -937,15 +937,15 @@ func (env *env) UpsertSection7(ctx context.Context, section Section7) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1023,7 +1023,7 @@ func (env *env) GetSection8sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection8(ctx context.Context, section Section8) (interface{}, error) {
+func (env *env) UpsertSection8(ctx context.Context, section Section8) (Section8, error) {
 
 	env.logger.Info("Upserting section 8")
 
@@ -1033,15 +1033,15 @@ func (env *env) UpsertSection8(ctx context.Context, section Section8) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1119,7 +1119,7 @@ func (env *env) GetSection9sByUser(ctx context.Context, userID string) ([]Sectio
 
 }
 
-func (env *env) UpsertSection9(ctx context.Context, section Section9) (interface{}, error) {
+func (env *env) UpsertSection9(ctx context.Context, section Section9) (Section9, error) {
 
 	env.logger.Info("Upserting section 9")
 
@@ -1129,15 +1129,15 @@ func (env *env) UpsertSection9(ctx context.Context, section Section9) (interface
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1215,7 +1215,7 @@ func (env *env) GetSection10sByUser(ctx context.Context, userID string) ([]Secti
 
 }
 
-func (env *env) UpsertSection10(ctx context.Context, section Section10) (interface{}, error) {
+func (env *env) UpsertSection10(ctx context.Context, section Section10) (Section10, error) {
 
 	env.logger.Info("Upserting section 10")
 
@@ -1225,15 +1225,15 @@ func (env *env) UpsertSection10(ctx context.Context, section Section10) (interfa
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1311,7 +1311,7 @@ func (env *env) GetSection11sByUser(ctx context.Context, userID string) ([]Secti
 
 }
 
-func (env *env) UpsertSection11(ctx context.Context, section Section11) (interface{}, error) {
+func (env *env) UpsertSection11(ctx context.Context, section Section11) (Section11, error) {
 
 	env.logger.Info("Upserting section 11")
 
@@ -1321,15 +1321,15 @@ func (env *env) UpsertSection11(ctx context.Context, section Section11) (interfa
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1407,7 +1407,7 @@ func (env *env) GetSection12sByUser(ctx context.Context, userID string) ([]Secti
 
 }
 
-func (env *env) UpsertSection12(ctx context.Context, section Section12) (interface{}, error) {
+func (env *env) UpsertSection12(ctx context.Context, section Section12) (Section12, error) {
 
 	env.logger.Info("Upserting section 12")
 
@@ -1417,15 +1417,15 @@ func (env *env) UpsertSection12(ctx context.Context, section Section12) (interfa
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1503,7 +1503,7 @@ func (env *env) GetSection13sByUser(ctx context.Context, userID string) ([]Secti
 
 }
 
-func (env *env) UpsertSection13(ctx context.Context, section Section13) (interface{}, error) {
+func (env *env) UpsertSection13(ctx context.Context, section Section13) (Section13, error) {
 
 	env.logger.Info("Upserting section 13")
 
@@ -1513,15 +1513,15 @@ func (env *env) UpsertSection13(ctx context.Context, section Section13) (interfa
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 
@@ -1599,7 +1599,7 @@ func (env *env) GetSection14sByUser(ctx context.Context, userID string) ([]Secti
 
 }
 
-func (env *env) UpsertSection14(ctx context.Context, section Section14) (interface{}, error) {
+func (env *env) UpsertSection14(ctx context.Context, section Section14) (Section14, error) {
 
 	env.logger.Info("Upserting section 14")
 
@@ -1609,15 +1609,15 @@ func (env *env) UpsertSection14(ctx context.Context, section Section14) (interfa
 
 	marshalled, err := json.Marshal(section)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return section, err
 	}
 
-	return response, nil
+	return section, nil
 
 }
 

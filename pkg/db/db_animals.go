@@ -97,7 +97,7 @@ func (env *env) GetAnimalByID(ctx context.Context, userID string, animalID strin
 
 }
 
-func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (interface{}, error) {
+func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (Animal, error) {
 	
 	env.logger.Info("Upserting animal")
 
@@ -107,15 +107,15 @@ func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (interface{}, e
 
 	marshalled, err := json.Marshal(animal)
 	if err != nil {
-		return nil, err
+		return animal, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return animal, err
 	}
 
-	return response, nil
+	return animal, nil
 
 }
 

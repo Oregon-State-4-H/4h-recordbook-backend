@@ -87,7 +87,7 @@ func (env *env) GetFeedPurchaseByID(ctx context.Context, userID string, feedPurc
 
 }
 
-func (env *env) UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchase) (interface{}, error) {
+func (env *env) UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchase) (FeedPurchase, error) {
 	
 	env.logger.Info("Upserting feed purchase")
 
@@ -97,15 +97,15 @@ func (env *env) UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchas
 
 	marshalled, err := json.Marshal(feedPurchase)
 	if err != nil {
-		return nil, err
+		return feedPurchase, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return feedPurchase, err
 	}
 
-	return response, nil
+	return feedPurchase, nil
 
 }
 

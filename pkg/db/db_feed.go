@@ -84,7 +84,7 @@ func (env *env) GetFeedByID(ctx context.Context, userID string, feedID string) (
 
 }
 
-func (env *env) UpsertFeed(ctx context.Context, feed Feed) (interface{}, error) {
+func (env *env) UpsertFeed(ctx context.Context, feed Feed) (Feed, error) {
 	
 	env.logger.Info("Upserting feed")
 
@@ -94,15 +94,15 @@ func (env *env) UpsertFeed(ctx context.Context, feed Feed) (interface{}, error) 
 
 	marshalled, err := json.Marshal(feed)
 	if err != nil {
-		return nil, err
+		return feed, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return feed, err
 	}
 
-	return response, nil
+	return feed, nil
 
 }
 

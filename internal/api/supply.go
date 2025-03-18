@@ -8,13 +8,6 @@ import (
 	"github.com/beevik/guid"
 )
 
-type UpsertSupplyInput struct {
-	Description string `json:"description" validate:"required"`
-	StartValue *float64 `json:"start_value" validate:"required"`
-	EndValue *float64 `json:"end_value" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
-}
-
 type GetSuppliesOutput struct {
 	Supplies []db.Supply `json:"supplies"`
 }
@@ -22,6 +15,15 @@ type GetSuppliesOutput struct {
 type GetSupplyOutput struct {
 	Supply db.Supply `json:"supply"`
 }
+
+type UpsertSupplyInput struct {
+	Description string `json:"description" validate:"required"`
+	StartValue *float64 `json:"start_value" validate:"required"`
+	EndValue *float64 `json:"end_value" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
+}
+
+type UpsertSupplyOutput GetSupplyOutput
 
 // GetSupplies godoc
 // @Summary Get supplies by project
@@ -115,7 +117,7 @@ func (e *env) getSupply(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSupplyInput body api.UpsertSupplyInput true "Supply information"
-// @Success 204
+// @Success 201 {object} api.UpsertSupplyOutput
 // @Failure 400
 // @Failure 401
 // @Router /supply [post]
@@ -162,7 +164,9 @@ func (e *env) addSupply(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSupply(context.TODO(), supply)
+	var output UpsertSupplyOutput
+
+	output.Supply, err = e.db.UpsertSupply(context.TODO(), supply)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -171,7 +175,7 @@ func (e *env) addSupply(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 
@@ -184,7 +188,7 @@ func (e *env) addSupply(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param supplyID path string true "Supply ID"
 // @Param UpsertSupplyInput body api.UpsertSupplyInput true "Supply information"
-// @Success 204 
+// @Success 200 {object} api.UpsertSupplyOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -242,7 +246,9 @@ func (e *env) updateSupply(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSupply(context.TODO(), updatedSupply)
+	var output UpsertSupplyOutput
+
+	output.Supply, err = e.db.UpsertSupply(context.TODO(), updatedSupply)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -251,7 +257,7 @@ func (e *env) updateSupply(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 

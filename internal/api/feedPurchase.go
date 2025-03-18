@@ -8,6 +8,14 @@ import (
 	"github.com/beevik/guid"
 )
 
+type GetFeedPurchasesOutput struct {
+	FeedPurchases []db.FeedPurchase `json:"feed_purchases"`
+}
+
+type GetFeedPurchaseOutput struct {
+	FeedPurchase db.FeedPurchase `json:"feed_purchase"`
+}
+
 type UpsertFeedPurchaseInput struct {
 	DatePurchased string `json:"date_purchased" validate:"required"`
 	AmountPurchased *float64 `json:"amount_purchased" validate:"required"`
@@ -16,13 +24,7 @@ type UpsertFeedPurchaseInput struct {
 	ProjectID string `json:"project_id" validate:"required"`
 }
 
-type GetFeedPurchasesOutput struct {
-	FeedPurchases []db.FeedPurchase `json:"feed_purchases"`
-}
-
-type GetFeedPurchaseOutput struct {
-	FeedPurchase db.FeedPurchase `json:"feed_purchase"`
-}
+type UpsertFeedPurchaseOutput GetFeedPurchaseOutput
 
 // GetFeedPurchases godoc
 // @Summary Get feed purchases by project
@@ -117,7 +119,7 @@ func (e *env) getFeedPurchase(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertFeedPurchaseInput body api.UpsertFeedPurchaseInput true "Feed Purchase information"
-// @Success 204
+// @Success 201 {object} api.UpsertFeedPurchaseOutput
 // @Failure 400
 // @Failure 401
 // @Router /feed-purchase [post]
@@ -173,7 +175,9 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertFeedPurchase(context.TODO(), feedPurchase)
+	var output UpsertFeedPurchaseOutput
+
+	output.FeedPurchase, err = e.db.UpsertFeedPurchase(context.TODO(), feedPurchase)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -182,7 +186,7 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 
@@ -195,7 +199,7 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param feedPurchaseID path string true "Feed Purchase ID"
 // @Param UpsertFeedPurchaseInput body api.UpsertFeedPurchaseInput true "Feed purchase information"
-// @Success 204 
+// @Success 200 {object} api.UpsertFeedPurchaseOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -262,7 +266,9 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertFeedPurchase(context.TODO(), updatedFeedPurchase)
+	var output UpsertFeedPurchaseOutput
+
+	output.FeedPurchase, err = e.db.UpsertFeedPurchase(context.TODO(), updatedFeedPurchase)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -271,7 +277,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 

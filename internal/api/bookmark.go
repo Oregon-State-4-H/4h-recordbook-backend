@@ -8,20 +8,20 @@ import (
 	"github.com/beevik/guid"
 )
 
-type AddBookmarkInput struct {
-	Link string `json:"link" validate:"required"`
-	Label string `json:"label" validate:"required"`
+type GetBookmarksOutput struct {
+	Bookmarks []db.Bookmark `json:"bookmarks"`
 }
 
 type GetBookmarkOutput struct {
 	Bookmark db.Bookmark `json:"bookmark"`
 }
 
-type AddBookmarkOutput GetBookmarkOutput
-
-type GetBookmarksOutput struct {
-	Bookmarks []db.Bookmark `json:"bookmarks"`
+type AddBookmarkInput struct {
+	Link string `json:"link" validate:"required"`
+	Label string `json:"label" validate:"required"`
 }
+
+type AddBookmarkOutput GetBookmarkOutput
 
 // GetUserBookmarks godoc
 // @Summary Get all of a user's bookmarks
@@ -168,7 +168,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 
 	var output AddBookmarkOutput
 
-	response, err := e.db.AddBookmark(context.TODO(), bookmark)
+	output.Bookmark, err = e.db.AddBookmark(context.TODO(), bookmark)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -176,9 +176,6 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		})
 		return
 	}
-
-	_ = response
-	output.Bookmark = bookmark
 
 	c.JSON(201, output)
 

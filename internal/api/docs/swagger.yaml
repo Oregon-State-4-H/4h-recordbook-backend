@@ -383,6 +383,11 @@ definitions:
     - species
     - yield_grade
     type: object
+  api.UpsertAnimalOutput:
+    properties:
+      animal:
+        $ref: '#/definitions/db.Animal'
+    type: object
   api.UpsertDailyFeedInput:
     properties:
       animal_id:
@@ -405,6 +410,11 @@ definitions:
     - feed_purchase_id
     - project_id
     type: object
+  api.UpsertDailyFeedOutput:
+    properties:
+      daily_feed:
+        $ref: '#/definitions/db.DailyFeed'
+    type: object
   api.UpsertExpenseInput:
     properties:
       cost:
@@ -424,6 +434,11 @@ definitions:
     - project_id
     - quantity
     type: object
+  api.UpsertExpenseOutput:
+    properties:
+      expense:
+        $ref: '#/definitions/db.Expense'
+    type: object
   api.UpsertFeedInput:
     properties:
       name:
@@ -433,6 +448,11 @@ definitions:
     required:
     - name
     - project_id
+    type: object
+  api.UpsertFeedOutput:
+    properties:
+      feed:
+        $ref: '#/definitions/db.Feed'
     type: object
   api.UpsertFeedPurchaseInput:
     properties:
@@ -452,6 +472,11 @@ definitions:
     - feed_id
     - project_id
     - total_cost
+    type: object
+  api.UpsertFeedPurchaseOutput:
+    properties:
+      feed_purchase:
+        $ref: '#/definitions/db.FeedPurchase'
     type: object
   api.UpsertProjectInput:
     properties:
@@ -475,249 +500,10 @@ definitions:
     - type
     - year
     type: object
-  api.UpsertSection2Input:
+  api.UpsertProjectOutput:
     properties:
-      project_name:
-        type: string
-      project_scope:
-        type: string
-      year:
-        type: string
-    required:
-    - project_name
-    - project_scope
-    - year
-    type: object
-  api.UpsertSection3Input:
-    properties:
-      activity_kind:
-        type: string
-      level:
-        type: string
-      nickname:
-        type: string
-      things_learned:
-        type: string
-      year:
-        type: string
-    required:
-    - activity_kind
-    - level
-    - nickname
-    - things_learned
-    - year
-    type: object
-  api.UpsertSection4Input:
-    properties:
-      activity_kind:
-        type: string
-      level:
-        type: string
-      nickname:
-        type: string
-      scope:
-        type: string
-      year:
-        type: string
-    required:
-    - activity_kind
-    - level
-    - nickname
-    - scope
-    - year
-    type: object
-  api.UpsertSection5Input:
-    properties:
-      hours_spent:
-        type: integer
-      leadership_role:
-        type: string
-      nickname:
-        type: string
-      num_people_reached:
-        type: integer
-      year:
-        type: string
-    required:
-    - hours_spent
-    - leadership_role
-    - nickname
-    - num_people_reached
-    - year
-    type: object
-  api.UpsertSection6Input:
-    properties:
-      hours_spent:
-        type: integer
-      leadership_role:
-        type: string
-      nickname:
-        type: string
-      num_people_reached:
-        type: integer
-      organization_name:
-        type: string
-      year:
-        type: string
-    required:
-    - hours_spent
-    - leadership_role
-    - nickname
-    - num_people_reached
-    - organization_name
-    - year
-    type: object
-  api.UpsertSection7Input:
-    properties:
-      club_member_activities:
-        type: string
-      hours_spent:
-        type: integer
-      nickname:
-        type: string
-      num_people_reached:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_member_activities
-    - hours_spent
-    - nickname
-    - num_people_reached
-    - year
-    type: object
-  api.UpsertSection8Input:
-    properties:
-      hours_spent:
-        type: integer
-      individual_group_activities:
-        type: string
-      nickname:
-        type: string
-      num_people_reached:
-        type: integer
-      year:
-        type: string
-    required:
-    - hours_spent
-    - individual_group_activities
-    - nickname
-    - num_people_reached
-    - year
-    type: object
-  api.UpsertSection9Input:
-    properties:
-      audience_size:
-        type: integer
-      communication_type:
-        type: string
-      location:
-        type: string
-      nickname:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - nickname
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection10Input:
-    properties:
-      audience_size:
-        type: integer
-      communication_type:
-        type: string
-      location:
-        type: string
-      nickname:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - nickname
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection11Input:
-    properties:
-      event_and_level:
-        type: string
-      exhibits_or_division:
-        type: string
-      nickname:
-        type: string
-      ribbon_or_placings:
-        type: string
-      year:
-        type: string
-    required:
-    - event_and_level
-    - exhibits_or_division
-    - nickname
-    - ribbon_or_placings
-    - year
-    type: object
-  api.UpsertSection12Input:
-    properties:
-      contest_or_event:
-        type: string
-      level:
-        type: string
-      nickname:
-        type: string
-      recognition_received:
-        type: string
-      year:
-        type: string
-    required:
-    - contest_or_event
-    - level
-    - nickname
-    - recognition_received
-    - year
-    type: object
-  api.UpsertSection13Input:
-    properties:
-      nickname:
-        type: string
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - nickname
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection14Input:
-    properties:
-      nickname:
-        type: string
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - nickname
-    - recognition_type
-    - year
+      project:
+        $ref: '#/definitions/db.Project'
     type: object
   api.UpsertSection1Input:
     properties:
@@ -747,6 +533,320 @@ definitions:
     - num_in_club
     - year
     type: object
+  api.UpsertSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.UpsertSection2Input:
+    properties:
+      project_name:
+        type: string
+      project_scope:
+        type: string
+      year:
+        type: string
+    required:
+    - project_name
+    - project_scope
+    - year
+    type: object
+  api.UpsertSection2Output:
+    properties:
+      section_2:
+        $ref: '#/definitions/db.Section2'
+    type: object
+  api.UpsertSection3Input:
+    properties:
+      activity_kind:
+        type: string
+      level:
+        type: string
+      nickname:
+        type: string
+      things_learned:
+        type: string
+      year:
+        type: string
+    required:
+    - activity_kind
+    - level
+    - nickname
+    - things_learned
+    - year
+    type: object
+  api.UpsertSection3Output:
+    properties:
+      section_3:
+        $ref: '#/definitions/db.Section3'
+    type: object
+  api.UpsertSection4Input:
+    properties:
+      activity_kind:
+        type: string
+      level:
+        type: string
+      nickname:
+        type: string
+      scope:
+        type: string
+      year:
+        type: string
+    required:
+    - activity_kind
+    - level
+    - nickname
+    - scope
+    - year
+    type: object
+  api.UpsertSection4Output:
+    properties:
+      section_4:
+        $ref: '#/definitions/db.Section4'
+    type: object
+  api.UpsertSection5Input:
+    properties:
+      hours_spent:
+        type: integer
+      leadership_role:
+        type: string
+      nickname:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - hours_spent
+    - leadership_role
+    - nickname
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection5Output:
+    properties:
+      section_5:
+        $ref: '#/definitions/db.Section5'
+    type: object
+  api.UpsertSection6Input:
+    properties:
+      hours_spent:
+        type: integer
+      leadership_role:
+        type: string
+      nickname:
+        type: string
+      num_people_reached:
+        type: integer
+      organization_name:
+        type: string
+      year:
+        type: string
+    required:
+    - hours_spent
+    - leadership_role
+    - nickname
+    - num_people_reached
+    - organization_name
+    - year
+    type: object
+  api.UpsertSection6Output:
+    properties:
+      section_6:
+        $ref: '#/definitions/db.Section6'
+    type: object
+  api.UpsertSection7Input:
+    properties:
+      club_member_activities:
+        type: string
+      hours_spent:
+        type: integer
+      nickname:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_member_activities
+    - hours_spent
+    - nickname
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection7Output:
+    properties:
+      section_7:
+        $ref: '#/definitions/db.Section7'
+    type: object
+  api.UpsertSection8Input:
+    properties:
+      hours_spent:
+        type: integer
+      individual_group_activities:
+        type: string
+      nickname:
+        type: string
+      num_people_reached:
+        type: integer
+      year:
+        type: string
+    required:
+    - hours_spent
+    - individual_group_activities
+    - nickname
+    - num_people_reached
+    - year
+    type: object
+  api.UpsertSection8Output:
+    properties:
+      section_8:
+        $ref: '#/definitions/db.Section8'
+    type: object
+  api.UpsertSection9Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      nickname:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - nickname
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection9Output:
+    properties:
+      section_9:
+        $ref: '#/definitions/db.Section9'
+    type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      nickname:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - nickname
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection10Output:
+    properties:
+      section_10:
+        $ref: '#/definitions/db.Section10'
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      nickname:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - nickname
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection11Output:
+    properties:
+      section_11:
+        $ref: '#/definitions/db.Section11'
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      nickname:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - nickname
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection12Output:
+    properties:
+      section_12:
+        $ref: '#/definitions/db.Section12'
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      nickname:
+        type: string
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - nickname
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection13Output:
+    properties:
+      section_13:
+        $ref: '#/definitions/db.Section13'
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      nickname:
+        type: string
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - nickname
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Output:
+    properties:
+      section_14:
+        $ref: '#/definitions/db.Section14'
+    type: object
   api.UpsertSupplyInput:
     properties:
       description:
@@ -762,6 +862,11 @@ definitions:
     - end_value
     - project_id
     - start_value
+    type: object
+  api.UpsertSupplyOutput:
+    properties:
+      supply:
+        $ref: '#/definitions/db.Supply'
     type: object
   db.Animal:
     properties:
@@ -1417,8 +1522,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertAnimalOutput'
         "400":
           description: Bad Request
         "401":
@@ -1498,8 +1605,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertAnimalOutput'
         "400":
           description: Bad Request
         "401":
@@ -1658,8 +1767,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertDailyFeedOutput'
         "400":
           description: Bad Request
         "401":
@@ -1739,8 +1850,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertDailyFeedOutput'
         "400":
           description: Bad Request
         "401":
@@ -1793,8 +1906,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertExpenseOutput'
         "400":
           description: Bad Request
         "401":
@@ -1874,8 +1989,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertExpenseOutput'
         "400":
           description: Bad Request
         "401":
@@ -1928,8 +2045,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertFeedOutput'
         "400":
           description: Bad Request
         "401":
@@ -1980,8 +2099,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertFeedPurchaseOutput'
         "400":
           description: Bad Request
         "401":
@@ -2061,8 +2182,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertFeedPurchaseOutput'
         "400":
           description: Bad Request
         "401":
@@ -2144,8 +2267,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertFeedOutput'
         "400":
           description: Bad Request
         "401":
@@ -2190,8 +2315,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertProjectOutput'
         "400":
           description: Bad Request
         "401":
@@ -2271,8 +2398,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertProjectOutput'
         "400":
           description: Bad Request
         "401":
@@ -2323,8 +2452,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertAnimalOutput'
         "400":
           description: Bad Request
         "401":
@@ -2416,8 +2547,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection1Output'
         "400":
           description: Bad Request
         "401":
@@ -2471,8 +2604,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection1Output'
         "400":
           description: Bad Request
         "401":
@@ -2515,8 +2650,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection2Output'
         "400":
           description: Bad Request
         "401":
@@ -2572,8 +2709,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection2Output'
         "400":
           description: Bad Request
         "401":
@@ -2616,8 +2755,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection3Output'
         "400":
           description: Bad Request
         "401":
@@ -2673,8 +2814,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection3Output'
         "400":
           description: Bad Request
         "401":
@@ -2717,8 +2860,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection4Output'
         "400":
           description: Bad Request
         "401":
@@ -2774,8 +2919,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection4Output'
         "400":
           description: Bad Request
         "401":
@@ -2818,8 +2965,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection5Output'
         "400":
           description: Bad Request
         "401":
@@ -2875,8 +3024,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection5Output'
         "400":
           description: Bad Request
         "401":
@@ -2919,8 +3070,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection6Output'
         "400":
           description: Bad Request
         "401":
@@ -2976,8 +3129,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection6Output'
         "400":
           description: Bad Request
         "401":
@@ -3020,8 +3175,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection7Output'
         "400":
           description: Bad Request
         "401":
@@ -3077,8 +3234,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection7Output'
         "400":
           description: Bad Request
         "401":
@@ -3121,8 +3280,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection8Output'
         "400":
           description: Bad Request
         "401":
@@ -3178,8 +3339,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection8Output'
         "400":
           description: Bad Request
         "401":
@@ -3222,8 +3385,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection9Output'
         "400":
           description: Bad Request
         "401":
@@ -3279,8 +3444,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection9Output'
         "400":
           description: Bad Request
         "401":
@@ -3323,8 +3490,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection10Output'
         "400":
           description: Bad Request
         "401":
@@ -3380,8 +3549,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection10Output'
         "400":
           description: Bad Request
         "401":
@@ -3424,8 +3595,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection11Output'
         "400":
           description: Bad Request
         "401":
@@ -3481,8 +3654,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection11Output'
         "400":
           description: Bad Request
         "401":
@@ -3525,8 +3700,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection12Output'
         "400":
           description: Bad Request
         "401":
@@ -3582,8 +3759,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection12Output'
         "400":
           description: Bad Request
         "401":
@@ -3626,8 +3805,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection13Output'
         "400":
           description: Bad Request
         "401":
@@ -3683,8 +3864,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection13Output'
         "400":
           description: Bad Request
         "401":
@@ -3727,8 +3910,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSection14Output'
         "400":
           description: Bad Request
         "401":
@@ -3784,8 +3969,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSection14Output'
         "400":
           description: Bad Request
         "401":
@@ -3901,8 +4088,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertSupplyOutput'
         "400":
           description: Bad Request
         "401":
@@ -3982,8 +4171,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertSupplyOutput'
         "400":
           description: Bad Request
         "401":
