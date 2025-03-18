@@ -75,6 +75,8 @@ type GetSection1Output struct {
 	Section db.Section1 `json:"section_1"`
 }
 
+type UpsertSection1Output GetSection1Output
+
 // GetSection1s godoc
 // @Summary Gets all Section 1 entries
 // @Description Gets all of a user's Section 1 entries
@@ -165,7 +167,7 @@ func (e *env) getSection1(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection1Input body api.UpsertSection1Input true "Section 1 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection1Output
 // @Failure 400
 // @Failure 401
 // @Router /section1 [post]
@@ -217,7 +219,9 @@ func (e *env) addSection1(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection1(context.TODO(), section)
+	var output UpsertSection1Output
+
+	output.Section, err = e.db.UpsertSection1(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -225,10 +229,8 @@ func (e *env) addSection1(c *gin.Context) {
 		})
 		return
 	}
-	_ = response
-	var newEntry GetSection1Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+
+	c.JSON(201, output)
 }
 
 // UpdateSection1 godoc
@@ -240,7 +242,7 @@ func (e *env) addSection1(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection1Input body api.UpsertSection1Input true "Section 1 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection1Output
 // @Failure 400
 // @Failure 401
 // @Router /section1/{sectionID} [put]
@@ -309,7 +311,9 @@ func (e *env) updateSection1(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection1(context.TODO(), updatedSection)
+	var output UpsertSection1Output
+
+	output.Section, err = e.db.UpsertSection1(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -318,10 +322,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection1Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 }
 
 /*******************************
@@ -341,6 +342,8 @@ type GetSection2sOutput struct {
 type GetSection2Output struct {
 	Section db.Section2 `json:"section_2"`
 }
+
+type UpsertSection2Output GetSection2Output
 
 // GetSection2s godoc
 // @Summary Gets all Section 2 entries
@@ -431,7 +434,7 @@ func (e *env) getSection2(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection2Input body api.UpsertSection2Input true "Section 2 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection2Output
 // @Failure 400
 // @Failure 401
 // @Router /section2 [post]
@@ -478,7 +481,9 @@ func (e *env) addSection2(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection2(context.TODO(), section)
+	var output UpsertSection2Output
+
+	output.Section, err = e.db.UpsertSection2(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -487,10 +492,7 @@ func (e *env) addSection2(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection2Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -503,7 +505,7 @@ func (e *env) addSection2(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection2Input body api.UpsertSection2Input true "Section 2 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection2Output
 // @Failure 400
 // @Failure 401
 // @Router /section2/{sectionID} [put]
@@ -567,7 +569,9 @@ func (e *env) updateSection2(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection2(context.TODO(), updatedSection)
+	var output UpsertSection2Output
+
+	output.Section, err = e.db.UpsertSection2(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -576,10 +580,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection2Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -602,6 +603,8 @@ type GetSection3sOutput struct {
 type GetSection3Output struct {
 	Section db.Section3 `json:"section_3"`
 }
+
+type UpsertSection3Output GetSection3Output
 
 // GetSection3s godoc
 // @Summary Gets all Section 3 entries
@@ -692,7 +695,7 @@ func (e *env) getSection3(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection3Input body api.UpsertSection3Input true "Section 3 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection3Output
 // @Failure 400
 // @Failure 401
 // @Router /section3 [post]
@@ -741,7 +744,9 @@ func (e *env) addSection3(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection3(context.TODO(), section)
+	var output UpsertSection3Output
+
+	output.Section, err = e.db.UpsertSection3(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -750,10 +755,7 @@ func (e *env) addSection3(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection3Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -766,7 +768,7 @@ func (e *env) addSection3(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection3Input body api.UpsertSection3Input true "Section 3 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection3Output
 // @Failure 400
 // @Failure 401
 // @Router /section3/{sectionID} [put]
@@ -832,7 +834,9 @@ func (e *env) updateSection3(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection3(context.TODO(), updatedSection)
+	var output UpsertSection3Output
+
+	output.Section, err = e.db.UpsertSection3(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -841,10 +845,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection3Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -867,6 +868,8 @@ type GetSection4sOutput struct {
 type GetSection4Output struct {
 	Section db.Section4 `json:"section_4"`
 }
+
+type UpsertSection4Output GetSection4Output
 
 // GetSection4s godoc
 // @Summary Gets all Section 4 entries
@@ -957,7 +960,7 @@ func (e *env) getSection4(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection4Input body api.UpsertSection4Input true "Section 4 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection4Output
 // @Failure 400
 // @Failure 401
 // @Router /section4 [post]
@@ -1006,7 +1009,9 @@ func (e *env) addSection4(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection4(context.TODO(), section)
+	var output UpsertSection4Output
+
+	output.Section, err = e.db.UpsertSection4(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1015,10 +1020,7 @@ func (e *env) addSection4(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection4Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -1031,7 +1033,7 @@ func (e *env) addSection4(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection4Input body api.UpsertSection4Input true "Section 4 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection4Output
 // @Failure 400
 // @Failure 401
 // @Router /section4/{sectionID} [put]
@@ -1097,7 +1099,9 @@ func (e *env) updateSection4(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection4(context.TODO(), updatedSection)
+	var output UpsertSection4Output
+
+	output.Section, err = e.db.UpsertSection4(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1106,10 +1110,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection4Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -1132,6 +1133,8 @@ type GetSection5sOutput struct {
 type GetSection5Output struct {
 	Section db.Section5 `json:"section_5"`
 }
+
+type UpsertSection5Output GetSection5Output
 
 // GetSection5s godoc
 // @Summary Gets all Section 5 entries
@@ -1222,7 +1225,7 @@ func (e *env) getSection5(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection5Input body api.UpsertSection5Input true "Section 5 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection5Output
 // @Failure 400
 // @Failure 401
 // @Router /section5 [post]
@@ -1271,7 +1274,9 @@ func (e *env) addSection5(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection5(context.TODO(), section)
+	var output UpsertSection5Output
+
+	output.Section, err = e.db.UpsertSection5(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1280,10 +1285,7 @@ func (e *env) addSection5(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection5Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -1296,7 +1298,7 @@ func (e *env) addSection5(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection5Input body api.UpsertSection5Input true "Section 5 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection5Output
 // @Failure 400
 // @Failure 401
 // @Router /section5/{sectionID} [put]
@@ -1362,7 +1364,9 @@ func (e *env) updateSection5(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection5(context.TODO(), updatedSection)
+	var output UpsertSection5Output
+
+	output.Section, err = e.db.UpsertSection5(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1371,10 +1375,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection5Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -1398,6 +1399,8 @@ type GetSection6sOutput struct {
 type GetSection6Output struct {
 	Section db.Section6 `json:"section_6"`
 }
+
+type UpsertSection6Output GetSection6Output
 
 // GetSection6s godoc
 // @Summary Gets all Section 6 entries
@@ -1488,7 +1491,7 @@ func (e *env) getSection6(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection6Input body api.UpsertSection6Input true "Section 6 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection6Output
 // @Failure 400
 // @Failure 401
 // @Router /section6 [post]
@@ -1538,7 +1541,9 @@ func (e *env) addSection6(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection6(context.TODO(), section)
+	var output UpsertSection6Output
+
+	output.Section, err = e.db.UpsertSection6(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1547,10 +1552,7 @@ func (e *env) addSection6(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection6Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -1563,7 +1565,7 @@ func (e *env) addSection6(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection6Input body api.UpsertSection6Input true "Section 6 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection6Output
 // @Failure 400
 // @Failure 401
 // @Router /section6/{sectionID} [put]
@@ -1630,7 +1632,9 @@ func (e *env) updateSection6(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection6(context.TODO(), updatedSection)
+	var output UpsertSection6Output
+
+	output.Section, err = e.db.UpsertSection6(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1639,10 +1643,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection6Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -1665,6 +1666,8 @@ type GetSection7sOutput struct {
 type GetSection7Output struct {
 	Section db.Section7 `json:"section_7"`
 }
+
+type UpsertSection7Output GetSection7Output
 
 // GetSection7s godoc
 // @Summary Gets all Section 7 entries
@@ -1755,7 +1758,7 @@ func (e *env) getSection7(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection7Input body api.UpsertSection7Input true "Section 7 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection7Output
 // @Failure 400
 // @Failure 401
 // @Router /section7 [post]
@@ -1804,7 +1807,9 @@ func (e *env) addSection7(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection7(context.TODO(), section)
+	var output UpsertSection7Output
+
+	output.Section, err = e.db.UpsertSection7(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1813,10 +1818,7 @@ func (e *env) addSection7(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection7Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -1829,7 +1831,7 @@ func (e *env) addSection7(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection7Input body api.UpsertSection7Input true "Section 7 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection7Output
 // @Failure 400
 // @Failure 401
 // @Router /section7/{sectionID} [put]
@@ -1895,7 +1897,9 @@ func (e *env) updateSection7(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection7(context.TODO(), updatedSection)
+	var output UpsertSection7Output
+
+	output.Section, err = e.db.UpsertSection7(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1904,10 +1908,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection7Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -1930,6 +1931,8 @@ type GetSection8sOutput struct {
 type GetSection8Output struct {
 	Section db.Section8 `json:"section_8"`
 }
+
+type UpsertSection8Output GetSection8Output
 
 // GetSection8s godoc
 // @Summary Gets all Section 8 entries
@@ -2020,7 +2023,7 @@ func (e *env) getSection8(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection8Input body api.UpsertSection8Input true "Section 8 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection8Output
 // @Failure 400
 // @Failure 401
 // @Router /section8 [post]
@@ -2069,7 +2072,9 @@ func (e *env) addSection8(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection8(context.TODO(), section)
+	var output UpsertSection8Output
+
+	output.Section, err = e.db.UpsertSection8(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2078,10 +2083,7 @@ func (e *env) addSection8(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection8Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -2094,7 +2096,7 @@ func (e *env) addSection8(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection8Input body api.UpsertSection8Input true "Section 8 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection8Output
 // @Failure 400
 // @Failure 401
 // @Router /section8/{sectionID} [put]
@@ -2160,7 +2162,9 @@ func (e *env) updateSection8(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection8(context.TODO(), updatedSection)
+	var output UpsertSection8Output
+
+	output.Section, err = e.db.UpsertSection8(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2169,10 +2173,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection8Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -2197,6 +2198,8 @@ type GetSection9sOutput struct {
 type GetSection9Output struct {
 	Section db.Section9 `json:"section_9"`
 }
+
+type UpsertSection9Output GetSection9Output
 
 // GetSection9s godoc
 // @Summary Gets all Section 9 entries
@@ -2287,7 +2290,7 @@ func (e *env) getSection9(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection9Input body api.UpsertSection9Input true "Section 9 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection9Output
 // @Failure 400
 // @Failure 401
 // @Router /section9 [post]
@@ -2338,7 +2341,9 @@ func (e *env) addSection9(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection9(context.TODO(), section)
+	var output UpsertSection9Output
+
+	output.Section, err = e.db.UpsertSection9(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2347,10 +2352,7 @@ func (e *env) addSection9(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection9Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -2363,7 +2365,7 @@ func (e *env) addSection9(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection9Input body api.UpsertSection9Input true "Section 9 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection9Output
 // @Failure 400
 // @Failure 401
 // @Router /section9/{sectionID} [put]
@@ -2431,7 +2433,9 @@ func (e *env) updateSection9(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection9(context.TODO(), updatedSection)
+	var output UpsertSection9Output
+
+	output.Section, err = e.db.UpsertSection9(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2440,10 +2444,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection9Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -2468,6 +2469,8 @@ type GetSection10sOutput struct {
 type GetSection10Output struct {
 	Section db.Section10 `json:"section_10"`
 }
+
+type UpsertSection10Output GetSection10Output
 
 // GetSection10s godoc
 // @Summary Gets all Section 10 entries
@@ -2558,7 +2561,7 @@ func (e *env) getSection10(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection10Input body api.UpsertSection10Input true "Section 10 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection10Output
 // @Failure 400
 // @Failure 401
 // @Router /section10 [post]
@@ -2609,7 +2612,9 @@ func (e *env) addSection10(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection10(context.TODO(), section)
+	var output UpsertSection10Output
+
+	output.Section, err = e.db.UpsertSection10(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2618,10 +2623,7 @@ func (e *env) addSection10(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection10Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -2634,7 +2636,7 @@ func (e *env) addSection10(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection10Input body api.UpsertSection10Input true "Section 10 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection10Output
 // @Failure 400
 // @Failure 401
 // @Router /section10/{sectionID} [put]
@@ -2702,7 +2704,9 @@ func (e *env) updateSection10(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection10(context.TODO(), updatedSection)
+	var output UpsertSection10Output
+
+	output.Section, err = e.db.UpsertSection10(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2711,10 +2715,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection10Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -2737,6 +2738,8 @@ type GetSection11sOutput struct {
 type GetSection11Output struct {
 	Section db.Section11 `json:"section_11"`
 }
+
+type UpsertSection11Output GetSection11Output
 
 // GetSection11s godoc
 // @Summary Gets all Section 11 entries
@@ -2827,7 +2830,7 @@ func (e *env) getSection11(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection11Input body api.UpsertSection11Input true "Section 11 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection11Output
 // @Failure 400
 // @Failure 401
 // @Router /section11 [post]
@@ -2876,7 +2879,9 @@ func (e *env) addSection11(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection11(context.TODO(), section)
+	var output UpsertSection11Output
+
+	output.Section, err = e.db.UpsertSection11(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2885,10 +2890,7 @@ func (e *env) addSection11(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection11Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -2901,7 +2903,7 @@ func (e *env) addSection11(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection11Input body api.UpsertSection11Input true "Section 11 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection11Output
 // @Failure 400
 // @Failure 401
 // @Router /section11/{sectionID} [put]
@@ -2967,7 +2969,9 @@ func (e *env) updateSection11(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection11(context.TODO(), updatedSection)
+	var output UpsertSection11Output
+
+	output.Section, err = e.db.UpsertSection11(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2976,10 +2980,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection11Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -3002,6 +3003,8 @@ type GetSection12sOutput struct {
 type GetSection12Output struct {
 	Section db.Section12 `json:"section_12"`
 }
+
+type UpsertSection12Output GetSection12Output
 
 // GetSection12s godoc
 // @Summary Gets all Section 12 entries
@@ -3092,7 +3095,7 @@ func (e *env) getSection12(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection12Input body api.UpsertSection12Input true "Section 12 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection12Output
 // @Failure 400
 // @Failure 401
 // @Router /section12 [post]
@@ -3141,7 +3144,9 @@ func (e *env) addSection12(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection12(context.TODO(), section)
+	var output UpsertSection12Output
+
+	output.Section, err = e.db.UpsertSection12(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3150,10 +3155,7 @@ func (e *env) addSection12(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection12Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -3166,7 +3168,7 @@ func (e *env) addSection12(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection12Input body api.UpsertSection12Input true "Section 12 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection12Output
 // @Failure 400
 // @Failure 401
 // @Router /section12/{sectionID} [put]
@@ -3232,7 +3234,9 @@ func (e *env) updateSection12(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection12(context.TODO(), updatedSection)
+	var output UpsertSection12Output
+
+	output.Section, err = e.db.UpsertSection12(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3241,10 +3245,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection12Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 
@@ -3265,6 +3266,8 @@ type GetSection13sOutput struct {
 type GetSection13Output struct {
 	Section db.Section13 `json:"section_13"`
 }
+
+type UpsertSection13Output GetSection13Output
 
 // GetSection13s godoc
 // @Summary Gets all Section 13 entries
@@ -3355,7 +3358,7 @@ func (e *env) getSection13(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection13Input body api.UpsertSection13Input true "Section 13 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection13Output
 // @Failure 400
 // @Failure 401
 // @Router /section13 [post]
@@ -3402,7 +3405,9 @@ func (e *env) addSection13(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection13(context.TODO(), section)
+	var output UpsertSection13Output
+
+	output.Section, err = e.db.UpsertSection13(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3411,10 +3416,7 @@ func (e *env) addSection13(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection13Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -3427,7 +3429,7 @@ func (e *env) addSection13(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection13Input body api.UpsertSection13Input true "Section 13 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection13Output
 // @Failure 400
 // @Failure 401
 // @Router /section13/{sectionID} [put]
@@ -3491,7 +3493,9 @@ func (e *env) updateSection13(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection13(context.TODO(), updatedSection)
+	var output UpsertSection13Output
+
+	output.Section, err = e.db.UpsertSection13(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3500,10 +3504,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection13Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 }
 
 /*******************************
@@ -3523,6 +3524,8 @@ type GetSection14sOutput struct {
 type GetSection14Output struct {
 	Section db.Section14 `json:"section_14"`
 }
+
+type UpsertSection14Output GetSection14Output
 
 // GetSection14s godoc
 // @Summary Gets all Section 14 entries
@@ -3613,7 +3616,7 @@ func (e *env) getSection14(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertSection14Input body api.UpsertSection14Input true "Section 14 information"
-// @Success 204
+// @Success 201 {object} api.UpsertSection14Output
 // @Failure 400
 // @Failure 401
 // @Router /section14 [post]
@@ -3660,7 +3663,9 @@ func (e *env) addSection14(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection14(context.TODO(), section)
+	var output UpsertSection14Output
+
+	output.Section, err = e.db.UpsertSection14(context.TODO(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3669,10 +3674,7 @@ func (e *env) addSection14(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection14Output
-	newEntry.Section = section
-	c.JSON(201, newEntry)
+	c.JSON(201, output)
 
 }
 
@@ -3685,7 +3687,7 @@ func (e *env) addSection14(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param sectionID path string true "Section ID"
 // @Param UpsertSection14Input body api.UpsertSection14Input true "Section 14 information"
-// @Success 204
+// @Success 200 {object} api.UpsertSection14Output
 // @Failure 400
 // @Failure 401
 // @Router /section14/{sectionID} [put]
@@ -3749,7 +3751,9 @@ func (e *env) updateSection14(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertSection14(context.TODO(), updatedSection)
+	var output UpsertSection14Output
+
+	output.Section, err = e.db.UpsertSection14(context.TODO(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3758,10 +3762,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		return
 	}
 
-	_ = response
-	var newEntry GetSection14Output
-	newEntry.Section = updatedSection
-	c.JSON(201, newEntry)
+	c.JSON(200, output)
 
 }
 

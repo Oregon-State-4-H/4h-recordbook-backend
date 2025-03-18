@@ -1706,8 +1706,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection1Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1793,8 +1796,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection1Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1864,8 +1870,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection10Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1954,8 +1963,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection10Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2025,8 +2037,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection11Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2115,8 +2130,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection11Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2186,8 +2204,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection12Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2276,8 +2297,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection12Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2347,8 +2371,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection13Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2437,8 +2464,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection13Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2508,8 +2538,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection14Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2598,8 +2631,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection14Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2669,8 +2705,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection2Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2759,8 +2798,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection2Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2830,8 +2872,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection3Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2920,8 +2965,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection3Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -2991,8 +3039,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection4Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3081,8 +3132,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection4Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3152,8 +3206,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection5Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3242,8 +3299,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection5Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3313,8 +3373,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection6Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3403,8 +3466,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection6Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3474,8 +3540,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection7Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3564,8 +3633,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection7Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3635,8 +3707,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection8Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3725,8 +3800,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection8Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3796,8 +3874,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection9Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -3886,8 +3967,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertSection9Output"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -5148,6 +5232,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection10Output": {
+            "type": "object",
+            "properties": {
+                "section_10": {
+                    "$ref": "#/definitions/db.Section10"
+                }
+            }
+        },
         "api.UpsertSection11Input": {
             "type": "object",
             "required": [
@@ -5172,6 +5264,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection11Output": {
+            "type": "object",
+            "properties": {
+                "section_11": {
+                    "$ref": "#/definitions/db.Section11"
                 }
             }
         },
@@ -5202,6 +5302,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection12Output": {
+            "type": "object",
+            "properties": {
+                "section_12": {
+                    "$ref": "#/definitions/db.Section12"
+                }
+            }
+        },
         "api.UpsertSection13Input": {
             "type": "object",
             "required": [
@@ -5221,6 +5329,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection13Output": {
+            "type": "object",
+            "properties": {
+                "section_13": {
+                    "$ref": "#/definitions/db.Section13"
+                }
+            }
+        },
         "api.UpsertSection14Input": {
             "type": "object",
             "required": [
@@ -5237,6 +5353,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection14Output": {
+            "type": "object",
+            "properties": {
+                "section_14": {
+                    "$ref": "#/definitions/db.Section14"
                 }
             }
         },
@@ -5279,6 +5403,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection1Output": {
+            "type": "object",
+            "properties": {
+                "section_1": {
+                    "$ref": "#/definitions/db.Section1"
+                }
+            }
+        },
         "api.UpsertSection2Input": {
             "type": "object",
             "required": [
@@ -5295,6 +5427,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection2Output": {
+            "type": "object",
+            "properties": {
+                "section_2": {
+                    "$ref": "#/definitions/db.Section2"
                 }
             }
         },
@@ -5325,6 +5465,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection3Output": {
+            "type": "object",
+            "properties": {
+                "section_3": {
+                    "$ref": "#/definitions/db.Section3"
+                }
+            }
+        },
         "api.UpsertSection4Input": {
             "type": "object",
             "required": [
@@ -5352,6 +5500,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection4Output": {
+            "type": "object",
+            "properties": {
+                "section_4": {
+                    "$ref": "#/definitions/db.Section4"
+                }
+            }
+        },
         "api.UpsertSection5Input": {
             "type": "object",
             "required": [
@@ -5376,6 +5532,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection5Output": {
+            "type": "object",
+            "properties": {
+                "section_5": {
+                    "$ref": "#/definitions/db.Section5"
                 }
             }
         },
@@ -5410,6 +5574,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection6Output": {
+            "type": "object",
+            "properties": {
+                "section_6": {
+                    "$ref": "#/definitions/db.Section6"
+                }
+            }
+        },
         "api.UpsertSection7Input": {
             "type": "object",
             "required": [
@@ -5437,6 +5609,14 @@ const docTemplate = `{
                 }
             }
         },
+        "api.UpsertSection7Output": {
+            "type": "object",
+            "properties": {
+                "section_7": {
+                    "$ref": "#/definitions/db.Section7"
+                }
+            }
+        },
         "api.UpsertSection8Input": {
             "type": "object",
             "required": [
@@ -5461,6 +5641,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection8Output": {
+            "type": "object",
+            "properties": {
+                "section_8": {
+                    "$ref": "#/definitions/db.Section8"
                 }
             }
         },
@@ -5496,6 +5684,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertSection9Output": {
+            "type": "object",
+            "properties": {
+                "section_9": {
+                    "$ref": "#/definitions/db.Section9"
                 }
             }
         },
