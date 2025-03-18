@@ -24,6 +24,8 @@ type GetExpenseOutput struct {
 	Expense db.Expense `json:"expense"`
 }
 
+type UpsertExpenseOutput GetExpenseOutput
+
 // GetExpenses godoc
 // @Summary Get expenses by project
 // @Description Gets all of a user's expenses given a project ID
@@ -117,7 +119,7 @@ func (e *env) getExpense(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertExpenseInput body api.UpsertExpenseInput true "Expense information"
-// @Success 204
+// @Success 201 {object} api.UpsertExpenseOutput
 // @Failure 400
 // @Failure 401
 // @Router /expense [post]
@@ -173,7 +175,9 @@ func (e *env) addExpense(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertExpense(context.TODO(), expense)
+	var output UpsertExpenseOutput
+
+	output.Expense, err = e.db.UpsertExpense(context.TODO(), expense)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -182,7 +186,7 @@ func (e *env) addExpense(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 
@@ -195,7 +199,7 @@ func (e *env) addExpense(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param expenseID path string true "Expense ID"
 // @Param UpsertExpenseInput body api.UpsertExpenseInput true "Expense information"
-// @Success 204 
+// @Success 200 {object} api.UpsertExpenseOutput 
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -262,7 +266,9 @@ func (e *env) updateExpense(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertExpense(context.TODO(), updatedExpense)
+	var output UpsertExpenseOutput
+
+	output.Expense, err = e.db.UpsertExpense(context.TODO(), updatedExpense)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -271,7 +277,7 @@ func (e *env) updateExpense(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 

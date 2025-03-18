@@ -680,8 +680,11 @@
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertExpenseOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -770,8 +773,11 @@
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertExpenseOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -4965,6 +4971,14 @@
                 },
                 "quantity": {
                     "type": "number"
+                }
+            }
+        },
+        "api.UpsertExpenseOutput": {
+            "type": "object",
+            "properties": {
+                "expense": {
+                    "$ref": "#/definitions/db.Expense"
                 }
             }
         },

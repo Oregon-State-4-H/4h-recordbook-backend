@@ -690,8 +690,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertExpenseOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -780,8 +783,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertExpenseOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -4975,6 +4981,14 @@ const docTemplate = `{
                 },
                 "quantity": {
                     "type": "number"
+                }
+            }
+        },
+        "api.UpsertExpenseOutput": {
+            "type": "object",
+            "properties": {
+                "expense": {
+                    "$ref": "#/definitions/db.Expense"
                 }
             }
         },

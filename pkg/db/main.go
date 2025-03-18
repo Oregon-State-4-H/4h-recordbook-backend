@@ -82,7 +82,7 @@ type Db interface {
 	RemoveDailyFeed(ctx context.Context, userID string, dailyfeedID string) (interface{}, error)
 	GetExpensesByProject(ctx context.Context, userID string, projectID string) ([]Expense, error)
 	GetExpenseByID(ctx context.Context, userID string, expenseID string) (Expense, error)
-	UpsertExpense(ctx context.Context, expense Expense) (interface{}, error)
+	UpsertExpense(ctx context.Context, expense Expense) (Expense, error)
 	RemoveExpense(ctx context.Context, userID string, expenseID string) (interface{}, error)
 	GetSuppliesByProject(ctx context.Context, userID string, projectID string) ([]Supply, error)
 	GetSupplyByID(ctx context.Context, userID string, supplyID string) (Supply, error)
