@@ -168,7 +168,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 
 	var output AddBookmarkOutput
 
-	response, err := e.db.AddBookmark(context.TODO(), bookmark)
+	output.Bookmark, err = e.db.AddBookmark(context.TODO(), bookmark)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -176,9 +176,6 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		})
 		return
 	}
-
-	_ = response
-	output.Bookmark = bookmark
 
 	c.JSON(201, output)
 

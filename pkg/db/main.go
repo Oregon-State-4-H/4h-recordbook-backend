@@ -13,7 +13,7 @@ type Db interface {
 	UpsertUser(ctx context.Context, user User) (interface{}, error)
 	GetBookmarkByLink(ctx context.Context, userID string, link string) (Bookmark, error)
 	GetBookmarks(ctx context.Context, userID string) ([]Bookmark, error)
-	AddBookmark(ctx context.Context, bookmark Bookmark) (interface{}, error)
+	AddBookmark(ctx context.Context, bookmark Bookmark) (Bookmark, error)
 	RemoveBookmark(ctx context.Context, userID string, bookmarkID string) (interface{}, error)
 	GetProjectByID(ctx context.Context, userID string, projectID string) (Project, error)
 	GetCurrentProjects(ctx context.Context, userID string) ([]Project, error)
