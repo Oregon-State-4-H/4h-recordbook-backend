@@ -86,7 +86,7 @@ type Db interface {
 	RemoveExpense(ctx context.Context, userID string, expenseID string) (interface{}, error)
 	GetSuppliesByProject(ctx context.Context, userID string, projectID string) ([]Supply, error)
 	GetSupplyByID(ctx context.Context, userID string, supplyID string) (Supply, error)
-	UpsertSupply(ctx context.Context, supply Supply) (interface{}, error)
+	UpsertSupply(ctx context.Context, supply Supply) (Supply, error)
 	RemoveSupply(ctx context.Context, userID string, supplyID string) (interface{}, error)
 }
 

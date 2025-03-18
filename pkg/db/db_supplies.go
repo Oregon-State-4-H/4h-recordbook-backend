@@ -86,7 +86,7 @@ func (env *env) GetSupplyByID(ctx context.Context, userID string, supplyID strin
 
 }
 
-func (env *env) UpsertSupply(ctx context.Context, supply Supply) (interface{}, error) {
+func (env *env) UpsertSupply(ctx context.Context, supply Supply) (Supply, error) {
 	
 	env.logger.Info("Upserting supply")
 
@@ -96,15 +96,15 @@ func (env *env) UpsertSupply(ctx context.Context, supply Supply) (interface{}, e
 
 	marshalled, err := json.Marshal(supply)
 	if err != nil {
-		return nil, err
+		return supply, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return supply, err
 	}
 
-	return response, nil
+	return supply, nil
 
 }
 
