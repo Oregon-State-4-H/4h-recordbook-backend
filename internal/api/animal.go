@@ -8,6 +8,14 @@ import (
 	"github.com/beevik/guid"
 )
 
+type GetAnimalsOutput struct {
+	Animals []db.Animal `json:"animals"`
+}
+
+type GetAnimalOutput struct {
+	Animal db.Animal `json:"animal"`
+}
+
 type UpsertAnimalInput struct {
 	Name string `json:"name" validate:"required"`
 	Species string `json:"species" validate:"required"`
@@ -27,14 +35,6 @@ type UpdateRateOfGainInput struct {
 	BeginningDate string `json:"beginning_date" validate:"required"`
 	EndWeight *float64 `json:"end_weight" validate:"required"`
 	EndDate string `json:"end_date" validate:"required"`
-}
-
-type GetAnimalsOutput struct {
-	Animals []db.Animal `json:"animals"`
-}
-
-type GetAnimalOutput struct {
-	Animal db.Animal `json:"animal"`
 }
 
 type UpsertAnimalOutput GetAnimalOutput

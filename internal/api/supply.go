@@ -8,19 +8,19 @@ import (
 	"github.com/beevik/guid"
 )
 
-type UpsertSupplyInput struct {
-	Description string `json:"description" validate:"required"`
-	StartValue *float64 `json:"start_value" validate:"required"`
-	EndValue *float64 `json:"end_value" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
-}
-
 type GetSuppliesOutput struct {
 	Supplies []db.Supply `json:"supplies"`
 }
 
 type GetSupplyOutput struct {
 	Supply db.Supply `json:"supply"`
+}
+
+type UpsertSupplyInput struct {
+	Description string `json:"description" validate:"required"`
+	StartValue *float64 `json:"start_value" validate:"required"`
+	EndValue *float64 `json:"end_value" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type UpsertSupplyOutput GetSupplyOutput

@@ -56,6 +56,14 @@ func (e *env) getResume(c *gin.Context) {
 * SECTION 1
 ********************************/
 
+type GetSection1sOutput struct {
+	Sections []db.Section1 `json:"section_1_data"`
+}
+
+type GetSection1Output struct {
+	Section db.Section1 `json:"section_1"`
+}
+
 type UpsertSection1Input struct {
 	Nickname         string `json:"nickname" validate:"required"`
 	Year             string `json:"year" validate:"required"`
@@ -65,14 +73,6 @@ type UpsertSection1Input struct {
 	ClubLeader       string `json:"club_leader" validate:"required"`
 	MeetingsHeld     *int   `json:"meetings_held" validate:"required"`
 	MeetingsAttended *int   `json:"meetings_attended" validate:"required"`
-}
-
-type GetSection1sOutput struct {
-	Sections []db.Section1 `json:"section_1_data"`
-}
-
-type GetSection1Output struct {
-	Section db.Section1 `json:"section_1"`
 }
 
 type UpsertSection1Output GetSection1Output
@@ -329,18 +329,18 @@ func (e *env) updateSection1(c *gin.Context) {
 * SECTION 2
 ********************************/
 
-type UpsertSection2Input struct {
-	Year         string `json:"year" validate:"required"`
-	ProjectName  string `json:"project_name" validate:"required"`
-	ProjectScope string `json:"project_scope" validate:"required"`
-}
-
 type GetSection2sOutput struct {
 	Sections []db.Section2 `json:"section_2_data"`
 }
 
 type GetSection2Output struct {
 	Section db.Section2 `json:"section_2"`
+}
+
+type UpsertSection2Input struct {
+	Year         string `json:"year" validate:"required"`
+	ProjectName  string `json:"project_name" validate:"required"`
+	ProjectScope string `json:"project_scope" validate:"required"`
 }
 
 type UpsertSection2Output GetSection2Output
@@ -588,20 +588,20 @@ func (e *env) updateSection2(c *gin.Context) {
 * SECTION 3
 ********************************/
 
-type UpsertSection3Input struct {
-	Nickname      string `json:"nickname" validate:"required"`
-	Year          string `json:"year" validate:"required"`
-	ActivityKind  string `json:"activity_kind" validate:"required"`
-	ThingsLearned string `json:"things_learned" validate:"required"`
-	Level         string `json:"level" validate:"required"`
-}
-
 type GetSection3sOutput struct {
 	Sections []db.Section3 `json:"section_3_data"`
 }
 
 type GetSection3Output struct {
 	Section db.Section3 `json:"section_3"`
+}
+
+type UpsertSection3Input struct {
+	Nickname      string `json:"nickname" validate:"required"`
+	Year          string `json:"year" validate:"required"`
+	ActivityKind  string `json:"activity_kind" validate:"required"`
+	ThingsLearned string `json:"things_learned" validate:"required"`
+	Level         string `json:"level" validate:"required"`
 }
 
 type UpsertSection3Output GetSection3Output
@@ -853,20 +853,20 @@ func (e *env) updateSection3(c *gin.Context) {
 * SECTION 4
 ********************************/
 
-type UpsertSection4Input struct {
-	Nickname     string `json:"nickname" validate:"required"`
-	Year         string `json:"year" validate:"required"`
-	ActivityKind string `json:"activity_kind" validate:"required"`
-	Scope        string `json:"scope" validate:"required"`
-	Level        string `json:"level" validate:"required"`
-}
-
 type GetSection4sOutput struct {
 	Sections []db.Section4 `json:"section_4_data"`
 }
 
 type GetSection4Output struct {
 	Section db.Section4 `json:"section_4"`
+}
+
+type UpsertSection4Input struct {
+	Nickname     string `json:"nickname" validate:"required"`
+	Year         string `json:"year" validate:"required"`
+	ActivityKind string `json:"activity_kind" validate:"required"`
+	Scope        string `json:"scope" validate:"required"`
+	Level        string `json:"level" validate:"required"`
 }
 
 type UpsertSection4Output GetSection4Output
@@ -1118,20 +1118,20 @@ func (e *env) updateSection4(c *gin.Context) {
 * SECTION 5
 ********************************/
 
-type UpsertSection5Input struct {
-	Nickname         string `json:"nickname" validate:"required"`
-	Year             string `json:"year" validate:"required"`
-	LeadershipRole   string `json:"leadership_role" validate:"required"`
-	HoursSpent       *int   `json:"hours_spent" validate:"required"`
-	NumPeopleReached *int   `json:"num_people_reached" validate:"required"`
-}
-
 type GetSection5sOutput struct {
 	Sections []db.Section5 `json:"section_5_data"`
 }
 
 type GetSection5Output struct {
 	Section db.Section5 `json:"section_5"`
+}
+
+type UpsertSection5Input struct {
+	Nickname         string `json:"nickname" validate:"required"`
+	Year             string `json:"year" validate:"required"`
+	LeadershipRole   string `json:"leadership_role" validate:"required"`
+	HoursSpent       *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached *int   `json:"num_people_reached" validate:"required"`
 }
 
 type UpsertSection5Output GetSection5Output
@@ -1383,6 +1383,14 @@ func (e *env) updateSection5(c *gin.Context) {
 * SECTION 6
 ********************************/
 
+type GetSection6sOutput struct {
+	Sections []db.Section6 `json:"section_6_data"`
+}
+
+type GetSection6Output struct {
+	Section db.Section6 `json:"section_6"`
+}
+
 type UpsertSection6Input struct {
 	Nickname         string `json:"nickname" validate:"required"`
 	Year             string `json:"year" validate:"required"`
@@ -1390,14 +1398,6 @@ type UpsertSection6Input struct {
 	LeadershipRole   string `json:"leadership_role" validate:"required"`
 	HoursSpent       *int   `json:"hours_spent" validate:"required"`
 	NumPeopleReached *int   `json:"num_people_reached" validate:"required"`
-}
-
-type GetSection6sOutput struct {
-	Sections []db.Section6 `json:"section_6_data"`
-}
-
-type GetSection6Output struct {
-	Section db.Section6 `json:"section_6"`
 }
 
 type UpsertSection6Output GetSection6Output
@@ -1651,20 +1651,20 @@ func (e *env) updateSection6(c *gin.Context) {
 * SECTION 7
 ********************************/
 
-type UpsertSection7Input struct {
-	Nickname             string `json:"nickname" validate:"required"`
-	Year                 string `json:"year" validate:"required"`
-	ClubMemberActivities string `json:"club_member_activities" validate:"required"`
-	HoursSpent           *int   `json:"hours_spent" validate:"required"`
-	NumPeopleReached     *int   `json:"num_people_reached" validate:"required"`
-}
-
 type GetSection7sOutput struct {
 	Sections []db.Section7 `json:"section_7_data"`
 }
 
 type GetSection7Output struct {
 	Section db.Section7 `json:"section_7"`
+}
+
+type UpsertSection7Input struct {
+	Nickname             string `json:"nickname" validate:"required"`
+	Year                 string `json:"year" validate:"required"`
+	ClubMemberActivities string `json:"club_member_activities" validate:"required"`
+	HoursSpent           *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached     *int   `json:"num_people_reached" validate:"required"`
 }
 
 type UpsertSection7Output GetSection7Output
@@ -1916,20 +1916,20 @@ func (e *env) updateSection7(c *gin.Context) {
 * SECTION 8
 ********************************/
 
-type UpsertSection8Input struct {
-	Nickname                  string `json:"nickname" validate:"required"`
-	Year                      string `json:"year" validate:"required"`
-	IndividualGroupActivities string `json:"individual_group_activities" validate:"required"`
-	HoursSpent                *int   `json:"hours_spent" validate:"required"`
-	NumPeopleReached          *int   `json:"num_people_reached" validate:"required"`
-}
-
 type GetSection8sOutput struct {
 	Sections []db.Section8 `json:"section_8_data"`
 }
 
 type GetSection8Output struct {
 	Section db.Section8 `json:"section_8"`
+}
+
+type UpsertSection8Input struct {
+	Nickname                  string `json:"nickname" validate:"required"`
+	Year                      string `json:"year" validate:"required"`
+	IndividualGroupActivities string `json:"individual_group_activities" validate:"required"`
+	HoursSpent                *int   `json:"hours_spent" validate:"required"`
+	NumPeopleReached          *int   `json:"num_people_reached" validate:"required"`
 }
 
 type UpsertSection8Output GetSection8Output
@@ -2181,6 +2181,14 @@ func (e *env) updateSection8(c *gin.Context) {
 * SECTION 9
 ********************************/
 
+type GetSection9sOutput struct {
+	Sections []db.Section9 `json:"section_9_data"`
+}
+
+type GetSection9Output struct {
+	Section db.Section9 `json:"section_9"`
+}
+
 type UpsertSection9Input struct {
 	Nickname          string `json:"nickname" validate:"required"`
 	Year              string `json:"year" validate:"required"`
@@ -2189,14 +2197,6 @@ type UpsertSection9Input struct {
 	TimesGiven        *int   `json:"times_given" validate:"required"`
 	Location          string `json:"location" validate:"required"`
 	AudienceSize      *int   `json:"audience_size" validate:"required"`
-}
-
-type GetSection9sOutput struct {
-	Sections []db.Section9 `json:"section_9_data"`
-}
-
-type GetSection9Output struct {
-	Section db.Section9 `json:"section_9"`
 }
 
 type UpsertSection9Output GetSection9Output
@@ -2452,6 +2452,14 @@ func (e *env) updateSection9(c *gin.Context) {
 * SECTION 10
 ********************************/
 
+type GetSection10sOutput struct {
+	Sections []db.Section10 `json:"section_10_data"`
+}
+
+type GetSection10Output struct {
+	Section db.Section10 `json:"section_10"`
+}
+
 type UpsertSection10Input struct {
 	Nickname          string `json:"nickname" validate:"required"`
 	Year              string `json:"year" validate:"required"`
@@ -2460,14 +2468,6 @@ type UpsertSection10Input struct {
 	TimesGiven        *int   `json:"times_given" validate:"required"`
 	Location          string `json:"location" validate:"required"`
 	AudienceSize      *int   `json:"audience_size" validate:"required"`
-}
-
-type GetSection10sOutput struct {
-	Sections []db.Section10 `json:"section_10_data"`
-}
-
-type GetSection10Output struct {
-	Section db.Section10 `json:"section_10"`
 }
 
 type UpsertSection10Output GetSection10Output
@@ -2723,20 +2723,20 @@ func (e *env) updateSection10(c *gin.Context) {
 * SECTION 11
 ********************************/
 
-type UpsertSection11Input struct {
-	Nickname           string `json:"nickname" validate:"required"`
-	Year               string `json:"year" validate:"required"`
-	EventAndLevel      string `json:"event_and_level" validate:"required"`
-	ExhibitsOrDivision string `json:"exhibits_or_division" validate:"required"`
-	RibbonOrPlacings   string `json:"ribbon_or_placings" validate:"required"`
-}
-
 type GetSection11sOutput struct {
 	Sections []db.Section11 `json:"section_11_data"`
 }
 
 type GetSection11Output struct {
 	Section db.Section11 `json:"section_11"`
+}
+
+type UpsertSection11Input struct {
+	Nickname           string `json:"nickname" validate:"required"`
+	Year               string `json:"year" validate:"required"`
+	EventAndLevel      string `json:"event_and_level" validate:"required"`
+	ExhibitsOrDivision string `json:"exhibits_or_division" validate:"required"`
+	RibbonOrPlacings   string `json:"ribbon_or_placings" validate:"required"`
 }
 
 type UpsertSection11Output GetSection11Output
@@ -2988,20 +2988,20 @@ func (e *env) updateSection11(c *gin.Context) {
 * SECTION 12
 ********************************/
 
-type UpsertSection12Input struct {
-	Nickname            string `json:"nickname" validate:"required"`
-	Year                string `json:"year" validate:"required"`
-	ContestOrEvent      string `json:"contest_or_event" validate:"required"`
-	RecognitionReceived string `json:"recognition_received" validate:"required"`
-	Level               string `json:"level" validate:"required"`
-}
-
 type GetSection12sOutput struct {
 	Sections []db.Section12 `json:"section_12_data"`
 }
 
 type GetSection12Output struct {
 	Section db.Section12 `json:"section_12"`
+}
+
+type UpsertSection12Input struct {
+	Nickname            string `json:"nickname" validate:"required"`
+	Year                string `json:"year" validate:"required"`
+	ContestOrEvent      string `json:"contest_or_event" validate:"required"`
+	RecognitionReceived string `json:"recognition_received" validate:"required"`
+	Level               string `json:"level" validate:"required"`
 }
 
 type UpsertSection12Output GetSection12Output
@@ -3253,18 +3253,18 @@ func (e *env) updateSection12(c *gin.Context) {
 * SECTION 13
 ********************************/
 
-type UpsertSection13Input struct {
-	Nickname        string `json:"nickname" validate:"required"`
-	Year            string `json:"year" validate:"required"`
-	RecognitionType string `json:"recognition_type" validate:"required"`
-}
-
 type GetSection13sOutput struct {
 	Sections []db.Section13 `json:"section_13_data"`
 }
 
 type GetSection13Output struct {
 	Section db.Section13 `json:"section_13"`
+}
+
+type UpsertSection13Input struct {
+	Nickname        string `json:"nickname" validate:"required"`
+	Year            string `json:"year" validate:"required"`
+	RecognitionType string `json:"recognition_type" validate:"required"`
 }
 
 type UpsertSection13Output GetSection13Output
@@ -3511,18 +3511,18 @@ func (e *env) updateSection13(c *gin.Context) {
 * SECTION 14
 ********************************/
 
-type UpsertSection14Input struct {
-	Nickname        string `json:"nickname" validate:"required"`
-	Year            string `json:"year" validate:"required"`
-	RecognitionType string `json:"recognition_type" validate:"required"`
-}
-
 type GetSection14sOutput struct {
 	Sections []db.Section14 `json:"section_14_data"`
 }
 
 type GetSection14Output struct {
 	Section db.Section14 `json:"section_14"`
+}
+
+type UpsertSection14Input struct {
+	Nickname        string `json:"nickname" validate:"required"`
+	Year            string `json:"year" validate:"required"`
+	RecognitionType string `json:"recognition_type" validate:"required"`
 }
 
 type UpsertSection14Output GetSection14Output

@@ -8,20 +8,20 @@ import (
 	"github.com/beevik/guid"
 )
 
-type UpsertFeedPurchaseInput struct {
-	DatePurchased string `json:"date_purchased" validate:"required"`
-	AmountPurchased *float64 `json:"amount_purchased" validate:"required"`
-	TotalCost *float64 `json:"total_cost" validate:"required"`
-	FeedID string `json:"feed_id" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
-}
-
 type GetFeedPurchasesOutput struct {
 	FeedPurchases []db.FeedPurchase `json:"feed_purchases"`
 }
 
 type GetFeedPurchaseOutput struct {
 	FeedPurchase db.FeedPurchase `json:"feed_purchase"`
+}
+
+type UpsertFeedPurchaseInput struct {
+	DatePurchased string `json:"date_purchased" validate:"required"`
+	AmountPurchased *float64 `json:"amount_purchased" validate:"required"`
+	TotalCost *float64 `json:"total_cost" validate:"required"`
+	FeedID string `json:"feed_id" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type UpsertFeedPurchaseOutput GetFeedPurchaseOutput

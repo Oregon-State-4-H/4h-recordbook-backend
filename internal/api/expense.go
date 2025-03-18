@@ -8,20 +8,20 @@ import (
 	"github.com/beevik/guid"
 )
 
-type UpsertExpenseInput struct {
-	Date string `json:"date" validate:"required"`
-	Items string `json:"items" validate:"required"`
-	Quantity *float64 `json:"quantity" validate:"required"`
-	Cost *float64 `json:"cost" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
-}
-
 type GetExpensesOutput struct {
 	Expenses []db.Expense `json:"expenses"`
 }
 
 type GetExpenseOutput struct {
 	Expense db.Expense `json:"expense"`
+}
+
+type UpsertExpenseInput struct {
+	Date string `json:"date" validate:"required"`
+	Items string `json:"items" validate:"required"`
+	Quantity *float64 `json:"quantity" validate:"required"`
+	Cost *float64 `json:"cost" validate:"required"`
+	ProjectID string `json:"project_id" validate:"required"`
 }
 
 type UpsertExpenseOutput GetExpenseOutput

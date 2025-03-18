@@ -8,6 +8,10 @@ import (
 	"github.com/beevik/guid"
 )
 
+type GetUserProfileOutput struct {
+	User db.User `json:"user"`
+}
+
 type UpdateUserInput struct {
 	Email string `json:"email"`
 	Birthdate string `json:"birthdate"`
@@ -15,10 +19,6 @@ type UpdateUserInput struct {
 	MiddleNameInitial string `json:"middle_name_initial"`
 	LastNameInitial string `json:"last_name_initial"`
 	CountyName string `json:"county_name"`
-}
-
-type GetUserProfileOutput struct {
-	User db.User `json:"user"`
 }
 
 // GetUserProfile godoc

@@ -8,6 +8,14 @@ import (
 	"github.com/beevik/guid"
 )
 
+type GetDailyFeedsOutput struct {
+	DailyFeeds []db.DailyFeed `json:"daily_feeds"`
+}
+
+type GetDailyFeedOutput struct {
+	DailyFeed db.DailyFeed `json:"daily_feed"`
+}
+
 type UpsertDailyFeedInput struct {
 	FeedDate string `json:"feed_date" validate:"required"`
 	FeedAmount *float64 `json:"feed_amount" validate:"required"`
@@ -15,14 +23,6 @@ type UpsertDailyFeedInput struct {
 	FeedID string `json:"feed_id" validate:"required"`
 	FeedPurchaseID string `json:"feed_purchase_id" validate:"required"`
 	ProjectID string `json:"project_id" validate:"required"`
-}
-
-type GetDailyFeedsOutput struct {
-	DailyFeeds []db.DailyFeed `json:"daily_feeds"`
-}
-
-type GetDailyFeedOutput struct {
-	DailyFeed db.DailyFeed `json:"daily_feed"`
 }
 
 type UpsertDailyFeedOutput GetDailyFeedOutput

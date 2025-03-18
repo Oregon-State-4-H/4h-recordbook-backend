@@ -8,6 +8,14 @@ import (
 	"github.com/beevik/guid"
 )
 
+type GetProjectsOutput struct {
+	Projects []db.Project `json:"projects"`
+}
+
+type GetProjectOutput struct {
+	Project db.Project `json:"project"`
+}
+
 type UpsertProjectInput struct {
 	Year string `json:"year" validate:"required"`
 	Name string `json:"name" validate:"required"`
@@ -15,14 +23,6 @@ type UpsertProjectInput struct {
 	Type string `json:"type" validate:"required"`
 	StartDate string `json:"start_date" validate:"required"`
 	EndDate string `json:"end_date" validate:"required"`
-}
-
-type GetProjectsOutput struct {
-	Projects []db.Project `json:"projects"`
-}
-
-type GetProjectOutput struct {
-	Project db.Project `json:"project"`
 }
 
 type UpsertProjectOutput GetProjectOutput

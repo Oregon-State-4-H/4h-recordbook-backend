@@ -8,20 +8,20 @@ import (
 	"github.com/beevik/guid"
 )
 
-type AddBookmarkInput struct {
-	Link string `json:"link" validate:"required"`
-	Label string `json:"label" validate:"required"`
+type GetBookmarksOutput struct {
+	Bookmarks []db.Bookmark `json:"bookmarks"`
 }
 
 type GetBookmarkOutput struct {
 	Bookmark db.Bookmark `json:"bookmark"`
 }
 
-type AddBookmarkOutput GetBookmarkOutput
-
-type GetBookmarksOutput struct {
-	Bookmarks []db.Bookmark `json:"bookmarks"`
+type AddBookmarkInput struct {
+	Link string `json:"link" validate:"required"`
+	Label string `json:"label" validate:"required"`
 }
+
+type AddBookmarkOutput GetBookmarkOutput
 
 // GetUserBookmarks godoc
 // @Summary Get all of a user's bookmarks
