@@ -383,6 +383,11 @@ definitions:
     - species
     - yield_grade
     type: object
+  api.UpsertAnimalOutput:
+    properties:
+      animal:
+        $ref: '#/definitions/db.Animal'
+    type: object
   api.UpsertDailyFeedInput:
     properties:
       animal_id:
@@ -473,6 +478,34 @@ definitions:
     - name
     - start_date
     - type
+    - year
+    type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      nickname:
+        type: string
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - nickname
+    - num_in_club
     - year
     type: object
   api.UpsertSection2Input:
@@ -717,34 +750,6 @@ definitions:
     required:
     - nickname
     - recognition_type
-    - year
-    type: object
-  api.UpsertSection1Input:
-    properties:
-      club_leader:
-        type: string
-      club_name:
-        type: string
-      grade:
-        type: integer
-      meetings_attended:
-        type: integer
-      meetings_held:
-        type: integer
-      nickname:
-        type: string
-      num_in_club:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_leader
-    - club_name
-    - grade
-    - meetings_attended
-    - meetings_held
-    - nickname
-    - num_in_club
     - year
     type: object
   api.UpsertSupplyInput:
@@ -1417,8 +1422,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertAnimalOutput'
         "400":
           description: Bad Request
         "401":
@@ -1498,8 +1505,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertAnimalOutput'
         "400":
           description: Bad Request
         "401":
@@ -2323,8 +2332,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertAnimalOutput'
         "400":
           description: Bad Request
         "401":

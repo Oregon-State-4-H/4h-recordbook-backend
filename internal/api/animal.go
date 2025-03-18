@@ -37,6 +37,8 @@ type GetAnimalOutput struct {
 	Animal db.Animal `json:"animal"`
 }
 
+type UpsertAnimalOutput GetAnimalOutput
+
 // GetAnimals godoc
 // @Summary Get animals by project
 // @Description Gets all of a user's animals for a given project
@@ -130,7 +132,7 @@ func (e *env) getAnimal(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertAnimalInput body api.UpsertAnimalInput true "Animal information"
-// @Success 204
+// @Success 201 {object} api.UpsertAnimalOutput
 // @Failure 400
 // @Failure 401
 // @Router /animal [post]
@@ -204,7 +206,9 @@ func (e *env) addAnimal(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertAnimal(context.TODO(), animal)
+	var output UpsertAnimalOutput
+
+	output.Animal, err = e.db.UpsertAnimal(context.TODO(), animal)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -213,7 +217,7 @@ func (e *env) addAnimal(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 
@@ -226,7 +230,7 @@ func (e *env) addAnimal(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param animalID path string true "Animal ID"
 // @Param UpsertAnimalInput body api.UpsertAnimalInput true "Animal information"
-// @Success 204 
+// @Success 200 {object} api.UpsertAnimalOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -311,7 +315,9 @@ func (e *env) updateAnimal(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertAnimal(context.TODO(), updatedAnimal)
+	var output UpsertAnimalOutput
+
+	output.Animal, err = e.db.UpsertAnimal(context.TODO(), updatedAnimal)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -320,7 +326,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 
@@ -333,7 +339,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param animalID path string true "Animal ID"
 // @Param UpdateRateOfGainInput body api.UpdateRateOfGainInput true "Animal rate of gain information"
-// @Success 204 
+// @Success 200 {object} api.UpsertAnimalOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -418,7 +424,9 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertAnimal(context.TODO(), updatedAnimal)
+	var output UpsertAnimalOutput
+
+	output.Animal, err = e.db.UpsertAnimal(context.TODO(), updatedAnimal)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -427,7 +435,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 
