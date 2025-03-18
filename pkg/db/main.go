@@ -18,7 +18,7 @@ type Db interface {
 	GetProjectByID(ctx context.Context, userID string, projectID string) (Project, error)
 	GetCurrentProjects(ctx context.Context, userID string) ([]Project, error)
 	GetProjectsByUser(ctx context.Context, userID string) ([]Project, error)
-	UpsertProject(ctx context.Context, project Project) (interface{}, error)
+	UpsertProject(ctx context.Context, project Project) (Project, error)
 	RemoveProject(ctx context.Context, userID string, projectID string) (interface{}, error)
 	GetResume(ctx context.Context, userID string) (Resume, error)
 	GetSection1ByID(ctx context.Context, userID string, sectionID string) (Section1, error)

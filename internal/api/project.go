@@ -25,6 +25,8 @@ type GetProjectOutput struct {
 	Project db.Project `json:"project"`
 }
 
+type UpsertProjectOutput GetProjectOutput
+
 // GetCurrentProjects godoc
 // @Summary Gets projects of the current year
 // @Description Gets all of a user's projects that take place in the last 12 months
@@ -142,7 +144,7 @@ func (e *env) getProject(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
-// @Success 204
+// @Success 201 {object} api.UpsertProjectOutput
 // @Failure 400
 // @Failure 401
 // @Router /project [post]
@@ -207,7 +209,9 @@ func (e *env) addProject(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertProject(context.TODO(), project)
+	var output UpsertProjectOutput
+
+	output.Project, err = e.db.UpsertProject(context.TODO(), project)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -216,7 +220,7 @@ func (e *env) addProject(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 
@@ -229,7 +233,7 @@ func (e *env) addProject(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param projectID path string true "Project ID"
 // @Param UpsertProjectInput body api.UpsertProjectInput true "Project information"
-// @Success 204 
+// @Success 200 {object} api.UpsertProjectOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -305,7 +309,9 @@ func (e *env) updateProject(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertProject(context.TODO(), updatedProject)
+	var output UpsertProjectOutput
+
+	output.Project, err = e.db.UpsertProject(context.TODO(), updatedProject)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -314,7 +320,7 @@ func (e *env) updateProject(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 

@@ -500,6 +500,11 @@ definitions:
     - type
     - year
     type: object
+  api.UpsertProjectOutput:
+    properties:
+      project:
+        $ref: '#/definitions/db.Project'
+    type: object
   api.UpsertSection2Input:
     properties:
       project_name:
@@ -2235,8 +2240,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertProjectOutput'
         "400":
           description: Bad Request
         "401":
@@ -2316,8 +2323,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertProjectOutput'
         "400":
           description: Bad Request
         "401":

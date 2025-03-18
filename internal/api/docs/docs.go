@@ -1338,8 +1338,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertProjectOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -1428,8 +1431,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertProjectOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -5090,6 +5096,14 @@ const docTemplate = `{
                 },
                 "year": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertProjectOutput": {
+            "type": "object",
+            "properties": {
+                "project": {
+                    "$ref": "#/definitions/db.Project"
                 }
             }
         },
