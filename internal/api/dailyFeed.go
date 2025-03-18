@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetDailyFeedsOutput struct {
@@ -17,12 +18,12 @@ type GetDailyFeedOutput struct {
 }
 
 type UpsertDailyFeedInput struct {
-	FeedDate string `json:"feed_date" validate:"required"`
-	FeedAmount *float64 `json:"feed_amount" validate:"required"`
-	AnimalID string `json:"animal_id" validate:"required"`
-	FeedID string `json:"feed_id" validate:"required"`
-	FeedPurchaseID string `json:"feed_purchase_id" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
+	FeedDate       string   `json:"feed_date" validate:"required"`
+	FeedAmount     *float64 `json:"feed_amount" validate:"required"`
+	AnimalID       string   `json:"animal_id" validate:"required"`
+	FeedID         string   `json:"feed_id" validate:"required"`
+	FeedPurchaseID string   `json:"feed_purchase_id" validate:"required"`
+	ProjectID      string   `json:"project_id" validate:"required"`
 }
 
 type UpsertDailyFeedOutput GetDailyFeedOutput
@@ -80,8 +81,8 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 
 	c.JSON(200, output)
 
-} 
-	
+}
+
 // GetDailyFeed godoc
 // @Summary Get a daily feed
 // @Description Get a user's daily feed by ID
@@ -95,7 +96,7 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 // @Failure 404
 // @Router /daily-feed/{dailyFeedID} [get]
 func (e *env) getDailyFeed(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -120,7 +121,7 @@ func (e *env) getDailyFeed(c *gin.Context) {
 	c.JSON(200, output)
 
 }
-	
+
 // AddDailyFeed godoc
 // @Summary Add a daily feed
 // @Description Adds a daily feed to a user's personal records
@@ -172,15 +173,15 @@ func (e *env) addDailyFeed(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	dailyFeed := db.DailyFeed{
-		ID: g.String(),
-		FeedDate: feedDate.String(),
-		FeedAmount: *input.FeedAmount,
-		AnimalID: input.AnimalID,
-		FeedID: input.FeedID,
+		ID:             g.String(),
+		FeedDate:       feedDate.String(),
+		FeedAmount:     *input.FeedAmount,
+		AnimalID:       input.AnimalID,
+		FeedID:         input.FeedID,
 		FeedPurchaseID: input.FeedPurchaseID,
-		ProjectID: input.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		ProjectID:      input.ProjectID,
+		UserID:         claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -200,7 +201,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 	c.JSON(201, output)
 
 }
-	
+
 // UpdateDailyFeed godoc
 // @Summary Update a daily feed
 // @Description Updates a user's daily feed information
@@ -216,7 +217,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 // @Failure 404
 // @Router /daily-feed/{dailyFeedID} [put]
 func (e *env) updateDailyFeed(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -233,7 +234,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -264,15 +265,15 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedDailyFeed := db.DailyFeed{
-		ID: dailyFeed.ID,
-		FeedDate: feedDate.String(),
-		FeedAmount: *input.FeedAmount,
-		AnimalID: dailyFeed.AnimalID,
-		FeedID: dailyFeed.FeedID,
+		ID:             dailyFeed.ID,
+		FeedDate:       feedDate.String(),
+		FeedAmount:     *input.FeedAmount,
+		AnimalID:       dailyFeed.AnimalID,
+		FeedID:         dailyFeed.FeedID,
 		FeedPurchaseID: dailyFeed.FeedPurchaseID,
-		ProjectID: dailyFeed.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		ProjectID:      dailyFeed.ProjectID,
+		UserID:         claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: dailyFeed.Created,
 			Updated: timestamp.String(),
 		},
@@ -303,7 +304,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 // @Param dailyFeedID path string true "Daily Feed ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /daily-feed/{dailyFeedID} [delete]
 func (e *env) deleteDailyFeed(c *gin.Context) {
 

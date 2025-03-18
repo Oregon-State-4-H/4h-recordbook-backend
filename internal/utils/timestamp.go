@@ -22,6 +22,6 @@ func StringToTimestamp(input string) (Timestamp, error) {
 		return Timestamp{}, err
 	}
 
-	return Timestamp(parsedTime), nil 
+	return Timestamp(parsedTime), nil
 
-} 
+}

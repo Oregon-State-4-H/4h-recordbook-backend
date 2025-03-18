@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetFeedPurchasesOutput struct {
@@ -17,11 +18,11 @@ type GetFeedPurchaseOutput struct {
 }
 
 type UpsertFeedPurchaseInput struct {
-	DatePurchased string `json:"date_purchased" validate:"required"`
+	DatePurchased   string   `json:"date_purchased" validate:"required"`
 	AmountPurchased *float64 `json:"amount_purchased" validate:"required"`
-	TotalCost *float64 `json:"total_cost" validate:"required"`
-	FeedID string `json:"feed_id" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
+	TotalCost       *float64 `json:"total_cost" validate:"required"`
+	FeedID          string   `json:"feed_id" validate:"required"`
+	ProjectID       string   `json:"project_id" validate:"required"`
 }
 
 type UpsertFeedPurchaseOutput GetFeedPurchaseOutput
@@ -162,14 +163,14 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	feedPurchase := db.FeedPurchase{
-		ID: g.String(),
-		DatePurchased: datePurchased.String(),
+		ID:              g.String(),
+		DatePurchased:   datePurchased.String(),
 		AmountPurchased: *input.AmountPurchased,
-		TotalCost: *input.TotalCost,
-		FeedID: input.FeedID,
-		ProjectID: input.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		TotalCost:       *input.TotalCost,
+		FeedID:          input.FeedID,
+		ProjectID:       input.ProjectID,
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -222,7 +223,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -253,14 +254,14 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedFeedPurchase := db.FeedPurchase{
-		ID: feedPurchase.ID,
-		DatePurchased: datePurchased.String(),
+		ID:              feedPurchase.ID,
+		DatePurchased:   datePurchased.String(),
 		AmountPurchased: *input.AmountPurchased,
-		TotalCost: *input.TotalCost,
-		FeedID: feedPurchase.FeedID,
-		ProjectID: feedPurchase.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		TotalCost:       *input.TotalCost,
+		FeedID:          feedPurchase.FeedID,
+		ProjectID:       feedPurchase.ProjectID,
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: feedPurchase.Created,
 			Updated: timestamp.String(),
 		},
@@ -291,7 +292,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 // @Param feedPurchaseID path string true "Feed Purchase ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /feed-purchase/{feedPurchaseID} [delete]
 func (e *env) deleteFeedPurchase(c *gin.Context) {
 

@@ -1,18 +1,19 @@
 package api
 
 import (
-	"errors"
-	"time"
-	"strings"
-	"net/http"
 	_ "4h-recordbook-backend/internal/api/docs"
 	"4h-recordbook-backend/internal/config"
 	"4h-recordbook-backend/pkg/db"
 	"4h-recordbook-backend/pkg/upc"
+	"errors"
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 	"github.com/go-playground/validator/v10"
+	"github.com/golang-jwt/jwt"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"go.uber.org/zap"
@@ -25,15 +26,15 @@ type Api interface {
 }
 
 type env struct {
-	logger *zap.SugaredLogger `validate:"required"`
+	logger    *zap.SugaredLogger  `validate:"required"`
 	validator *validator.Validate `validate:"required"`
-	config *config.Config `validate:"required"`
-	db db.Db `validate:"required"`
-	upc upc.Upc `validate:"required"`
-	api *gin.Engine `validate:"required"`
+	config    *config.Config      `validate:"required"`
+	db        db.Db               `validate:"required"`
+	upc       upc.Upc             `validate:"required"`
+	api       *gin.Engine         `validate:"required"`
 }
 
-func ternary(s1 string, s2 string) (string){
+func ternary(s1 string, s2 string) string {
 	if s1 == "" {
 		return s2
 	}
@@ -41,7 +42,7 @@ func ternary(s1 string, s2 string) (string){
 }
 
 type UserInfo struct {
-	ID string `json:"id"`
+	ID        string `json:"id"`
 	FirstName string `json:"first_name"`
 }
 
@@ -50,13 +51,13 @@ type CustomClaims struct {
 	UserInfo
 }
 
-func decodeJWT(c *gin.Context) (*CustomClaims, error){
+func decodeJWT(c *gin.Context) (*CustomClaims, error) {
 
 	var claims *CustomClaims
 
 	auth := c.Request.Header.Get("Authorization")
 	if auth == "" {
-		return claims, errors.New("Unauthorized 1") 
+		return claims, errors.New("Unauthorized 1")
 	}
 
 	splitToken := strings.Split(auth, "Bearer ")
@@ -67,7 +68,7 @@ func decodeJWT(c *gin.Context) (*CustomClaims, error){
 	})
 
 	if err != nil {
-		return claims, errors.New("Unauthorized 2") 
+		return claims, errors.New("Unauthorized 2")
 	}
 
 	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
@@ -78,11 +79,11 @@ func decodeJWT(c *gin.Context) (*CustomClaims, error){
 
 }
 
-func generateJWT(userid string, firstName string) (string, error){
+func generateJWT(userid string, firstName string) (string, error) {
 
 	token := jwt.New(jwt.SigningMethodHS256)
-	token.Claims = CustomClaims {
-		jwt.StandardClaims {
+	token.Claims = CustomClaims{
+		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Minute * 60).Unix(),
 		},
 		UserInfo{
@@ -102,7 +103,7 @@ func CookieToTokenMiddleware(cookieName string) gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		c.Request.Header.Set("Authorization", "Bearer " + token)
+		c.Request.Header.Set("Authorization", "Bearer "+token)
 		c.Next()
 	}
 }
@@ -117,12 +118,12 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 
 	validator := validator.New()
 
-	e := &env {
+	e := &env{
 		validator: validator,
-		logger: logger,
-		config: cfg,
-		db: dbInstance,
-		upc: upcInstance,
+		logger:    logger,
+		config:    cfg,
+		db:        dbInstance,
+		upc:       upcInstance,
 	}
 
 	router := gin.Default()
@@ -131,9 +132,9 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 
 	router.Use(cors.New(cors.Config{
 		AllowCredentials: true,
-		AllowHeaders: []string{"Authorization", "Content-Type"},
-		AllowOrigins: []string{"http://localhost:3000"},
-		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
+		AllowHeaders:     []string{"Authorization", "Content-Type"},
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 	}))
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
@@ -156,9 +157,9 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.DELETE("/bookmarks/:bookmarkID", e.deleteUserBookmark)
 
 	router.GET("/projects", e.getCurrentProjects)
-  	router.GET("/project", e.getProjects)
-  	router.GET("/project/:projectID", e.getProject)
-  	router.POST("/project", e.addProject)
+	router.GET("/project", e.getProjects)
+	router.GET("/project/:projectID", e.getProject)
+	router.POST("/project", e.addProject)
 	router.PUT("/project/:projectID", e.updateProject)
 	router.DELETE("/project/:projectID", e.deleteProject)
 

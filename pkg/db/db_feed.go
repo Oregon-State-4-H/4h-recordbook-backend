@@ -3,14 +3,15 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type Feed struct {
-	ID string `json:"id"`
-	Name string `json:"name"`
+	ID        string `json:"id"`
+	Name      string `json:"name"`
 	ProjectID string `json:"project_id"`
-	UserID string `json:"user_id"`
+	UserID    string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -85,7 +86,7 @@ func (env *env) GetFeedByID(ctx context.Context, userID string, feedID string) (
 }
 
 func (env *env) UpsertFeed(ctx context.Context, feed Feed) (Feed, error) {
-	
+
 	env.logger.Info("Upserting feed")
 
 	container, err := env.client.NewContainer("feeds")

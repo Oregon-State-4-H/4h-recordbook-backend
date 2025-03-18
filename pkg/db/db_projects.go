@@ -1,22 +1,23 @@
-package db 
+package db
 
 import (
-	"time"
-	"strconv"
 	"context"
 	"encoding/json"
+	"strconv"
+	"time"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type Project struct {
-	ID string `json:"id"`
-	Year string `json:"year"`
-	Name string `json:"name"`
+	ID          string `json:"id"`
+	Year        string `json:"year"`
+	Name        string `json:"name"`
 	Description string `json:"description"`
-	Type string `json:"type"`
-	StartDate string `json:"start_date"`
-	EndDate string `json:"end_date"`
-	UserID string `json:"user_id"`
+	Type        string `json:"type"`
+	StartDate   string `json:"start_date"`
+	EndDate     string `json:"end_date"`
+	UserID      string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -59,7 +60,7 @@ func (env *env) GetCurrentProjects(ctx context.Context, userID string) ([]Projec
 
 	now := time.Now()
 	year := strconv.Itoa(now.Year())
-	
+
 	query := "SELECT * FROM projects p WHERE p.user_id = @user_id AND p.year = @year"
 
 	queryOptions := azcosmos.QueryOptions{
@@ -137,7 +138,7 @@ func (env *env) GetProjectsByUser(ctx context.Context, userID string) ([]Project
 }
 
 func (env *env) UpsertProject(ctx context.Context, project Project) (Project, error) {
-	
+
 	env.logger.Info("Upserting project")
 
 	container, err := env.client.NewContainer("projects")

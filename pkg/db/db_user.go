@@ -3,22 +3,23 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type User struct {
-	ID string `json:"id"`
-	Email string `json:"email"`
-	Birthdate string `json:"birthdate"`
-	FirstName string `json:"first_name"`
+	ID                string `json:"id"`
+	Email             string `json:"email"`
+	Birthdate         string `json:"birthdate"`
+	FirstName         string `json:"first_name"`
 	MiddleNameInitial string `json:"middle_name_initial"`
-	LastNameInitial string `json:"last_name_initial"`
-	CountyName string `json:"county_name"`
+	LastNameInitial   string `json:"last_name_initial"`
+	CountyName        string `json:"county_name"`
 	GenericDatabaseInfo
 }
 
 func (env *env) GetUser(ctx context.Context, id string) (User, error) {
-	
+
 	env.logger.Info("Getting user")
 	user := User{}
 

@@ -3,16 +3,17 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type Supply struct {
-	ID string `json:"id"`
-	Description string `json:"description"`
-	StartValue float64 `json:"start_value"`
-	EndValue float64 `json:"end_value"`
-	ProjectID string `json:"project_id"`
-	UserID string `json:"user_id"`
+	ID          string  `json:"id"`
+	Description string  `json:"description"`
+	StartValue  float64 `json:"start_value"`
+	EndValue    float64 `json:"end_value"`
+	ProjectID   string  `json:"project_id"`
+	UserID      string  `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -87,7 +88,7 @@ func (env *env) GetSupplyByID(ctx context.Context, userID string, supplyID strin
 }
 
 func (env *env) UpsertSupply(ctx context.Context, supply Supply) (Supply, error) {
-	
+
 	env.logger.Info("Upserting supply")
 
 	container, err := env.client.NewContainer("supplies")

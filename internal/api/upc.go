@@ -1,8 +1,9 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/pkg/upc"
+
+	"github.com/gin-gonic/gin"
 )
 
 type GetUpcProductOutput struct {
@@ -11,7 +12,7 @@ type GetUpcProductOutput struct {
 
 // GetUpcProduct godoc
 // @Summary Get a UPC product
-// @Description 
+// @Description
 // @Tags UPC
 // @Accept json
 // @Produce json
