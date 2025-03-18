@@ -103,6 +103,66 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
+  api.GetSection10Output:
+    properties:
+      section_10:
+        $ref: '#/definitions/db.Section10'
+    type: object
+  api.GetSection10sOutput:
+    properties:
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+    type: object
+  api.GetSection11Output:
+    properties:
+      section_11:
+        $ref: '#/definitions/db.Section11'
+    type: object
+  api.GetSection11sOutput:
+    properties:
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+    type: object
+  api.GetSection12Output:
+    properties:
+      section_12:
+        $ref: '#/definitions/db.Section12'
+    type: object
+  api.GetSection12sOutput:
+    properties:
+      section_12_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+    type: object
+  api.GetSection13Output:
+    properties:
+      section_13:
+        $ref: '#/definitions/db.Section13'
+    type: object
+  api.GetSection13sOutput:
+    properties:
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+    type: object
+  api.GetSection14Output:
+    properties:
+      section_14:
+        $ref: '#/definitions/db.Section14'
+    type: object
+  api.GetSection14sOutput:
+    properties:
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
   api.GetSection1Output:
     properties:
       section_1:
@@ -209,66 +269,6 @@ definitions:
       section_9_data:
         items:
           $ref: '#/definitions/db.Section9'
-        type: array
-    type: object
-  api.GetSection10Output:
-    properties:
-      section_10:
-        $ref: '#/definitions/db.Section10'
-    type: object
-  api.GetSection10sOutput:
-    properties:
-      section_10_data:
-        items:
-          $ref: '#/definitions/db.Section10'
-        type: array
-    type: object
-  api.GetSection11Output:
-    properties:
-      section_11:
-        $ref: '#/definitions/db.Section11'
-    type: object
-  api.GetSection11sOutput:
-    properties:
-      section_11_data:
-        items:
-          $ref: '#/definitions/db.Section11'
-        type: array
-    type: object
-  api.GetSection12Output:
-    properties:
-      section_12:
-        $ref: '#/definitions/db.Section12'
-    type: object
-  api.GetSection12sOutput:
-    properties:
-      section_12_data:
-        items:
-          $ref: '#/definitions/db.Section12'
-        type: array
-    type: object
-  api.GetSection13Output:
-    properties:
-      section_13:
-        $ref: '#/definitions/db.Section13'
-    type: object
-  api.GetSection13sOutput:
-    properties:
-      section_13_data:
-        items:
-          $ref: '#/definitions/db.Section13'
-        type: array
-    type: object
-  api.GetSection14Output:
-    properties:
-      section_14:
-        $ref: '#/definitions/db.Section14'
-    type: object
-  api.GetSection14sOutput:
-    properties:
-      section_14_data:
-        items:
-          $ref: '#/definitions/db.Section14'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -409,6 +409,11 @@ definitions:
     - feed_id
     - feed_purchase_id
     - project_id
+    type: object
+  api.UpsertDailyFeedOutput:
+    properties:
+      daily_feed:
+        $ref: '#/definitions/db.DailyFeed'
     type: object
   api.UpsertExpenseInput:
     properties:
@@ -1667,8 +1672,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertDailyFeedOutput'
         "400":
           description: Bad Request
         "401":
@@ -1748,8 +1755,10 @@ paths:
       produces:
       - application/json
       responses:
-        "204":
-          description: No Content
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertDailyFeedOutput'
         "400":
           description: Bad Request
         "401":

@@ -470,8 +470,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertDailyFeedOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -560,8 +563,11 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "No Content"
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.UpsertDailyFeedOutput"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -4934,6 +4940,14 @@ const docTemplate = `{
                 },
                 "project_id": {
                     "type": "string"
+                }
+            }
+        },
+        "api.UpsertDailyFeedOutput": {
+            "type": "object",
+            "properties": {
+                "daily_feed": {
+                    "$ref": "#/definitions/db.DailyFeed"
                 }
             }
         },

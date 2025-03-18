@@ -25,6 +25,8 @@ type GetDailyFeedOutput struct {
 	DailyFeed db.DailyFeed `json:"daily_feed"`
 }
 
+type UpsertDailyFeedOutput GetDailyFeedOutput
+
 // GetDailyFeeds godoc
 // @Summary Get daily feeds by project and animal
 // @Description Gets all of a user's daily feeds for a given project and animal
@@ -127,7 +129,7 @@ func (e *env) getDailyFeed(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param UpsertDailyFeedInput body api.UpsertDailyFeedInput true "Daily Feed information"
-// @Success 204
+// @Success 201 {object} api.UpsertDailyFeedOutput
 // @Failure 400
 // @Failure 401
 // @Router /daily-feed [post]
@@ -184,7 +186,9 @@ func (e *env) addDailyFeed(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertDailyFeed(context.TODO(), dailyFeed)
+	var output UpsertDailyFeedOutput
+
+	output.DailyFeed, err = e.db.UpsertDailyFeed(context.TODO(), dailyFeed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -193,7 +197,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(201, output)
 
 }
 	
@@ -206,7 +210,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param dailyFeedID path string true "Daily Feed ID"
 // @Param UpsertDailyFeedInput body api.UpsertDailyFeedInput true "DailyFeed information"
-// @Success 204 
+// @Success 200 {object} api.UpsertDailyFeedOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -274,7 +278,9 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertDailyFeed(context.TODO(), updatedDailyFeed)
+	var output UpsertDailyFeedOutput
+
+	output.DailyFeed, err = e.db.UpsertDailyFeed(context.TODO(), updatedDailyFeed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -283,7 +289,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 		return
 	}
 
-	c.JSON(204, response)
+	c.JSON(200, output)
 
 }
 

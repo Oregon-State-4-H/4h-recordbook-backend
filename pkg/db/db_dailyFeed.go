@@ -89,7 +89,7 @@ func (env *env) GetDailyFeedByID(ctx context.Context, userID string, dailyFeedID
 
 }
 
-func (env *env) UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (interface{}, error) {
+func (env *env) UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (DailyFeed, error) {
 	
 	env.logger.Info("Upserting daily feed")
 
@@ -99,15 +99,15 @@ func (env *env) UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (inter
 
 	marshalled, err := json.Marshal(dailyFeed)
 	if err != nil {
-		return nil, err
+		return dailyFeed, err
 	}
 
-	response, err := container.UpsertItem(ctx, partitionKey, marshalled, nil)
+	_, err = container.UpsertItem(ctx, partitionKey, marshalled, nil)
 	if err != nil {
-		return nil, err
+		return dailyFeed, err
 	}
 
-	return response, nil
+	return dailyFeed, nil
 
 }
 

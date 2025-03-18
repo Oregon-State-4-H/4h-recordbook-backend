@@ -78,7 +78,7 @@ type Db interface {
 	RemoveFeedPurchase(ctx context.Context, userID string, feedpurchaseID string) (interface{}, error)
 	GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID string, projectID string, animalID string) ([]DailyFeed, error)
 	GetDailyFeedByID(ctx context.Context, userID string, dailyFeedID string) (DailyFeed, error)
-	UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (interface{}, error)
+	UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(ctx context.Context, userID string, dailyfeedID string) (interface{}, error)
 	GetExpensesByProject(ctx context.Context, userID string, projectID string) ([]Expense, error)
 	GetExpenseByID(ctx context.Context, userID string, expenseID string) (Expense, error)
