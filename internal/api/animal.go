@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetAnimalsOutput struct {
@@ -17,24 +18,24 @@ type GetAnimalOutput struct {
 }
 
 type UpsertAnimalInput struct {
-	Name string `json:"name" validate:"required"`
-	Species string `json:"species" validate:"required"`
-	BirthDate string `json:"birth_date" validate:"required"`
+	Name         string `json:"name" validate:"required"`
+	Species      string `json:"species" validate:"required"`
+	BirthDate    string `json:"birth_date" validate:"required"`
 	PurchaseDate string `json:"purchase_date" validate:"required"`
-	SireBreed string `json:"sire_breed" validate:"required"`
-	DamBreed string `json:"dam_breed" validate:"required"`
-	AnimalCost string `json:"animal_cost" validate:"required"`
-	SalePrice string `json:"sale_price" validate:"required"`
-	YieldGrade string `json:"yield_grade" validate:"required"`
+	SireBreed    string `json:"sire_breed" validate:"required"`
+	DamBreed     string `json:"dam_breed" validate:"required"`
+	AnimalCost   string `json:"animal_cost" validate:"required"`
+	SalePrice    string `json:"sale_price" validate:"required"`
+	YieldGrade   string `json:"yield_grade" validate:"required"`
 	QualityGrade string `json:"quality_grade" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"` 
+	ProjectID    string `json:"project_id" validate:"required"`
 }
 
 type UpdateRateOfGainInput struct {
 	BeginningWeight *float64 `json:"beginning_weight" validate:"required"`
-	BeginningDate string `json:"beginning_date" validate:"required"`
-	EndWeight *float64 `json:"end_weight" validate:"required"`
-	EndDate string `json:"end_date" validate:"required"`
+	BeginningDate   string   `json:"beginning_date" validate:"required"`
+	EndWeight       *float64 `json:"end_weight" validate:"required"`
+	EndDate         string   `json:"end_date" validate:"required"`
 }
 
 type UpsertAnimalOutput GetAnimalOutput
@@ -52,7 +53,7 @@ type UpsertAnimalOutput GetAnimalOutput
 // @Failure 401
 // @Router /animal [get]
 func (e *env) getAnimals(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -98,7 +99,7 @@ func (e *env) getAnimals(c *gin.Context) {
 // @Failure 404
 // @Router /animal/{animalID} [get]
 func (e *env) getAnimal(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -137,7 +138,7 @@ func (e *env) getAnimal(c *gin.Context) {
 // @Failure 401
 // @Router /animal [post]
 func (e *env) addAnimal(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -183,24 +184,24 @@ func (e *env) addAnimal(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	animal := db.Animal{
-		ID: g.String(),
-		Name: input.Name,
-		Species: input.Species,
-		BirthDate: birthDate.String(),
-		PurchaseDate: purchaseDate.String(),
-		SireBreed: input.SireBreed,
-		DamBreed: input.DamBreed,
-		AnimalCost: input.AnimalCost,
-		SalePrice: input.SalePrice,
-		YieldGrade: input.YieldGrade,
-		QualityGrade: input.QualityGrade,
+		ID:              g.String(),
+		Name:            input.Name,
+		Species:         input.Species,
+		BirthDate:       birthDate.String(),
+		PurchaseDate:    purchaseDate.String(),
+		SireBreed:       input.SireBreed,
+		DamBreed:        input.DamBreed,
+		AnimalCost:      input.AnimalCost,
+		SalePrice:       input.SalePrice,
+		YieldGrade:      input.YieldGrade,
+		QualityGrade:    input.QualityGrade,
 		BeginningWeight: 0,
-		BeginningDate: "",
-		EndWeight: 0,
-		EndDate: "",
-		ProjectID: input.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		BeginningDate:   "",
+		EndWeight:       0,
+		EndDate:         "",
+		ProjectID:       input.ProjectID,
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -236,7 +237,7 @@ func (e *env) addAnimal(c *gin.Context) {
 // @Failure 404
 // @Router /animal/{animalID} [put]
 func (e *env) updateAnimal(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -253,7 +254,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -292,24 +293,24 @@ func (e *env) updateAnimal(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedAnimal := db.Animal{
-		ID: animal.ID,
-		Name: input.Name,
-		Species: input.Species,
-		BirthDate: birthDate.String(),
-		PurchaseDate: purchaseDate.String(),
-		SireBreed: input.SireBreed,
-		DamBreed: input.DamBreed,
-		AnimalCost: input.AnimalCost,
-		SalePrice: input.SalePrice,
-		YieldGrade: input.YieldGrade,
-		QualityGrade: input.QualityGrade,
+		ID:              animal.ID,
+		Name:            input.Name,
+		Species:         input.Species,
+		BirthDate:       birthDate.String(),
+		PurchaseDate:    purchaseDate.String(),
+		SireBreed:       input.SireBreed,
+		DamBreed:        input.DamBreed,
+		AnimalCost:      input.AnimalCost,
+		SalePrice:       input.SalePrice,
+		YieldGrade:      input.YieldGrade,
+		QualityGrade:    input.QualityGrade,
 		BeginningWeight: animal.BeginningWeight,
-		BeginningDate: animal.BeginningDate,
-		EndWeight: animal.EndWeight,
-		EndDate: animal.EndDate,
-		ProjectID: animal.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		BeginningDate:   animal.BeginningDate,
+		EndWeight:       animal.EndWeight,
+		EndDate:         animal.EndDate,
+		ProjectID:       animal.ProjectID,
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: animal.Created,
 			Updated: timestamp.String(),
 		},
@@ -345,7 +346,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 // @Failure 404
 // @Router /rate-of-gain/{animalID} [put]
 func (e *env) updateRateOfGain(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -401,24 +402,24 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedAnimal := db.Animal{
-		ID: animal.ID,
-		Name: animal.Name,
-		Species: animal.Species,
-		BirthDate: animal.BirthDate,
-		PurchaseDate: animal.PurchaseDate,
-		SireBreed: animal.SireBreed,
-		DamBreed: animal.DamBreed,
-		AnimalCost: animal.AnimalCost,
-		SalePrice: animal.SalePrice,
-		YieldGrade: animal.YieldGrade,
-		QualityGrade: animal.QualityGrade,
+		ID:              animal.ID,
+		Name:            animal.Name,
+		Species:         animal.Species,
+		BirthDate:       animal.BirthDate,
+		PurchaseDate:    animal.PurchaseDate,
+		SireBreed:       animal.SireBreed,
+		DamBreed:        animal.DamBreed,
+		AnimalCost:      animal.AnimalCost,
+		SalePrice:       animal.SalePrice,
+		YieldGrade:      animal.YieldGrade,
+		QualityGrade:    animal.QualityGrade,
 		BeginningWeight: *input.BeginningWeight,
-		BeginningDate: beginningDate.String(),
-		EndWeight: *input.EndWeight,
-		EndDate: endDate.String(),
-		ProjectID: animal.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		BeginningDate:   beginningDate.String(),
+		EndWeight:       *input.EndWeight,
+		EndDate:         endDate.String(),
+		ProjectID:       animal.ProjectID,
+		UserID:          claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: animal.Created,
 			Updated: timestamp.String(),
 		},
@@ -449,7 +450,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 // @Param animalID path string true "Animal ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /animal/{animalID} [delete]
 func (e *env) deleteAnimal(c *gin.Context) {
 

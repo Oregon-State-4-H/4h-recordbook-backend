@@ -5,8 +5,8 @@ import (
 )
 
 type LoggerOptions struct {
-	Level		zap.AtomicLevel
-	OutputFile 	string
+	Level      zap.AtomicLevel
+	OutputFile string
 }
 
 func New(params LoggerOptions) (*zap.SugaredLogger, error) {

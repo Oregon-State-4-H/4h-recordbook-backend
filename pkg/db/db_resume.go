@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
@@ -24,172 +25,172 @@ type Resume struct {
 }
 
 type Section1 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
-	Grade int `json:"grade"`
-	ClubName string `json:"club_name"`
-	NumInClub int `json:"num_in_club"`
-	ClubLeader string `json:"club_leader"`
-	MeetingsHeld int `json:"meetings_held"`
-	MeetingsAttended int `json:"meetings_attended"`
-	UserID string `json:"user_id"`
+	ID               string `json:"id"`
+	Section          int    `json:"section"`
+	Nickname         string `json:"nickname"`
+	Year             string `json:"year"`
+	Grade            int    `json:"grade"`
+	ClubName         string `json:"club_name"`
+	NumInClub        int    `json:"num_in_club"`
+	ClubLeader       string `json:"club_leader"`
+	MeetingsHeld     int    `json:"meetings_held"`
+	MeetingsAttended int    `json:"meetings_attended"`
+	UserID           string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section2 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Year string `json:"year"`
-	ProjectName string `json:"project_name"`
+	ID           string `json:"id"`
+	Section      int    `json:"section"`
+	Year         string `json:"year"`
+	ProjectName  string `json:"project_name"`
 	ProjectScope string `json:"project_scope"`
-	UserID string `json:"user_id"`
+	UserID       string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section3 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
-	ActivityKind string `json:"activity_kind"`
+	ID            string `json:"id"`
+	Section       int    `json:"section"`
+	Nickname      string `json:"nickname"`
+	Year          string `json:"year"`
+	ActivityKind  string `json:"activity_kind"`
 	ThingsLearned string `json:"things_learned"`
-	Level string `json:"level"`
-	UserID string `json:"user_id"`
+	Level         string `json:"level"`
+	UserID        string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section4 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID           string `json:"id"`
+	Section      int    `json:"section"`
+	Nickname     string `json:"nickname"`
+	Year         string `json:"year"`
 	ActivityKind string `json:"activity_kind"`
-	Scope string `json:"scope"`
-	Level string `json:"level"`
-	UserID string `json:"user_id"`
+	Scope        string `json:"scope"`
+	Level        string `json:"level"`
+	UserID       string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section5 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
-	LeadershipRole string `json:"leadership_role"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"user_id"`
+	ID               string `json:"id"`
+	Section          int    `json:"section"`
+	Nickname         string `json:"nickname"`
+	Year             string `json:"year"`
+	LeadershipRole   string `json:"leadership_role"`
+	HoursSpent       int    `json:"hours_spent"`
+	NumPeopleReached int    `json:"num_people_reached"`
+	UserID           string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section6 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID               string `json:"id"`
+	Section          int    `json:"section"`
+	Nickname         string `json:"nickname"`
+	Year             string `json:"year"`
 	OrganizationName string `json:"organization_name"`
-	LeadershipRole string `json:"leadership_role"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"user_id"`
+	LeadershipRole   string `json:"leadership_role"`
+	HoursSpent       int    `json:"hours_spent"`
+	NumPeopleReached int    `json:"num_people_reached"`
+	UserID           string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section7 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID                   string `json:"id"`
+	Section              int    `json:"section"`
+	Nickname             string `json:"nickname"`
+	Year                 string `json:"year"`
 	ClubMemberActivities string `json:"club_member_activities"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"user_id"`
+	HoursSpent           int    `json:"hours_spent"`
+	NumPeopleReached     int    `json:"num_people_reached"`
+	UserID               string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section8 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID                        string `json:"id"`
+	Section                   int    `json:"section"`
+	Nickname                  string `json:"nickname"`
+	Year                      string `json:"year"`
 	IndividualGroupActivities string `json:"individual_group_activities"`
-	HoursSpent int `json:"hours_spent"`
-	NumPeopleReached int `json:"num_people_reached"`
-	UserID string `json:"user_id"`
+	HoursSpent                int    `json:"hours_spent"`
+	NumPeopleReached          int    `json:"num_people_reached"`
+	UserID                    string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section9 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID                string `json:"id"`
+	Section           int    `json:"section"`
+	Nickname          string `json:"nickname"`
+	Year              string `json:"year"`
 	CommunicationType string `json:"communication_type"`
-	Topic string `json:"topic"`
-	TimesGiven int `json:"times_given"`
-	Location string `json:"location"`
-	AudienceSize int `json:"audience_size"`
-	UserID string `json:"user_id"`
+	Topic             string `json:"topic"`
+	TimesGiven        int    `json:"times_given"`
+	Location          string `json:"location"`
+	AudienceSize      int    `json:"audience_size"`
+	UserID            string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section10 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID                string `json:"id"`
+	Section           int    `json:"section"`
+	Nickname          string `json:"nickname"`
+	Year              string `json:"year"`
 	CommunicationType string `json:"communication_type"`
-	Topic string `json:"topic"`
-	TimesGiven int `json:"times_given"`
-	Location string `json:"location"`
-	AudienceSize int `json:"audience_size"`
-	UserID string `json:"user_id"`
+	Topic             string `json:"topic"`
+	TimesGiven        int    `json:"times_given"`
+	Location          string `json:"location"`
+	AudienceSize      int    `json:"audience_size"`
+	UserID            string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section11 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
-	EventAndLevel string `json:"event_and_level"`
+	ID                 string `json:"id"`
+	Section            int    `json:"section"`
+	Nickname           string `json:"nickname"`
+	Year               string `json:"year"`
+	EventAndLevel      string `json:"event_and_level"`
 	ExhibitsOrDivision string `json:"exhibits_or_division"`
-	RibbonOrPlacings string `json:"ribbon_or_placings"`
-	UserID string `json:"user_id"`
+	RibbonOrPlacings   string `json:"ribbon_or_placings"`
+	UserID             string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section12 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
-	ContestOrEvent string `json:"contest_or_event"`
+	ID                  string `json:"id"`
+	Section             int    `json:"section"`
+	Nickname            string `json:"nickname"`
+	Year                string `json:"year"`
+	ContestOrEvent      string `json:"contest_or_event"`
 	RecognitionReceived string `json:"recognition_received"`
-	Level string `json:"level"`
-	UserID string `json:"user_id"`
+	Level               string `json:"level"`
+	UserID              string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section13 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID              string `json:"id"`
+	Section         int    `json:"section"`
+	Nickname        string `json:"nickname"`
+	Year            string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
-	UserID string `json:"user_id"`
+	UserID          string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
 type Section14 struct {
-	ID string `json:"id"`
-	Section int `json:"section"`
-	Nickname string `json:"nickname"`
-	Year string `json:"year"`
+	ID              string `json:"id"`
+	Section         int    `json:"section"`
+	Nickname        string `json:"nickname"`
+	Year            string `json:"year"`
 	RecognitionType string `json:"recognition_type"`
-	UserID string `json:"user_id"`
+	UserID          string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -1626,7 +1627,7 @@ func (env *env) UpsertSection14(ctx context.Context, section Section14) (Section
 ********************************/
 
 func (env *env) RemoveSection(ctx context.Context, userID string, sectionID string) (interface{}, error) {
-	
+
 	env.logger.Info("Removing section")
 
 	container, err := env.client.NewContainer("sections")

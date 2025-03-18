@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetFeedsOutput struct {
@@ -17,7 +18,7 @@ type GetFeedOutput struct {
 }
 
 type UpsertFeedInput struct {
-	Name string `json:"name" validate:"required"`
+	Name      string `json:"name" validate:"required"`
 	ProjectID string `json:"project_id" validate:"required"`
 }
 
@@ -36,7 +37,7 @@ type UpsertFeedOutput GetFeedOutput
 // @Failure 401
 // @Router /feed [get]
 func (e *env) getFeeds(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -81,7 +82,7 @@ func (e *env) getFeeds(c *gin.Context) {
 // @Failure 404
 // @Router /feed/{feedID} [get]
 func (e *env) getFeed(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -120,7 +121,7 @@ func (e *env) getFeed(c *gin.Context) {
 // @Failure 401
 // @Router /feed [post]
 func (e *env) addFeed(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -150,11 +151,11 @@ func (e *env) addFeed(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	feed := db.Feed{
-		ID: g.String(),
-		Name: input.Name,
+		ID:        g.String(),
+		Name:      input.Name,
 		ProjectID: input.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:    claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -190,7 +191,7 @@ func (e *env) addFeed(c *gin.Context) {
 // @Failure 404
 // @Router /feed/{feedID} [put]
 func (e *env) updateFeed(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -207,7 +208,7 @@ func (e *env) updateFeed(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -230,11 +231,11 @@ func (e *env) updateFeed(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedFeed := db.Feed{
-		ID: feed.ID,
-		Name: input.Name,
+		ID:        feed.ID,
+		Name:      input.Name,
 		ProjectID: feed.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:    claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: feed.Created,
 			Updated: timestamp.String(),
 		},
@@ -265,7 +266,7 @@ func (e *env) updateFeed(c *gin.Context) {
 // @Param feedID path string true "Feed ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /feed/{feedID} [delete]
 func (e *env) deleteFeed(c *gin.Context) {
 

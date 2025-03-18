@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"os"
+
 	"go.uber.org/zap"
 )
 
@@ -11,31 +12,31 @@ import (
 var configJSON []byte
 
 const (
-	MAX_PAGE_SIZE = 500
+	MAX_PAGE_SIZE  = 500
 	PRODUCTION_ENV = "PRODUCTION"
 )
 
 type Config struct {
-	MaxPageSize int `json:"max_page_size"`
-	Database Database `json:"cosmos"`
-	Upc Upc	`json:"upc"`
+	MaxPageSize int      `json:"max_page_size"`
+	Database    Database `json:"cosmos"`
+	Upc         Upc      `json:"upc"`
 }
 
 type Database struct {
-	Current	DatabaseParams
-	Production DatabaseParams `json:"production"`
-	Development	DatabaseParams `json:"development"`
+	Current     DatabaseParams
+	Production  DatabaseParams `json:"production"`
+	Development DatabaseParams `json:"development"`
 }
 
 type DatabaseParams struct {
 	Endpoint string `json:"endpoint"`
-	Key string `json:"key"`
+	Key      string `json:"key"`
 }
 
 type Upc struct {
-	Endpoint string `json:"endpoint"`
-	Current UpcParams 
-	Production UpcParams `json:"production"`
+	Endpoint    string `json:"endpoint"`
+	Current     UpcParams
+	Production  UpcParams `json:"production"`
 	Development UpcParams `json:"development"`
 }
 
@@ -48,7 +49,7 @@ func New(logger *zap.SugaredLogger) (*Config, error) {
 	logger.Info("Setting up config")
 
 	var c Config
-	
+
 	err := json.Unmarshal(configJSON, &c)
 	if err != nil {
 		logger.Errorf("Failed to unmarshal config: %v", err)

@@ -3,27 +3,28 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type Animal struct {
-	ID string `json:"id"`
-	Name string `json:"name"`
-	Species string `json:"species"`
-	BirthDate string `json:"birth_date"`
-	PurchaseDate string `json:"purchase_date"`
-	SireBreed string `json:"sire_breed"`
-	DamBreed string `json:"dam_breed"`
+	ID              string  `json:"id"`
+	Name            string  `json:"name"`
+	Species         string  `json:"species"`
+	BirthDate       string  `json:"birth_date"`
+	PurchaseDate    string  `json:"purchase_date"`
+	SireBreed       string  `json:"sire_breed"`
+	DamBreed        string  `json:"dam_breed"`
 	BeginningWeight float64 `json:"beginning_weight"`
-	BeginningDate string `json:"beginning_date"`
-	EndWeight float64 `json:"end_weight"`
-	EndDate string `json:"end_date"`
-	AnimalCost string `json:"animal_cost"`
-	SalePrice string `json:"sale_price"`
-	YieldGrade string `json:"yield_grade"`
-	QualityGrade string `json:"quality_grade"`
-	UserID string `json:"user_id"`
-	ProjectID string `json:"project_id"`
+	BeginningDate   string  `json:"beginning_date"`
+	EndWeight       float64 `json:"end_weight"`
+	EndDate         string  `json:"end_date"`
+	AnimalCost      string  `json:"animal_cost"`
+	SalePrice       string  `json:"sale_price"`
+	YieldGrade      string  `json:"yield_grade"`
+	QualityGrade    string  `json:"quality_grade"`
+	UserID          string  `json:"user_id"`
+	ProjectID       string  `json:"project_id"`
 	GenericDatabaseInfo
 }
 
@@ -98,7 +99,7 @@ func (env *env) GetAnimalByID(ctx context.Context, userID string, animalID strin
 }
 
 func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (Animal, error) {
-	
+
 	env.logger.Info("Upserting animal")
 
 	container, err := env.client.NewContainer("animals")

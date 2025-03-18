@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetExpensesOutput struct {
@@ -17,11 +18,11 @@ type GetExpenseOutput struct {
 }
 
 type UpsertExpenseInput struct {
-	Date string `json:"date" validate:"required"`
-	Items string `json:"items" validate:"required"`
-	Quantity *float64 `json:"quantity" validate:"required"`
-	Cost *float64 `json:"cost" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
+	Date      string   `json:"date" validate:"required"`
+	Items     string   `json:"items" validate:"required"`
+	Quantity  *float64 `json:"quantity" validate:"required"`
+	Cost      *float64 `json:"cost" validate:"required"`
+	ProjectID string   `json:"project_id" validate:"required"`
 }
 
 type UpsertExpenseOutput GetExpenseOutput
@@ -162,14 +163,14 @@ func (e *env) addExpense(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	expense := db.Expense{
-		ID: g.String(),
-		Date: date.String(),
-		Items: input.Items,
-		Quantity: *input.Quantity,
-		Cost: *input.Cost,
+		ID:        g.String(),
+		Date:      date.String(),
+		Items:     input.Items,
+		Quantity:  *input.Quantity,
+		Cost:      *input.Cost,
 		ProjectID: input.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:    claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -199,7 +200,7 @@ func (e *env) addExpense(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param expenseID path string true "Expense ID"
 // @Param UpsertExpenseInput body api.UpsertExpenseInput true "Expense information"
-// @Success 200 {object} api.UpsertExpenseOutput 
+// @Success 200 {object} api.UpsertExpenseOutput
 // @Failure 400
 // @Failure 401
 // @Failure 404
@@ -222,7 +223,7 @@ func (e *env) updateExpense(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -253,14 +254,14 @@ func (e *env) updateExpense(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedExpense := db.Expense{
-		ID: expense.ID,
-		Date: date.String(),
-		Items: input.Items,
-		Quantity: *input.Quantity,
-		Cost: *input.Cost,
+		ID:        expense.ID,
+		Date:      date.String(),
+		Items:     input.Items,
+		Quantity:  *input.Quantity,
+		Cost:      *input.Cost,
 		ProjectID: expense.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		UserID:    claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: expense.Created,
 			Updated: timestamp.String(),
 		},
@@ -291,7 +292,7 @@ func (e *env) updateExpense(c *gin.Context) {
 // @Param expenseID path string true "Expense ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /expense/{expenseID} [delete]
 func (e *env) deleteExpense(c *gin.Context) {
 

@@ -1,7 +1,8 @@
-package upc 
+package upc
 
 import (
 	"4h-recordbook-backend/internal/config"
+
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
 )
@@ -12,16 +13,16 @@ type Upc interface {
 
 type UpcClient struct {
 	Endpoint string
-	Key string
+	Key      string
 }
 
 type env struct {
-	logger *zap.SugaredLogger `validate:"required"`
+	logger    *zap.SugaredLogger  `validate:"required"`
 	validator *validator.Validate `validate:"required"`
-	client UpcClient `validate: "required"`
+	client    UpcClient           `validate:"required"`
 }
 
-func New(logger *zap.SugaredLogger, cfg *config.Config) (Upc, error){
+func New(logger *zap.SugaredLogger, cfg *config.Config) (Upc, error) {
 
 	logger.Info("Creating new UPC client")
 
@@ -29,13 +30,13 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Upc, error){
 
 	upcClient := UpcClient{
 		Endpoint: cfg.Upc.Endpoint,
-		Key: cfg.Upc.Current.Key,
+		Key:      cfg.Upc.Current.Key,
 	}
 
 	e := &env{
-		logger: logger,
+		logger:    logger,
 		validator: validate,
-		client: upcClient,
+		client:    upcClient,
 	}
 
 	return e, nil

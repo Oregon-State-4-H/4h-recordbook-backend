@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetSuppliesOutput struct {
@@ -17,10 +18,10 @@ type GetSupplyOutput struct {
 }
 
 type UpsertSupplyInput struct {
-	Description string `json:"description" validate:"required"`
-	StartValue *float64 `json:"start_value" validate:"required"`
-	EndValue *float64 `json:"end_value" validate:"required"`
-	ProjectID string `json:"project_id" validate:"required"`
+	Description string   `json:"description" validate:"required"`
+	StartValue  *float64 `json:"start_value" validate:"required"`
+	EndValue    *float64 `json:"end_value" validate:"required"`
+	ProjectID   string   `json:"project_id" validate:"required"`
 }
 
 type UpsertSupplyOutput GetSupplyOutput
@@ -152,13 +153,13 @@ func (e *env) addSupply(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	supply := db.Supply{
-		ID: g.String(),
+		ID:          g.String(),
 		Description: input.Description,
-		StartValue: *input.StartValue,
-		EndValue: *input.EndValue,
-		ProjectID: input.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		StartValue:  *input.StartValue,
+		EndValue:    *input.EndValue,
+		ProjectID:   input.ProjectID,
+		UserID:      claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -211,7 +212,7 @@ func (e *env) updateSupply(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -234,13 +235,13 @@ func (e *env) updateSupply(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedSupply := db.Supply{
-		ID: supply.ID,
+		ID:          supply.ID,
 		Description: input.Description,
-		StartValue: *input.StartValue,
-		EndValue: *input.EndValue,
-		ProjectID: supply.ProjectID,
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		StartValue:  *input.StartValue,
+		EndValue:    *input.EndValue,
+		ProjectID:   supply.ProjectID,
+		UserID:      claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: supply.Created,
 			Updated: timestamp.String(),
 		},
@@ -271,7 +272,7 @@ func (e *env) updateSupply(c *gin.Context) {
 // @Param supplyID path string true "Supply ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /supply/{supplyID} [delete]
 func (e *env) deleteSupply(c *gin.Context) {
 

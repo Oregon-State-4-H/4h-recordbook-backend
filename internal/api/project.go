@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetProjectsOutput struct {
@@ -17,12 +18,12 @@ type GetProjectOutput struct {
 }
 
 type UpsertProjectInput struct {
-	Year string `json:"year" validate:"required"`
-	Name string `json:"name" validate:"required"`
+	Year        string `json:"year" validate:"required"`
+	Name        string `json:"name" validate:"required"`
 	Description string `json:"description" validate:"required"`
-	Type string `json:"type" validate:"required"`
-	StartDate string `json:"start_date" validate:"required"`
-	EndDate string `json:"end_date" validate:"required"`
+	Type        string `json:"type" validate:"required"`
+	StartDate   string `json:"start_date" validate:"required"`
+	EndDate     string `json:"end_date" validate:"required"`
 }
 
 type UpsertProjectOutput GetProjectOutput
@@ -31,7 +32,7 @@ type UpsertProjectOutput GetProjectOutput
 // @Summary Gets projects of the current year
 // @Description Gets all of a user's projects that take place in the last 12 months
 // @Tags Project
-// @Accept json 
+// @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetProjectsOutput
@@ -110,7 +111,7 @@ func (e *env) getProjects(c *gin.Context) {
 // @Failure 404
 // @Router /project/{projectID} [get]
 func (e *env) getProject(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -149,7 +150,7 @@ func (e *env) getProject(c *gin.Context) {
 // @Failure 401
 // @Router /project [post]
 func (e *env) addProject(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -177,7 +178,7 @@ func (e *env) addProject(c *gin.Context) {
 
 	g := guid.New()
 	timestamp := utils.TimeNow()
-	
+
 	startDate, err := utils.StringToTimestamp(input.StartDate)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -195,15 +196,15 @@ func (e *env) addProject(c *gin.Context) {
 	}
 
 	project := db.Project{
-		ID: g.String(),
-		Year: input.Year,
-		Name: input.Name,
+		ID:          g.String(),
+		Year:        input.Year,
+		Name:        input.Name,
 		Description: input.Description,
-		Type: input.Type,
-		StartDate: startDate.String(),
-		EndDate: endDate.String(),
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Type:        input.Type,
+		StartDate:   startDate.String(),
+		EndDate:     endDate.String(),
+		UserID:      claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -239,7 +240,7 @@ func (e *env) addProject(c *gin.Context) {
 // @Failure 404
 // @Router /project/{projectID} [put]
 func (e *env) updateProject(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -256,7 +257,7 @@ func (e *env) updateProject(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	err = e.validator.Struct(input)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -295,15 +296,15 @@ func (e *env) updateProject(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	updatedProject := db.Project{
-		ID: project.ID,
-		Year: input.Year,
-		Name: input.Name,
+		ID:          project.ID,
+		Year:        input.Year,
+		Name:        input.Name,
 		Description: input.Description,
-		Type: input.Type,
-		StartDate: startDate.String(),
-		EndDate: endDate.String(),
-		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		Type:        input.Type,
+		StartDate:   startDate.String(),
+		EndDate:     endDate.String(),
+		UserID:      claims.ID,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: project.Created,
 			Updated: timestamp.String(),
 		},
@@ -334,7 +335,7 @@ func (e *env) updateProject(c *gin.Context) {
 // @Param projectID path string true "Project ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /project/{projectID} [delete]
 func (e *env) deleteProject(c *gin.Context) {
 

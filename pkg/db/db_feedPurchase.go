@@ -3,17 +3,18 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type FeedPurchase struct {
-	ID string `json:"id"`
-	DatePurchased string `json:"date_purchased"`
+	ID              string  `json:"id"`
+	DatePurchased   string  `json:"date_purchased"`
 	AmountPurchased float64 `json:"amount_purchased"`
-	TotalCost float64 `json:"total_cost"`
-	FeedID string `json:"feed_id"`
-	ProjectID string `json:"project_id"`
-	UserID string `json:"user_id"`
+	TotalCost       float64 `json:"total_cost"`
+	FeedID          string  `json:"feed_id"`
+	ProjectID       string  `json:"project_id"`
+	UserID          string  `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -88,7 +89,7 @@ func (env *env) GetFeedPurchaseByID(ctx context.Context, userID string, feedPurc
 }
 
 func (env *env) UpsertFeedPurchase(ctx context.Context, feedPurchase FeedPurchase) (FeedPurchase, error) {
-	
+
 	env.logger.Info("Upserting feed purchase")
 
 	container, err := env.client.NewContainer("feedpurchases")

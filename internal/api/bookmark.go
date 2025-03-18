@@ -1,11 +1,12 @@
 package api
 
 import (
-	"context"
-	"github.com/gin-gonic/gin"
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
+	"context"
+
 	"github.com/beevik/guid"
+	"github.com/gin-gonic/gin"
 )
 
 type GetBookmarksOutput struct {
@@ -17,7 +18,7 @@ type GetBookmarkOutput struct {
 }
 
 type AddBookmarkInput struct {
-	Link string `json:"link" validate:"required"`
+	Link  string `json:"link" validate:"required"`
 	Label string `json:"label" validate:"required"`
 }
 
@@ -31,10 +32,10 @@ type AddBookmarkOutput GetBookmarkOutput
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {object} api.GetBookmarksOutput
-// @Failure 401 
+// @Failure 401
 // @Router /bookmarks [get]
 func (e *env) getUserBookmarks(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -67,7 +68,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Param link path string true "Bookmark link"
 // @Success 200 {object} api.GetBookmarkOutput
-// @Failure 401 
+// @Failure 401
 // @Router /bookmarks/{link} [get]
 func (e *env) getBookmarkByLink(c *gin.Context) {
 
@@ -105,20 +106,20 @@ func (e *env) getBookmarkByLink(c *gin.Context) {
 
 // AddUserBookmark godoc
 // @Summary Adds a bookmark
-// @Description Adds a bookmark to a user's personal records. 
+// @Description Adds a bookmark to a user's personal records.
 // @Description The new bookmark can not have the same link as another of the user's bookmarks
 // @Tags User Bookmarks
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param AddBookmarkInput body api.AddBookmarkInput true "Bookmark information"
-// @Success 201 {object} api.AddBookmarkOutput 
+// @Success 201 {object} api.AddBookmarkOutput
 // @Failure 400
 // @Failure 401
 // @Failure 409
 // @Router /bookmarks [post]
 func (e *env) addUserBookmark(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
@@ -148,11 +149,11 @@ func (e *env) addUserBookmark(c *gin.Context) {
 	timestamp := utils.TimeNow()
 
 	bookmark := db.Bookmark{
-		ID: g.String(),
-		Link: input.Link,
-		Label: input.Label,
+		ID:     g.String(),
+		Link:   input.Link,
+		Label:  input.Label,
 		UserID: claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo {
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
 			Created: timestamp.String(),
 			Updated: timestamp.String(),
 		},
@@ -191,10 +192,10 @@ func (e *env) addUserBookmark(c *gin.Context) {
 // @Param bookmarkID path string true "Bookmark ID"
 // @Success 204
 // @Failure 401
-// @Failure 404 
+// @Failure 404
 // @Router /bookmarks/{bookmarkID} [delete]
 func (e *env) deleteUserBookmark(c *gin.Context) {
-	
+
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{

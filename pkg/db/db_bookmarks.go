@@ -3,13 +3,14 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type Bookmark struct {
-	ID string `json:"id"`
-	Link string	`json:"link"`
-	Label string `json:"label"`
+	ID     string `json:"id"`
+	Link   string `json:"link"`
+	Label  string `json:"label"`
 	UserID string `json:"user_id"`
 	GenericDatabaseInfo
 }
@@ -43,7 +44,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link strin
 		if err != nil {
 			return Bookmark{}, err
 		}
-	
+
 		for _, bytes := range response.Items {
 			bookmark := Bookmark{}
 			err := json.Unmarshal(bytes, &bookmark)
@@ -54,7 +55,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link strin
 		}
 	}
 
-	if len(bookmarks) == 0{
+	if len(bookmarks) == 0 {
 		return Bookmark{}, err
 	}
 
@@ -104,10 +105,10 @@ func (env *env) GetBookmarks(ctx context.Context, userID string) ([]Bookmark, er
 
 	return bookmarks, nil
 
-} 
+}
 
 func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (Bookmark, error) {
-	
+
 	env.logger.Info("Adding bookmark")
 
 	container, err := env.client.NewContainer("bookmarks")
@@ -127,7 +128,6 @@ func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (Bookmark, e
 	return bookmark, nil
 
 }
-
 
 func (env *env) RemoveBookmark(ctx context.Context, userID string, bookmarkID string) (interface{}, error) {
 

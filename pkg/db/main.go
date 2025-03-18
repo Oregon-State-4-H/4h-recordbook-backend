@@ -1,8 +1,9 @@
-package db 
+package db
 
 import (
-	"context"
 	"4h-recordbook-backend/internal/config"
+	"context"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
@@ -96,9 +97,9 @@ type GenericDatabaseInfo struct {
 }
 
 type env struct {
-	logger *zap.SugaredLogger `validate:"required"`
-	validator *validator.Validate `validate:"required"`
-	client *azcosmos.DatabaseClient `validate:"required"`
+	logger    *zap.SugaredLogger       `validate:"required"`
+	validator *validator.Validate      `validate:"required"`
+	client    *azcosmos.DatabaseClient `validate:"required"`
 }
 
 func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
@@ -123,7 +124,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 	}
 
 	e := &env{
-		logger:	   logger,
+		logger:    logger,
 		validator: validate,
 		client:    dbClient,
 	}

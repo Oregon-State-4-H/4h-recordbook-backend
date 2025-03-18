@@ -3,17 +3,18 @@ package db
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
 type Expense struct {
-	ID string `json:"id"`
-	Date string `json:"date"`
-	Items string `json:"items"`
-	Quantity float64 `json:"quantity"`
-	Cost float64 `json:"cost"`
-	ProjectID string `json:"project_id"`
-	UserID string `json:"user_id"`
+	ID        string  `json:"id"`
+	Date      string  `json:"date"`
+	Items     string  `json:"items"`
+	Quantity  float64 `json:"quantity"`
+	Cost      float64 `json:"cost"`
+	ProjectID string  `json:"project_id"`
+	UserID    string  `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -88,7 +89,7 @@ func (env *env) GetExpenseByID(ctx context.Context, userID string, expenseID str
 }
 
 func (env *env) UpsertExpense(ctx context.Context, expense Expense) (Expense, error) {
-	
+
 	env.logger.Info("Upserting expense")
 
 	container, err := env.client.NewContainer("expenses")
