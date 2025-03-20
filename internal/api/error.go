@@ -43,17 +43,23 @@ func InterpretCosmosError(err error) HTTPResponseCode {
 	var responseError *azcore.ResponseError
 	errors.As(err, &responseError)
 
+	//catch errors from db package that aren't cosmos errors
+	if responseError == nil {
+		return HTTPResponseCode{
+			Code:    500,
+			Message: err.Error(),
+		}
+	}
+
 	code := responseError.StatusCode
 	message, ok := HTTPResponseCodeMap[code]
 	if !ok {
 		message = "Unexpected error"
 	}
 
-	response := HTTPResponseCode{
+	return HTTPResponseCode{
 		Code:    code,
 		Message: message,
 	}
-
-	return response
 
 }
