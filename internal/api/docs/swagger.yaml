@@ -103,18 +103,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -269,6 +257,18 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -4004,23 +4004,6 @@ paths:
         "404":
           description: Not Found
       summary: Sign in
-      tags:
-      - User
-  /signout:
-    post:
-      consumes:
-      - application/json
-      description: Placeholder route, sign out with JWT
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Sign out
       tags:
       - User
   /signup:
