@@ -44,7 +44,7 @@ func (e *env) getExpenses(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -90,7 +90,7 @@ func (e *env) getExpense(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -129,7 +129,7 @@ func (e *env) addExpense(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -210,7 +210,7 @@ func (e *env) updateExpense(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -299,7 +299,7 @@ func (e *env) deleteExpense(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
