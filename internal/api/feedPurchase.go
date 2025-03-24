@@ -44,7 +44,7 @@ func (e *env) getFeedPurchases(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -90,7 +90,7 @@ func (e *env) getFeedPurchase(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -129,7 +129,7 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -210,7 +210,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -299,7 +299,7 @@ func (e *env) deleteFeedPurchase(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}

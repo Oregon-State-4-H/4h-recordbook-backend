@@ -43,7 +43,7 @@ func (e *env) getSupplies(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -88,7 +88,7 @@ func (e *env) getSupply(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -127,7 +127,7 @@ func (e *env) addSupply(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -199,7 +199,7 @@ func (e *env) updateSupply(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -279,7 +279,7 @@ func (e *env) deleteSupply(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}

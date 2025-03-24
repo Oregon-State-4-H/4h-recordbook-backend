@@ -38,7 +38,7 @@ func (e *env) getUserProfile(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -76,7 +76,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -171,33 +171,9 @@ func (e *env) signin(c *gin.Context) {
 		return
 	}
 
-	c.SetCookie("authtoken", jwt, 3600, "/", "localhost", false, true)
-	c.JSON(204, nil)
-
-}
-
-// SignOut godoc
-// @Summary Sign out
-// @Description Placeholder route, sign out with JWT
-// @Tags User
-// @Accept json
-// @Produce json
-// @Security ApiKeyAuth
-// @Success 204
-// @Failure 401
-// @Router /signout [post]
-func (e *env) signout(c *gin.Context) {
-
-	claims, err := decodeJWT(c)
-	if err != nil {
-		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
-		})
-		return
-	}
-
-	c.SetCookie("authtoken", claims.ID, -1, "/", "localhost", false, true)
-	c.JSON(204, nil)
+	c.JSON(200, gin.H{
+		"access_token": jwt,
+	})
 
 }
 

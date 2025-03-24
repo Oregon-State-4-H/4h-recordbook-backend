@@ -57,10 +57,13 @@ func decodeJWT(c *gin.Context) (*CustomClaims, error) {
 
 	auth := c.Request.Header.Get("Authorization")
 	if auth == "" {
-		return claims, errors.New("Unauthorized 1")
+		return claims, errors.New(ErrNoToken)
 	}
 
 	splitToken := strings.Split(auth, "Bearer ")
+	if len(splitToken) == 1 {
+		return claims, errors.New(ErrBadToken)
+	}
 	auth = splitToken[1]
 
 	token, err := jwt.ParseWithClaims(auth, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
@@ -68,14 +71,14 @@ func decodeJWT(c *gin.Context) (*CustomClaims, error) {
 	})
 
 	if err != nil {
-		return claims, errors.New("Unauthorized 2")
+		return claims, errors.New(ErrBadToken)
 	}
 
 	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
 		return claims, nil
 	}
 
-	return claims, errors.New("Unauthorized 3")
+	return claims, errors.New(ErrBadToken)
 
 }
 
@@ -94,18 +97,6 @@ func generateJWT(userid string, firstName string) (string, error) {
 
 	return token.SignedString([]byte("AccessToken"))
 
-}
-
-func CookieToTokenMiddleware(cookieName string) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		token, err := c.Cookie(cookieName)
-		if err != nil {
-			c.Next()
-			return
-		}
-		c.Request.Header.Set("Authorization", "Bearer "+token)
-		c.Next()
-	}
 }
 
 func (e *env) RunLocal() error {
@@ -128,8 +119,6 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 
 	router := gin.Default()
 
-	router.Use(CookieToTokenMiddleware("authtoken"))
-
 	router.Use(cors.New(cors.Config{
 		AllowCredentials: true,
 		AllowHeaders:     []string{"Authorization", "Content-Type"},
@@ -148,7 +137,6 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.GET("/user", e.getUserProfile)
 	router.PUT("/user", e.updateUserProfile)
 	router.POST("/signin", e.signin)
-	router.POST("/signout", e.signout)
 	router.POST("/signup", e.signup)
 
 	router.GET("/bookmarks", e.getUserBookmarks)

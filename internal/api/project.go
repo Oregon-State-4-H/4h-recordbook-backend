@@ -43,7 +43,7 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -78,7 +78,7 @@ func (e *env) getProjects(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -115,7 +115,7 @@ func (e *env) getProject(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -154,7 +154,7 @@ func (e *env) addProject(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -244,7 +244,7 @@ func (e *env) updateProject(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}
@@ -342,7 +342,7 @@ func (e *env) deleteProject(c *gin.Context) {
 	claims, err := decodeJWT(c)
 	if err != nil {
 		c.JSON(401, gin.H{
-			"message": HTTPResponseCodeMap[401],
+			"message": err.Error(),
 		})
 		return
 	}

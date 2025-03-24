@@ -4019,34 +4019,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/signout": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Placeholder route, sign out with JWT",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "Sign out",
-                "responses": {
-                    "204": {
-                        "description": "No Content"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
         "/signup": {
             "post": {
                 "description": "Placeholder route, sign up with custom user information",
