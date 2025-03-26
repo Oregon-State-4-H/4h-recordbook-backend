@@ -7,11 +7,11 @@ import (
 	"4h-recordbook-backend/pkg/log"
 	"4h-recordbook-backend/pkg/upc"
 	"flag"
+	"os"
 
 	"go.uber.org/zap"
 )
 
-// @title	4H Record Books API
 func main() {
 
 	debug := flag.Bool("d", false, "enable debug mode")
@@ -52,7 +52,12 @@ func main() {
 		panic(err)
 	}
 
-	err = apiInstance.RunLocal()
+	if port, ok := os.LookupEnv("FUNCTIONS_CUSTOMHANDLER_PORT"); ok {
+		err = apiInstance.RunAzureFunctions(port)
+	} else {
+		err = apiInstance.RunLocal()
+	}
+
 	if err != nil {
 		panic(err)
 	}
