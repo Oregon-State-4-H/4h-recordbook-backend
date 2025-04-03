@@ -23,6 +23,7 @@ const API_VERSION = "1.0"
 
 type Api interface {
 	RunLocal() error
+	RunAzureFunctions(string) error
 }
 
 type env struct {
@@ -103,6 +104,10 @@ func (e *env) RunLocal() error {
 	return http.ListenAndServe("localhost:8080", e.api)
 }
 
+func (e *env) RunAzureFunctions(port string) error {
+	return http.ListenAndServe(":"+port, e.api)
+}
+
 func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcInstance upc.Upc) (Api, error) {
 
 	logger.Info("Setting up API")
@@ -122,7 +127,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.Use(cors.New(cors.Config{
 		AllowCredentials: true,
 		AllowHeaders:     []string{"Authorization", "Content-Type"},
-		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 	}))
 
