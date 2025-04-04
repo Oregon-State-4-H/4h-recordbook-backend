@@ -203,19 +203,21 @@ func (e *env) addSection1(c *gin.Context) {
 
 	section := db.Section1{
 		ID:               g.String(),
-		Section:          1,
 		Nickname:         input.Nickname,
-		Year:             input.Year,
 		Grade:            *input.Grade,
 		ClubName:         input.ClubName,
 		NumInClub:        *input.NumInClub,
 		ClubLeader:       input.ClubLeader,
 		MeetingsHeld:     *input.MeetingsHeld,
 		MeetingsAttended: *input.MeetingsAttended,
-		UserID:           claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 1,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -295,19 +297,21 @@ func (e *env) updateSection1(c *gin.Context) {
 
 	updatedSection := db.Section1{
 		ID:               existingSection.ID,
-		Section:          1,
 		Nickname:         input.Nickname,
-		Year:             input.Year,
 		Grade:            *input.Grade,
 		ClubName:         input.ClubName,
 		NumInClub:        *input.NumInClub,
 		ClubLeader:       input.ClubLeader,
 		MeetingsHeld:     *input.MeetingsHeld,
 		MeetingsAttended: *input.MeetingsAttended,
-		UserID:           claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 1,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -470,14 +474,16 @@ func (e *env) addSection2(c *gin.Context) {
 
 	section := db.Section2{
 		ID:           g.String(),
-		Section:      2,
-		Year:         input.Year,
 		ProjectName:  input.ProjectName,
 		ProjectScope: input.ProjectScope,
-		UserID:       claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 2,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -558,14 +564,16 @@ func (e *env) updateSection2(c *gin.Context) {
 
 	updatedSection := db.Section2{
 		ID:           existingSection.ID,
-		Section:      2,
-		Year:         input.Year,
 		ProjectName:  input.ProjectName,
 		ProjectScope: input.ProjectScope,
-		UserID:       claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 2,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -731,16 +739,18 @@ func (e *env) addSection3(c *gin.Context) {
 
 	section := db.Section3{
 		ID:            g.String(),
-		Section:       3,
 		Nickname:      input.Nickname,
-		Year:          input.Year,
 		ActivityKind:  input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
 		Level:         input.Level,
-		UserID:        claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 3,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -821,16 +831,18 @@ func (e *env) updateSection3(c *gin.Context) {
 
 	updatedSection := db.Section3{
 		ID:            existingSection.ID,
-		Section:       3,
 		Nickname:      input.Nickname,
-		Year:          input.Year,
 		ActivityKind:  input.ActivityKind,
 		ThingsLearned: input.ThingsLearned,
 		Level:         input.Level,
-		UserID:        claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 3,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -996,16 +1008,18 @@ func (e *env) addSection4(c *gin.Context) {
 
 	section := db.Section4{
 		ID:           g.String(),
-		Section:      4,
 		Nickname:     input.Nickname,
-		Year:         input.Year,
 		ActivityKind: input.ActivityKind,
 		Scope:        input.Scope,
 		Level:        input.Level,
-		UserID:       claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 4,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1086,16 +1100,18 @@ func (e *env) updateSection4(c *gin.Context) {
 
 	updatedSection := db.Section4{
 		ID:           existingSection.ID,
-		Section:      4,
 		Nickname:     input.Nickname,
-		Year:         input.Year,
 		ActivityKind: input.ActivityKind,
 		Scope:        input.Scope,
 		Level:        input.Level,
-		UserID:       claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 4,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1261,16 +1277,18 @@ func (e *env) addSection5(c *gin.Context) {
 
 	section := db.Section5{
 		ID:               g.String(),
-		Section:          5,
 		Nickname:         input.Nickname,
-		Year:             input.Year,
 		LeadershipRole:   input.LeadershipRole,
 		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID:           claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 5,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1351,16 +1369,18 @@ func (e *env) updateSection5(c *gin.Context) {
 
 	updatedSection := db.Section5{
 		ID:               existingSection.ID,
-		Section:          5,
 		Nickname:         input.Nickname,
-		Year:             input.Year,
 		LeadershipRole:   input.LeadershipRole,
 		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID:           claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 5,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1527,17 +1547,19 @@ func (e *env) addSection6(c *gin.Context) {
 
 	section := db.Section6{
 		ID:               g.String(),
-		Section:          6,
 		Nickname:         input.Nickname,
-		Year:             input.Year,
 		OrganizationName: input.OrganizationName,
 		LeadershipRole:   input.LeadershipRole,
 		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID:           claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 6,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1618,17 +1640,19 @@ func (e *env) updateSection6(c *gin.Context) {
 
 	updatedSection := db.Section6{
 		ID:               existingSection.ID,
-		Section:          6,
 		Nickname:         input.Nickname,
-		Year:             input.Year,
 		OrganizationName: input.OrganizationName,
 		LeadershipRole:   input.LeadershipRole,
 		HoursSpent:       *input.HoursSpent,
 		NumPeopleReached: *input.NumPeopleReached,
-		UserID:           claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 6,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1794,16 +1818,18 @@ func (e *env) addSection7(c *gin.Context) {
 
 	section := db.Section7{
 		ID:                   g.String(),
-		Section:              7,
 		Nickname:             input.Nickname,
-		Year:                 input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
 		HoursSpent:           *input.HoursSpent,
 		NumPeopleReached:     *input.NumPeopleReached,
-		UserID:               claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 7,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -1884,16 +1910,18 @@ func (e *env) updateSection7(c *gin.Context) {
 
 	updatedSection := db.Section7{
 		ID:                   existingSection.ID,
-		Section:              7,
 		Nickname:             input.Nickname,
-		Year:                 input.Year,
 		ClubMemberActivities: input.ClubMemberActivities,
 		HoursSpent:           *input.HoursSpent,
 		NumPeopleReached:     *input.NumPeopleReached,
-		UserID:               claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 7,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2059,16 +2087,18 @@ func (e *env) addSection8(c *gin.Context) {
 
 	section := db.Section8{
 		ID:                        g.String(),
-		Section:                   8,
 		Nickname:                  input.Nickname,
-		Year:                      input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
 		HoursSpent:                *input.HoursSpent,
 		NumPeopleReached:          *input.NumPeopleReached,
-		UserID:                    claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 8,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2149,16 +2179,18 @@ func (e *env) updateSection8(c *gin.Context) {
 
 	updatedSection := db.Section8{
 		ID:                        existingSection.ID,
-		Section:                   8,
 		Nickname:                  input.Nickname,
-		Year:                      input.Year,
 		IndividualGroupActivities: input.IndividualGroupActivities,
 		HoursSpent:                *input.HoursSpent,
 		NumPeopleReached:          *input.NumPeopleReached,
-		UserID:                    claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 8,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2326,18 +2358,20 @@ func (e *env) addSection9(c *gin.Context) {
 
 	section := db.Section9{
 		ID:                g.String(),
-		Section:           9,
 		Nickname:          input.Nickname,
-		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic:             input.Topic,
 		TimesGiven:        *input.TimesGiven,
 		Location:          input.Location,
 		AudienceSize:      *input.AudienceSize,
-		UserID:            claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 9,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2418,18 +2452,20 @@ func (e *env) updateSection9(c *gin.Context) {
 
 	updatedSection := db.Section9{
 		ID:                existingSection.ID,
-		Section:           9,
 		Nickname:          input.Nickname,
-		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic:             input.Topic,
 		TimesGiven:        *input.TimesGiven,
 		Location:          input.Location,
 		AudienceSize:      *input.AudienceSize,
-		UserID:            claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 9,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2597,18 +2633,20 @@ func (e *env) addSection10(c *gin.Context) {
 
 	section := db.Section10{
 		ID:                g.String(),
-		Section:           10,
 		Nickname:          input.Nickname,
-		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic:             input.Topic,
 		TimesGiven:        *input.TimesGiven,
 		Location:          input.Location,
 		AudienceSize:      *input.AudienceSize,
-		UserID:            claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 10,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2689,18 +2727,20 @@ func (e *env) updateSection10(c *gin.Context) {
 
 	updatedSection := db.Section10{
 		ID:                existingSection.ID,
-		Section:           10,
 		Nickname:          input.Nickname,
-		Year:              input.Year,
 		CommunicationType: input.CommunicationType,
 		Topic:             input.Topic,
 		TimesGiven:        *input.TimesGiven,
 		Location:          input.Location,
 		AudienceSize:      *input.AudienceSize,
-		UserID:            claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 10,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2866,16 +2906,18 @@ func (e *env) addSection11(c *gin.Context) {
 
 	section := db.Section11{
 		ID:                 g.String(),
-		Section:            11,
 		Nickname:           input.Nickname,
-		Year:               input.Year,
 		EventAndLevel:      input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
 		RibbonOrPlacings:   input.RibbonOrPlacings,
-		UserID:             claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 11,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -2956,16 +2998,18 @@ func (e *env) updateSection11(c *gin.Context) {
 
 	updatedSection := db.Section11{
 		ID:                 existingSection.ID,
-		Section:            11,
 		Nickname:           input.Nickname,
-		Year:               input.Year,
 		EventAndLevel:      input.EventAndLevel,
 		ExhibitsOrDivision: input.ExhibitsOrDivision,
 		RibbonOrPlacings:   input.RibbonOrPlacings,
-		UserID:             claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 11,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -3131,16 +3175,18 @@ func (e *env) addSection12(c *gin.Context) {
 
 	section := db.Section12{
 		ID:                  g.String(),
-		Section:             12,
 		Nickname:            input.Nickname,
-		Year:                input.Year,
 		ContestOrEvent:      input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
 		Level:               input.Level,
-		UserID:              claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 12,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -3221,16 +3267,18 @@ func (e *env) updateSection12(c *gin.Context) {
 
 	updatedSection := db.Section12{
 		ID:                  existingSection.ID,
-		Section:             12,
 		Nickname:            input.Nickname,
-		Year:                input.Year,
 		ContestOrEvent:      input.ContestOrEvent,
 		RecognitionReceived: input.RecognitionReceived,
 		Level:               input.Level,
-		UserID:              claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 12,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -3394,14 +3442,16 @@ func (e *env) addSection13(c *gin.Context) {
 
 	section := db.Section13{
 		ID:              g.String(),
-		Section:         13,
 		Nickname:        input.Nickname,
-		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID:          claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 13,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -3482,14 +3532,16 @@ func (e *env) updateSection13(c *gin.Context) {
 
 	updatedSection := db.Section13{
 		ID:              existingSection.ID,
-		Section:         13,
 		Nickname:        input.Nickname,
-		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID:          claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 13,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -3652,14 +3704,16 @@ func (e *env) addSection14(c *gin.Context) {
 
 	section := db.Section14{
 		ID:              g.String(),
-		Section:         14,
 		Nickname:        input.Nickname,
-		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID:          claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: timestamp.String(),
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 14,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: timestamp.String(),
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
@@ -3740,14 +3794,16 @@ func (e *env) updateSection14(c *gin.Context) {
 
 	updatedSection := db.Section14{
 		ID:              existingSection.ID,
-		Section:         14,
 		Nickname:        input.Nickname,
-		Year:            input.Year,
 		RecognitionType: input.RecognitionType,
-		UserID:          claims.ID,
-		GenericDatabaseInfo: db.GenericDatabaseInfo{
-			Created: existingSection.Created,
-			Updated: timestamp.String(),
+		GenericSectionInfo: db.GenericSectionInfo{
+			Section: 14,
+			Year:    input.Year,
+			UserID:  claims.ID,
+			GenericDatabaseInfo: db.GenericDatabaseInfo{
+				Created: existingSection.Created,
+				Updated: timestamp.String(),
+			},
 		},
 	}
 
