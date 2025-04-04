@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	jwtmiddleware "github.com/auth0/go-jwt-middleware/v2"
@@ -18,6 +19,7 @@ import (
 // CustomClaims contains custom data we want from the token.
 type CustomClaims struct {
 	Scope string `json:"scope"`
+	Name string `json:"id"`
 }
 
 // Validate does nothing for this example, but we need
@@ -28,9 +30,7 @@ func (c CustomClaims) Validate(ctx context.Context) error {
 
 // EnsureValidToken is a middleware that will check the validity of our JWT.
 func EnsureValidToken() gin.HandlerFunc {
-	//issuerURL, err := url.Parse("https://" + os.Getenv("AUTH0_DOMAIN") + "/")
-	//TODO Get creds from Config!
-	issuerURL, err := url.Parse("SET AUTH0 URL HERE")
+	issuerURL, err := url.Parse("https://" + os.Getenv("AUTH0_DOMAIN") + "/")
 	if err != nil {
 		log.Fatalf("Failed to parse the issuer url: %v", err)
 	}
@@ -41,8 +41,7 @@ func EnsureValidToken() gin.HandlerFunc {
 		provider.KeyFunc,
 		validator.RS256,
 		issuerURL.String(),
-		//TODO []string{os.Getenv("AUTH0_AUDIENCE")},
-		[]string{"SET AUTH0 AUDIENCE HERE"},
+		[]string{os.Getenv("AUTH0_AUDIENCE")},
 		validator.WithCustomClaims(
 			func() validator.CustomClaims {
 				return &CustomClaims{}
@@ -68,6 +67,15 @@ func EnsureValidToken() gin.HandlerFunc {
 	)
 
 	return adapter.Wrap(middleware.CheckJWT)
+}
+
+func GetToken() gin.HandlerFunc {
+	return func(c* gin.Context){
+		token := c.Request.Context().Value(jwtmiddleware.ContextKey{}).(*validator.ValidatedClaims)
+		customClaims := token.CustomClaims.(*CustomClaims)
+		c.Set("user_scope", customClaims.Scope)
+		c.Set("user_id", token.RegisteredClaims.Subject)
+	}
 }
 
 // HasScope checks whether our claims have a specific scope.
