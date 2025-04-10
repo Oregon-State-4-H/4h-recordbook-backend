@@ -31,10 +31,6 @@ type GenericSectionInfo struct {
 	GenericDatabaseInfo
 }
 
-type Section interface {
-	Get() (interface{}, error)
-}
-
 /*******************************
 * ALL SECTIONS
 ********************************/
@@ -133,28 +129,6 @@ type Section1 struct {
 	MeetingsHeld     int    `json:"meetings_held"`
 	MeetingsAttended int    `json:"meetings_attended"`
 	GenericSectionInfo
-}
-
-func (section Section1) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection1(section interface{}) (Section1, error) {
-
-	var output Section1
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
 }
 
 func (env *env) GetSection1ByID(ctx context.Context, userID string, sectionID string) (Section1, error) {
@@ -261,28 +235,6 @@ type Section2 struct {
 	ProjectName  string `json:"project_name"`
 	ProjectScope string `json:"project_scope"`
 	GenericSectionInfo
-}
-
-func (section Section2) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection2(section interface{}) (Section2, error) {
-
-	var output Section2
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
 }
 
 func (env *env) GetSection2ByID(ctx context.Context, userID string, sectionID string) (Section2, error) {
@@ -393,28 +345,6 @@ type Section3 struct {
 	GenericSectionInfo
 }
 
-func (section Section3) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection3(section interface{}) (Section3, error) {
-
-	var output Section3
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection3ByID(ctx context.Context, userID string, sectionID string) (Section3, error) {
 
 	env.logger.Info("Getting Section 3 by ID")
@@ -523,28 +453,6 @@ type Section4 struct {
 	GenericSectionInfo
 }
 
-func (section Section4) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection4(section interface{}) (Section4, error) {
-
-	var output Section4
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection4ByID(ctx context.Context, userID string, sectionID string) (Section4, error) {
 
 	env.logger.Info("Getting Section 4 by ID")
@@ -651,28 +559,6 @@ type Section5 struct {
 	HoursSpent       int    `json:"hours_spent"`
 	NumPeopleReached int    `json:"num_people_reached"`
 	GenericSectionInfo
-}
-
-func (section Section5) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection5(section interface{}) (Section5, error) {
-
-	var output Section5
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
 }
 
 func (env *env) GetSection5ByID(ctx context.Context, userID string, sectionID string) (Section5, error) {
@@ -784,28 +670,6 @@ type Section6 struct {
 	GenericSectionInfo
 }
 
-func (section Section6) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection6(section interface{}) (Section6, error) {
-
-	var output Section6
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection6ByID(ctx context.Context, userID string, sectionID string) (Section6, error) {
 
 	env.logger.Info("Getting Section 6 by ID")
@@ -914,28 +778,6 @@ type Section7 struct {
 	GenericSectionInfo
 }
 
-func (section Section7) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection7(section interface{}) (Section7, error) {
-
-	var output Section7
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection7ByID(ctx context.Context, userID string, sectionID string) (Section7, error) {
 
 	env.logger.Info("Getting Section 7 by ID")
@@ -1042,28 +884,6 @@ type Section8 struct {
 	HoursSpent                int    `json:"hours_spent"`
 	NumPeopleReached          int    `json:"num_people_reached"`
 	GenericSectionInfo
-}
-
-func (section Section8) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection8(section interface{}) (Section8, error) {
-
-	var output Section8
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
 }
 
 func (env *env) GetSection8ByID(ctx context.Context, userID string, sectionID string) (Section8, error) {
@@ -1176,28 +996,6 @@ type Section9 struct {
 	GenericSectionInfo
 }
 
-func (section Section9) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection9(section interface{}) (Section9, error) {
-
-	var output Section9
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection9ByID(ctx context.Context, userID string, sectionID string) (Section9, error) {
 
 	env.logger.Info("Getting Section 9 by ID")
@@ -1308,28 +1106,6 @@ type Section10 struct {
 	GenericSectionInfo
 }
 
-func (section Section10) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection10(section interface{}) (Section10, error) {
-
-	var output Section10
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection10ByID(ctx context.Context, userID string, sectionID string) (Section10, error) {
 
 	env.logger.Info("Getting Section 10 by ID")
@@ -1436,28 +1212,6 @@ type Section11 struct {
 	ExhibitsOrDivision string `json:"exhibits_or_division"`
 	RibbonOrPlacings   string `json:"ribbon_or_placings"`
 	GenericSectionInfo
-}
-
-func (section Section11) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection11(section interface{}) (Section11, error) {
-
-	var output Section11
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
 }
 
 func (env *env) GetSection11ByID(ctx context.Context, userID string, sectionID string) (Section11, error) {
@@ -1568,28 +1322,6 @@ type Section12 struct {
 	GenericSectionInfo
 }
 
-func (section Section12) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection12(section interface{}) (Section12, error) {
-
-	var output Section12
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection12ByID(ctx context.Context, userID string, sectionID string) (Section12, error) {
 
 	env.logger.Info("Getting Section 12 by ID")
@@ -1696,28 +1428,6 @@ type Section13 struct {
 	GenericSectionInfo
 }
 
-func (section Section13) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection13(section interface{}) (Section13, error) {
-
-	var output Section13
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
-}
-
 func (env *env) GetSection13ByID(ctx context.Context, userID string, sectionID string) (Section13, error) {
 
 	env.logger.Info("Getting Section 13 by ID")
@@ -1822,28 +1532,6 @@ type Section14 struct {
 	Nickname        string `json:"nickname"`
 	RecognitionType string `json:"recognition_type"`
 	GenericSectionInfo
-}
-
-func (section Section14) Get() (interface{}, error) {
-	return section, nil
-}
-
-func DecodeSection14(section interface{}) (Section14, error) {
-
-	var output Section14
-
-	marshalled, err := json.Marshal(section)
-	if err != nil {
-		return output, err
-	}
-
-	err = json.Unmarshal(marshalled, &output)
-	if err != nil {
-		return output, err
-	}
-
-	return output, nil
-
 }
 
 func (env *env) GetSection14ByID(ctx context.Context, userID string, sectionID string) (Section14, error) {

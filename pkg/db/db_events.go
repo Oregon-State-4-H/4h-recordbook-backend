@@ -19,11 +19,6 @@ type Event struct {
 	GenericDatabaseInfo
 }
 
-type SectionTuple struct {
-	SectionNumber int    `json:"section_number"`
-	SectionID     string `json:"section_id"`
-}
-
 func (env *env) GetEventsByUser(ctx context.Context, userID string) ([]Event, error) {
 
 	env.logger.Info("Getting events")
