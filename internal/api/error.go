@@ -30,7 +30,8 @@ const (
 	ErrNotFound = "Item not found"
 
 	//409
-	ErrBookmarkConflict = "Bookmark with that link already exists"
+	ErrBookmarkConflict     = "Bookmark with that link already exists"
+	ErrEventSectionConflict = "Event already has this section"
 )
 
 type HTTPResponseCode struct {

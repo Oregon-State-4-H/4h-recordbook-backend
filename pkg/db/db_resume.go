@@ -31,22 +31,6 @@ type GenericSectionInfo struct {
 	GenericDatabaseInfo
 }
 
-type SectionTuple struct {
-	SectionNumber int     `json:"section_number"`
-	Section       Section `json:"section"`
-}
-
-type Event struct {
-	ID          string         `json:"id"`
-	Name        string         `json:"name"`
-	StartDate   string         `json:"start_date"`
-	EndDate     string         `json:"end_date"`
-	Location    string         `json:"location"`
-	Description string         `json:"description"`
-	UserID      string         `json:"user_id"`
-	Sections    []SectionTuple `json:"sections"`
-}
-
 type Section interface {
 	Get() (interface{}, error)
 }
