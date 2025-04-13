@@ -17,10 +17,11 @@ var HTTPResponseCodeMap = map[int]string{
 
 const (
 	//400
-	ErrBadRequest    = "Bad request"
-	ErrMissingFields = "One or more required fields is missing"
-	ErrNoQuery       = "No query provided"
-	ErrBadDate       = "The date(s) provided do not conform to the RFC3339 format."
+	ErrBadRequest           = "Bad request"
+	ErrMissingFields        = "One or more required fields is missing"
+	ErrNoQuery              = "No query provided"
+	ErrBadDate              = "The date(s) provided do not conform to the RFC3339 format."
+	ErrInvalidSectionNumber = "Section number must be in the range [1-14] inclusive"
 
 	//401
 	ErrNoToken  = "No authentication token provided"

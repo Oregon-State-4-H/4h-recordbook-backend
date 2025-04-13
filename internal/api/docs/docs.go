@@ -703,7 +703,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Get a user's event by ID",
+                "description": "Get a user's event by ID and includes relevant section data",
                 "consumes": [
                     "application/json"
                 ],
@@ -713,7 +713,7 @@ const docTemplate = `{
                 "tags": [
                     "Event"
                 ],
-                "summary": "Get an event",
+                "summary": "Get an event with sections",
                 "parameters": [
                     {
                         "type": "string",
@@ -727,7 +727,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.GetEventOutput"
+                            "$ref": "#/definitions/api.GetEventWithSectionsOutput"
                         }
                     },
                     "401": {
@@ -797,7 +797,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Adds an section to a user's personal event records, updating the event",
+                "description": "Adds an event section to a user's personal records",
                 "consumes": [
                     "application/json"
                 ],
@@ -807,30 +807,23 @@ const docTemplate = `{
                 "tags": [
                     "Event"
                 ],
-                "summary": "Adds a section to an event",
+                "summary": "Adds an event section",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Event ID",
-                        "name": "eventID",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
                         "description": "Identifying section information",
-                        "name": "AddSectionToEventInput",
+                        "name": "UpsertEventSectionInput",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/api.AddSectionToEventInput"
+                            "$ref": "#/definitions/api.UpsertEventSectionInput"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/api.UpsertEventOutput"
+                            "$ref": "#/definitions/api.UpsertEventSectionOutput"
                         }
                     },
                     "400": {
@@ -838,9 +831,6 @@ const docTemplate = `{
                     },
                     "401": {
                         "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
                     },
                     "409": {
                         "description": "Conflict"
@@ -893,7 +883,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Deletes a section from a user's personal event records, updating the event",
+                "description": "Deletes a user's event section given the event ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -903,7 +893,7 @@ const docTemplate = `{
                 "tags": [
                     "Event"
                 ],
-                "summary": "Deletes a section from an event",
+                "summary": "Removes an event section",
                 "parameters": [
                     {
                         "type": "string",
@@ -921,23 +911,14 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.UpsertEventOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
+                    "204": {
+                        "description": "No Content"
                     },
                     "401": {
                         "description": "Unauthorized"
                     },
                     "404": {
                         "description": "Not Found"
-                    },
-                    "409": {
-                        "description": "Conflict"
                     }
                 }
             }
@@ -4743,17 +4724,6 @@ const docTemplate = `{
                 }
             }
         },
-        "api.AddSectionToEventInput": {
-            "type": "object",
-            "properties": {
-                "section_id": {
-                    "type": "string"
-                },
-                "section_number": {
-                    "type": "integer"
-                }
-            }
-        },
         "api.GetAnimalOutput": {
             "type": "object",
             "properties": {
@@ -4811,11 +4781,15 @@ const docTemplate = `{
                 }
             }
         },
-        "api.GetEventOutput": {
+        "api.GetEventWithSectionsOutput": {
             "type": "object",
             "properties": {
                 "event": {
                     "$ref": "#/definitions/db.Event"
+                },
+                "sections": {
+                    "type": "array",
+                    "items": {}
                 }
             }
         },
@@ -5415,6 +5389,25 @@ const docTemplate = `{
             "properties": {
                 "event": {
                     "$ref": "#/definitions/db.Event"
+                }
+            }
+        },
+        "api.UpsertEventSectionInput": {
+            "type": "object",
+            "properties": {
+                "section_id": {
+                    "type": "string"
+                },
+                "section_number": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.UpsertEventSectionOutput": {
+            "type": "object",
+            "properties": {
+                "event_section": {
+                    "$ref": "#/definitions/db.EventSection"
                 }
             }
         },
@@ -6220,14 +6213,34 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "sections": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "integer"
-                    }
-                },
                 "start_date": {
                     "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "db.EventSection": {
+            "type": "object",
+            "properties": {
+                "created": {
+                    "type": "string"
+                },
+                "event_id": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "section_id": {
+                    "type": "string"
+                },
+                "section_number": {
+                    "type": "integer"
                 },
                 "updated": {
                     "type": "string"
