@@ -2052,6 +2052,11 @@ paths:
       - application/json
       description: Adds an event section to a user's personal records
       parameters:
+      - description: Event ID
+        in: path
+        name: eventID
+        required: true
+        type: string
       - description: Identifying section information
         in: body
         name: UpsertEventSectionInput

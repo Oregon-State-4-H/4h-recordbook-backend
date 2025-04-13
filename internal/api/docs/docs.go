@@ -810,6 +810,13 @@ const docTemplate = `{
                 "summary": "Adds an event section",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Event ID",
+                        "name": "eventID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Identifying section information",
                         "name": "UpsertEventSectionInput",
                         "in": "body",
