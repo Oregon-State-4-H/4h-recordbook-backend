@@ -20,6 +20,7 @@ type Config struct {
 	MaxPageSize int      `json:"max_page_size"`
 	Database    Database `json:"cosmos"`
 	Upc         Upc      `json:"upc"`
+	Auth0		Auth0    `json:"auth0"`
 }
 
 type Database struct {
@@ -42,6 +43,11 @@ type Upc struct {
 
 type UpcParams struct {
 	Key string `json:"key"`
+}
+
+type Auth0 struct {
+	Domain string `json:"domain"`
+	Audience string `json:"audience"`
 }
 
 func New(logger *zap.SugaredLogger) (*Config, error) {
@@ -68,6 +74,9 @@ func New(logger *zap.SugaredLogger) (*Config, error) {
 		c.Database.Current = c.Database.Development
 		c.Upc.Current = c.Upc.Development
 	}
+
+	os.Setenv("AUTH0_DOMAIN", c.Auth0.Domain)
+	os.Setenv("AUTH0_AUDIENCE", c.Auth0.Audience)
 
 	return &c, nil
 

@@ -3,6 +3,7 @@ package api
 import (
 	_ "4h-recordbook-backend/internal/api/docs"
 	"4h-recordbook-backend/internal/config"
+	"4h-recordbook-backend/internal/middleware"
 	"4h-recordbook-backend/pkg/db"
 	"4h-recordbook-backend/pkg/upc"
 	"errors"
@@ -137,6 +138,10 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 		c.JSON(http.StatusOK, gin.H{
 			"message": "hello",
 		})
+	})
+
+	router.GET("/auth", middleware.EnsureValidToken(), middleware.GetToken(), func(c *gin.Context){
+		c.String(http.StatusOK, "Authorized successfully, welcome, " + c.GetString("user_name") + "!")
 	})
 
 	router.GET("/user", e.getUserProfile)
