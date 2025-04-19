@@ -24,173 +24,10 @@ type Resume struct {
 	Section14Data []Section14 `json:"section_14_data"`
 }
 
-type Section1 struct {
-	ID               string `json:"id"`
-	Section          int    `json:"section"`
-	Nickname         string `json:"nickname"`
-	Year             string `json:"year"`
-	Grade            int    `json:"grade"`
-	ClubName         string `json:"club_name"`
-	NumInClub        int    `json:"num_in_club"`
-	ClubLeader       string `json:"club_leader"`
-	MeetingsHeld     int    `json:"meetings_held"`
-	MeetingsAttended int    `json:"meetings_attended"`
-	UserID           string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section2 struct {
-	ID           string `json:"id"`
-	Section      int    `json:"section"`
-	Year         string `json:"year"`
-	ProjectName  string `json:"project_name"`
-	ProjectScope string `json:"project_scope"`
-	UserID       string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section3 struct {
-	ID            string `json:"id"`
-	Section       int    `json:"section"`
-	Nickname      string `json:"nickname"`
-	Year          string `json:"year"`
-	ActivityKind  string `json:"activity_kind"`
-	ThingsLearned string `json:"things_learned"`
-	Level         string `json:"level"`
-	UserID        string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section4 struct {
-	ID           string `json:"id"`
-	Section      int    `json:"section"`
-	Nickname     string `json:"nickname"`
-	Year         string `json:"year"`
-	ActivityKind string `json:"activity_kind"`
-	Scope        string `json:"scope"`
-	Level        string `json:"level"`
-	UserID       string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section5 struct {
-	ID               string `json:"id"`
-	Section          int    `json:"section"`
-	Nickname         string `json:"nickname"`
-	Year             string `json:"year"`
-	LeadershipRole   string `json:"leadership_role"`
-	HoursSpent       int    `json:"hours_spent"`
-	NumPeopleReached int    `json:"num_people_reached"`
-	UserID           string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section6 struct {
-	ID               string `json:"id"`
-	Section          int    `json:"section"`
-	Nickname         string `json:"nickname"`
-	Year             string `json:"year"`
-	OrganizationName string `json:"organization_name"`
-	LeadershipRole   string `json:"leadership_role"`
-	HoursSpent       int    `json:"hours_spent"`
-	NumPeopleReached int    `json:"num_people_reached"`
-	UserID           string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section7 struct {
-	ID                   string `json:"id"`
-	Section              int    `json:"section"`
-	Nickname             string `json:"nickname"`
-	Year                 string `json:"year"`
-	ClubMemberActivities string `json:"club_member_activities"`
-	HoursSpent           int    `json:"hours_spent"`
-	NumPeopleReached     int    `json:"num_people_reached"`
-	UserID               string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section8 struct {
-	ID                        string `json:"id"`
-	Section                   int    `json:"section"`
-	Nickname                  string `json:"nickname"`
-	Year                      string `json:"year"`
-	IndividualGroupActivities string `json:"individual_group_activities"`
-	HoursSpent                int    `json:"hours_spent"`
-	NumPeopleReached          int    `json:"num_people_reached"`
-	UserID                    string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section9 struct {
-	ID                string `json:"id"`
-	Section           int    `json:"section"`
-	Nickname          string `json:"nickname"`
-	Year              string `json:"year"`
-	CommunicationType string `json:"communication_type"`
-	Topic             string `json:"topic"`
-	TimesGiven        int    `json:"times_given"`
-	Location          string `json:"location"`
-	AudienceSize      int    `json:"audience_size"`
-	UserID            string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section10 struct {
-	ID                string `json:"id"`
-	Section           int    `json:"section"`
-	Nickname          string `json:"nickname"`
-	Year              string `json:"year"`
-	CommunicationType string `json:"communication_type"`
-	Topic             string `json:"topic"`
-	TimesGiven        int    `json:"times_given"`
-	Location          string `json:"location"`
-	AudienceSize      int    `json:"audience_size"`
-	UserID            string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section11 struct {
-	ID                 string `json:"id"`
-	Section            int    `json:"section"`
-	Nickname           string `json:"nickname"`
-	Year               string `json:"year"`
-	EventAndLevel      string `json:"event_and_level"`
-	ExhibitsOrDivision string `json:"exhibits_or_division"`
-	RibbonOrPlacings   string `json:"ribbon_or_placings"`
-	UserID             string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section12 struct {
-	ID                  string `json:"id"`
-	Section             int    `json:"section"`
-	Nickname            string `json:"nickname"`
-	Year                string `json:"year"`
-	ContestOrEvent      string `json:"contest_or_event"`
-	RecognitionReceived string `json:"recognition_received"`
-	Level               string `json:"level"`
-	UserID              string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section13 struct {
-	ID              string `json:"id"`
-	Section         int    `json:"section"`
-	Nickname        string `json:"nickname"`
-	Year            string `json:"year"`
-	RecognitionType string `json:"recognition_type"`
-	UserID          string `json:"user_id"`
-	GenericDatabaseInfo
-}
-
-type Section14 struct {
-	ID              string `json:"id"`
-	Section         int    `json:"section"`
-	Nickname        string `json:"nickname"`
-	Year            string `json:"year"`
-	RecognitionType string `json:"recognition_type"`
-	UserID          string `json:"user_id"`
+type GenericSectionInfo struct {
+	Section int    `json:"section"`
+	Year    string `json:"year"`
+	UserID  string `json:"user_id"`
 	GenericDatabaseInfo
 }
 
@@ -282,6 +119,18 @@ func (env *env) GetResume(ctx context.Context, userID string) (Resume, error) {
 * SECTION 1
 ********************************/
 
+type Section1 struct {
+	ID               string `json:"id"`
+	Nickname         string `json:"nickname"`
+	Grade            int    `json:"grade"`
+	ClubName         string `json:"club_name"`
+	NumInClub        int    `json:"num_in_club"`
+	ClubLeader       string `json:"club_leader"`
+	MeetingsHeld     int    `json:"meetings_held"`
+	MeetingsAttended int    `json:"meetings_attended"`
+	GenericSectionInfo
+}
+
 func (env *env) GetSection1ByID(ctx context.Context, userID string, sectionID string) (Section1, error) {
 
 	env.logger.Info("Getting Section 1 by ID")
@@ -357,6 +206,9 @@ func (env *env) UpsertSection1(ctx context.Context, section Section1) (Section1,
 	env.logger.Info("Upserting section 1")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -377,6 +229,13 @@ func (env *env) UpsertSection1(ctx context.Context, section Section1) (Section1,
 /*******************************
 * SECTION 2
 ********************************/
+
+type Section2 struct {
+	ID           string `json:"id"`
+	ProjectName  string `json:"project_name"`
+	ProjectScope string `json:"project_scope"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection2ByID(ctx context.Context, userID string, sectionID string) (Section2, error) {
 
@@ -453,6 +312,9 @@ func (env *env) UpsertSection2(ctx context.Context, section Section2) (Section2,
 	env.logger.Info("Upserting section 2")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -473,6 +335,15 @@ func (env *env) UpsertSection2(ctx context.Context, section Section2) (Section2,
 /*******************************
 * SECTION 3
 ********************************/
+
+type Section3 struct {
+	ID            string `json:"id"`
+	Nickname      string `json:"nickname"`
+	ActivityKind  string `json:"activity_kind"`
+	ThingsLearned string `json:"things_learned"`
+	Level         string `json:"level"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection3ByID(ctx context.Context, userID string, sectionID string) (Section3, error) {
 
@@ -549,6 +420,9 @@ func (env *env) UpsertSection3(ctx context.Context, section Section3) (Section3,
 	env.logger.Info("Upserting section 3")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -569,6 +443,15 @@ func (env *env) UpsertSection3(ctx context.Context, section Section3) (Section3,
 /*******************************
 * SECTION 4
 ********************************/
+
+type Section4 struct {
+	ID           string `json:"id"`
+	Nickname     string `json:"nickname"`
+	ActivityKind string `json:"activity_kind"`
+	Scope        string `json:"scope"`
+	Level        string `json:"level"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection4ByID(ctx context.Context, userID string, sectionID string) (Section4, error) {
 
@@ -645,6 +528,9 @@ func (env *env) UpsertSection4(ctx context.Context, section Section4) (Section4,
 	env.logger.Info("Upserting section 4")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -665,6 +551,15 @@ func (env *env) UpsertSection4(ctx context.Context, section Section4) (Section4,
 /*******************************
 * SECTION 5
 ********************************/
+
+type Section5 struct {
+	ID               string `json:"id"`
+	Nickname         string `json:"nickname"`
+	LeadershipRole   string `json:"leadership_role"`
+	HoursSpent       int    `json:"hours_spent"`
+	NumPeopleReached int    `json:"num_people_reached"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection5ByID(ctx context.Context, userID string, sectionID string) (Section5, error) {
 
@@ -741,6 +636,9 @@ func (env *env) UpsertSection5(ctx context.Context, section Section5) (Section5,
 	env.logger.Info("Upserting section 5")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -761,6 +659,16 @@ func (env *env) UpsertSection5(ctx context.Context, section Section5) (Section5,
 /*******************************
 * SECTION 6
 ********************************/
+
+type Section6 struct {
+	ID               string `json:"id"`
+	Nickname         string `json:"nickname"`
+	OrganizationName string `json:"organization_name"`
+	LeadershipRole   string `json:"leadership_role"`
+	HoursSpent       int    `json:"hours_spent"`
+	NumPeopleReached int    `json:"num_people_reached"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection6ByID(ctx context.Context, userID string, sectionID string) (Section6, error) {
 
@@ -837,6 +745,9 @@ func (env *env) UpsertSection6(ctx context.Context, section Section6) (Section6,
 	env.logger.Info("Upserting section 6")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -857,6 +768,15 @@ func (env *env) UpsertSection6(ctx context.Context, section Section6) (Section6,
 /*******************************
 * SECTION 7
 ********************************/
+
+type Section7 struct {
+	ID                   string `json:"id"`
+	Nickname             string `json:"nickname"`
+	ClubMemberActivities string `json:"club_member_activities"`
+	HoursSpent           int    `json:"hours_spent"`
+	NumPeopleReached     int    `json:"num_people_reached"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection7ByID(ctx context.Context, userID string, sectionID string) (Section7, error) {
 
@@ -933,6 +853,9 @@ func (env *env) UpsertSection7(ctx context.Context, section Section7) (Section7,
 	env.logger.Info("Upserting section 7")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -953,6 +876,15 @@ func (env *env) UpsertSection7(ctx context.Context, section Section7) (Section7,
 /*******************************
 * SECTION 8
 ********************************/
+
+type Section8 struct {
+	ID                        string `json:"id"`
+	Nickname                  string `json:"nickname"`
+	IndividualGroupActivities string `json:"individual_group_activities"`
+	HoursSpent                int    `json:"hours_spent"`
+	NumPeopleReached          int    `json:"num_people_reached"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection8ByID(ctx context.Context, userID string, sectionID string) (Section8, error) {
 
@@ -1029,6 +961,9 @@ func (env *env) UpsertSection8(ctx context.Context, section Section8) (Section8,
 	env.logger.Info("Upserting section 8")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1049,6 +984,17 @@ func (env *env) UpsertSection8(ctx context.Context, section Section8) (Section8,
 /*******************************
 * SECTION 9
 ********************************/
+
+type Section9 struct {
+	ID                string `json:"id"`
+	Nickname          string `json:"nickname"`
+	CommunicationType string `json:"communication_type"`
+	Topic             string `json:"topic"`
+	TimesGiven        int    `json:"times_given"`
+	Location          string `json:"location"`
+	AudienceSize      int    `json:"audience_size"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection9ByID(ctx context.Context, userID string, sectionID string) (Section9, error) {
 
@@ -1125,6 +1071,9 @@ func (env *env) UpsertSection9(ctx context.Context, section Section9) (Section9,
 	env.logger.Info("Upserting section 9")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1145,6 +1094,17 @@ func (env *env) UpsertSection9(ctx context.Context, section Section9) (Section9,
 /*******************************
 * SECTION 10
 ********************************/
+
+type Section10 struct {
+	ID                string `json:"id"`
+	Nickname          string `json:"nickname"`
+	CommunicationType string `json:"communication_type"`
+	Topic             string `json:"topic"`
+	TimesGiven        int    `json:"times_given"`
+	Location          string `json:"location"`
+	AudienceSize      int    `json:"audience_size"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection10ByID(ctx context.Context, userID string, sectionID string) (Section10, error) {
 
@@ -1221,6 +1181,9 @@ func (env *env) UpsertSection10(ctx context.Context, section Section10) (Section
 	env.logger.Info("Upserting section 10")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1241,6 +1204,15 @@ func (env *env) UpsertSection10(ctx context.Context, section Section10) (Section
 /*******************************
 * SECTION 11
 ********************************/
+
+type Section11 struct {
+	ID                 string `json:"id"`
+	Nickname           string `json:"nickname"`
+	EventAndLevel      string `json:"event_and_level"`
+	ExhibitsOrDivision string `json:"exhibits_or_division"`
+	RibbonOrPlacings   string `json:"ribbon_or_placings"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection11ByID(ctx context.Context, userID string, sectionID string) (Section11, error) {
 
@@ -1317,6 +1289,9 @@ func (env *env) UpsertSection11(ctx context.Context, section Section11) (Section
 	env.logger.Info("Upserting section 11")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1337,6 +1312,15 @@ func (env *env) UpsertSection11(ctx context.Context, section Section11) (Section
 /*******************************
 * SECTION 12
 ********************************/
+
+type Section12 struct {
+	ID                  string `json:"id"`
+	Nickname            string `json:"nickname"`
+	ContestOrEvent      string `json:"contest_or_event"`
+	RecognitionReceived string `json:"recognition_received"`
+	Level               string `json:"level"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection12ByID(ctx context.Context, userID string, sectionID string) (Section12, error) {
 
@@ -1413,6 +1397,9 @@ func (env *env) UpsertSection12(ctx context.Context, section Section12) (Section
 	env.logger.Info("Upserting section 12")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1433,6 +1420,13 @@ func (env *env) UpsertSection12(ctx context.Context, section Section12) (Section
 /*******************************
 * SECTION 13
 ********************************/
+
+type Section13 struct {
+	ID              string `json:"id"`
+	Nickname        string `json:"nickname"`
+	RecognitionType string `json:"recognition_type"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection13ByID(ctx context.Context, userID string, sectionID string) (Section13, error) {
 
@@ -1509,6 +1503,9 @@ func (env *env) UpsertSection13(ctx context.Context, section Section13) (Section
 	env.logger.Info("Upserting section 13")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1527,8 +1524,15 @@ func (env *env) UpsertSection13(ctx context.Context, section Section13) (Section
 }
 
 /*******************************
-* SECTION 13
+* SECTION 14
 ********************************/
+
+type Section14 struct {
+	ID              string `json:"id"`
+	Nickname        string `json:"nickname"`
+	RecognitionType string `json:"recognition_type"`
+	GenericSectionInfo
+}
 
 func (env *env) GetSection14ByID(ctx context.Context, userID string, sectionID string) (Section14, error) {
 
@@ -1605,6 +1609,9 @@ func (env *env) UpsertSection14(ctx context.Context, section Section14) (Section
 	env.logger.Info("Upserting section 14")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return section, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(section.UserID)
 
@@ -1631,6 +1638,9 @@ func (env *env) RemoveSection(ctx context.Context, userID string, sectionID stri
 	env.logger.Info("Removing section")
 
 	container, err := env.client.NewContainer("sections")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 

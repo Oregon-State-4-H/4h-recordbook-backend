@@ -50,6 +50,21 @@ definitions:
           $ref: '#/definitions/db.DailyFeed'
         type: array
     type: object
+  api.GetEventWithSectionsOutput:
+    properties:
+      event:
+        $ref: '#/definitions/db.Event'
+      sections:
+        items: {}
+        type: array
+    type: object
+  api.GetEventsOutput:
+    properties:
+      events:
+        items:
+          $ref: '#/definitions/db.Event'
+        type: array
+    type: object
   api.GetExpenseOutput:
     properties:
       expense:
@@ -102,6 +117,18 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -259,18 +286,6 @@ definitions:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSuppliesOutput:
     properties:
       supplies:
@@ -414,6 +429,36 @@ definitions:
     properties:
       daily_feed:
         $ref: '#/definitions/db.DailyFeed'
+    type: object
+  api.UpsertEventInput:
+    properties:
+      description:
+        type: string
+      end_date:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      start_date:
+        type: string
+    type: object
+  api.UpsertEventOutput:
+    properties:
+      event:
+        $ref: '#/definitions/db.Event'
+    type: object
+  api.UpsertEventSectionInput:
+    properties:
+      section_id:
+        type: string
+      section_number:
+        type: integer
+    type: object
+  api.UpsertEventSectionOutput:
+    properties:
+      event_section:
+        $ref: '#/definitions/db.EventSection'
     type: object
   api.UpsertExpenseInput:
     properties:
@@ -942,6 +987,44 @@ definitions:
         type: string
       project_id:
         type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.Event:
+    properties:
+      created:
+        type: string
+      description:
+        type: string
+      end_date:
+        type: string
+      id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      start_date:
+        type: string
+      updated:
+        type: string
+      user_id:
+        type: string
+    type: object
+  db.EventSection:
+    properties:
+      created:
+        type: string
+      event_id:
+        type: string
+      id:
+        type: string
+      section_id:
+        type: string
+      section_number:
+        type: integer
       updated:
         type: string
       user_id:
@@ -1865,6 +1948,203 @@ paths:
       summary: Update a daily feed
       tags:
       - Daily Feed
+  /event:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's events
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetEventsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get events by user
+      tags:
+      - Event
+    post:
+      consumes:
+      - application/json
+      description: Adds an event to a user's personal records
+      parameters:
+      - description: General event information
+        in: body
+        name: UpsertEventInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertEventInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertEventOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Adds an event
+      tags:
+      - Event
+  /event/{eventID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's event given the event ID
+      parameters:
+      - description: Event ID
+        in: path
+        name: eventID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes an event
+      tags:
+      - Event
+    get:
+      consumes:
+      - application/json
+      description: Get a user's event by ID and includes relevant section data
+      parameters:
+      - description: Event ID
+        in: path
+        name: eventID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetEventWithSectionsOutput'
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Get an event with sections
+      tags:
+      - Event
+    post:
+      consumes:
+      - application/json
+      description: Adds an event section to a user's personal records
+      parameters:
+      - description: Event ID
+        in: path
+        name: eventID
+        required: true
+        type: string
+      - description: Identifying section information
+        in: body
+        name: UpsertEventSectionInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertEventSectionInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.UpsertEventSectionOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "409":
+          description: Conflict
+      security:
+      - ApiKeyAuth: []
+      summary: Adds an event section
+      tags:
+      - Event
+    put:
+      consumes:
+      - application/json
+      description: Updates a user's event information
+      parameters:
+      - description: Event ID
+        in: path
+        name: eventID
+        required: true
+        type: string
+      - description: Event information
+        in: body
+        name: UpsertEventInput
+        required: true
+        schema:
+          $ref: '#/definitions/api.UpsertEventInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.UpsertEventOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Update an event
+      tags:
+      - Event
+  /event/{eventID}/{sectionID}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a user's event section given the event ID
+      parameters:
+      - description: Event ID
+        in: path
+        name: eventID
+        required: true
+        type: string
+      - description: Section ID
+        in: path
+        name: sectionID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not Found
+      security:
+      - ApiKeyAuth: []
+      summary: Removes an event section
+      tags:
+      - Event
   /expense:
     get:
       consumes:
