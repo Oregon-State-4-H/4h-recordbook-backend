@@ -140,7 +140,10 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 		})
 	})
 
-	router.GET("/auth", middleware.EnsureValidToken(), middleware.GetToken(), func(c *gin.Context){
+	/*Require Authentication for all later calls.*/
+	router.Use(middleware.EnsureValidToken(), middleware.GetToken(), middleware.GetUser());
+
+	router.GET("/auth", func(c *gin.Context){
 		c.String(http.StatusOK, "Authorized successfully, welcome, " + c.GetString("user_name") + "!")
 	})
 
