@@ -492,212 +492,128 @@ func (e *env) addEventSection(c *gin.Context) {
 
 	switch *input.SectionNumber {
 	case 1:
-		section, err := e.db.GetSection1ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection1ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 1 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 2:
-		section, err := e.db.GetSection2ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection2ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 2 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 3:
-		section, err := e.db.GetSection3ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection3ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 3 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 4:
-		section, err := e.db.GetSection4ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection4ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 4 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 5:
-		section, err := e.db.GetSection5ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection5ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 5 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 6:
-		section, err := e.db.GetSection6ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection6ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 6 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 7:
-		section, err := e.db.GetSection7ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection7ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 7 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 8:
-		section, err := e.db.GetSection8ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection8ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 8 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 9:
-		section, err := e.db.GetSection9ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection9ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 9 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 10:
-		section, err := e.db.GetSection10ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection10ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 10 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 11:
-		section, err := e.db.GetSection11ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection11ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 11 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 12:
-		section, err := e.db.GetSection12ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection12ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 12 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 13:
-		section, err := e.db.GetSection13ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection13ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 13 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
 	case 14:
-		section, err := e.db.GetSection14ByID(context.TODO(), claims.ID, input.SectionID)
+		_, err := e.db.GetSection14ByID(context.TODO(), claims.ID, input.SectionID)
 		if err != nil {
 			response := InterpretCosmosError(err)
 			c.JSON(response.Code, gin.H{
 				"message": response.Message,
-			})
-			return
-		}
-		if section.Section != 14 {
-			c.JSON(404, gin.H{
-				"message": ErrNotFound,
 			})
 			return
 		}
