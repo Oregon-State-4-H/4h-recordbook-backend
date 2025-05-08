@@ -147,14 +147,6 @@ func (e *env) getSection1(c *gin.Context) {
 		return
 	}
 
-	//todo: filter this in the db package
-	if output.Section.Section != 1 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	c.JSON(200, output)
 
 }
@@ -286,13 +278,6 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 1 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section1{
@@ -415,13 +400,6 @@ func (e *env) getSection2(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 2 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -553,13 +531,6 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 2 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section2{
@@ -680,13 +651,6 @@ func (e *env) getSection3(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 3 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -820,13 +784,6 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 3 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section3{
@@ -949,13 +906,6 @@ func (e *env) getSection4(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 4 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1089,13 +1039,6 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 4 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section4{
@@ -1218,13 +1161,6 @@ func (e *env) getSection5(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 5 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1358,13 +1294,6 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 5 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section5{
@@ -1488,13 +1417,6 @@ func (e *env) getSection6(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 6 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1629,13 +1551,6 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 6 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section6{
@@ -1759,13 +1674,6 @@ func (e *env) getSection7(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 7 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -1899,13 +1807,6 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 7 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section7{
@@ -2028,13 +1929,6 @@ func (e *env) getSection8(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 8 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2168,13 +2062,6 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 8 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section8{
@@ -2299,13 +2186,6 @@ func (e *env) getSection9(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 9 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2441,13 +2321,6 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 9 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section9{
@@ -2574,13 +2447,6 @@ func (e *env) getSection10(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 10 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2716,13 +2582,6 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 10 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section10{
@@ -2847,13 +2706,6 @@ func (e *env) getSection11(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 11 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -2987,13 +2839,6 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 11 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section11{
@@ -3116,13 +2961,6 @@ func (e *env) getSection12(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 12 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3256,13 +3094,6 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 12 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section12{
@@ -3383,13 +3214,6 @@ func (e *env) getSection13(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 13 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3521,13 +3345,6 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	if existingSection.Section != 13 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
-		})
-		return
-	}
-
 	timestamp := utils.TimeNow()
 
 	updatedSection := db.Section13{
@@ -3645,13 +3462,6 @@ func (e *env) getSection14(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if output.Section.Section != 14 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}
@@ -3779,13 +3589,6 @@ func (e *env) updateSection14(c *gin.Context) {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
-		})
-		return
-	}
-
-	if existingSection.Section != 14 {
-		c.JSON(404, gin.H{
-			"message": ErrNotFound,
 		})
 		return
 	}

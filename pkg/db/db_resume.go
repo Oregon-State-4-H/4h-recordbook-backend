@@ -3,7 +3,9 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"net/http"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
 
@@ -153,6 +155,13 @@ func (env *env) GetSection1ByID(ctx context.Context, userID string, sectionID st
 		return section, err
 	}
 
+	if section.Section != 1 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -256,6 +265,13 @@ func (env *env) GetSection2ByID(ctx context.Context, userID string, sectionID st
 
 	err = json.Unmarshal(response.Value, &section)
 	if err != nil {
+		return section, err
+	}
+
+	if section.Section != 2 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
 		return section, err
 	}
 
@@ -367,6 +383,13 @@ func (env *env) GetSection3ByID(ctx context.Context, userID string, sectionID st
 		return section, err
 	}
 
+	if section.Section != 3 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -475,6 +498,13 @@ func (env *env) GetSection4ByID(ctx context.Context, userID string, sectionID st
 		return section, err
 	}
 
+	if section.Section != 4 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -580,6 +610,13 @@ func (env *env) GetSection5ByID(ctx context.Context, userID string, sectionID st
 
 	err = json.Unmarshal(response.Value, &section)
 	if err != nil {
+		return section, err
+	}
+
+	if section.Section != 5 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
 		return section, err
 	}
 
@@ -692,6 +729,13 @@ func (env *env) GetSection6ByID(ctx context.Context, userID string, sectionID st
 		return section, err
 	}
 
+	if section.Section != 6 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -800,6 +844,13 @@ func (env *env) GetSection7ByID(ctx context.Context, userID string, sectionID st
 		return section, err
 	}
 
+	if section.Section != 7 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -905,6 +956,13 @@ func (env *env) GetSection8ByID(ctx context.Context, userID string, sectionID st
 
 	err = json.Unmarshal(response.Value, &section)
 	if err != nil {
+		return section, err
+	}
+
+	if section.Section != 8 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
 		return section, err
 	}
 
@@ -1018,6 +1076,13 @@ func (env *env) GetSection9ByID(ctx context.Context, userID string, sectionID st
 		return section, err
 	}
 
+	if section.Section != 9 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -1125,6 +1190,13 @@ func (env *env) GetSection10ByID(ctx context.Context, userID string, sectionID s
 
 	err = json.Unmarshal(response.Value, &section)
 	if err != nil {
+		return section, err
+	}
+
+	if section.Section != 10 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
 		return section, err
 	}
 
@@ -1236,6 +1308,13 @@ func (env *env) GetSection11ByID(ctx context.Context, userID string, sectionID s
 		return section, err
 	}
 
+	if section.Section != 11 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -1341,6 +1420,13 @@ func (env *env) GetSection12ByID(ctx context.Context, userID string, sectionID s
 
 	err = json.Unmarshal(response.Value, &section)
 	if err != nil {
+		return section, err
+	}
+
+	if section.Section != 12 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
 		return section, err
 	}
 
@@ -1450,6 +1536,13 @@ func (env *env) GetSection13ByID(ctx context.Context, userID string, sectionID s
 		return section, err
 	}
 
+	if section.Section != 13 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
+		return section, err
+	}
+
 	return section, nil
 
 }
@@ -1553,6 +1646,13 @@ func (env *env) GetSection14ByID(ctx context.Context, userID string, sectionID s
 
 	err = json.Unmarshal(response.Value, &section)
 	if err != nil {
+		return section, err
+	}
+
+	if section.Section != 14 {
+		err = &azcore.ResponseError{
+			StatusCode: http.StatusNotFound,
+		}
 		return section, err
 	}
 
