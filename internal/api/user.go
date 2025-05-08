@@ -129,7 +129,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 
 // temporary signin and signup functions
 type SignInInput struct {
-	ID string `json:id" validate:"required"`
+	ID string `json:"id" validate:"required"`
 }
 
 // SignIn godoc

@@ -166,6 +166,15 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		})
 		return
 	}
+	if err != nil {
+		response := InterpretCosmosError(err)
+		if response.Code != 404 {
+			c.JSON(response.Code, gin.H{
+				"message": response.Message,
+			})
+			return
+		}
+	}
 
 	var output AddBookmarkOutput
 
