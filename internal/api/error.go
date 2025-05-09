@@ -8,31 +8,31 @@ import (
 
 // for automatically mapping azcosmos response code to message
 var HTTPResponseCodeMap = map[int]string{
-	400: "Bad request",
-	401: "Unauthorized",
-	403: "Forbidden",
-	404: "Item not found",
-	409: "Conflict",
+	400: "bad request",
+	401: "unauthorized",
+	403: "forbidden",
+	404: "item not found",
+	409: "conflict",
 }
 
 const (
 	//400
-	ErrBadRequest           = "Bad request"
-	ErrMissingFields        = "One or more required fields is missing"
-	ErrNoQuery              = "No query provided"
-	ErrBadDate              = "The date(s) provided do not conform to the RFC3339 format."
-	ErrInvalidSectionNumber = "Section number must be in the range [1-14] inclusive"
+	ErrBadRequest           = "bad request"
+	ErrMissingFields        = "one or more required fields is missing"
+	ErrNoQuery              = "no query provided"
+	ErrBadDate              = "the date(s) provided do not conform to the RFC3339 format."
+	ErrInvalidSectionNumber = "section number must be in the range [1-14] inclusive"
 
 	//401
-	ErrNoToken  = "No authentication token provided"
-	ErrBadToken = "Bad token"
+	ErrNoToken  = "no authentication token provided"
+	ErrBadToken = "bad token"
 
 	//404
-	ErrNotFound = "Item not found"
+	ErrNotFound = "item not found"
 
 	//409
-	ErrBookmarkConflict     = "Bookmark with that link already exists"
-	ErrEventSectionConflict = "Event already has this section"
+	ErrBookmarkConflict     = "bookmark with that link already exists"
+	ErrEventSectionConflict = "event already has this section"
 )
 
 type HTTPResponseCode struct {
@@ -56,7 +56,7 @@ func InterpretCosmosError(err error) HTTPResponseCode {
 	code := responseError.StatusCode
 	message, ok := HTTPResponseCodeMap[code]
 	if !ok {
-		message = "Unexpected error"
+		message = "unexpected error"
 	}
 
 	return HTTPResponseCode{
