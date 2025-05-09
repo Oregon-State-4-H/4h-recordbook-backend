@@ -34,11 +34,11 @@ type UpsertFeedPurchaseOutput GetFeedPurchaseOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectID query string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Success 200 {object} api.GetFeedPurchasesOutput
 // @Failure 400
 // @Failure 401
-// @Router /feed-purchase [get]
+// @Router /project/{projectID}/feed-purchase [get]
 func (e *env) getFeedPurchases(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -49,13 +49,7 @@ func (e *env) getFeedPurchases(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectID", "")
-	if projectID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
+	projectID := c.Param("projectID")
 
 	var output GetFeedPurchasesOutput
 

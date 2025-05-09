@@ -33,11 +33,11 @@ type UpsertSupplyOutput GetSupplyOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectID query string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Success 200 {object} api.GetSuppliesOutput
 // @Failure 400
 // @Failure 401
-// @Router /supply [get]
+// @Router /project/{projectID}/supply [get]
 func (e *env) getSupplies(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -48,13 +48,7 @@ func (e *env) getSupplies(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectID", "")
-	if projectID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
+	projectID := c.Param("projectID")
 
 	var output GetSuppliesOutput
 

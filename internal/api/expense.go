@@ -34,11 +34,11 @@ type UpsertExpenseOutput GetExpenseOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectID query string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Success 200 {object} api.GetExpensesOutput
 // @Failure 400
 // @Failure 401
-// @Router /expense [get]
+// @Router /project/{projectID}/expense [get]
 func (e *env) getExpenses(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -49,19 +49,12 @@ func (e *env) getExpenses(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectID", "")
-	if projectID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
+	projectID := c.Param("projectID")
 
 	var output GetExpensesOutput
 
 	output.Expenses, err = e.db.GetExpensesByProject(context.TODO(), claims.ID, projectID)
 	if err != nil {
-		e.logger.Info(err)
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,

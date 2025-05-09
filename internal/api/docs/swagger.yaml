@@ -307,6 +307,8 @@ definitions:
     properties:
       id:
         type: string
+    required:
+    - id
     type: object
   api.SignUpInput:
     properties:
@@ -1565,32 +1567,6 @@ info:
   title: 4H Record Books API
 paths:
   /animal:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's animals for a given project
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetAnimalsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get animals by project
-      tags:
-      - Animal
     post:
       consumes:
       - application/json
@@ -1805,37 +1781,6 @@ paths:
       tags:
       - User Bookmarks
   /daily-feed:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's daily feeds for a given project and animal
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      - description: Animal ID
-        in: query
-        name: animalID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetDailyFeedsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get daily feeds by project and animal
-      tags:
-      - Daily Feed
     post:
       consumes:
       - application/json
@@ -2146,32 +2091,6 @@ paths:
       tags:
       - Event
   /expense:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's expenses given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetExpensesOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get expenses by project
-      tags:
-      - Expense
     post:
       consumes:
       - application/json
@@ -2285,32 +2204,6 @@ paths:
       tags:
       - Expense
   /feed:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's feeds given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetFeedsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get feeds by project
-      tags:
-      - Feed
     post:
       consumes:
       - application/json
@@ -2339,32 +2232,6 @@ paths:
       tags:
       - Feed
   /feed-purchase:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's feed purchases given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetFeedPurchasesOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get feed purchases by project
-      tags:
-      - Feed Purchase
     post:
       consumes:
       - application/json
@@ -2693,6 +2560,173 @@ paths:
       summary: Update a project
       tags:
       - Project
+  /project/{projectID}/{animalID}/daily-feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's daily feeds for a given project and animal
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetDailyFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get daily feeds by project and animal
+      tags:
+      - Daily Feed
+  /project/{projectID}/animal:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's animals for a given project
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetAnimalsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get animals by project
+      tags:
+      - Animal
+  /project/{projectID}/expense:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's expenses given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetExpensesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get expenses by project
+      tags:
+      - Expense
+  /project/{projectID}/feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feeds given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feeds by project
+      tags:
+      - Feed
+  /project/{projectID}/feed-purchase:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feed purchases given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedPurchasesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feed purchases by project
+      tags:
+      - Feed Purchase
+  /project/{projectID}/supply:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's supplies given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSuppliesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get supplies by project
+      tags:
+      - Supply
   /projects:
     get:
       consumes:
@@ -4311,32 +4345,6 @@ paths:
       tags:
       - User
   /supply:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's supplies given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetSuppliesOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get supplies by project
-      tags:
-      - Supply
     post:
       consumes:
       - application/json

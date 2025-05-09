@@ -47,11 +47,11 @@ type UpsertAnimalOutput GetAnimalOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectID query string true "Project ID"
+// @Param projectID path string true "Project ID"
 // @Success 200 {object} api.GetAnimalsOutput
 // @Failure 400
 // @Failure 401
-// @Router /animal [get]
+// @Router /project/{projectID}/animal [get]
 func (e *env) getAnimals(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -62,13 +62,7 @@ func (e *env) getAnimals(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectID", "")
-	if projectID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
+	projectID := c.Param("projectID")
 
 	var output GetAnimalsOutput
 

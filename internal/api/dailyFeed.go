@@ -35,12 +35,12 @@ type UpsertDailyFeedOutput GetDailyFeedOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectID query string true "Project ID"
-// @Param animalID query string true "Animal ID"
+// @Param projectID path string true "Project ID"
+// @Param animalID path string true "Animal ID"
 // @Success 200 {object} api.GetDailyFeedsOutput
 // @Failure 400
 // @Failure 401
-// @Router /daily-feed [get]
+// @Router /project/{projectID}/{animalID}/daily-feed [get]
 func (e *env) getDailyFeeds(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -51,21 +51,8 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectID", "")
-	if projectID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
-
-	animalID := c.DefaultQuery("animalID", "")
-	if animalID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
+	projectID := c.Param("projectID")
+	animalID := c.Param("animalID")
 
 	var output GetDailyFeedsOutput
 
