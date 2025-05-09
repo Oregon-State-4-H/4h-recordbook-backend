@@ -4,6 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 
 type GetBookmarksOutput struct {
 	Bookmarks []db.Bookmark `json:"bookmarks"`
+	Next      string        `json:"next"`
 }
 
 type GetBookmarkOutput struct {
@@ -31,6 +33,8 @@ type AddBookmarkOutput GetBookmarkOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number"
+// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
 // @Success 200 {object} api.GetBookmarksOutput
 // @Failure 401
 // @Router /bookmarks [get]
@@ -44,15 +48,45 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		return
 	}
 
+	pageStr := c.DefaultQuery("page", PAGE_DEFAULT_STR)
+	page, err := strconv.Atoi(pageStr)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": ErrQueryMustBeInt,
+		})
+		return
+	}
+	if page < 0 {
+		page = PAGE_DEFAULT_INT
+	}
+
+	perPageStr := c.DefaultQuery("per_page", PER_PAGE_DEFAULT_STR)
+	perPage, err := strconv.Atoi(perPageStr)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": ErrQueryMustBeInt,
+		})
+		return
+	}
+	if perPage < PER_PAGE_MIN_INT {
+		perPage = PER_PAGE_MIN_INT
+	} else if perPage > PER_PAGE_MAX_INT {
+		perPage = PER_PAGE_MAX_INT
+	}
+
 	var output GetBookmarksOutput
 
-	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID)
+	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID, page, perPage)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Bookmarks) == perPage {
+		output.Next = utils.NextUrl(c, page, perPage)
 	}
 
 	c.JSON(200, output)

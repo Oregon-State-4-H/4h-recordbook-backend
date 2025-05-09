@@ -63,7 +63,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link strin
 
 }
 
-func (env *env) GetBookmarks(ctx context.Context, userID string) ([]Bookmark, error) {
+func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPage int) ([]Bookmark, error) {
 
 	env.logger.Info("Getting bookmarks")
 
@@ -74,31 +74,45 @@ func (env *env) GetBookmarks(ctx context.Context, userID string) ([]Bookmark, er
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM bookmarks b WHERE b.user_id = @user_id"
+	query := "SELECT * FROM bookmarks b WHERE b.user_id = @user_id ORDER BY b.created ASC"
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 		},
+		PageSizeHint: int32(perPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	bookmarks := []Bookmark{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Bookmark{}, err
-		}
 
-		for _, bytes := range response.Items {
-			bookmark := Bookmark{}
-			err := json.Unmarshal(bytes, &bookmark)
+		if currentPage == page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Bookmark{}, err
 			}
-			bookmarks = append(bookmarks, bookmark)
+
+			for _, bytes := range response.Items {
+				bookmark := Bookmark{}
+				err := json.Unmarshal(bytes, &bookmark)
+				if err != nil {
+					return []Bookmark{}, err
+				}
+				bookmarks = append(bookmarks, bookmark)
+			}
+
+			return bookmarks, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Bookmark{}, err
+			}
+			currentPage++
 		}
 
 	}

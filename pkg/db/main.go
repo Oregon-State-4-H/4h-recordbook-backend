@@ -13,7 +13,7 @@ type Db interface {
 	GetUser(context.Context, string) (User, error)
 	UpsertUser(context.Context, User) (interface{}, error)
 	GetBookmarkByLink(context.Context, string, string) (Bookmark, error)
-	GetBookmarks(context.Context, string) ([]Bookmark, error)
+	GetBookmarks(context.Context, string, int, int) ([]Bookmark, error)
 	AddBookmark(context.Context, Bookmark) (Bookmark, error)
 	RemoveBookmark(context.Context, string, string) (interface{}, error)
 	GetProjectByID(context.Context, string, string) (Project, error)

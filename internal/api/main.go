@@ -20,7 +20,15 @@ import (
 	"go.uber.org/zap"
 )
 
-const API_VERSION = "1.0"
+const (
+	API_VERSION          = "1.0"
+	PAGE_DEFAULT_STR     = "0"
+	PER_PAGE_DEFAULT_STR = "30"
+	PAGE_DEFAULT_INT     = 0
+	PER_PAGE_DEFAULT_INT = 30
+	PER_PAGE_MIN_INT     = 1
+	PER_PAGE_MAX_INT     = 100
+)
 
 type Api interface {
 	RunLocal() error

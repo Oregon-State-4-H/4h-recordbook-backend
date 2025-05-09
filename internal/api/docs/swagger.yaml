@@ -37,6 +37,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Bookmark'
         type: array
+      next:
+        type: string
     type: object
   api.GetDailyFeedOutput:
     properties:
@@ -1685,6 +1687,15 @@ paths:
       - application/json
       description: Returns an array of all the user's bookmarks, queried using JWT
         claims
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-100], default 30
+        in: query
+        name: per_page
+        type: integer
       produces:
       - application/json
       responses:

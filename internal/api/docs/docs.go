@@ -212,6 +212,20 @@ const docTemplate = `{
                     "User Bookmarks"
                 ],
                 "summary": "Get all of a user's bookmarks",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "name": "per_page",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4778,6 +4792,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Bookmark"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
