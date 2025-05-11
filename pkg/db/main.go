@@ -81,7 +81,7 @@ type Db interface {
 	GetFeedByID(context.Context, string, string) (Feed, error)
 	UpsertFeed(context.Context, Feed) (Feed, error)
 	RemoveFeed(context.Context, string, string) (interface{}, error)
-	GetFeedPurchasesByProject(context.Context, string, string) ([]FeedPurchase, error)
+	GetFeedPurchasesByProject(context.Context, string, string, PaginationOptions) ([]FeedPurchase, error)
 	GetFeedPurchaseByID(context.Context, string, string) (FeedPurchase, error)
 	UpsertFeedPurchase(context.Context, FeedPurchase) (FeedPurchase, error)
 	RemoveFeedPurchase(context.Context, string, string) (interface{}, error)

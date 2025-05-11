@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -18,7 +19,7 @@ type FeedPurchase struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, projectID string) ([]FeedPurchase, error) {
+func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]FeedPurchase, error) {
 
 	env.logger.Info("Getting feed purchases by project")
 
@@ -29,33 +30,53 @@ func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, pr
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM feedpurchases fp WHERE fp.user_id = @user_id AND fp.project_id = @project_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM feedpurchases fp WHERE fp.user_id = @user_id AND fp.project_id = @project_id ORDER BY fp.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@project_id", Value: projectID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	feedPurchases := []FeedPurchase{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []FeedPurchase{}, err
-		}
 
-		for _, bytes := range response.Items {
-			feedPurchase := FeedPurchase{}
-			err := json.Unmarshal(bytes, &feedPurchase)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []FeedPurchase{}, err
 			}
-			feedPurchases = append(feedPurchases, feedPurchase)
+
+			for _, bytes := range response.Items {
+				feedPurchase := FeedPurchase{}
+				err := json.Unmarshal(bytes, &feedPurchase)
+				if err != nil {
+					return []FeedPurchase{}, err
+				}
+				feedPurchases = append(feedPurchases, feedPurchase)
+			}
+
+			return feedPurchases, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []FeedPurchase{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return feedPurchases, nil
