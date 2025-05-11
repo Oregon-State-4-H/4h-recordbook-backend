@@ -4,7 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
-	"fmt"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -69,9 +69,9 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 	if len(output.Bookmarks) == perPage {
 
 		queryParamsMap := make(map[string]string)
-		queryParamsMap[CONTEXT_KEY_PAGE] = fmt.Sprintf("%d", page+1)
-		queryParamsMap[CONTEXT_KEY_PER_PAGE] = fmt.Sprintf("%d", perPage)
-		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = fmt.Sprintf("%t", sortByNewest)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(perPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(sortByNewest)
 
 		nextUrlInput := utils.NextUrlInput{
 			Context:     c,
