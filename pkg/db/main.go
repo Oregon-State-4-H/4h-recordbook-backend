@@ -85,7 +85,7 @@ type Db interface {
 	GetFeedPurchaseByID(context.Context, string, string) (FeedPurchase, error)
 	UpsertFeedPurchase(context.Context, FeedPurchase) (FeedPurchase, error)
 	RemoveFeedPurchase(context.Context, string, string) (interface{}, error)
-	GetDailyFeedsByProjectAndAnimal(context.Context, string, string, string) ([]DailyFeed, error)
+	GetDailyFeedsByProjectAndAnimal(context.Context, string, string, string, PaginationOptions) ([]DailyFeed, error)
 	GetDailyFeedByID(context.Context, string, string) (DailyFeed, error)
 	UpsertDailyFeed(context.Context, DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(context.Context, string, string) (interface{}, error)

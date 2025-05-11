@@ -4,6 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 
 type GetDailyFeedsOutput struct {
 	DailyFeeds []db.DailyFeed `json:"daily_feeds"`
+	Next       string         `json:"next"`
 }
 
 type GetDailyFeedOutput struct {
@@ -37,10 +39,13 @@ type UpsertDailyFeedOutput GetDailyFeedOutput
 // @Security ApiKeyAuth
 // @Param projectID path string true "Project ID"
 // @Param animalID path string true "Animal ID"
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetDailyFeedsOutput
 // @Failure 400
 // @Failure 401
-// @Router /project/{projectID}/{animalID}/daily-feed [get]
+// @Router /project/{projectID}/animal/{animalID}/daily-feed [get]
 func (e *env) getDailyFeeds(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -56,7 +61,13 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 
 	var output GetDailyFeedsOutput
 
-	output.DailyFeeds, err = e.db.GetDailyFeedsByProjectAndAnimal(context.TODO(), claims.ID, projectID, animalID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.DailyFeeds, err = e.db.GetDailyFeedsByProjectAndAnimal(context.TODO(), claims.ID, projectID, animalID, paginationOptions)
 	if err != nil {
 		e.logger.Info(err)
 		response := InterpretCosmosError(err)
@@ -64,6 +75,21 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.DailyFeeds) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)

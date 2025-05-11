@@ -53,6 +53,8 @@ definitions:
         items:
           $ref: '#/definitions/db.DailyFeed'
         type: array
+      next:
+        type: string
     type: object
   api.GetEventWithSectionsOutput:
     properties:
@@ -127,6 +129,18 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -282,18 +296,6 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -561,39 +563,6 @@ definitions:
     properties:
       project:
         $ref: '#/definitions/db.Project'
-    type: object
-  api.UpsertSection1Input:
-    properties:
-      club_leader:
-        type: string
-      club_name:
-        type: string
-      grade:
-        type: integer
-      meetings_attended:
-        type: integer
-      meetings_held:
-        type: integer
-      nickname:
-        type: string
-      num_in_club:
-        type: integer
-      year:
-        type: string
-    required:
-    - club_leader
-    - club_name
-    - grade
-    - meetings_attended
-    - meetings_held
-    - nickname
-    - num_in_club
-    - year
-    type: object
-  api.UpsertSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
     type: object
   api.UpsertSection2Input:
     properties:
@@ -903,6 +872,39 @@ definitions:
     properties:
       section_14:
         $ref: '#/definitions/db.Section14'
+    type: object
+  api.UpsertSection1Input:
+    properties:
+      club_leader:
+        type: string
+      club_name:
+        type: string
+      grade:
+        type: integer
+      meetings_attended:
+        type: integer
+      meetings_held:
+        type: integer
+      nickname:
+        type: string
+      num_in_club:
+        type: integer
+      year:
+        type: string
+    required:
+    - club_leader
+    - club_name
+    - grade
+    - meetings_attended
+    - meetings_held
+    - nickname
+    - num_in_club
+    - year
+    type: object
+  api.UpsertSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
     type: object
   api.UpsertSupplyInput:
     properties:
@@ -2596,38 +2598,6 @@ paths:
       summary: Update a project
       tags:
       - Project
-  /project/{projectID}/{animalID}/daily-feed:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's daily feeds for a given project and animal
-      parameters:
-      - description: Project ID
-        in: path
-        name: projectID
-        required: true
-        type: string
-      - description: Animal ID
-        in: path
-        name: animalID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetDailyFeedsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get daily feeds by project and animal
-      tags:
-      - Daily Feed
   /project/{projectID}/animal:
     get:
       consumes:
@@ -2667,6 +2637,50 @@ paths:
       summary: Get animals by project
       tags:
       - Animal
+  /project/{projectID}/animal/{animalID}/daily-feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's daily feeds for a given project and animal
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-100], default 30
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetDailyFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get daily feeds by project and animal
+      tags:
+      - Daily Feed
   /project/{projectID}/expense:
     get:
       consumes:
