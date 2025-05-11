@@ -93,7 +93,7 @@ type Db interface {
 	GetExpenseByID(context.Context, string, string) (Expense, error)
 	UpsertExpense(context.Context, Expense) (Expense, error)
 	RemoveExpense(context.Context, string, string) (interface{}, error)
-	GetSuppliesByProject(context.Context, string, string) ([]Supply, error)
+	GetSuppliesByProject(context.Context, string, string, PaginationOptions) ([]Supply, error)
 	GetSupplyByID(context.Context, string, string) (Supply, error)
 	UpsertSupply(context.Context, Supply) (Supply, error)
 	RemoveSupply(context.Context, string, string) (interface{}, error)

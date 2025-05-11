@@ -4,6 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 
 type GetSuppliesOutput struct {
 	Supplies []db.Supply `json:"supplies"`
+	Next     string      `json:"next"`
 }
 
 type GetSupplyOutput struct {
@@ -34,6 +36,9 @@ type UpsertSupplyOutput GetSupplyOutput
 // @Produce json
 // @Security ApiKeyAuth
 // @Param projectID path string true "Project ID"
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSuppliesOutput
 // @Failure 400
 // @Failure 401
@@ -52,13 +57,34 @@ func (e *env) getSupplies(c *gin.Context) {
 
 	var output GetSuppliesOutput
 
-	output.Supplies, err = e.db.GetSuppliesByProject(context.TODO(), claims.ID, projectID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Supplies, err = e.db.GetSuppliesByProject(context.TODO(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Supplies) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
