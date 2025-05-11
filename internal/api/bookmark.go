@@ -49,13 +49,15 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		return
 	}
 
-	page := c.GetInt(CONTEXT_KEY_PAGE)
-	perPage := c.GetInt(CONTEXT_KEY_PER_PAGE)
-	sortByNewest := c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST)
-
 	var output GetBookmarksOutput
 
-	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID, page, perPage, sortByNewest)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -64,12 +66,12 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		return
 	}
 
-	if len(output.Bookmarks) == perPage {
+	if len(output.Bookmarks) == paginationOptions.PerPage {
 
 		queryParamsMap := make(map[string]string)
-		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(page + 1)
-		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(perPage)
-		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(sortByNewest)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
 
 		nextUrlInput := utils.NextUrlInput{
 			Context:     c,

@@ -64,7 +64,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link strin
 
 }
 
-func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPage int, sortByNewest bool) ([]Bookmark, error) {
+func (env *env) GetBookmarks(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Bookmark, error) {
 
 	env.logger.Info("Getting bookmarks")
 
@@ -76,7 +76,7 @@ func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPa
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
 	sortOrder := "ASC"
-	if sortByNewest {
+	if paginationOptions.SortByNewest {
 		sortOrder = "DESC"
 	}
 
@@ -86,7 +86,7 @@ func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPa
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 		},
-		PageSizeHint: int32(perPage),
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
@@ -96,7 +96,7 @@ func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPa
 
 	for pager.More() {
 
-		if currentPage == page {
+		if currentPage == paginationOptions.Page {
 			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Bookmark{}, err

@@ -13,12 +13,12 @@ type Db interface {
 	GetUser(context.Context, string) (User, error)
 	UpsertUser(context.Context, User) (interface{}, error)
 	GetBookmarkByLink(context.Context, string, string) (Bookmark, error)
-	GetBookmarks(context.Context, string, int, int, bool) ([]Bookmark, error)
+	GetBookmarks(context.Context, string, PaginationOptions) ([]Bookmark, error)
 	AddBookmark(context.Context, Bookmark) (Bookmark, error)
 	RemoveBookmark(context.Context, string, string) (interface{}, error)
 	GetProjectByID(context.Context, string, string) (Project, error)
-	GetCurrentProjects(context.Context, string) ([]Project, error)
-	GetProjectsByUser(context.Context, string) ([]Project, error)
+	GetCurrentProjects(context.Context, string, PaginationOptions) ([]Project, error)
+	GetProjectsByUser(context.Context, string, PaginationOptions) ([]Project, error)
 	UpsertProject(context.Context, Project) (Project, error)
 	RemoveProject(context.Context, string, string) (interface{}, error)
 	GetResume(context.Context, string) (Resume, error)
@@ -102,6 +102,12 @@ type Db interface {
 type GenericDatabaseInfo struct {
 	Created string `json:"created"`
 	Updated string `json:"updated"`
+}
+
+type PaginationOptions struct {
+	Page         int
+	PerPage      int
+	SortByNewest bool
 }
 
 type env struct {

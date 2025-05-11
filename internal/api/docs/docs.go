@@ -1416,6 +1416,26 @@ const docTemplate = `{
                     "Project"
                 ],
                 "summary": "Get all of a user's projects",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default true",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1889,6 +1909,26 @@ const docTemplate = `{
                     "Project"
                 ],
                 "summary": "Gets projects of the current year",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default true",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4914,6 +4954,9 @@ const docTemplate = `{
         "api.GetProjectsOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "projects": {
                     "type": "array",
                     "items": {

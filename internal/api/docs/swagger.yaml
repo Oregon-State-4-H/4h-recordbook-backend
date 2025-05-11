@@ -110,6 +110,8 @@ definitions:
     type: object
   api.GetProjectsOutput:
     properties:
+      next:
+        type: string
       projects:
         items:
           $ref: '#/definitions/db.Project'
@@ -119,6 +121,18 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -274,18 +288,6 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -2449,6 +2451,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's saved projects regardless of year
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-100], default 30
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default true
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -2747,6 +2762,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's projects that take place in the last 12 months
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-100], default 30
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default true
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:

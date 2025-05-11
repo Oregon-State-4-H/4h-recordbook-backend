@@ -4,6 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 
 type GetProjectsOutput struct {
 	Projects []db.Project `json:"projects"`
+	Next     string       `json:"next"`
 }
 
 type GetProjectOutput struct {
@@ -35,6 +37,9 @@ type UpsertProjectOutput GetProjectOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default true"
 // @Success 200 {object} api.GetProjectsOutput
 // @Failure 401
 // @Router /projects [get]
@@ -50,13 +55,34 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 
 	var output GetProjectsOutput
 
-	output.Projects, err = e.db.GetCurrentProjects(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Projects, err = e.db.GetCurrentProjects(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Projects) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -70,6 +96,9 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default true"
 // @Success 200 {object} api.GetProjectsOutput
 // @Failure 401
 // @Router /project [get]
@@ -85,13 +114,34 @@ func (e *env) getProjects(c *gin.Context) {
 
 	var output GetProjectsOutput
 
-	output.Projects, err = e.db.GetProjectsByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Projects, err = e.db.GetProjectsByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Projects) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)

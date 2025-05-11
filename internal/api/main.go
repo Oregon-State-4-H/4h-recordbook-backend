@@ -199,8 +199,8 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/bookmarks", e.addUserBookmark)
 	router.DELETE("/bookmarks/:bookmarkID", e.deleteUserBookmark)
 
-	router.GET("/projects", e.getCurrentProjects)
-	router.GET("/project", e.getProjects)
+	router.GET("/projects", PaginationMiddleware(true), e.getCurrentProjects)
+	router.GET("/project", PaginationMiddleware(true), e.getProjects)
 	router.GET("/project/:projectID", e.getProject)
 	router.POST("/project", e.addProject)
 	router.PUT("/project/:projectID", e.updateProject)
