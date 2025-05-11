@@ -227,7 +227,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "boolean",
-                        "description": "Sort order, default true",
+                        "description": "Sort results by most recently added, default false",
                         "name": "sort_by_newest",
                         "in": "query"
                     }

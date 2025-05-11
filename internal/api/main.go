@@ -8,6 +8,7 @@ import (
 	"4h-recordbook-backend/pkg/upc"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -21,13 +22,16 @@ import (
 )
 
 const (
-	API_VERSION          = "1.0"
-	PAGE_DEFAULT_STR     = "0"
-	PER_PAGE_DEFAULT_STR = "100"
-	PAGE_DEFAULT_INT     = 0
-	PER_PAGE_DEFAULT_INT = 100
-	PER_PAGE_MIN_INT     = 1
-	PER_PAGE_MAX_INT     = 200
+	API_VERSION = "1.0"
+
+	PAGE_DEFAULT     = 0
+	PER_PAGE_DEFAULT = 100
+	PER_PAGE_MIN     = 1
+	PER_PAGE_MAX     = 200
+
+	CONTEXT_KEY_PAGE           = "page"
+	CONTEXT_KEY_PER_PAGE       = "per_page"
+	CONTEXT_KEY_SORT_BY_NEWEST = "sort_by_newest"
 )
 
 type Api interface {
@@ -117,6 +121,39 @@ func (e *env) RunAzureFunctions(port string) error {
 	return http.ListenAndServe(":"+port, e.api)
 }
 
+func PaginationMiddleware(defaultSortByNewest bool) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		pageStr := c.DefaultQuery(CONTEXT_KEY_PAGE, strconv.Itoa(PAGE_DEFAULT))
+		page, err := strconv.Atoi(pageStr)
+		if err != nil || page < 0 {
+			page = PAGE_DEFAULT
+		}
+
+		perPageStr := c.DefaultQuery(CONTEXT_KEY_PER_PAGE, strconv.Itoa(PER_PAGE_DEFAULT))
+		perPage, err := strconv.Atoi(perPageStr)
+		if err != nil {
+			perPage = PER_PAGE_DEFAULT
+		}
+		if perPage < PER_PAGE_MIN {
+			perPage = PER_PAGE_MIN
+		} else if perPage > PER_PAGE_MAX {
+			perPage = PER_PAGE_MAX
+		}
+
+		sortByNewestStr := c.DefaultQuery(CONTEXT_KEY_SORT_BY_NEWEST, strconv.FormatBool(defaultSortByNewest))
+		sortByNewest, err := strconv.ParseBool(sortByNewestStr)
+		if err != nil {
+			sortByNewest = defaultSortByNewest
+		}
+
+		c.Set(CONTEXT_KEY_PAGE, page)
+		c.Set(CONTEXT_KEY_PER_PAGE, perPage)
+		c.Set(CONTEXT_KEY_SORT_BY_NEWEST, sortByNewest)
+
+		c.Next()
+	}
+}
+
 func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcInstance upc.Upc) (Api, error) {
 
 	logger.Info("Setting up API")
@@ -157,7 +194,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/signin", e.signin)
 	router.POST("/signup", e.signup)
 
-	router.GET("/bookmarks", e.getUserBookmarks)
+	router.GET("/bookmarks", PaginationMiddleware(false), e.getUserBookmarks)
 	router.GET("/bookmarks/:link", e.getBookmarkByLink)
 	router.POST("/bookmarks", e.addUserBookmark)
 	router.DELETE("/bookmarks/:bookmarkID", e.deleteUserBookmark)

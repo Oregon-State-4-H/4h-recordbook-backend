@@ -2,9 +2,15 @@ package utils
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
+
+type NextUrlInput struct {
+	Context     *gin.Context
+	QueryParams map[string]string
+}
 
 func BaseUrl(c *gin.Context) string {
 
@@ -17,6 +23,21 @@ func BaseUrl(c *gin.Context) string {
 
 }
 
-func NextUrl(c *gin.Context, category string, page int, perPage int, sortByNewest bool) string {
-	return fmt.Sprintf("%s/%s?page=%d&per_page=%d&sort_by_newest=%t", BaseUrl(c), category, page+1, perPage, sortByNewest)
+// this function is responsible for building the url given the context + query params. this function is NOT responsible for determining the correct values
+// e.g. the calling function is responsible for incrementing the page number
+func BuildNextUrl(input NextUrlInput) string {
+
+	var queryStringBuilder strings.Builder
+	queryStringBuilder.WriteString("?")
+
+	for key, value := range input.QueryParams {
+		param := fmt.Sprintf("%s=%s&", key, value)
+		queryStringBuilder.WriteString(param)
+	}
+
+	queryString := queryStringBuilder.String()
+	queryString = strings.TrimRight(queryString, "&")
+
+	return fmt.Sprintf("%s%s%s", BaseUrl(input.Context), input.Context.FullPath(), queryString)
+
 }

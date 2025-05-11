@@ -4,7 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
-	"strconv"
+	"fmt"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -37,7 +37,7 @@ type AddBookmarkOutput GetBookmarkOutput
 // @Security ApiKeyAuth
 // @Param page query int false "Page number, default 0"
 // @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
-// @Param sort_by_newest query bool false "Sort order, default true"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetBookmarksOutput
 // @Failure 401
 // @Router /bookmarks [get]
@@ -51,40 +51,9 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		return
 	}
 
-	pageStr := c.DefaultQuery("page", PAGE_DEFAULT_STR)
-	page, err := strconv.Atoi(pageStr)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"message": ErrQueryMustBeInt,
-		})
-		return
-	}
-	if page < 0 {
-		page = PAGE_DEFAULT_INT
-	}
-
-	perPageStr := c.DefaultQuery("per_page", PER_PAGE_DEFAULT_STR)
-	perPage, err := strconv.Atoi(perPageStr)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"message": ErrQueryMustBeInt,
-		})
-		return
-	}
-	if perPage < PER_PAGE_MIN_INT {
-		perPage = PER_PAGE_MIN_INT
-	} else if perPage > PER_PAGE_MAX_INT {
-		perPage = PER_PAGE_MAX_INT
-	}
-
-	sortByNewestStr := c.DefaultQuery("sort_by_newest", "true")
-	sortByNewest, err := strconv.ParseBool(sortByNewestStr)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"message": ErrQueryMustBeBool,
-		})
-		return
-	}
+	page := c.GetInt(CONTEXT_KEY_PAGE)
+	perPage := c.GetInt(CONTEXT_KEY_PER_PAGE)
+	sortByNewest := c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST)
 
 	var output GetBookmarksOutput
 
@@ -98,7 +67,18 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 	}
 
 	if len(output.Bookmarks) == perPage {
-		output.Next = utils.NextUrl(c, BOOKMARKS, page, perPage, sortByNewest)
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = fmt.Sprintf("%d", page+1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = fmt.Sprintf("%d", perPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = fmt.Sprintf("%t", sortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)

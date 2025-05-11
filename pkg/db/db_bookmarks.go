@@ -76,7 +76,7 @@ func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPa
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
 	sortOrder := "ASC"
-	if !sortByNewest {
+	if sortByNewest {
 		sortOrder = "DESC"
 	}
 
