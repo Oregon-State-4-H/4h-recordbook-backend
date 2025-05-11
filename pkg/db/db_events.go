@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -31,7 +32,7 @@ type EventSection struct {
 * FULL EVENTS
 ********************************/
 
-func (env *env) GetEventsByUser(ctx context.Context, userID string) ([]Event, error) {
+func (env *env) GetEventsByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Event, error) {
 
 	env.logger.Info("Getting events")
 
@@ -42,32 +43,52 @@ func (env *env) GetEventsByUser(ctx context.Context, userID string) ([]Event, er
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM events e WHERE e.user_id = @user_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM events e WHERE e.user_id = @user_id ORDER BY e.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	events := []Event{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Event{}, err
-		}
 
-		for _, bytes := range response.Items {
-			event := Event{}
-			err := json.Unmarshal(bytes, &event)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Event{}, err
 			}
-			events = append(events, event)
+
+			for _, bytes := range response.Items {
+				event := Event{}
+				err := json.Unmarshal(bytes, &event)
+				if err != nil {
+					return []Event{}, err
+				}
+				events = append(events, event)
+			}
+
+			return events, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Event{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return events, nil

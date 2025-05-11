@@ -280,7 +280,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 
 	router.DELETE("/section/:sectionID", e.deleteSection)
 
-	router.GET("/event", e.getEvents)
+	router.GET("/event", PaginationMiddleware(false), e.getEvents)
 	router.POST("/event", e.addEvent)
 	router.PUT("/event/:eventID", e.updateEvent)
 	router.DELETE("/event/:eventID", e.deleteEvent)

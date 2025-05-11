@@ -70,6 +70,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Event'
         type: array
+      next:
+        type: string
     type: object
   api.GetExpenseOutput:
     properties:
@@ -131,90 +133,6 @@ definitions:
     properties:
       resume:
         $ref: '#/definitions/db.Resume'
-    type: object
-  api.GetSection10Output:
-    properties:
-      section_10:
-        $ref: '#/definitions/db.Section10'
-    type: object
-  api.GetSection10sOutput:
-    properties:
-      next:
-        type: string
-      section_10_data:
-        items:
-          $ref: '#/definitions/db.Section10'
-        type: array
-    type: object
-  api.GetSection11Output:
-    properties:
-      section_11:
-        $ref: '#/definitions/db.Section11'
-    type: object
-  api.GetSection11sOutput:
-    properties:
-      next:
-        type: string
-      section_11_data:
-        items:
-          $ref: '#/definitions/db.Section11'
-        type: array
-    type: object
-  api.GetSection12Output:
-    properties:
-      section_12:
-        $ref: '#/definitions/db.Section12'
-    type: object
-  api.GetSection12sOutput:
-    properties:
-      next:
-        type: string
-      section_12_data:
-        items:
-          $ref: '#/definitions/db.Section12'
-        type: array
-    type: object
-  api.GetSection13Output:
-    properties:
-      section_13:
-        $ref: '#/definitions/db.Section13'
-    type: object
-  api.GetSection13sOutput:
-    properties:
-      next:
-        type: string
-      section_13_data:
-        items:
-          $ref: '#/definitions/db.Section13'
-        type: array
-    type: object
-  api.GetSection14Output:
-    properties:
-      section_14:
-        $ref: '#/definitions/db.Section14'
-    type: object
-  api.GetSection14sOutput:
-    properties:
-      next:
-        type: string
-      section_14_data:
-        items:
-          $ref: '#/definitions/db.Section14'
-        type: array
-    type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      next:
-        type: string
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
     type: object
   api.GetSection2Output:
     properties:
@@ -326,6 +244,90 @@ definitions:
       section_9_data:
         items:
           $ref: '#/definitions/db.Section9'
+        type: array
+    type: object
+  api.GetSection10Output:
+    properties:
+      section_10:
+        $ref: '#/definitions/db.Section10'
+    type: object
+  api.GetSection10sOutput:
+    properties:
+      next:
+        type: string
+      section_10_data:
+        items:
+          $ref: '#/definitions/db.Section10'
+        type: array
+    type: object
+  api.GetSection11Output:
+    properties:
+      section_11:
+        $ref: '#/definitions/db.Section11'
+    type: object
+  api.GetSection11sOutput:
+    properties:
+      next:
+        type: string
+      section_11_data:
+        items:
+          $ref: '#/definitions/db.Section11'
+        type: array
+    type: object
+  api.GetSection12Output:
+    properties:
+      section_12:
+        $ref: '#/definitions/db.Section12'
+    type: object
+  api.GetSection12sOutput:
+    properties:
+      next:
+        type: string
+      section_12_data:
+        items:
+          $ref: '#/definitions/db.Section12'
+        type: array
+    type: object
+  api.GetSection13Output:
+    properties:
+      section_13:
+        $ref: '#/definitions/db.Section13'
+    type: object
+  api.GetSection13sOutput:
+    properties:
+      next:
+        type: string
+      section_13_data:
+        items:
+          $ref: '#/definitions/db.Section13'
+        type: array
+    type: object
+  api.GetSection14Output:
+    properties:
+      section_14:
+        $ref: '#/definitions/db.Section14'
+    type: object
+  api.GetSection14sOutput:
+    properties:
+      next:
+        type: string
+      section_14_data:
+        items:
+          $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      next:
+        type: string
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -1955,6 +1957,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's events
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:

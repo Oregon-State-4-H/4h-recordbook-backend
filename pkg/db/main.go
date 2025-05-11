@@ -65,7 +65,7 @@ type Db interface {
 	UpsertSection13(context.Context, Section13) (Section13, error)
 	UpsertSection14(context.Context, Section14) (Section14, error)
 	RemoveSection(context.Context, string, string) (interface{}, error)
-	GetEventsByUser(context.Context, string) ([]Event, error)
+	GetEventsByUser(context.Context, string, PaginationOptions) ([]Event, error)
 	GetEventByID(context.Context, string, string) (Event, error)
 	UpsertEvent(context.Context, Event) (Event, error)
 	RemoveEvent(context.Context, string, string) (interface{}, error)

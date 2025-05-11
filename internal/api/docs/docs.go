@@ -568,6 +568,26 @@ const docTemplate = `{
                     "Event"
                 ],
                 "summary": "Get events by user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -5277,6 +5297,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Event"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
