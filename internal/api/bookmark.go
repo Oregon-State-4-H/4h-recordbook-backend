@@ -10,8 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const BOOKMARKS = "bookmarks"
-
 type GetBookmarksOutput struct {
 	Bookmarks []db.Bookmark `json:"bookmarks"`
 	Next      string        `json:"next"`
