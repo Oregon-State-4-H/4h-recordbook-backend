@@ -38,7 +38,7 @@ type UpsertProjectOutput GetProjectOutput
 // @Produce json
 // @Security ApiKeyAuth
 // @Param page query int false "Page number, default 0"
-// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
 // @Param sort_by_newest query bool false "Sort results by most recently added, default true"
 // @Success 200 {object} api.GetProjectsOutput
 // @Failure 401
@@ -97,7 +97,7 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 // @Produce json
 // @Security ApiKeyAuth
 // @Param page query int false "Page number, default 0"
-// @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
 // @Param sort_by_newest query bool false "Sort results by most recently added, default true"
 // @Success 200 {object} api.GetProjectsOutput
 // @Failure 401

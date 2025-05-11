@@ -221,7 +221,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1425,7 +1425,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1660,7 +1660,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1728,7 +1728,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1789,7 +1789,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1850,7 +1850,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1911,7 +1911,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -1972,7 +1972,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
@@ -2026,7 +2026,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "integer",
-                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
                         "name": "per_page",
                         "in": "query"
                     },
