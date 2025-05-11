@@ -89,7 +89,7 @@ type Db interface {
 	GetDailyFeedByID(context.Context, string, string) (DailyFeed, error)
 	UpsertDailyFeed(context.Context, DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(context.Context, string, string) (interface{}, error)
-	GetExpensesByProject(context.Context, string, string) ([]Expense, error)
+	GetExpensesByProject(context.Context, string, string, PaginationOptions) ([]Expense, error)
 	GetExpenseByID(context.Context, string, string) (Expense, error)
 	UpsertExpense(context.Context, Expense) (Expense, error)
 	RemoveExpense(context.Context, string, string) (interface{}, error)

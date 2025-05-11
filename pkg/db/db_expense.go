@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -18,7 +19,7 @@ type Expense struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetExpensesByProject(ctx context.Context, userID string, projectID string) ([]Expense, error) {
+func (env *env) GetExpensesByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Expense, error) {
 
 	env.logger.Info("Getting expenses by project")
 
@@ -29,33 +30,53 @@ func (env *env) GetExpensesByProject(ctx context.Context, userID string, project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM expenses e WHERE e.user_id = @user_id AND e.project_id = @project_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM expenses e WHERE e.user_id = @user_id AND e.project_id = @project_id ORDER BY e.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@project_id", Value: projectID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	expenses := []Expense{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Expense{}, err
-		}
 
-		for _, bytes := range response.Items {
-			expense := Expense{}
-			err := json.Unmarshal(bytes, &expense)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Expense{}, err
 			}
-			expenses = append(expenses, expense)
+
+			for _, bytes := range response.Items {
+				expense := Expense{}
+				err := json.Unmarshal(bytes, &expense)
+				if err != nil {
+					return []Expense{}, err
+				}
+				expenses = append(expenses, expense)
+			}
+
+			return expenses, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Expense{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return expenses, nil

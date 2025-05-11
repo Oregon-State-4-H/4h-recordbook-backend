@@ -1780,6 +1780,24 @@ const docTemplate = `{
                         "name": "projectID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-100], default 30",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -4980,6 +4998,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Expense"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
