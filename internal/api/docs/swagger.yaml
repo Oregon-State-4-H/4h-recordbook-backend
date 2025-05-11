@@ -132,102 +132,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection2Output:
-    properties:
-      section_2:
-        $ref: '#/definitions/db.Section2'
-    type: object
-  api.GetSection2sOutput:
-    properties:
-      section_2_data:
-        items:
-          $ref: '#/definitions/db.Section2'
-        type: array
-    type: object
-  api.GetSection3Output:
-    properties:
-      section_3:
-        $ref: '#/definitions/db.Section3'
-    type: object
-  api.GetSection3sOutput:
-    properties:
-      section_3_data:
-        items:
-          $ref: '#/definitions/db.Section3'
-        type: array
-    type: object
-  api.GetSection4Output:
-    properties:
-      section_4:
-        $ref: '#/definitions/db.Section4'
-    type: object
-  api.GetSection4sOutput:
-    properties:
-      section_4_data:
-        items:
-          $ref: '#/definitions/db.Section4'
-        type: array
-    type: object
-  api.GetSection5Output:
-    properties:
-      section_5:
-        $ref: '#/definitions/db.Section5'
-    type: object
-  api.GetSection5sOutput:
-    properties:
-      section_5_data:
-        items:
-          $ref: '#/definitions/db.Section5'
-        type: array
-    type: object
-  api.GetSection6Output:
-    properties:
-      section_6:
-        $ref: '#/definitions/db.Section6'
-    type: object
-  api.GetSection6sOutput:
-    properties:
-      section_6_data:
-        items:
-          $ref: '#/definitions/db.Section6'
-        type: array
-    type: object
-  api.GetSection7Output:
-    properties:
-      section_7:
-        $ref: '#/definitions/db.Section7'
-    type: object
-  api.GetSection7sOutput:
-    properties:
-      section_7_data:
-        items:
-          $ref: '#/definitions/db.Section7'
-        type: array
-    type: object
-  api.GetSection8Output:
-    properties:
-      section_8:
-        $ref: '#/definitions/db.Section8'
-    type: object
-  api.GetSection8sOutput:
-    properties:
-      section_8_data:
-        items:
-          $ref: '#/definitions/db.Section8'
-        type: array
-    type: object
-  api.GetSection9Output:
-    properties:
-      section_9:
-        $ref: '#/definitions/db.Section9'
-    type: object
-  api.GetSection9sOutput:
-    properties:
-      section_9_data:
-        items:
-          $ref: '#/definitions/db.Section9'
-        type: array
-    type: object
   api.GetSection10Output:
     properties:
       section_10:
@@ -235,6 +139,8 @@ definitions:
     type: object
   api.GetSection10sOutput:
     properties:
+      next:
+        type: string
       section_10_data:
         items:
           $ref: '#/definitions/db.Section10'
@@ -247,6 +153,8 @@ definitions:
     type: object
   api.GetSection11sOutput:
     properties:
+      next:
+        type: string
       section_11_data:
         items:
           $ref: '#/definitions/db.Section11'
@@ -259,6 +167,8 @@ definitions:
     type: object
   api.GetSection12sOutput:
     properties:
+      next:
+        type: string
       section_12_data:
         items:
           $ref: '#/definitions/db.Section12'
@@ -271,6 +181,8 @@ definitions:
     type: object
   api.GetSection13sOutput:
     properties:
+      next:
+        type: string
       section_13_data:
         items:
           $ref: '#/definitions/db.Section13'
@@ -283,6 +195,8 @@ definitions:
     type: object
   api.GetSection14sOutput:
     properties:
+      next:
+        type: string
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
@@ -295,9 +209,123 @@ definitions:
     type: object
   api.GetSection1sOutput:
     properties:
+      next:
+        type: string
       section_1_data:
         items:
           $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
+  api.GetSection2Output:
+    properties:
+      section_2:
+        $ref: '#/definitions/db.Section2'
+    type: object
+  api.GetSection2sOutput:
+    properties:
+      next:
+        type: string
+      section_2_data:
+        items:
+          $ref: '#/definitions/db.Section2'
+        type: array
+    type: object
+  api.GetSection3Output:
+    properties:
+      section_3:
+        $ref: '#/definitions/db.Section3'
+    type: object
+  api.GetSection3sOutput:
+    properties:
+      next:
+        type: string
+      section_3_data:
+        items:
+          $ref: '#/definitions/db.Section3'
+        type: array
+    type: object
+  api.GetSection4Output:
+    properties:
+      section_4:
+        $ref: '#/definitions/db.Section4'
+    type: object
+  api.GetSection4sOutput:
+    properties:
+      next:
+        type: string
+      section_4_data:
+        items:
+          $ref: '#/definitions/db.Section4'
+        type: array
+    type: object
+  api.GetSection5Output:
+    properties:
+      section_5:
+        $ref: '#/definitions/db.Section5'
+    type: object
+  api.GetSection5sOutput:
+    properties:
+      next:
+        type: string
+      section_5_data:
+        items:
+          $ref: '#/definitions/db.Section5'
+        type: array
+    type: object
+  api.GetSection6Output:
+    properties:
+      section_6:
+        $ref: '#/definitions/db.Section6'
+    type: object
+  api.GetSection6sOutput:
+    properties:
+      next:
+        type: string
+      section_6_data:
+        items:
+          $ref: '#/definitions/db.Section6'
+        type: array
+    type: object
+  api.GetSection7Output:
+    properties:
+      section_7:
+        $ref: '#/definitions/db.Section7'
+    type: object
+  api.GetSection7sOutput:
+    properties:
+      next:
+        type: string
+      section_7_data:
+        items:
+          $ref: '#/definitions/db.Section7'
+        type: array
+    type: object
+  api.GetSection8Output:
+    properties:
+      section_8:
+        $ref: '#/definitions/db.Section8'
+    type: object
+  api.GetSection8sOutput:
+    properties:
+      next:
+        type: string
+      section_8_data:
+        items:
+          $ref: '#/definitions/db.Section8'
+        type: array
+    type: object
+  api.GetSection9Output:
+    properties:
+      section_9:
+        $ref: '#/definitions/db.Section9'
+    type: object
+  api.GetSection9sOutput:
+    properties:
+      next:
+        type: string
+      section_9_data:
+        items:
+          $ref: '#/definitions/db.Section9'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -2958,6 +2986,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 1 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3063,6 +3104,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 2 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3168,6 +3222,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 3 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3273,6 +3340,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 4 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3378,6 +3458,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 5 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3483,6 +3576,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 6 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3588,6 +3694,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 7 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3693,6 +3812,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 8 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3798,6 +3930,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 9 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3903,6 +4048,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 10 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4008,6 +4166,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 11 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4113,6 +4284,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 12 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4218,6 +4402,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 13 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4323,6 +4520,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 14 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
