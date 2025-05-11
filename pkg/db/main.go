@@ -77,7 +77,7 @@ type Db interface {
 	GetAnimalByID(context.Context, string, string) (Animal, error)
 	UpsertAnimal(context.Context, Animal) (Animal, error)
 	RemoveAnimal(context.Context, string, string) (interface{}, error)
-	GetFeedsByProject(context.Context, string, string) ([]Feed, error)
+	GetFeedsByProject(context.Context, string, string, PaginationOptions) ([]Feed, error)
 	GetFeedByID(context.Context, string, string) (Feed, error)
 	UpsertFeed(context.Context, Feed) (Feed, error)
 	RemoveFeed(context.Context, string, string) (interface{}, error)

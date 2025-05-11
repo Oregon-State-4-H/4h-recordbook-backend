@@ -25,6 +25,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Animal'
         type: array
+      next:
+        type: string
     type: object
   api.GetBookmarkOutput:
     properties:
@@ -102,6 +104,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Feed'
         type: array
+      next:
+        type: string
     type: object
   api.GetProjectOutput:
     properties:
@@ -2699,6 +2703,18 @@ paths:
         name: projectID
         required: true
         type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-100], default 30
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:

@@ -38,6 +38,6 @@ func BuildNextUrl(input NextUrlInput) string {
 	queryString := queryStringBuilder.String()
 	queryString = strings.TrimRight(queryString, "&")
 
-	return fmt.Sprintf("%s%s%s", BaseUrl(input.Context), input.Context.FullPath(), queryString)
+	return fmt.Sprintf("%s%s%s", BaseUrl(input.Context), input.Context.Request.URL.Path, queryString)
 
 }

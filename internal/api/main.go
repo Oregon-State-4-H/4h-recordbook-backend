@@ -295,7 +295,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.PUT("/rate-of-gain/:animalID", e.updateRateOfGain)
 	router.DELETE("/animal/:animalID", e.deleteAnimal)
 
-	router.GET("/project/:projectID/feed", e.getFeeds)
+	router.GET("/project/:projectID/feed", PaginationMiddleware(false), e.getFeeds)
 	router.GET("/feed/:feedID", e.getFeed)
 	router.POST("/feed", e.addFeed)
 	router.PUT("/feed/:feedID", e.updateFeed)
