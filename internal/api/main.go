@@ -288,7 +288,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/event/:eventID", e.addEventSection)
 	router.DELETE("event/:eventID/:sectionID", e.deleteEventSection)
 
-	router.GET("/project/:projectID/animal", e.getAnimals)
+	router.GET("/project/:projectID/animal", PaginationMiddleware(false), e.getAnimals)
 	router.GET("/animal/:animalID", e.getAnimal)
 	router.POST("/animal", e.addAnimal)
 	router.PUT("/animal/:animalID", e.updateAnimal)

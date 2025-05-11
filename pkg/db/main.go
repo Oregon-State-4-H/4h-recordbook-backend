@@ -73,7 +73,7 @@ type Db interface {
 	GetEventSectionsByEvent(context.Context, string, string) ([]EventSection, error)
 	UpsertEventSection(context.Context, EventSection) (EventSection, error)
 	RemoveEventSection(context.Context, string, string) (interface{}, error)
-	GetAnimalsByProject(context.Context, string, string) ([]Animal, error)
+	GetAnimalsByProject(context.Context, string, string, PaginationOptions) ([]Animal, error)
 	GetAnimalByID(context.Context, string, string) (Animal, error)
 	UpsertAnimal(context.Context, Animal) (Animal, error)
 	RemoveAnimal(context.Context, string, string) (interface{}, error)

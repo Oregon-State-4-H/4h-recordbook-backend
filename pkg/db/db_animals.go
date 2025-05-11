@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -28,7 +29,7 @@ type Animal struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectID string) ([]Animal, error) {
+func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Animal, error) {
 
 	env.logger.Info("Getting animals by project")
 
@@ -39,33 +40,53 @@ func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectI
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM animals a WHERE a.user_id = @user_id AND a.project_id = @project_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM animals a WHERE a.user_id = @user_id AND a.project_id = @project_id ORDER BY a.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@project_id", Value: projectID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	animals := []Animal{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Animal{}, err
-		}
 
-		for _, bytes := range response.Items {
-			animal := Animal{}
-			err := json.Unmarshal(bytes, &animal)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Animal{}, err
 			}
-			animals = append(animals, animal)
+
+			for _, bytes := range response.Items {
+				animal := Animal{}
+				err := json.Unmarshal(bytes, &animal)
+				if err != nil {
+					return []Animal{}, err
+				}
+				animals = append(animals, animal)
+			}
+
+			return animals, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Animal{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return animals, nil
