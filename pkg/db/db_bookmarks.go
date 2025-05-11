@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -63,7 +64,7 @@ func (env *env) GetBookmarkByLink(ctx context.Context, userID string, link strin
 
 }
 
-func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPage int) ([]Bookmark, error) {
+func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPage int, sortByNewest bool) ([]Bookmark, error) {
 
 	env.logger.Info("Getting bookmarks")
 
@@ -74,7 +75,12 @@ func (env *env) GetBookmarks(ctx context.Context, userID string, page int, perPa
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM bookmarks b WHERE b.user_id = @user_id ORDER BY b.created ASC"
+	sortOrder := "ASC"
+	if !sortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM bookmarks b WHERE b.user_id = @user_id ORDER BY b.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{

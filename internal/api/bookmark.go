@@ -10,6 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const BOOKMARKS = "bookmarks"
+
 type GetBookmarksOutput struct {
 	Bookmarks []db.Bookmark `json:"bookmarks"`
 	Next      string        `json:"next"`
@@ -33,8 +35,9 @@ type AddBookmarkOutput GetBookmarkOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param page query int false "Page number"
+// @Param page query int false "Page number, default 0"
 // @Param per_page query int false "Max number of items to return. Can be [1-100], default 30"
+// @Param sort_by_newest query bool false "Sort order, default true"
 // @Success 200 {object} api.GetBookmarksOutput
 // @Failure 401
 // @Router /bookmarks [get]
@@ -74,9 +77,18 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		perPage = PER_PAGE_MAX_INT
 	}
 
+	sortByNewestStr := c.DefaultQuery("sort_by_newest", "true")
+	sortByNewest, err := strconv.ParseBool(sortByNewestStr)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": ErrQueryMustBeBool,
+		})
+		return
+	}
+
 	var output GetBookmarksOutput
 
-	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID, page, perPage)
+	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID, page, perPage, sortByNewest)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -86,7 +98,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 	}
 
 	if len(output.Bookmarks) == perPage {
-		output.Next = utils.NextUrl(c, page, perPage)
+		output.Next = utils.NextUrl(c, BOOKMARKS, page, perPage, sortByNewest)
 	}
 
 	c.JSON(200, output)

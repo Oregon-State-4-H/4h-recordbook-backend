@@ -215,7 +215,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number",
+                        "description": "Page number, default 0",
                         "name": "page",
                         "in": "query"
                     },
@@ -223,6 +223,12 @@ const docTemplate = `{
                         "type": "integer",
                         "description": "Max number of items to return. Can be [1-100], default 30",
                         "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort order, default true",
+                        "name": "sort_by_newest",
                         "in": "query"
                     }
                 ],

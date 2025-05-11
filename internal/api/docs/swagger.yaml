@@ -120,18 +120,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -286,6 +274,18 @@ definitions:
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
+        type: array
+    type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
         type: array
     type: object
   api.GetSuppliesOutput:
@@ -554,6 +554,120 @@ definitions:
       project:
         $ref: '#/definitions/db.Project'
     type: object
+  api.UpsertSection10Input:
+    properties:
+      audience_size:
+        type: integer
+      communication_type:
+        type: string
+      location:
+        type: string
+      nickname:
+        type: string
+      times_given:
+        type: integer
+      topic:
+        type: string
+      year:
+        type: string
+    required:
+    - audience_size
+    - communication_type
+    - location
+    - nickname
+    - times_given
+    - topic
+    - year
+    type: object
+  api.UpsertSection10Output:
+    properties:
+      section_10:
+        $ref: '#/definitions/db.Section10'
+    type: object
+  api.UpsertSection11Input:
+    properties:
+      event_and_level:
+        type: string
+      exhibits_or_division:
+        type: string
+      nickname:
+        type: string
+      ribbon_or_placings:
+        type: string
+      year:
+        type: string
+    required:
+    - event_and_level
+    - exhibits_or_division
+    - nickname
+    - ribbon_or_placings
+    - year
+    type: object
+  api.UpsertSection11Output:
+    properties:
+      section_11:
+        $ref: '#/definitions/db.Section11'
+    type: object
+  api.UpsertSection12Input:
+    properties:
+      contest_or_event:
+        type: string
+      level:
+        type: string
+      nickname:
+        type: string
+      recognition_received:
+        type: string
+      year:
+        type: string
+    required:
+    - contest_or_event
+    - level
+    - nickname
+    - recognition_received
+    - year
+    type: object
+  api.UpsertSection12Output:
+    properties:
+      section_12:
+        $ref: '#/definitions/db.Section12'
+    type: object
+  api.UpsertSection13Input:
+    properties:
+      nickname:
+        type: string
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - nickname
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection13Output:
+    properties:
+      section_13:
+        $ref: '#/definitions/db.Section13'
+    type: object
+  api.UpsertSection14Input:
+    properties:
+      nickname:
+        type: string
+      recognition_type:
+        type: string
+      year:
+        type: string
+    required:
+    - nickname
+    - recognition_type
+    - year
+    type: object
+  api.UpsertSection14Output:
+    properties:
+      section_14:
+        $ref: '#/definitions/db.Section14'
+    type: object
   api.UpsertSection1Input:
     properties:
       club_leader:
@@ -781,120 +895,6 @@ definitions:
     properties:
       section_9:
         $ref: '#/definitions/db.Section9'
-    type: object
-  api.UpsertSection10Input:
-    properties:
-      audience_size:
-        type: integer
-      communication_type:
-        type: string
-      location:
-        type: string
-      nickname:
-        type: string
-      times_given:
-        type: integer
-      topic:
-        type: string
-      year:
-        type: string
-    required:
-    - audience_size
-    - communication_type
-    - location
-    - nickname
-    - times_given
-    - topic
-    - year
-    type: object
-  api.UpsertSection10Output:
-    properties:
-      section_10:
-        $ref: '#/definitions/db.Section10'
-    type: object
-  api.UpsertSection11Input:
-    properties:
-      event_and_level:
-        type: string
-      exhibits_or_division:
-        type: string
-      nickname:
-        type: string
-      ribbon_or_placings:
-        type: string
-      year:
-        type: string
-    required:
-    - event_and_level
-    - exhibits_or_division
-    - nickname
-    - ribbon_or_placings
-    - year
-    type: object
-  api.UpsertSection11Output:
-    properties:
-      section_11:
-        $ref: '#/definitions/db.Section11'
-    type: object
-  api.UpsertSection12Input:
-    properties:
-      contest_or_event:
-        type: string
-      level:
-        type: string
-      nickname:
-        type: string
-      recognition_received:
-        type: string
-      year:
-        type: string
-    required:
-    - contest_or_event
-    - level
-    - nickname
-    - recognition_received
-    - year
-    type: object
-  api.UpsertSection12Output:
-    properties:
-      section_12:
-        $ref: '#/definitions/db.Section12'
-    type: object
-  api.UpsertSection13Input:
-    properties:
-      nickname:
-        type: string
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - nickname
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection13Output:
-    properties:
-      section_13:
-        $ref: '#/definitions/db.Section13'
-    type: object
-  api.UpsertSection14Input:
-    properties:
-      nickname:
-        type: string
-      recognition_type:
-        type: string
-      year:
-        type: string
-    required:
-    - nickname
-    - recognition_type
-    - year
-    type: object
-  api.UpsertSection14Output:
-    properties:
-      section_14:
-        $ref: '#/definitions/db.Section14'
     type: object
   api.UpsertSupplyInput:
     properties:
@@ -1688,7 +1688,7 @@ paths:
       description: Returns an array of all the user's bookmarks, queried using JWT
         claims
       parameters:
-      - description: Page number
+      - description: Page number, default 0
         in: query
         name: page
         type: integer
@@ -1696,6 +1696,10 @@ paths:
         in: query
         name: per_page
         type: integer
+      - description: Sort order, default true
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:

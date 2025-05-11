@@ -22,6 +22,7 @@ const (
 	ErrBadDate              = "the date(s) provided do not conform to the RFC3339 format."
 	ErrInvalidSectionNumber = "section number must be in the range [1-14] inclusive"
 	ErrQueryMustBeInt       = "query param must be an integer value"
+	ErrQueryMustBeBool      = "query param must be a bool value (1, t, T, TRUE, true, True, 0, f, F, FALSE, false, False)"
 
 	//401
 	ErrNoToken  = "no authentication token provided"
