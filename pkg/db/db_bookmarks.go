@@ -132,6 +132,9 @@ func (env *env) AddBookmark(ctx context.Context, bookmark Bookmark) (Bookmark, e
 	env.logger.Info("Adding bookmark")
 
 	container, err := env.client.NewContainer("bookmarks")
+	if err != nil {
+		return bookmark, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(bookmark.UserID)
 
@@ -154,6 +157,9 @@ func (env *env) RemoveBookmark(ctx context.Context, userID string, bookmarkID st
 	env.logger.Info("Removing bookmark")
 
 	container, err := env.client.NewContainer("bookmarks")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 

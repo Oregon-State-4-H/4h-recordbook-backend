@@ -49,6 +49,9 @@ func (env *env) UpsertUser(ctx context.Context, user User) (interface{}, error) 
 	env.logger.Info("Upserting user")
 
 	container, err := env.client.NewContainer("users")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(user.ID)
 

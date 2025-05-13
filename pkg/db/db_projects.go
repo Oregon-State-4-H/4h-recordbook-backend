@@ -183,6 +183,9 @@ func (env *env) UpsertProject(ctx context.Context, project Project) (Project, er
 	env.logger.Info("Upserting project")
 
 	container, err := env.client.NewContainer("projects")
+	if err != nil {
+		return project, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(project.UserID)
 
@@ -205,6 +208,9 @@ func (env *env) RemoveProject(ctx context.Context, userID string, projectID stri
 	env.logger.Info("Removing project")
 
 	container, err := env.client.NewContainer("projects")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 

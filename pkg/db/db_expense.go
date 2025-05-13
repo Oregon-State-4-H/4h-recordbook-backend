@@ -114,6 +114,9 @@ func (env *env) UpsertExpense(ctx context.Context, expense Expense) (Expense, er
 	env.logger.Info("Upserting expense")
 
 	container, err := env.client.NewContainer("expenses")
+	if err != nil {
+		return expense, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(expense.UserID)
 
@@ -136,6 +139,9 @@ func (env *env) RemoveExpense(ctx context.Context, userID string, expenseID stri
 	env.logger.Info("Removing expense")
 
 	container, err := env.client.NewContainer("expenses")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 

@@ -116,6 +116,9 @@ func (env *env) UpsertDailyFeed(ctx context.Context, dailyFeed DailyFeed) (Daily
 	env.logger.Info("Upserting daily feed")
 
 	container, err := env.client.NewContainer("dailyfeeds")
+	if err != nil {
+		return dailyFeed, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(dailyFeed.UserID)
 
@@ -138,6 +141,9 @@ func (env *env) RemoveDailyFeed(ctx context.Context, userID string, dailyFeedID 
 	env.logger.Info("Removing daily feed")
 
 	container, err := env.client.NewContainer("dailyfeeds")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 

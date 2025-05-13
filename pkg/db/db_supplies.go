@@ -113,6 +113,9 @@ func (env *env) UpsertSupply(ctx context.Context, supply Supply) (Supply, error)
 	env.logger.Info("Upserting supply")
 
 	container, err := env.client.NewContainer("supplies")
+	if err != nil {
+		return supply, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(supply.UserID)
 
@@ -135,6 +138,9 @@ func (env *env) RemoveSupply(ctx context.Context, userID string, supplyID string
 	env.logger.Info("Removing supply")
 
 	container, err := env.client.NewContainer("supplies")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
