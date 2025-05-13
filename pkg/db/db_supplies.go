@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -17,7 +18,7 @@ type Supply struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetSuppliesByProject(ctx context.Context, userID string, projectID string) ([]Supply, error) {
+func (env *env) GetSuppliesByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Supply, error) {
 
 	env.logger.Info("Getting supplies by project")
 
@@ -28,33 +29,53 @@ func (env *env) GetSuppliesByProject(ctx context.Context, userID string, project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM supplies s WHERE s.user_id = @user_id AND s.project_id = @project_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM supplies s WHERE s.user_id = @user_id AND s.project_id = @project_id ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@project_id", Value: projectID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	supplies := []Supply{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Supply{}, err
-		}
 
-		for _, bytes := range response.Items {
-			supply := Supply{}
-			err := json.Unmarshal(bytes, &supply)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Supply{}, err
 			}
-			supplies = append(supplies, supply)
+
+			for _, bytes := range response.Items {
+				supply := Supply{}
+				err := json.Unmarshal(bytes, &supply)
+				if err != nil {
+					return []Supply{}, err
+				}
+				supplies = append(supplies, supply)
+			}
+
+			return supplies, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Supply{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return supplies, nil

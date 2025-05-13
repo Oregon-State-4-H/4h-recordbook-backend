@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
@@ -43,72 +44,78 @@ func (env *env) GetResume(ctx context.Context, userID string) (Resume, error) {
 
 	var err error
 
-	resume.Section1Data, err = env.GetSection1sByUser(ctx, userID)
+	paginationOptions := PaginationOptions{
+		Page:         0,
+		PerPage:      500,
+		SortByNewest: false,
+	}
+
+	resume.Section1Data, err = env.GetSection1sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section2Data, err = env.GetSection2sByUser(ctx, userID)
+	resume.Section2Data, err = env.GetSection2sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section3Data, err = env.GetSection3sByUser(ctx, userID)
+	resume.Section3Data, err = env.GetSection3sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section4Data, err = env.GetSection4sByUser(ctx, userID)
+	resume.Section4Data, err = env.GetSection4sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section5Data, err = env.GetSection5sByUser(ctx, userID)
+	resume.Section5Data, err = env.GetSection5sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section6Data, err = env.GetSection6sByUser(ctx, userID)
+	resume.Section6Data, err = env.GetSection6sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section7Data, err = env.GetSection7sByUser(ctx, userID)
+	resume.Section7Data, err = env.GetSection7sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section8Data, err = env.GetSection8sByUser(ctx, userID)
+	resume.Section8Data, err = env.GetSection8sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section9Data, err = env.GetSection9sByUser(ctx, userID)
+	resume.Section9Data, err = env.GetSection9sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section10Data, err = env.GetSection10sByUser(ctx, userID)
+	resume.Section10Data, err = env.GetSection10sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section11Data, err = env.GetSection11sByUser(ctx, userID)
+	resume.Section11Data, err = env.GetSection11sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section12Data, err = env.GetSection12sByUser(ctx, userID)
+	resume.Section12Data, err = env.GetSection12sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section13Data, err = env.GetSection13sByUser(ctx, userID)
+	resume.Section13Data, err = env.GetSection13sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
 
-	resume.Section14Data, err = env.GetSection14sByUser(ctx, userID)
+	resume.Section14Data, err = env.GetSection14sByUser(ctx, userID, paginationOptions)
 	if err != nil {
 		return resume, err
 	}
@@ -166,7 +173,7 @@ func (env *env) GetSection1ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection1sByUser(ctx context.Context, userID string) ([]Section1, error) {
+func (env *env) GetSection1sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section1, error) {
 
 	env.logger.Info("Getting all Section 1 records")
 
@@ -177,33 +184,53 @@ func (env *env) GetSection1sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 1},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section1{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section1{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section1{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section1{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section1{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section1{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section1{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -279,7 +306,7 @@ func (env *env) GetSection2ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection2sByUser(ctx context.Context, userID string) ([]Section2, error) {
+func (env *env) GetSection2sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section2, error) {
 
 	env.logger.Info("Getting all Section 2 records")
 
@@ -290,33 +317,53 @@ func (env *env) GetSection2sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 2},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section2{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section2{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section2{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section2{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section2{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section2{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section2{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -394,7 +441,7 @@ func (env *env) GetSection3ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection3sByUser(ctx context.Context, userID string) ([]Section3, error) {
+func (env *env) GetSection3sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section3, error) {
 
 	env.logger.Info("Getting all Section 3 records")
 
@@ -405,33 +452,53 @@ func (env *env) GetSection3sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 3},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section3{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section3{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section3{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section3{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section3{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section3{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section3{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -509,7 +576,7 @@ func (env *env) GetSection4ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection4sByUser(ctx context.Context, userID string) ([]Section4, error) {
+func (env *env) GetSection4sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section4, error) {
 
 	env.logger.Info("Getting all Section 4 records")
 
@@ -520,33 +587,53 @@ func (env *env) GetSection4sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 4},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section4{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section4{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section4{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section4{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section4{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section4{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section4{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -624,7 +711,7 @@ func (env *env) GetSection5ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection5sByUser(ctx context.Context, userID string) ([]Section5, error) {
+func (env *env) GetSection5sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section5, error) {
 
 	env.logger.Info("Getting all Section 5 records")
 
@@ -635,33 +722,53 @@ func (env *env) GetSection5sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 5},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section5{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section5{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section5{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section5{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section5{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section5{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section5{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -740,7 +847,7 @@ func (env *env) GetSection6ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection6sByUser(ctx context.Context, userID string) ([]Section6, error) {
+func (env *env) GetSection6sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section6, error) {
 
 	env.logger.Info("Getting all Section 6 records")
 
@@ -751,33 +858,53 @@ func (env *env) GetSection6sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 6},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section6{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section6{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section6{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section6{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section6{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section6{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section6{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -855,7 +982,7 @@ func (env *env) GetSection7ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection7sByUser(ctx context.Context, userID string) ([]Section7, error) {
+func (env *env) GetSection7sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section7, error) {
 
 	env.logger.Info("Getting all Section 7 records")
 
@@ -866,33 +993,53 @@ func (env *env) GetSection7sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 7},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section7{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section7{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section7{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section7{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section7{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section7{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section7{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -970,7 +1117,7 @@ func (env *env) GetSection8ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection8sByUser(ctx context.Context, userID string) ([]Section8, error) {
+func (env *env) GetSection8sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section8, error) {
 
 	env.logger.Info("Getting all Section 8 records")
 
@@ -981,33 +1128,53 @@ func (env *env) GetSection8sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 8},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section8{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section8{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section8{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section8{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section8{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section8{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section8{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -1087,7 +1254,7 @@ func (env *env) GetSection9ByID(ctx context.Context, userID string, sectionID st
 
 }
 
-func (env *env) GetSection9sByUser(ctx context.Context, userID string) ([]Section9, error) {
+func (env *env) GetSection9sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section9, error) {
 
 	env.logger.Info("Getting all Section 9 records")
 
@@ -1098,33 +1265,53 @@ func (env *env) GetSection9sByUser(ctx context.Context, userID string) ([]Sectio
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 9},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section9{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section9{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section9{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section9{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section9{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section9{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section9{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -1204,7 +1391,7 @@ func (env *env) GetSection10ByID(ctx context.Context, userID string, sectionID s
 
 }
 
-func (env *env) GetSection10sByUser(ctx context.Context, userID string) ([]Section10, error) {
+func (env *env) GetSection10sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section10, error) {
 
 	env.logger.Info("Getting all Section 10 records")
 
@@ -1215,33 +1402,53 @@ func (env *env) GetSection10sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 10},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section10{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section10{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section10{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section10{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section10{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section10{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section10{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -1319,7 +1526,7 @@ func (env *env) GetSection11ByID(ctx context.Context, userID string, sectionID s
 
 }
 
-func (env *env) GetSection11sByUser(ctx context.Context, userID string) ([]Section11, error) {
+func (env *env) GetSection11sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section11, error) {
 
 	env.logger.Info("Getting all Section 11 records")
 
@@ -1330,33 +1537,53 @@ func (env *env) GetSection11sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 11},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section11{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section11{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section11{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section11{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section11{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section11{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section11{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -1434,9 +1661,9 @@ func (env *env) GetSection12ByID(ctx context.Context, userID string, sectionID s
 
 }
 
-func (env *env) GetSection12sByUser(ctx context.Context, userID string) ([]Section12, error) {
+func (env *env) GetSection12sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section12, error) {
 
-	env.logger.Info("Getting all Section 10 records")
+	env.logger.Info("Getting all Section 12 records")
 
 	container, err := env.client.NewContainer("sections")
 	if err != nil {
@@ -1445,33 +1672,53 @@ func (env *env) GetSection12sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 12},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section12{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section12{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section12{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section12{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section12{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section12{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section12{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -1547,7 +1794,7 @@ func (env *env) GetSection13ByID(ctx context.Context, userID string, sectionID s
 
 }
 
-func (env *env) GetSection13sByUser(ctx context.Context, userID string) ([]Section13, error) {
+func (env *env) GetSection13sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section13, error) {
 
 	env.logger.Info("Getting all Section 13 records")
 
@@ -1558,33 +1805,53 @@ func (env *env) GetSection13sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 13},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section13{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section13{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section13{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section13{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section13{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section13{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section13{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil
@@ -1660,7 +1927,7 @@ func (env *env) GetSection14ByID(ctx context.Context, userID string, sectionID s
 
 }
 
-func (env *env) GetSection14sByUser(ctx context.Context, userID string) ([]Section14, error) {
+func (env *env) GetSection14sByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Section14, error) {
 
 	env.logger.Info("Getting all Section 14 records")
 
@@ -1671,33 +1938,53 @@ func (env *env) GetSection14sByUser(ctx context.Context, userID string) ([]Secti
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM sections s WHERE s.user_id = @user_id AND s.section = @section ORDER BY s.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@section", Value: 14},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	sections := []Section14{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Section14{}, err
-		}
 
-		for _, bytes := range response.Items {
-			section := Section14{}
-			err := json.Unmarshal(bytes, &section)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Section14{}, err
 			}
-			sections = append(sections, section)
+
+			for _, bytes := range response.Items {
+				section := Section14{}
+				err := json.Unmarshal(bytes, &section)
+				if err != nil {
+					return []Section14{}, err
+				}
+				sections = append(sections, section)
+			}
+
+			return sections, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Section14{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return sections, nil

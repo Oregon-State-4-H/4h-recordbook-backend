@@ -4,6 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ import (
 
 type GetSuppliesOutput struct {
 	Supplies []db.Supply `json:"supplies"`
+	Next     string      `json:"next"`
 }
 
 type GetSupplyOutput struct {
@@ -33,11 +35,14 @@ type UpsertSupplyOutput GetSupplyOutput
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
-// @Param projectID query string true "Project ID"
+// @Param projectID path string true "Project ID"
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSuppliesOutput
 // @Failure 400
 // @Failure 401
-// @Router /supply [get]
+// @Router /project/{projectID}/supply [get]
 func (e *env) getSupplies(c *gin.Context) {
 
 	claims, err := decodeJWT(c)
@@ -48,23 +53,38 @@ func (e *env) getSupplies(c *gin.Context) {
 		return
 	}
 
-	projectID := c.DefaultQuery("projectID", "")
-	if projectID == "" {
-		c.JSON(400, gin.H{
-			"message": ErrNoQuery,
-		})
-		return
-	}
+	projectID := c.Param("projectID")
 
 	var output GetSuppliesOutput
 
-	output.Supplies, err = e.db.GetSuppliesByProject(context.TODO(), claims.ID, projectID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Supplies, err = e.db.GetSuppliesByProject(context.TODO(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Supplies) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)

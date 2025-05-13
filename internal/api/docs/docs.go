@@ -16,47 +16,6 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/animal": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets all of a user's animals for a given project",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Animal"
-                ],
-                "summary": "Get animals by project",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Project ID",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.GetAnimalsOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
                 "security": [
                     {
@@ -253,6 +212,26 @@ const docTemplate = `{
                     "User Bookmarks"
                 ],
                 "summary": "Get all of a user's bookmarks",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -393,54 +372,6 @@ const docTemplate = `{
             }
         },
         "/daily-feed": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets all of a user's daily feeds for a given project and animal",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Daily Feed"
-                ],
-                "summary": "Get daily feeds by project and animal",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Project ID",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Animal ID",
-                        "name": "animalID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.GetDailyFeedsOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
                 "security": [
                     {
@@ -637,6 +568,26 @@ const docTemplate = `{
                     "Event"
                 ],
                 "summary": "Get events by user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -931,47 +882,6 @@ const docTemplate = `{
             }
         },
         "/expense": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets all of a user's expenses given a project ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Expense"
-                ],
-                "summary": "Get expenses by project",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Project ID",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.GetExpensesOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
                 "security": [
                     {
@@ -1151,47 +1061,6 @@ const docTemplate = `{
             }
         },
         "/feed": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets all of a user's feeds given a project ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Feed"
-                ],
-                "summary": "Get feeds by project",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Project ID",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.GetFeedsOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
                 "security": [
                     {
@@ -1237,47 +1106,6 @@ const docTemplate = `{
             }
         },
         "/feed-purchase": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets all of a user's feed purchases given a project ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Feed Purchase"
-                ],
-                "summary": "Get feed purchases by project",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Project ID",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.GetFeedPurchasesOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
                 "security": [
                     {
@@ -1608,6 +1436,26 @@ const docTemplate = `{
                     "Project"
                 ],
                 "summary": "Get all of a user's projects",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default true",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1798,6 +1646,379 @@ const docTemplate = `{
                 }
             }
         },
+        "/project/{projectID}/animal": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's animals for a given project",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Animal"
+                ],
+                "summary": "Get animals by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetAnimalsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/project/{projectID}/animal/{animalID}/daily-feed": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's daily feeds for a given project and animal",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Daily Feed"
+                ],
+                "summary": "Get daily feeds by project and animal",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Animal ID",
+                        "name": "animalID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetDailyFeedsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/project/{projectID}/expense": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's expenses given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Expense"
+                ],
+                "summary": "Get expenses by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetExpensesOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/project/{projectID}/feed": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's feeds given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Get feeds by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetFeedsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/project/{projectID}/feed-purchase": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's feed purchases given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feed Purchase"
+                ],
+                "summary": "Get feed purchases by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetFeedPurchasesOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/project/{projectID}/supply": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Gets all of a user's supplies given a project ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Supply"
+                ],
+                "summary": "Get supplies by project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "projectID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.GetSuppliesOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/projects": {
             "get": {
                 "security": [
@@ -1816,6 +2037,26 @@ const docTemplate = `{
                     "Project"
                 ],
                 "summary": "Gets projects of the current year",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default true",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1973,6 +2214,26 @@ const docTemplate = `{
                     "Resume Section 01"
                 ],
                 "summary": "Gets all Section 1 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2140,6 +2401,26 @@ const docTemplate = `{
                     "Resume Section 10"
                 ],
                 "summary": "Gets all Section 10 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2307,6 +2588,26 @@ const docTemplate = `{
                     "Resume Section 11"
                 ],
                 "summary": "Gets all Section 11 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2474,6 +2775,26 @@ const docTemplate = `{
                     "Resume Section 12"
                 ],
                 "summary": "Gets all Section 12 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2641,6 +2962,26 @@ const docTemplate = `{
                     "Resume Section 13"
                 ],
                 "summary": "Gets all Section 13 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2808,6 +3149,26 @@ const docTemplate = `{
                     "Resume Section 14"
                 ],
                 "summary": "Gets all Section 14 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2975,6 +3336,26 @@ const docTemplate = `{
                     "Resume Section 02"
                 ],
                 "summary": "Gets all Section 2 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3142,6 +3523,26 @@ const docTemplate = `{
                     "Resume Section 03"
                 ],
                 "summary": "Gets all Section 3 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3309,6 +3710,26 @@ const docTemplate = `{
                     "Resume Section 04"
                 ],
                 "summary": "Gets all Section 4 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3476,6 +3897,26 @@ const docTemplate = `{
                     "Resume Section 05"
                 ],
                 "summary": "Gets all Section 5 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3643,6 +4084,26 @@ const docTemplate = `{
                     "Resume Section 06"
                 ],
                 "summary": "Gets all Section 6 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3810,6 +4271,26 @@ const docTemplate = `{
                     "Resume Section 07"
                 ],
                 "summary": "Gets all Section 7 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3977,6 +4458,26 @@ const docTemplate = `{
                     "Resume Section 08"
                 ],
                 "summary": "Gets all Section 8 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4144,6 +4645,26 @@ const docTemplate = `{
                     "Resume Section 09"
                 ],
                 "summary": "Gets all Section 9 entries",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number, default 0",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Max number of items to return. Can be [1-200], default 100",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Sort results by most recently added, default false",
+                        "name": "sort_by_newest",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4368,47 +4889,6 @@ const docTemplate = `{
             }
         },
         "/supply": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Gets all of a user's supplies given a project ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Supply"
-                ],
-                "summary": "Get supplies by project",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Project ID",
-                        "name": "projectID",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/api.GetSuppliesOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
             "post": {
                 "security": [
                     {
@@ -4747,6 +5227,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Animal"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4766,6 +5249,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Bookmark"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4785,6 +5271,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.DailyFeed"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4808,6 +5297,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Event"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4827,6 +5319,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Expense"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4854,6 +5349,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.FeedPurchase"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4865,6 +5363,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/db.Feed"
                     }
+                },
+                "next": {
+                    "type": "string"
                 }
             }
         },
@@ -4879,6 +5380,9 @@ const docTemplate = `{
         "api.GetProjectsOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "projects": {
                     "type": "array",
                     "items": {
@@ -4906,6 +5410,9 @@ const docTemplate = `{
         "api.GetSection10sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_10_data": {
                     "type": "array",
                     "items": {
@@ -4925,6 +5432,9 @@ const docTemplate = `{
         "api.GetSection11sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_11_data": {
                     "type": "array",
                     "items": {
@@ -4944,6 +5454,9 @@ const docTemplate = `{
         "api.GetSection12sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_12_data": {
                     "type": "array",
                     "items": {
@@ -4963,6 +5476,9 @@ const docTemplate = `{
         "api.GetSection13sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_13_data": {
                     "type": "array",
                     "items": {
@@ -4982,6 +5498,9 @@ const docTemplate = `{
         "api.GetSection14sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_14_data": {
                     "type": "array",
                     "items": {
@@ -5001,6 +5520,9 @@ const docTemplate = `{
         "api.GetSection1sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_1_data": {
                     "type": "array",
                     "items": {
@@ -5020,6 +5542,9 @@ const docTemplate = `{
         "api.GetSection2sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_2_data": {
                     "type": "array",
                     "items": {
@@ -5039,6 +5564,9 @@ const docTemplate = `{
         "api.GetSection3sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_3_data": {
                     "type": "array",
                     "items": {
@@ -5058,6 +5586,9 @@ const docTemplate = `{
         "api.GetSection4sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_4_data": {
                     "type": "array",
                     "items": {
@@ -5077,6 +5608,9 @@ const docTemplate = `{
         "api.GetSection5sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_5_data": {
                     "type": "array",
                     "items": {
@@ -5096,6 +5630,9 @@ const docTemplate = `{
         "api.GetSection6sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_6_data": {
                     "type": "array",
                     "items": {
@@ -5115,6 +5652,9 @@ const docTemplate = `{
         "api.GetSection7sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_7_data": {
                     "type": "array",
                     "items": {
@@ -5134,6 +5674,9 @@ const docTemplate = `{
         "api.GetSection8sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_8_data": {
                     "type": "array",
                     "items": {
@@ -5153,6 +5696,9 @@ const docTemplate = `{
         "api.GetSection9sOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "section_9_data": {
                     "type": "array",
                     "items": {
@@ -5164,6 +5710,9 @@ const docTemplate = `{
         "api.GetSuppliesOutput": {
             "type": "object",
             "properties": {
+                "next": {
+                    "type": "string"
+                },
                 "supplies": {
                     "type": "array",
                     "items": {
@@ -5190,6 +5739,9 @@ const docTemplate = `{
         },
         "api.SignInInput": {
             "type": "object",
+            "required": [
+                "id"
+            ],
             "properties": {
                 "id": {
                     "type": "string"

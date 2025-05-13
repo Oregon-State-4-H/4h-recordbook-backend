@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -47,7 +48,7 @@ func (env *env) GetProjectByID(ctx context.Context, userID string, projectID str
 
 }
 
-func (env *env) GetCurrentProjects(ctx context.Context, userID string) ([]Project, error) {
+func (env *env) GetCurrentProjects(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Project, error) {
 
 	env.logger.Info("Getting current projects")
 
@@ -61,40 +62,60 @@ func (env *env) GetCurrentProjects(ctx context.Context, userID string) ([]Projec
 	now := time.Now()
 	year := strconv.Itoa(now.Year())
 
-	query := "SELECT * FROM projects p WHERE p.user_id = @user_id AND p.year = @year"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM projects p WHERE p.user_id = @user_id AND p.year = @year ORDER BY p.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@year", Value: year},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	projects := []Project{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Project{}, err
-		}
 
-		for _, bytes := range response.Items {
-			project := Project{}
-			err := json.Unmarshal(bytes, &project)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Project{}, err
 			}
-			projects = append(projects, project)
+
+			for _, bytes := range response.Items {
+				project := Project{}
+				err := json.Unmarshal(bytes, &project)
+				if err != nil {
+					return []Project{}, err
+				}
+				projects = append(projects, project)
+			}
+
+			return projects, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Project{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return projects, nil
 
 }
 
-func (env *env) GetProjectsByUser(ctx context.Context, userID string) ([]Project, error) {
+func (env *env) GetProjectsByUser(ctx context.Context, userID string, paginationOptions PaginationOptions) ([]Project, error) {
 
 	env.logger.Info("Getting projects")
 
@@ -105,32 +126,52 @@ func (env *env) GetProjectsByUser(ctx context.Context, userID string) ([]Project
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM projects p WHERE p.user_id = @user_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM projects p WHERE p.user_id = @user_id ORDER BY p.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	projects := []Project{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Project{}, err
-		}
 
-		for _, bytes := range response.Items {
-			project := Project{}
-			err := json.Unmarshal(bytes, &project)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Project{}, err
 			}
-			projects = append(projects, project)
+
+			for _, bytes := range response.Items {
+				project := Project{}
+				err := json.Unmarshal(bytes, &project)
+				if err != nil {
+					return []Project{}, err
+				}
+				projects = append(projects, project)
+			}
+
+			return projects, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Project{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return projects, nil

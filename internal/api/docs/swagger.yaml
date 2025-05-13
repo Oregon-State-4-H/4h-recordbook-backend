@@ -25,6 +25,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Animal'
         type: array
+      next:
+        type: string
     type: object
   api.GetBookmarkOutput:
     properties:
@@ -37,6 +39,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Bookmark'
         type: array
+      next:
+        type: string
     type: object
   api.GetDailyFeedOutput:
     properties:
@@ -49,6 +53,8 @@ definitions:
         items:
           $ref: '#/definitions/db.DailyFeed'
         type: array
+      next:
+        type: string
     type: object
   api.GetEventWithSectionsOutput:
     properties:
@@ -64,6 +70,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Event'
         type: array
+      next:
+        type: string
     type: object
   api.GetExpenseOutput:
     properties:
@@ -76,6 +84,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Expense'
         type: array
+      next:
+        type: string
     type: object
   api.GetFeedOutput:
     properties:
@@ -93,6 +103,8 @@ definitions:
         items:
           $ref: '#/definitions/db.FeedPurchase'
         type: array
+      next:
+        type: string
     type: object
   api.GetFeedsOutput:
     properties:
@@ -100,6 +112,8 @@ definitions:
         items:
           $ref: '#/definitions/db.Feed'
         type: array
+      next:
+        type: string
     type: object
   api.GetProjectOutput:
     properties:
@@ -108,6 +122,8 @@ definitions:
     type: object
   api.GetProjectsOutput:
     properties:
+      next:
+        type: string
       projects:
         items:
           $ref: '#/definitions/db.Project'
@@ -118,18 +134,6 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -137,6 +141,8 @@ definitions:
     type: object
   api.GetSection2sOutput:
     properties:
+      next:
+        type: string
       section_2_data:
         items:
           $ref: '#/definitions/db.Section2'
@@ -149,6 +155,8 @@ definitions:
     type: object
   api.GetSection3sOutput:
     properties:
+      next:
+        type: string
       section_3_data:
         items:
           $ref: '#/definitions/db.Section3'
@@ -161,6 +169,8 @@ definitions:
     type: object
   api.GetSection4sOutput:
     properties:
+      next:
+        type: string
       section_4_data:
         items:
           $ref: '#/definitions/db.Section4'
@@ -173,6 +183,8 @@ definitions:
     type: object
   api.GetSection5sOutput:
     properties:
+      next:
+        type: string
       section_5_data:
         items:
           $ref: '#/definitions/db.Section5'
@@ -185,6 +197,8 @@ definitions:
     type: object
   api.GetSection6sOutput:
     properties:
+      next:
+        type: string
       section_6_data:
         items:
           $ref: '#/definitions/db.Section6'
@@ -197,6 +211,8 @@ definitions:
     type: object
   api.GetSection7sOutput:
     properties:
+      next:
+        type: string
       section_7_data:
         items:
           $ref: '#/definitions/db.Section7'
@@ -209,6 +225,8 @@ definitions:
     type: object
   api.GetSection8sOutput:
     properties:
+      next:
+        type: string
       section_8_data:
         items:
           $ref: '#/definitions/db.Section8'
@@ -221,6 +239,8 @@ definitions:
     type: object
   api.GetSection9sOutput:
     properties:
+      next:
+        type: string
       section_9_data:
         items:
           $ref: '#/definitions/db.Section9'
@@ -233,6 +253,8 @@ definitions:
     type: object
   api.GetSection10sOutput:
     properties:
+      next:
+        type: string
       section_10_data:
         items:
           $ref: '#/definitions/db.Section10'
@@ -245,6 +267,8 @@ definitions:
     type: object
   api.GetSection11sOutput:
     properties:
+      next:
+        type: string
       section_11_data:
         items:
           $ref: '#/definitions/db.Section11'
@@ -257,6 +281,8 @@ definitions:
     type: object
   api.GetSection12sOutput:
     properties:
+      next:
+        type: string
       section_12_data:
         items:
           $ref: '#/definitions/db.Section12'
@@ -269,6 +295,8 @@ definitions:
     type: object
   api.GetSection13sOutput:
     properties:
+      next:
+        type: string
       section_13_data:
         items:
           $ref: '#/definitions/db.Section13'
@@ -281,13 +309,31 @@ definitions:
     type: object
   api.GetSection14sOutput:
     properties:
+      next:
+        type: string
       section_14_data:
         items:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      next:
+        type: string
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSuppliesOutput:
     properties:
+      next:
+        type: string
       supplies:
         items:
           $ref: '#/definitions/db.Supply'
@@ -307,6 +353,8 @@ definitions:
     properties:
       id:
         type: string
+    required:
+    - id
     type: object
   api.SignUpInput:
     properties:
@@ -1565,32 +1613,6 @@ info:
   title: 4H Record Books API
 paths:
   /animal:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's animals for a given project
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetAnimalsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get animals by project
-      tags:
-      - Animal
     post:
       consumes:
       - application/json
@@ -1709,6 +1731,19 @@ paths:
       - application/json
       description: Returns an array of all the user's bookmarks, queried using JWT
         claims
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -1805,37 +1840,6 @@ paths:
       tags:
       - User Bookmarks
   /daily-feed:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's daily feeds for a given project and animal
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      - description: Animal ID
-        in: query
-        name: animalID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetDailyFeedsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get daily feeds by project and animal
-      tags:
-      - Daily Feed
     post:
       consumes:
       - application/json
@@ -1953,6 +1957,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's events
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -2146,32 +2163,6 @@ paths:
       tags:
       - Event
   /expense:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's expenses given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetExpensesOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get expenses by project
-      tags:
-      - Expense
     post:
       consumes:
       - application/json
@@ -2285,32 +2276,6 @@ paths:
       tags:
       - Expense
   /feed:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's feeds given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetFeedsOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get feeds by project
-      tags:
-      - Feed
     post:
       consumes:
       - application/json
@@ -2339,32 +2304,6 @@ paths:
       tags:
       - Feed
   /feed-purchase:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's feed purchases given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetFeedPurchasesOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get feed purchases by project
-      tags:
-      - Feed Purchase
     post:
       consumes:
       - application/json
@@ -2567,6 +2506,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's saved projects regardless of year
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default true
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -2693,11 +2645,263 @@ paths:
       summary: Update a project
       tags:
       - Project
+  /project/{projectID}/animal:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's animals for a given project
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetAnimalsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get animals by project
+      tags:
+      - Animal
+  /project/{projectID}/animal/{animalID}/daily-feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's daily feeds for a given project and animal
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Animal ID
+        in: path
+        name: animalID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetDailyFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get daily feeds by project and animal
+      tags:
+      - Daily Feed
+  /project/{projectID}/expense:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's expenses given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetExpensesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get expenses by project
+      tags:
+      - Expense
+  /project/{projectID}/feed:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feeds given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedsOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feeds by project
+      tags:
+      - Feed
+  /project/{projectID}/feed-purchase:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's feed purchases given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetFeedPurchasesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get feed purchases by project
+      tags:
+      - Feed Purchase
+  /project/{projectID}/supply:
+    get:
+      consumes:
+      - application/json
+      description: Gets all of a user's supplies given a project ID
+      parameters:
+      - description: Project ID
+        in: path
+        name: projectID
+        required: true
+        type: string
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.GetSuppliesOutput'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      security:
+      - ApiKeyAuth: []
+      summary: Get supplies by project
+      tags:
+      - Supply
   /projects:
     get:
       consumes:
       - application/json
       description: Gets all of a user's projects that take place in the last 12 months
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default true
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -2797,6 +3001,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 1 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -2902,6 +3119,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 2 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3007,6 +3237,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 3 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3112,6 +3355,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 4 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3217,6 +3473,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 5 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3322,6 +3591,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 6 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3427,6 +3709,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 7 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3532,6 +3827,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 8 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3637,6 +3945,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 9 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3742,6 +4063,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 10 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3847,6 +4181,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 11 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -3952,6 +4299,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 12 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4057,6 +4417,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 13 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4162,6 +4535,19 @@ paths:
       consumes:
       - application/json
       description: Gets all of a user's Section 14 entries
+      parameters:
+      - description: Page number, default 0
+        in: query
+        name: page
+        type: integer
+      - description: Max number of items to return. Can be [1-200], default 100
+        in: query
+        name: per_page
+        type: integer
+      - description: Sort results by most recently added, default false
+        in: query
+        name: sort_by_newest
+        type: boolean
       produces:
       - application/json
       responses:
@@ -4311,32 +4697,6 @@ paths:
       tags:
       - User
   /supply:
-    get:
-      consumes:
-      - application/json
-      description: Gets all of a user's supplies given a project ID
-      parameters:
-      - description: Project ID
-        in: query
-        name: projectID
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.GetSuppliesOutput'
-        "400":
-          description: Bad Request
-        "401":
-          description: Unauthorized
-      security:
-      - ApiKeyAuth: []
-      summary: Get supplies by project
-      tags:
-      - Supply
     post:
       consumes:
       - application/json

@@ -8,6 +8,7 @@ import (
 	"4h-recordbook-backend/pkg/upc"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -20,7 +21,18 @@ import (
 	"go.uber.org/zap"
 )
 
-const API_VERSION = "1.0"
+const (
+	API_VERSION = "1.0"
+
+	PAGE_DEFAULT     = 0
+	PER_PAGE_DEFAULT = 100
+	PER_PAGE_MIN     = 1
+	PER_PAGE_MAX     = 200
+
+	CONTEXT_KEY_PAGE           = "page"
+	CONTEXT_KEY_PER_PAGE       = "per_page"
+	CONTEXT_KEY_SORT_BY_NEWEST = "sort_by_newest"
+)
 
 type Api interface {
 	RunLocal() error
@@ -109,6 +121,39 @@ func (e *env) RunAzureFunctions(port string) error {
 	return http.ListenAndServe(":"+port, e.api)
 }
 
+func PaginationMiddleware(defaultSortByNewest bool) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		pageStr := c.DefaultQuery(CONTEXT_KEY_PAGE, strconv.Itoa(PAGE_DEFAULT))
+		page, err := strconv.Atoi(pageStr)
+		if err != nil || page < 0 {
+			page = PAGE_DEFAULT
+		}
+
+		perPageStr := c.DefaultQuery(CONTEXT_KEY_PER_PAGE, strconv.Itoa(PER_PAGE_DEFAULT))
+		perPage, err := strconv.Atoi(perPageStr)
+		if err != nil {
+			perPage = PER_PAGE_DEFAULT
+		}
+		if perPage < PER_PAGE_MIN {
+			perPage = PER_PAGE_MIN
+		} else if perPage > PER_PAGE_MAX {
+			perPage = PER_PAGE_MAX
+		}
+
+		sortByNewestStr := c.DefaultQuery(CONTEXT_KEY_SORT_BY_NEWEST, strconv.FormatBool(defaultSortByNewest))
+		sortByNewest, err := strconv.ParseBool(sortByNewestStr)
+		if err != nil {
+			sortByNewest = defaultSortByNewest
+		}
+
+		c.Set(CONTEXT_KEY_PAGE, page)
+		c.Set(CONTEXT_KEY_PER_PAGE, perPage)
+		c.Set(CONTEXT_KEY_SORT_BY_NEWEST, sortByNewest)
+
+		c.Next()
+	}
+}
+
 func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcInstance upc.Upc) (Api, error) {
 
 	logger.Info("Setting up API")
@@ -149,13 +194,13 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/signin", e.signin)
 	router.POST("/signup", e.signup)
 
-	router.GET("/bookmarks", e.getUserBookmarks)
+	router.GET("/bookmarks", PaginationMiddleware(false), e.getUserBookmarks)
 	router.GET("/bookmarks/:link", e.getBookmarkByLink)
 	router.POST("/bookmarks", e.addUserBookmark)
 	router.DELETE("/bookmarks/:bookmarkID", e.deleteUserBookmark)
 
-	router.GET("/projects", e.getCurrentProjects)
-	router.GET("/project", e.getProjects)
+	router.GET("/projects", PaginationMiddleware(true), e.getCurrentProjects)
+	router.GET("/project", PaginationMiddleware(true), e.getProjects)
 	router.GET("/project/:projectID", e.getProject)
 	router.POST("/project", e.addProject)
 	router.PUT("/project/:projectID", e.updateProject)
@@ -163,79 +208,79 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 
 	router.GET("/resume", e.getResume)
 
-	router.GET("/section1", e.getSection1s)
+	router.GET("/section1", PaginationMiddleware(false), e.getSection1s)
 	router.GET("/section1/:sectionID", e.getSection1)
 	router.POST("/section1", e.addSection1)
 	router.PUT("/section1/:sectionID", e.updateSection1)
 
-	router.GET("/section2", e.getSection2s)
+	router.GET("/section2", PaginationMiddleware(false), e.getSection2s)
 	router.GET("/section2/:sectionID", e.getSection2)
 	router.POST("/section2", e.addSection2)
 	router.PUT("/section2/:sectionID", e.updateSection2)
 
-	router.GET("/section3", e.getSection3s)
+	router.GET("/section3", PaginationMiddleware(false), e.getSection3s)
 	router.GET("/section3/:sectionID", e.getSection3)
 	router.POST("/section3", e.addSection3)
 	router.PUT("/section3/:sectionID", e.updateSection3)
 
-	router.GET("/section4", e.getSection4s)
+	router.GET("/section4", PaginationMiddleware(false), e.getSection4s)
 	router.GET("/section4/:sectionID", e.getSection4)
 	router.POST("/section4", e.addSection4)
 	router.PUT("/section4/:sectionID", e.updateSection4)
 
-	router.GET("/section5", e.getSection5s)
+	router.GET("/section5", PaginationMiddleware(false), e.getSection5s)
 	router.GET("/section5/:sectionID", e.getSection5)
 	router.POST("/section5", e.addSection5)
 	router.PUT("/section5/:sectionID", e.updateSection5)
 
-	router.GET("/section6", e.getSection6s)
+	router.GET("/section6", PaginationMiddleware(false), e.getSection6s)
 	router.GET("/section6/:sectionID", e.getSection6)
 	router.POST("/section6", e.addSection6)
 	router.PUT("/section6/:sectionID", e.updateSection6)
 
-	router.GET("/section7", e.getSection7s)
+	router.GET("/section7", PaginationMiddleware(false), e.getSection7s)
 	router.GET("/section7/:sectionID", e.getSection7)
 	router.POST("/section7", e.addSection7)
 	router.PUT("/section7/:sectionID", e.updateSection7)
 
-	router.GET("/section8", e.getSection8s)
+	router.GET("/section8", PaginationMiddleware(false), e.getSection8s)
 	router.GET("/section8/:sectionID", e.getSection8)
 	router.POST("/section8", e.addSection8)
 	router.PUT("/section8/:sectionID", e.updateSection8)
 
-	router.GET("/section9", e.getSection9s)
+	router.GET("/section9", PaginationMiddleware(false), e.getSection9s)
 	router.GET("/section9/:sectionID", e.getSection9)
 	router.POST("/section9", e.addSection9)
 	router.PUT("/section9/:sectionID", e.updateSection9)
 
-	router.GET("/section10", e.getSection10s)
+	router.GET("/section10", PaginationMiddleware(false), e.getSection10s)
 	router.GET("/section10/:sectionID", e.getSection10)
 	router.POST("/section10", e.addSection10)
 	router.PUT("/section10/:sectionID", e.updateSection10)
 
-	router.GET("/section11", e.getSection11s)
+	router.GET("/section11", PaginationMiddleware(false), e.getSection11s)
 	router.GET("/section11/:sectionID", e.getSection11)
 	router.POST("/section11", e.addSection11)
 	router.PUT("/section11/:sectionID", e.updateSection11)
 
-	router.GET("/section12", e.getSection12s)
+	router.GET("/section12", PaginationMiddleware(false), e.getSection12s)
 	router.GET("/section12/:sectionID", e.getSection12)
 	router.POST("/section12", e.addSection12)
 	router.PUT("/section12/:sectionID", e.updateSection12)
 
-	router.GET("/section13", e.getSection13s)
+	router.GET("/section13", PaginationMiddleware(false), e.getSection13s)
 	router.GET("/section13/:sectionID", e.getSection13)
 	router.POST("/section13", e.addSection13)
 	router.PUT("/section13/:sectionID", e.updateSection13)
 
-	router.GET("/section14", e.getSection14s)
+	router.GET("/section14", PaginationMiddleware(false), e.getSection14s)
 	router.GET("/section14/:sectionID", e.getSection14)
 	router.POST("/section14", e.addSection14)
 	router.PUT("/section14/:sectionID", e.updateSection14)
 
 	router.DELETE("/section/:sectionID", e.deleteSection)
 
-	router.GET("/event", e.getEvents)
+	router.GET("/event", PaginationMiddleware(false), e.getEvents)
 	router.POST("/event", e.addEvent)
 	router.PUT("/event/:eventID", e.updateEvent)
 	router.DELETE("/event/:eventID", e.deleteEvent)
@@ -243,38 +288,38 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 	router.POST("/event/:eventID", e.addEventSection)
 	router.DELETE("event/:eventID/:sectionID", e.deleteEventSection)
 
-	router.GET("/animal", e.getAnimals)
+	router.GET("/project/:projectID/animal", PaginationMiddleware(false), e.getAnimals)
 	router.GET("/animal/:animalID", e.getAnimal)
 	router.POST("/animal", e.addAnimal)
 	router.PUT("/animal/:animalID", e.updateAnimal)
 	router.PUT("/rate-of-gain/:animalID", e.updateRateOfGain)
 	router.DELETE("/animal/:animalID", e.deleteAnimal)
 
-	router.GET("/feed", e.getFeeds)
+	router.GET("/project/:projectID/feed", PaginationMiddleware(false), e.getFeeds)
 	router.GET("/feed/:feedID", e.getFeed)
 	router.POST("/feed", e.addFeed)
 	router.PUT("/feed/:feedID", e.updateFeed)
 	router.DELETE("/feed/:feedID", e.deleteFeed)
 
-	router.GET("/feed-purchase", e.getFeedPurchases)
+	router.GET("/project/:projectID/feed-purchase", PaginationMiddleware(false), e.getFeedPurchases)
 	router.GET("/feed-purchase/:feedPurchaseID", e.getFeedPurchase)
 	router.POST("/feed-purchase", e.addFeedPurchase)
 	router.PUT("/feed-purchase/:feedPurchaseID", e.updateFeedPurchase)
 	router.DELETE("/feed-purchase/:feedPurchaseID", e.deleteFeedPurchase)
 
-	router.GET("/daily-feed", e.getDailyFeeds)
+	router.GET("/project/:projectID/animal/:animalID/daily-feed", PaginationMiddleware(false), e.getDailyFeeds)
 	router.GET("/daily-feed/:dailyFeedID", e.getDailyFeed)
 	router.POST("/daily-feed", e.addDailyFeed)
 	router.PUT("/daily-feed/:dailyFeedID", e.updateDailyFeed)
 	router.DELETE("/daily-feed/:dailyFeedID", e.deleteDailyFeed)
 
-	router.GET("/expense", e.getExpenses)
+	router.GET("/project/:projectID/expense", PaginationMiddleware(false), e.getExpenses)
 	router.GET("/expense/:expenseID", e.getExpense)
 	router.POST("/expense", e.addExpense)
 	router.PUT("/expense/:expenseID", e.updateExpense)
 	router.DELETE("/expense/:expenseID", e.deleteExpense)
 
-	router.GET("/supply/", e.getSupplies)
+	router.GET("/project/:projectID/supply", PaginationMiddleware(false), e.getSupplies)
 	router.GET("/supply/:supplyID", e.getSupply)
 	router.POST("/supply", e.addSupply)
 	router.PUT("/supply/:supplyID", e.updateSupply)

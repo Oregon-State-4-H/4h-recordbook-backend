@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -15,7 +16,7 @@ type Feed struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID string) ([]Feed, error) {
+func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Feed, error) {
 
 	env.logger.Info("Getting feeds by project")
 
@@ -26,33 +27,53 @@ func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID 
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM feeds f WHERE f.user_id = @user_id AND f.project_id = @project_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM feeds f WHERE f.user_id = @user_id AND f.project_id = @project_id ORDER BY f.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
 			{Name: "@user_id", Value: userID},
 			{Name: "@project_id", Value: projectID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	feeds := []Feed{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []Feed{}, err
-		}
 
-		for _, bytes := range response.Items {
-			feed := Feed{}
-			err := json.Unmarshal(bytes, &feed)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []Feed{}, err
 			}
-			feeds = append(feeds, feed)
+
+			for _, bytes := range response.Items {
+				feed := Feed{}
+				err := json.Unmarshal(bytes, &feed)
+				if err != nil {
+					return []Feed{}, err
+				}
+				feeds = append(feeds, feed)
+			}
+
+			return feeds, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []Feed{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return feeds, nil

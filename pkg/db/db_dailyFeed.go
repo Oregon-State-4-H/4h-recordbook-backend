@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/data/azcosmos"
 )
@@ -19,7 +20,7 @@ type DailyFeed struct {
 	GenericDatabaseInfo
 }
 
-func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID string, projectID string, animalID string) ([]DailyFeed, error) {
+func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID string, projectID string, animalID string, paginationOptions PaginationOptions) ([]DailyFeed, error) {
 
 	env.logger.Info("Getting daily feeds by project and animal")
 
@@ -30,7 +31,12 @@ func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID stri
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
-	query := "SELECT * FROM dailyfeeds df WHERE df.user_id = @user_id AND df.project_id = @project_id AND df.animal_id = @animal_id"
+	sortOrder := "ASC"
+	if paginationOptions.SortByNewest {
+		sortOrder = "DESC"
+	}
+
+	query := fmt.Sprintf("SELECT * FROM dailyfeeds df WHERE df.user_id = @user_id AND df.project_id = @project_id AND df.animal_id = @animal_id ORDER BY df.created %s", sortOrder)
 
 	queryOptions := azcosmos.QueryOptions{
 		QueryParameters: []azcosmos.QueryParameter{
@@ -38,26 +44,41 @@ func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID stri
 			{Name: "@project_id", Value: projectID},
 			{Name: "@animal_id", Value: animalID},
 		},
+		PageSizeHint: int32(paginationOptions.PerPage),
 	}
 
 	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
 
 	dailyFeeds := []DailyFeed{}
+	currentPage := 0
 
 	for pager.More() {
-		response, err := pager.NextPage(ctx)
-		if err != nil {
-			return []DailyFeed{}, err
-		}
 
-		for _, bytes := range response.Items {
-			dailyFeed := DailyFeed{}
-			err := json.Unmarshal(bytes, &dailyFeed)
+		if currentPage == paginationOptions.Page {
+			response, err := pager.NextPage(ctx)
 			if err != nil {
 				return []DailyFeed{}, err
 			}
-			dailyFeeds = append(dailyFeeds, dailyFeed)
+
+			for _, bytes := range response.Items {
+				dailyFeed := DailyFeed{}
+				err := json.Unmarshal(bytes, &dailyFeed)
+				if err != nil {
+					return []DailyFeed{}, err
+				}
+				dailyFeeds = append(dailyFeeds, dailyFeed)
+			}
+
+			return dailyFeeds, nil
+
+		} else {
+			_, err := pager.NextPage(ctx)
+			if err != nil {
+				return []DailyFeed{}, err
+			}
+			currentPage++
 		}
+
 	}
 
 	return dailyFeeds, nil

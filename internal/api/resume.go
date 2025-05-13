@@ -4,6 +4,7 @@ import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
 	"context"
+	"strconv"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -58,6 +59,7 @@ func (e *env) getResume(c *gin.Context) {
 
 type GetSection1sOutput struct {
 	Sections []db.Section1 `json:"section_1_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection1Output struct {
@@ -84,6 +86,9 @@ type UpsertSection1Output GetSection1Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection1sOutput
 // @Failure 401
 // @Failure 404
@@ -100,13 +105,34 @@ func (e *env) getSection1s(c *gin.Context) {
 
 	var output GetSection1sOutput
 
-	output.Sections, err = e.db.GetSection1sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection1sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -320,6 +346,7 @@ func (e *env) updateSection1(c *gin.Context) {
 
 type GetSection2sOutput struct {
 	Sections []db.Section2 `json:"section_2_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection2Output struct {
@@ -341,6 +368,9 @@ type UpsertSection2Output GetSection2Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection2sOutput
 // @Failure 401
 // @Router /section2 [get]
@@ -356,13 +386,34 @@ func (e *env) getSection2s(c *gin.Context) {
 
 	var output GetSection2sOutput
 
-	output.Sections, err = e.db.GetSection2sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection2sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -569,6 +620,7 @@ func (e *env) updateSection2(c *gin.Context) {
 
 type GetSection3sOutput struct {
 	Sections []db.Section3 `json:"section_3_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection3Output struct {
@@ -592,6 +644,9 @@ type UpsertSection3Output GetSection3Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection3sOutput
 // @Failure 401
 // @Router /section3 [get]
@@ -607,13 +662,34 @@ func (e *env) getSection3s(c *gin.Context) {
 
 	var output GetSection3sOutput
 
-	output.Sections, err = e.db.GetSection3sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection3sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -824,6 +900,7 @@ func (e *env) updateSection3(c *gin.Context) {
 
 type GetSection4sOutput struct {
 	Sections []db.Section4 `json:"section_4_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection4Output struct {
@@ -847,6 +924,9 @@ type UpsertSection4Output GetSection4Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection4sOutput
 // @Failure 401
 // @Router /section4 [get]
@@ -862,13 +942,34 @@ func (e *env) getSection4s(c *gin.Context) {
 
 	var output GetSection4sOutput
 
-	output.Sections, err = e.db.GetSection4sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection4sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -1079,6 +1180,7 @@ func (e *env) updateSection4(c *gin.Context) {
 
 type GetSection5sOutput struct {
 	Sections []db.Section5 `json:"section_5_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection5Output struct {
@@ -1102,6 +1204,9 @@ type UpsertSection5Output GetSection5Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection5sOutput
 // @Failure 401
 // @Router /section5 [get]
@@ -1117,13 +1222,34 @@ func (e *env) getSection5s(c *gin.Context) {
 
 	var output GetSection5sOutput
 
-	output.Sections, err = e.db.GetSection5sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection5sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -1334,6 +1460,7 @@ func (e *env) updateSection5(c *gin.Context) {
 
 type GetSection6sOutput struct {
 	Sections []db.Section6 `json:"section_6_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection6Output struct {
@@ -1358,6 +1485,9 @@ type UpsertSection6Output GetSection6Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection6sOutput
 // @Failure 401
 // @Router /section6 [get]
@@ -1373,13 +1503,34 @@ func (e *env) getSection6s(c *gin.Context) {
 
 	var output GetSection6sOutput
 
-	output.Sections, err = e.db.GetSection6sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection6sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -1592,6 +1743,7 @@ func (e *env) updateSection6(c *gin.Context) {
 
 type GetSection7sOutput struct {
 	Sections []db.Section7 `json:"section_7_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection7Output struct {
@@ -1615,6 +1767,9 @@ type UpsertSection7Output GetSection7Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection7sOutput
 // @Failure 401
 // @Router /section7 [get]
@@ -1630,13 +1785,34 @@ func (e *env) getSection7s(c *gin.Context) {
 
 	var output GetSection7sOutput
 
-	output.Sections, err = e.db.GetSection7sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection7sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -1847,6 +2023,7 @@ func (e *env) updateSection7(c *gin.Context) {
 
 type GetSection8sOutput struct {
 	Sections []db.Section8 `json:"section_8_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection8Output struct {
@@ -1870,6 +2047,9 @@ type UpsertSection8Output GetSection8Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection8sOutput
 // @Failure 401
 // @Router /section8 [get]
@@ -1885,13 +2065,34 @@ func (e *env) getSection8s(c *gin.Context) {
 
 	var output GetSection8sOutput
 
-	output.Sections, err = e.db.GetSection8sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection8sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -2102,6 +2303,7 @@ func (e *env) updateSection8(c *gin.Context) {
 
 type GetSection9sOutput struct {
 	Sections []db.Section9 `json:"section_9_data"`
+	Next     string        `json:"next"`
 }
 
 type GetSection9Output struct {
@@ -2127,6 +2329,9 @@ type UpsertSection9Output GetSection9Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection9sOutput
 // @Failure 401
 // @Router /section9 [get]
@@ -2142,13 +2347,34 @@ func (e *env) getSection9s(c *gin.Context) {
 
 	var output GetSection9sOutput
 
-	output.Sections, err = e.db.GetSection9sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection9sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -2363,6 +2589,7 @@ func (e *env) updateSection9(c *gin.Context) {
 
 type GetSection10sOutput struct {
 	Sections []db.Section10 `json:"section_10_data"`
+	Next     string         `json:"next"`
 }
 
 type GetSection10Output struct {
@@ -2388,6 +2615,9 @@ type UpsertSection10Output GetSection10Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection10sOutput
 // @Failure 401
 // @Router /section10 [get]
@@ -2403,13 +2633,34 @@ func (e *env) getSection10s(c *gin.Context) {
 
 	var output GetSection10sOutput
 
-	output.Sections, err = e.db.GetSection10sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection10sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -2624,6 +2875,7 @@ func (e *env) updateSection10(c *gin.Context) {
 
 type GetSection11sOutput struct {
 	Sections []db.Section11 `json:"section_11_data"`
+	Next     string         `json:"next"`
 }
 
 type GetSection11Output struct {
@@ -2647,6 +2899,9 @@ type UpsertSection11Output GetSection11Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection11sOutput
 // @Failure 401
 // @Router /section11 [get]
@@ -2662,13 +2917,34 @@ func (e *env) getSection11s(c *gin.Context) {
 
 	var output GetSection11sOutput
 
-	output.Sections, err = e.db.GetSection11sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection11sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -2879,6 +3155,7 @@ func (e *env) updateSection11(c *gin.Context) {
 
 type GetSection12sOutput struct {
 	Sections []db.Section12 `json:"section_12_data"`
+	Next     string         `json:"next"`
 }
 
 type GetSection12Output struct {
@@ -2902,6 +3179,9 @@ type UpsertSection12Output GetSection12Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection12sOutput
 // @Failure 401
 // @Router /section12 [get]
@@ -2917,13 +3197,34 @@ func (e *env) getSection12s(c *gin.Context) {
 
 	var output GetSection12sOutput
 
-	output.Sections, err = e.db.GetSection12sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection12sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -3134,6 +3435,7 @@ func (e *env) updateSection12(c *gin.Context) {
 
 type GetSection13sOutput struct {
 	Sections []db.Section13 `json:"section_13_data"`
+	Next     string         `json:"next"`
 }
 
 type GetSection13Output struct {
@@ -3155,6 +3457,9 @@ type UpsertSection13Output GetSection13Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection13sOutput
 // @Failure 401
 // @Router /section13 [get]
@@ -3170,13 +3475,34 @@ func (e *env) getSection13s(c *gin.Context) {
 
 	var output GetSection13sOutput
 
-	output.Sections, err = e.db.GetSection13sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection13sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
@@ -3382,6 +3708,7 @@ func (e *env) updateSection13(c *gin.Context) {
 
 type GetSection14sOutput struct {
 	Sections []db.Section14 `json:"section_14_data"`
+	Next     string         `json:"next"`
 }
 
 type GetSection14Output struct {
@@ -3403,6 +3730,9 @@ type UpsertSection14Output GetSection14Output
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
+// @Param page query int false "Page number, default 0"
+// @Param per_page query int false "Max number of items to return. Can be [1-200], default 100"
+// @Param sort_by_newest query bool false "Sort results by most recently added, default false"
 // @Success 200 {object} api.GetSection14sOutput
 // @Failure 401
 // @Router /section14 [get]
@@ -3418,13 +3748,34 @@ func (e *env) getSection14s(c *gin.Context) {
 
 	var output GetSection14sOutput
 
-	output.Sections, err = e.db.GetSection14sByUser(context.TODO(), claims.ID)
+	paginationOptions := db.PaginationOptions{
+		Page:         c.GetInt(CONTEXT_KEY_PAGE),
+		PerPage:      c.GetInt(CONTEXT_KEY_PER_PAGE),
+		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
+	}
+
+	output.Sections, err = e.db.GetSection14sByUser(context.TODO(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
 			"message": response.Message,
 		})
 		return
+	}
+
+	if len(output.Sections) == paginationOptions.PerPage {
+
+		queryParamsMap := make(map[string]string)
+		queryParamsMap[CONTEXT_KEY_PAGE] = strconv.Itoa(paginationOptions.Page + 1)
+		queryParamsMap[CONTEXT_KEY_PER_PAGE] = strconv.Itoa(paginationOptions.PerPage)
+		queryParamsMap[CONTEXT_KEY_SORT_BY_NEWEST] = strconv.FormatBool(paginationOptions.SortByNewest)
+
+		nextUrlInput := utils.NextUrlInput{
+			Context:     c,
+			QueryParams: queryParamsMap,
+		}
+
+		output.Next = utils.BuildNextUrl(nextUrlInput)
 	}
 
 	c.JSON(200, output)
