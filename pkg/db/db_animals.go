@@ -124,6 +124,9 @@ func (env *env) UpsertAnimal(ctx context.Context, animal Animal) (Animal, error)
 	env.logger.Info("Upserting animal")
 
 	container, err := env.client.NewContainer("animals")
+	if err != nil {
+		return animal, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(animal.UserID)
 
@@ -146,6 +149,9 @@ func (env *env) RemoveAnimal(ctx context.Context, userID string, animalID string
 	env.logger.Info("Removing animal")
 
 	container, err := env.client.NewContainer("animals")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 

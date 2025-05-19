@@ -111,6 +111,9 @@ func (env *env) UpsertFeed(ctx context.Context, feed Feed) (Feed, error) {
 	env.logger.Info("Upserting feed")
 
 	container, err := env.client.NewContainer("feeds")
+	if err != nil {
+		return feed, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(feed.UserID)
 
@@ -133,6 +136,9 @@ func (env *env) RemoveFeed(ctx context.Context, userID string, feedID string) (i
 	env.logger.Info("Removing feed")
 
 	container, err := env.client.NewContainer("feeds")
+	if err != nil {
+		return nil, err
+	}
 
 	partitionKey := azcosmos.NewPartitionKeyString(userID)
 
