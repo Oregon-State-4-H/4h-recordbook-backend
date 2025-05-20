@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -63,7 +62,7 @@ func (e *env) getSupplies(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Supplies, err = e.db.GetSuppliesByProject(context.TODO(), claims.ID, projectID, paginationOptions)
+	output.Supplies, err = e.db.GetSuppliesByProject(c.Request.Context(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -117,7 +116,7 @@ func (e *env) getSupply(c *gin.Context) {
 
 	var output GetSupplyOutput
 
-	output.Supply, err = e.db.GetSupplyByID(context.TODO(), claims.ID, supplyID)
+	output.Supply, err = e.db.GetSupplyByID(c.Request.Context(), claims.ID, supplyID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -187,7 +186,7 @@ func (e *env) addSupply(c *gin.Context) {
 
 	var output UpsertSupplyOutput
 
-	output.Supply, err = e.db.UpsertSupply(context.TODO(), supply)
+	output.Supply, err = e.db.UpsertSupply(c.Request.Context(), supply)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -243,7 +242,7 @@ func (e *env) updateSupply(c *gin.Context) {
 
 	supplyID := c.Param("supplyID")
 
-	supply, err := e.db.GetSupplyByID(context.TODO(), claims.ID, supplyID)
+	supply, err := e.db.GetSupplyByID(c.Request.Context(), claims.ID, supplyID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -269,7 +268,7 @@ func (e *env) updateSupply(c *gin.Context) {
 
 	var output UpsertSupplyOutput
 
-	output.Supply, err = e.db.UpsertSupply(context.TODO(), updatedSupply)
+	output.Supply, err = e.db.UpsertSupply(c.Request.Context(), updatedSupply)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -306,7 +305,7 @@ func (e *env) deleteSupply(c *gin.Context) {
 
 	supplyID := c.Param("supplyID")
 
-	response, err := e.db.RemoveSupply(context.TODO(), claims.ID, supplyID)
+	response, err := e.db.RemoveSupply(c.Request.Context(), claims.ID, supplyID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

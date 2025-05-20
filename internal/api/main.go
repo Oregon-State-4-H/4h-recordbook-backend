@@ -6,6 +6,7 @@ import (
 	"4h-recordbook-backend/internal/middleware"
 	"4h-recordbook-backend/pkg/db"
 	"4h-recordbook-backend/pkg/upc"
+	"context"
 	"errors"
 	"net/http"
 	"strconv"
@@ -154,6 +155,15 @@ func PaginationMiddleware(defaultSortByNewest bool) gin.HandlerFunc {
 	}
 }
 
+func CtxMiddleware(timeout time.Duration) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(c.Request.Context(), timeout)
+		defer cancel()
+		c.Request = c.Request.WithContext(ctx)
+		c.Next()
+	}
+}
+
 func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcInstance upc.Upc) (Api, error) {
 
 	logger.Info("Setting up API")
@@ -176,6 +186,8 @@ func New(logger *zap.SugaredLogger, cfg *config.Config, dbInstance db.Db, upcIns
 		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 	}))
+
+	router.Use(CtxMiddleware(5 * time.Second))
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

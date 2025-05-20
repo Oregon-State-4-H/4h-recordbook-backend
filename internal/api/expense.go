@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -64,7 +63,7 @@ func (e *env) getExpenses(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Expenses, err = e.db.GetExpensesByProject(context.TODO(), claims.ID, projectID, paginationOptions)
+	output.Expenses, err = e.db.GetExpensesByProject(c.Request.Context(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -118,7 +117,7 @@ func (e *env) getExpense(c *gin.Context) {
 
 	var output GetExpenseOutput
 
-	output.Expense, err = e.db.GetExpenseByID(context.TODO(), claims.ID, expenseID)
+	output.Expense, err = e.db.GetExpenseByID(c.Request.Context(), claims.ID, expenseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -197,7 +196,7 @@ func (e *env) addExpense(c *gin.Context) {
 
 	var output UpsertExpenseOutput
 
-	output.Expense, err = e.db.UpsertExpense(context.TODO(), expense)
+	output.Expense, err = e.db.UpsertExpense(c.Request.Context(), expense)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -261,7 +260,7 @@ func (e *env) updateExpense(c *gin.Context) {
 
 	expenseID := c.Param("expenseID")
 
-	expense, err := e.db.GetExpenseByID(context.TODO(), claims.ID, expenseID)
+	expense, err := e.db.GetExpenseByID(c.Request.Context(), claims.ID, expenseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -288,7 +287,7 @@ func (e *env) updateExpense(c *gin.Context) {
 
 	var output UpsertExpenseOutput
 
-	output.Expense, err = e.db.UpsertExpense(context.TODO(), updatedExpense)
+	output.Expense, err = e.db.UpsertExpense(c.Request.Context(), updatedExpense)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -325,7 +324,7 @@ func (e *env) deleteExpense(c *gin.Context) {
 
 	expenseID := c.Param("expenseID")
 
-	response, err := e.db.RemoveExpense(context.TODO(), claims.ID, expenseID)
+	response, err := e.db.RemoveExpense(c.Request.Context(), claims.ID, expenseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

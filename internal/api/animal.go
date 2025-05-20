@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -77,7 +76,7 @@ func (e *env) getAnimals(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Animals, err = e.db.GetAnimalsByProject(context.TODO(), claims.ID, projectID, paginationOptions)
+	output.Animals, err = e.db.GetAnimalsByProject(c.Request.Context(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		e.logger.Info(err)
 		response := InterpretCosmosError(err)
@@ -132,7 +131,7 @@ func (e *env) getAnimal(c *gin.Context) {
 
 	var output GetAnimalOutput
 
-	output.Animal, err = e.db.GetAnimalByID(context.TODO(), claims.ID, animalID)
+	output.Animal, err = e.db.GetAnimalByID(c.Request.Context(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -229,7 +228,7 @@ func (e *env) addAnimal(c *gin.Context) {
 
 	var output UpsertAnimalOutput
 
-	output.Animal, err = e.db.UpsertAnimal(context.TODO(), animal)
+	output.Animal, err = e.db.UpsertAnimal(c.Request.Context(), animal)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -301,7 +300,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 
 	animalID := c.Param("animalID")
 
-	animal, err := e.db.GetAnimalByID(context.TODO(), claims.ID, animalID)
+	animal, err := e.db.GetAnimalByID(c.Request.Context(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -338,7 +337,7 @@ func (e *env) updateAnimal(c *gin.Context) {
 
 	var output UpsertAnimalOutput
 
-	output.Animal, err = e.db.UpsertAnimal(context.TODO(), updatedAnimal)
+	output.Animal, err = e.db.UpsertAnimal(c.Request.Context(), updatedAnimal)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -410,7 +409,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 
 	animalID := c.Param("animalID")
 
-	animal, err := e.db.GetAnimalByID(context.TODO(), claims.ID, animalID)
+	animal, err := e.db.GetAnimalByID(c.Request.Context(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -447,7 +446,7 @@ func (e *env) updateRateOfGain(c *gin.Context) {
 
 	var output UpsertAnimalOutput
 
-	output.Animal, err = e.db.UpsertAnimal(context.TODO(), updatedAnimal)
+	output.Animal, err = e.db.UpsertAnimal(c.Request.Context(), updatedAnimal)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -484,7 +483,7 @@ func (e *env) deleteAnimal(c *gin.Context) {
 
 	animalID := c.Param("animalID")
 
-	response, err := e.db.RemoveAnimal(context.TODO(), claims.ID, animalID)
+	response, err := e.db.RemoveAnimal(c.Request.Context(), claims.ID, animalID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

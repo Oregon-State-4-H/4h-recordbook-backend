@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -61,7 +60,7 @@ func (e *env) getFeeds(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Feeds, err = e.db.GetFeedsByProject(context.TODO(), claims.ID, projectID, paginationOptions)
+	output.Feeds, err = e.db.GetFeedsByProject(c.Request.Context(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -115,7 +114,7 @@ func (e *env) getFeed(c *gin.Context) {
 
 	var output GetFeedOutput
 
-	output.Feed, err = e.db.GetFeedByID(context.TODO(), claims.ID, feedID)
+	output.Feed, err = e.db.GetFeedByID(c.Request.Context(), claims.ID, feedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -183,7 +182,7 @@ func (e *env) addFeed(c *gin.Context) {
 
 	var output UpsertFeedOutput
 
-	output.Feed, err = e.db.UpsertFeed(context.TODO(), feed)
+	output.Feed, err = e.db.UpsertFeed(c.Request.Context(), feed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -239,7 +238,7 @@ func (e *env) updateFeed(c *gin.Context) {
 
 	feedID := c.Param("feedID")
 
-	feed, err := e.db.GetFeedByID(context.TODO(), claims.ID, feedID)
+	feed, err := e.db.GetFeedByID(c.Request.Context(), claims.ID, feedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -263,7 +262,7 @@ func (e *env) updateFeed(c *gin.Context) {
 
 	var output UpsertFeedOutput
 
-	output.Feed, err = e.db.UpsertFeed(context.TODO(), updatedFeed)
+	output.Feed, err = e.db.UpsertFeed(c.Request.Context(), updatedFeed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -300,7 +299,7 @@ func (e *env) deleteFeed(c *gin.Context) {
 
 	feedID := c.Param("feedID")
 
-	response, err := e.db.RemoveFeed(context.TODO(), claims.ID, feedID)
+	response, err := e.db.RemoveFeed(c.Request.Context(), claims.ID, feedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

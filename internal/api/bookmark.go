@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -57,7 +56,7 @@ func (e *env) getUserBookmarks(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Bookmarks, err = e.db.GetBookmarks(context.TODO(), claims.ID, paginationOptions)
+	output.Bookmarks, err = e.db.GetBookmarks(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -110,7 +109,7 @@ func (e *env) getBookmarkByLink(c *gin.Context) {
 
 	link := c.Param("link")
 
-	output.Bookmark, err = e.db.GetBookmarkByLink(context.TODO(), claims.ID, link)
+	output.Bookmark, err = e.db.GetBookmarkByLink(c.Request.Context(), claims.ID, link)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -185,7 +184,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 		},
 	}
 
-	existingBookmark, err := e.db.GetBookmarkByLink(context.TODO(), claims.ID, input.Link)
+	existingBookmark, err := e.db.GetBookmarkByLink(c.Request.Context(), claims.ID, input.Link)
 	if existingBookmark != (db.Bookmark{}) {
 		c.JSON(409, gin.H{
 			"message": ErrBookmarkConflict,
@@ -204,7 +203,7 @@ func (e *env) addUserBookmark(c *gin.Context) {
 
 	var output AddBookmarkOutput
 
-	output.Bookmark, err = e.db.AddBookmark(context.TODO(), bookmark)
+	output.Bookmark, err = e.db.AddBookmark(c.Request.Context(), bookmark)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -241,7 +240,7 @@ func (e *env) deleteUserBookmark(c *gin.Context) {
 
 	bookmarkID := c.Param("bookmarkID")
 
-	response, err := e.db.RemoveBookmark(context.TODO(), claims.ID, bookmarkID)
+	response, err := e.db.RemoveBookmark(c.Request.Context(), claims.ID, bookmarkID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

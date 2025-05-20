@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -67,7 +66,7 @@ func (e *env) getDailyFeeds(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.DailyFeeds, err = e.db.GetDailyFeedsByProjectAndAnimal(context.TODO(), claims.ID, projectID, animalID, paginationOptions)
+	output.DailyFeeds, err = e.db.GetDailyFeedsByProjectAndAnimal(c.Request.Context(), claims.ID, projectID, animalID, paginationOptions)
 	if err != nil {
 		e.logger.Info(err)
 		response := InterpretCosmosError(err)
@@ -122,7 +121,7 @@ func (e *env) getDailyFeed(c *gin.Context) {
 
 	var output GetDailyFeedOutput
 
-	output.DailyFeed, err = e.db.GetDailyFeedByID(context.TODO(), claims.ID, dailyFeedID)
+	output.DailyFeed, err = e.db.GetDailyFeedByID(c.Request.Context(), claims.ID, dailyFeedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -202,7 +201,7 @@ func (e *env) addDailyFeed(c *gin.Context) {
 
 	var output UpsertDailyFeedOutput
 
-	output.DailyFeed, err = e.db.UpsertDailyFeed(context.TODO(), dailyFeed)
+	output.DailyFeed, err = e.db.UpsertDailyFeed(c.Request.Context(), dailyFeed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -266,7 +265,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 
 	dailyFeedID := c.Param("dailyFeedID")
 
-	dailyFeed, err := e.db.GetDailyFeedByID(context.TODO(), claims.ID, dailyFeedID)
+	dailyFeed, err := e.db.GetDailyFeedByID(c.Request.Context(), claims.ID, dailyFeedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -294,7 +293,7 @@ func (e *env) updateDailyFeed(c *gin.Context) {
 
 	var output UpsertDailyFeedOutput
 
-	output.DailyFeed, err = e.db.UpsertDailyFeed(context.TODO(), updatedDailyFeed)
+	output.DailyFeed, err = e.db.UpsertDailyFeed(c.Request.Context(), updatedDailyFeed)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -331,7 +330,7 @@ func (e *env) deleteDailyFeed(c *gin.Context) {
 
 	dailyFeedID := c.Param("dailyFeedID")
 
-	response, err := e.db.RemoveDailyFeed(context.TODO(), claims.ID, dailyFeedID)
+	response, err := e.db.RemoveDailyFeed(c.Request.Context(), claims.ID, dailyFeedID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 
 	"github.com/beevik/guid"
 	"github.com/gin-gonic/gin"
@@ -45,7 +44,7 @@ func (e *env) getUserProfile(c *gin.Context) {
 
 	var output GetUserProfileOutput
 
-	output.User, err = e.db.GetUser(context.TODO(), claims.ID)
+	output.User, err = e.db.GetUser(c.Request.Context(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -90,7 +89,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		return
 	}
 
-	user, err := e.db.GetUser(context.TODO(), claims.ID)
+	user, err := e.db.GetUser(c.Request.Context(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -114,7 +113,7 @@ func (e *env) updateUserProfile(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertUser(context.TODO(), updatedUser)
+	response, err := e.db.UpsertUser(c.Request.Context(), updatedUser)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -154,7 +153,7 @@ func (e *env) signin(c *gin.Context) {
 		return
 	}
 
-	user, err := e.db.GetUser(context.TODO(), input.ID)
+	user, err := e.db.GetUser(c.Request.Context(), input.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -224,7 +223,7 @@ func (e *env) signup(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertUser(context.TODO(), user)
+	response, err := e.db.UpsertUser(c.Request.Context(), user)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
