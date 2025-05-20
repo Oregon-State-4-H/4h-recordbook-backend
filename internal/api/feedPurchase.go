@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -64,7 +63,7 @@ func (e *env) getFeedPurchases(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.FeedPurchases, err = e.db.GetFeedPurchasesByProject(context.TODO(), claims.ID, projectID, paginationOptions)
+	output.FeedPurchases, err = e.db.GetFeedPurchasesByProject(c.Request.Context(), claims.ID, projectID, paginationOptions)
 	if err != nil {
 		e.logger.Info(err)
 		response := InterpretCosmosError(err)
@@ -119,7 +118,7 @@ func (e *env) getFeedPurchase(c *gin.Context) {
 
 	var output GetFeedPurchaseOutput
 
-	output.FeedPurchase, err = e.db.GetFeedPurchaseByID(context.TODO(), claims.ID, feedPurchaseID)
+	output.FeedPurchase, err = e.db.GetFeedPurchaseByID(c.Request.Context(), claims.ID, feedPurchaseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -198,7 +197,7 @@ func (e *env) addFeedPurchase(c *gin.Context) {
 
 	var output UpsertFeedPurchaseOutput
 
-	output.FeedPurchase, err = e.db.UpsertFeedPurchase(context.TODO(), feedPurchase)
+	output.FeedPurchase, err = e.db.UpsertFeedPurchase(c.Request.Context(), feedPurchase)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -262,7 +261,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 
 	feedPurchaseID := c.Param("feedPurchaseID")
 
-	feedPurchase, err := e.db.GetFeedPurchaseByID(context.TODO(), claims.ID, feedPurchaseID)
+	feedPurchase, err := e.db.GetFeedPurchaseByID(c.Request.Context(), claims.ID, feedPurchaseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -289,7 +288,7 @@ func (e *env) updateFeedPurchase(c *gin.Context) {
 
 	var output UpsertFeedPurchaseOutput
 
-	output.FeedPurchase, err = e.db.UpsertFeedPurchase(context.TODO(), updatedFeedPurchase)
+	output.FeedPurchase, err = e.db.UpsertFeedPurchase(c.Request.Context(), updatedFeedPurchase)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -326,7 +325,7 @@ func (e *env) deleteFeedPurchase(c *gin.Context) {
 
 	feedPurchaseID := c.Param("feedPurchaseID")
 
-	response, err := e.db.RemoveFeedPurchase(context.TODO(), claims.ID, feedPurchaseID)
+	response, err := e.db.RemoveFeedPurchase(c.Request.Context(), claims.ID, feedPurchaseID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

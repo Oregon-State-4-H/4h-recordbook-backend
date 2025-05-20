@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -40,7 +39,7 @@ func (e *env) getResume(c *gin.Context) {
 
 	var output GetResumeOutput
 
-	output.Resume, err = e.db.GetResume(context.TODO(), claims.ID)
+	output.Resume, err = e.db.GetResume(c.Request.Context(), claims.ID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -111,7 +110,7 @@ func (e *env) getSection1s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection1sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection1sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -164,7 +163,7 @@ func (e *env) getSection1(c *gin.Context) {
 
 	var output GetSection1Output
 
-	output.Section, err = e.db.GetSection1ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection1ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -241,7 +240,7 @@ func (e *env) addSection1(c *gin.Context) {
 
 	var output UpsertSection1Output
 
-	output.Section, err = e.db.UpsertSection1(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection1(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -295,7 +294,7 @@ func (e *env) updateSection1(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection1ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection1ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -328,7 +327,7 @@ func (e *env) updateSection1(c *gin.Context) {
 
 	var output UpsertSection1Output
 
-	output.Section, err = e.db.UpsertSection1(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection1(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -392,7 +391,7 @@ func (e *env) getSection2s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection2sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection2sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -446,7 +445,7 @@ func (e *env) getSection2(c *gin.Context) {
 
 	var output GetSection2Output
 
-	output.Section, err = e.db.GetSection2ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection2ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -518,7 +517,7 @@ func (e *env) addSection2(c *gin.Context) {
 
 	var output UpsertSection2Output
 
-	output.Section, err = e.db.UpsertSection2(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection2(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -573,7 +572,7 @@ func (e *env) updateSection2(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection2ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection2ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -601,7 +600,7 @@ func (e *env) updateSection2(c *gin.Context) {
 
 	var output UpsertSection2Output
 
-	output.Section, err = e.db.UpsertSection2(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection2(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -668,7 +667,7 @@ func (e *env) getSection3s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection3sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection3sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -722,7 +721,7 @@ func (e *env) getSection3(c *gin.Context) {
 
 	var output GetSection3Output
 
-	output.Section, err = e.db.GetSection3ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection3ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -796,7 +795,7 @@ func (e *env) addSection3(c *gin.Context) {
 
 	var output UpsertSection3Output
 
-	output.Section, err = e.db.UpsertSection3(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection3(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -851,7 +850,7 @@ func (e *env) updateSection3(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection3ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection3ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -881,7 +880,7 @@ func (e *env) updateSection3(c *gin.Context) {
 
 	var output UpsertSection3Output
 
-	output.Section, err = e.db.UpsertSection3(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection3(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -948,7 +947,7 @@ func (e *env) getSection4s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection4sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection4sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1002,7 +1001,7 @@ func (e *env) getSection4(c *gin.Context) {
 
 	var output GetSection4Output
 
-	output.Section, err = e.db.GetSection4ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection4ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1076,7 +1075,7 @@ func (e *env) addSection4(c *gin.Context) {
 
 	var output UpsertSection4Output
 
-	output.Section, err = e.db.UpsertSection4(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection4(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1131,7 +1130,7 @@ func (e *env) updateSection4(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection4ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection4ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1161,7 +1160,7 @@ func (e *env) updateSection4(c *gin.Context) {
 
 	var output UpsertSection4Output
 
-	output.Section, err = e.db.UpsertSection4(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection4(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1228,7 +1227,7 @@ func (e *env) getSection5s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection5sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection5sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1282,7 +1281,7 @@ func (e *env) getSection5(c *gin.Context) {
 
 	var output GetSection5Output
 
-	output.Section, err = e.db.GetSection5ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection5ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1356,7 +1355,7 @@ func (e *env) addSection5(c *gin.Context) {
 
 	var output UpsertSection5Output
 
-	output.Section, err = e.db.UpsertSection5(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection5(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1411,7 +1410,7 @@ func (e *env) updateSection5(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection5ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection5ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1441,7 +1440,7 @@ func (e *env) updateSection5(c *gin.Context) {
 
 	var output UpsertSection5Output
 
-	output.Section, err = e.db.UpsertSection5(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection5(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1509,7 +1508,7 @@ func (e *env) getSection6s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection6sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection6sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1563,7 +1562,7 @@ func (e *env) getSection6(c *gin.Context) {
 
 	var output GetSection6Output
 
-	output.Section, err = e.db.GetSection6ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection6ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1638,7 +1637,7 @@ func (e *env) addSection6(c *gin.Context) {
 
 	var output UpsertSection6Output
 
-	output.Section, err = e.db.UpsertSection6(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection6(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1693,7 +1692,7 @@ func (e *env) updateSection6(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection6ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection6ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1724,7 +1723,7 @@ func (e *env) updateSection6(c *gin.Context) {
 
 	var output UpsertSection6Output
 
-	output.Section, err = e.db.UpsertSection6(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection6(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1791,7 +1790,7 @@ func (e *env) getSection7s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection7sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection7sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1845,7 +1844,7 @@ func (e *env) getSection7(c *gin.Context) {
 
 	var output GetSection7Output
 
-	output.Section, err = e.db.GetSection7ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection7ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1919,7 +1918,7 @@ func (e *env) addSection7(c *gin.Context) {
 
 	var output UpsertSection7Output
 
-	output.Section, err = e.db.UpsertSection7(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection7(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -1974,7 +1973,7 @@ func (e *env) updateSection7(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection7ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection7ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2004,7 +2003,7 @@ func (e *env) updateSection7(c *gin.Context) {
 
 	var output UpsertSection7Output
 
-	output.Section, err = e.db.UpsertSection7(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection7(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2071,7 +2070,7 @@ func (e *env) getSection8s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection8sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection8sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2125,7 +2124,7 @@ func (e *env) getSection8(c *gin.Context) {
 
 	var output GetSection8Output
 
-	output.Section, err = e.db.GetSection8ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection8ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2199,7 +2198,7 @@ func (e *env) addSection8(c *gin.Context) {
 
 	var output UpsertSection8Output
 
-	output.Section, err = e.db.UpsertSection8(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection8(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2254,7 +2253,7 @@ func (e *env) updateSection8(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection8ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection8ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2284,7 +2283,7 @@ func (e *env) updateSection8(c *gin.Context) {
 
 	var output UpsertSection8Output
 
-	output.Section, err = e.db.UpsertSection8(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection8(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2353,7 +2352,7 @@ func (e *env) getSection9s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection9sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection9sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2407,7 +2406,7 @@ func (e *env) getSection9(c *gin.Context) {
 
 	var output GetSection9Output
 
-	output.Section, err = e.db.GetSection9ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection9ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2483,7 +2482,7 @@ func (e *env) addSection9(c *gin.Context) {
 
 	var output UpsertSection9Output
 
-	output.Section, err = e.db.UpsertSection9(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection9(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2538,7 +2537,7 @@ func (e *env) updateSection9(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection9ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection9ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2570,7 +2569,7 @@ func (e *env) updateSection9(c *gin.Context) {
 
 	var output UpsertSection9Output
 
-	output.Section, err = e.db.UpsertSection9(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection9(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2639,7 +2638,7 @@ func (e *env) getSection10s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection10sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection10sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2693,7 +2692,7 @@ func (e *env) getSection10(c *gin.Context) {
 
 	var output GetSection10Output
 
-	output.Section, err = e.db.GetSection10ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection10ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2769,7 +2768,7 @@ func (e *env) addSection10(c *gin.Context) {
 
 	var output UpsertSection10Output
 
-	output.Section, err = e.db.UpsertSection10(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection10(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2824,7 +2823,7 @@ func (e *env) updateSection10(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection10ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection10ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2856,7 +2855,7 @@ func (e *env) updateSection10(c *gin.Context) {
 
 	var output UpsertSection10Output
 
-	output.Section, err = e.db.UpsertSection10(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection10(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2923,7 +2922,7 @@ func (e *env) getSection11s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection11sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection11sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -2977,7 +2976,7 @@ func (e *env) getSection11(c *gin.Context) {
 
 	var output GetSection11Output
 
-	output.Section, err = e.db.GetSection11ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection11ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3051,7 +3050,7 @@ func (e *env) addSection11(c *gin.Context) {
 
 	var output UpsertSection11Output
 
-	output.Section, err = e.db.UpsertSection11(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection11(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3106,7 +3105,7 @@ func (e *env) updateSection11(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection11ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection11ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3136,7 +3135,7 @@ func (e *env) updateSection11(c *gin.Context) {
 
 	var output UpsertSection11Output
 
-	output.Section, err = e.db.UpsertSection11(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection11(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3203,7 +3202,7 @@ func (e *env) getSection12s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection12sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection12sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3257,7 +3256,7 @@ func (e *env) getSection12(c *gin.Context) {
 
 	var output GetSection12Output
 
-	output.Section, err = e.db.GetSection12ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection12ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3331,7 +3330,7 @@ func (e *env) addSection12(c *gin.Context) {
 
 	var output UpsertSection12Output
 
-	output.Section, err = e.db.UpsertSection12(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection12(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3386,7 +3385,7 @@ func (e *env) updateSection12(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection12ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection12ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3416,7 +3415,7 @@ func (e *env) updateSection12(c *gin.Context) {
 
 	var output UpsertSection12Output
 
-	output.Section, err = e.db.UpsertSection12(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection12(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3481,7 +3480,7 @@ func (e *env) getSection13s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection13sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection13sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3535,7 +3534,7 @@ func (e *env) getSection13(c *gin.Context) {
 
 	var output GetSection13Output
 
-	output.Section, err = e.db.GetSection13ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection13ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3607,7 +3606,7 @@ func (e *env) addSection13(c *gin.Context) {
 
 	var output UpsertSection13Output
 
-	output.Section, err = e.db.UpsertSection13(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection13(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3662,7 +3661,7 @@ func (e *env) updateSection13(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection13ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection13ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3690,7 +3689,7 @@ func (e *env) updateSection13(c *gin.Context) {
 
 	var output UpsertSection13Output
 
-	output.Section, err = e.db.UpsertSection13(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection13(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3754,7 +3753,7 @@ func (e *env) getSection14s(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Sections, err = e.db.GetSection14sByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Sections, err = e.db.GetSection14sByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3808,7 +3807,7 @@ func (e *env) getSection14(c *gin.Context) {
 
 	var output GetSection14Output
 
-	output.Section, err = e.db.GetSection14ByID(context.TODO(), claims.ID, sectionID)
+	output.Section, err = e.db.GetSection14ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3880,7 +3879,7 @@ func (e *env) addSection14(c *gin.Context) {
 
 	var output UpsertSection14Output
 
-	output.Section, err = e.db.UpsertSection14(context.TODO(), section)
+	output.Section, err = e.db.UpsertSection14(c.Request.Context(), section)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3935,7 +3934,7 @@ func (e *env) updateSection14(c *gin.Context) {
 		return
 	}
 
-	existingSection, err := e.db.GetSection14ByID(context.TODO(), claims.ID, sectionID)
+	existingSection, err := e.db.GetSection14ByID(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -3963,7 +3962,7 @@ func (e *env) updateSection14(c *gin.Context) {
 
 	var output UpsertSection14Output
 
-	output.Section, err = e.db.UpsertSection14(context.TODO(), updatedSection)
+	output.Section, err = e.db.UpsertSection14(c.Request.Context(), updatedSection)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -4004,7 +4003,7 @@ func (e *env) deleteSection(c *gin.Context) {
 
 	sectionID := c.Param("sectionID")
 
-	response, err := e.db.RemoveSection(context.TODO(), claims.ID, sectionID)
+	response, err := e.db.RemoveSection(c.Request.Context(), claims.ID, sectionID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{

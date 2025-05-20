@@ -3,7 +3,6 @@ package api
 import (
 	"4h-recordbook-backend/internal/utils"
 	"4h-recordbook-backend/pkg/db"
-	"context"
 	"strconv"
 
 	"github.com/beevik/guid"
@@ -61,7 +60,7 @@ func (e *env) getCurrentProjects(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Projects, err = e.db.GetCurrentProjects(context.TODO(), claims.ID, paginationOptions)
+	output.Projects, err = e.db.GetCurrentProjects(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -120,7 +119,7 @@ func (e *env) getProjects(c *gin.Context) {
 		SortByNewest: c.GetBool(CONTEXT_KEY_SORT_BY_NEWEST),
 	}
 
-	output.Projects, err = e.db.GetProjectsByUser(context.TODO(), claims.ID, paginationOptions)
+	output.Projects, err = e.db.GetProjectsByUser(c.Request.Context(), claims.ID, paginationOptions)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -174,7 +173,7 @@ func (e *env) getProject(c *gin.Context) {
 
 	var output GetProjectOutput
 
-	output.Project, err = e.db.GetProjectByID(context.TODO(), claims.ID, projectID)
+	output.Project, err = e.db.GetProjectByID(c.Request.Context(), claims.ID, projectID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -262,7 +261,7 @@ func (e *env) addProject(c *gin.Context) {
 
 	var output UpsertProjectOutput
 
-	output.Project, err = e.db.UpsertProject(context.TODO(), project)
+	output.Project, err = e.db.UpsertProject(c.Request.Context(), project)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -334,7 +333,7 @@ func (e *env) updateProject(c *gin.Context) {
 
 	projectID := c.Param("projectID")
 
-	project, err := e.db.GetProjectByID(context.TODO(), claims.ID, projectID)
+	project, err := e.db.GetProjectByID(c.Request.Context(), claims.ID, projectID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -362,7 +361,7 @@ func (e *env) updateProject(c *gin.Context) {
 
 	var output UpsertProjectOutput
 
-	output.Project, err = e.db.UpsertProject(context.TODO(), updatedProject)
+	output.Project, err = e.db.UpsertProject(c.Request.Context(), updatedProject)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
@@ -399,7 +398,7 @@ func (e *env) deleteProject(c *gin.Context) {
 
 	projectID := c.Param("projectID")
 
-	response, err := e.db.RemoveProject(context.TODO(), claims.ID, projectID)
+	response, err := e.db.RemoveProject(c.Request.Context(), claims.ID, projectID)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
