@@ -18,6 +18,10 @@ type Supply struct {
 	GenericDatabaseInfo
 }
 
+func (s Supply) GetID() string {
+	return s.ID
+}
+
 func (env *env) GetSuppliesByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Supply, error) {
 
 	env.logger.Info("Getting supplies by project")
@@ -79,6 +83,58 @@ func (env *env) GetSuppliesByProject(ctx context.Context, userID string, project
 	}
 
 	return supplies, nil
+
+}
+
+func (env *env) GetProjectDependentSupplies(ctx context.Context, userID string, projectID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting project dependent supplies")
+
+	container, err := env.client.NewContainer("supplies")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM supplies s WHERE s.user_id = @user_id AND s.project_id = @project_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	supplies := []Supply{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			supply := Supply{}
+			err := json.Unmarshal(bytes, &supply)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			supplies = append(supplies, supply)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, s := range supplies {
+		identifiables = append(identifiables, s)
+	}
+
+	return identifiables, nil
 
 }
 

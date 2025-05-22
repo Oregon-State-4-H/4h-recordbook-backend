@@ -19,6 +19,10 @@ type Expense struct {
 	GenericDatabaseInfo
 }
 
+func (e Expense) GetID() string {
+	return e.ID
+}
+
 func (env *env) GetExpensesByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Expense, error) {
 
 	env.logger.Info("Getting expenses by project")
@@ -80,6 +84,58 @@ func (env *env) GetExpensesByProject(ctx context.Context, userID string, project
 	}
 
 	return expenses, nil
+
+}
+
+func (env *env) GetProjectDependentExpenses(ctx context.Context, userID string, projectID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting project dependent expenses")
+
+	container, err := env.client.NewContainer("expenses")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM expenses e WHERE e.user_id = @user_id AND e.project_id = @project_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	expenses := []Expense{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			expense := Expense{}
+			err := json.Unmarshal(bytes, &expense)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			expenses = append(expenses, expense)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, e := range expenses {
+		identifiables = append(identifiables, e)
+	}
+
+	return identifiables, nil
 
 }
 

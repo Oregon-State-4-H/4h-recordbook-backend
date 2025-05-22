@@ -74,10 +74,12 @@ type Db interface {
 	UpsertEventSection(context.Context, EventSection) (EventSection, error)
 	RemoveEventSection(context.Context, string, string) (interface{}, error)
 	GetAnimalsByProject(context.Context, string, string, PaginationOptions) ([]Animal, error)
+	GetProjectDependentAnimals(context.Context, string, string) ([]Identifiable, error)
 	GetAnimalByID(context.Context, string, string) (Animal, error)
 	UpsertAnimal(context.Context, Animal) (Animal, error)
 	RemoveAnimal(context.Context, string, string) (interface{}, error)
 	GetFeedsByProject(context.Context, string, string, PaginationOptions) ([]Feed, error)
+	GetProjectDependentFeeds(context.Context, string, string) ([]Identifiable, error)
 	GetFeedByID(context.Context, string, string) (Feed, error)
 	UpsertFeed(context.Context, Feed) (Feed, error)
 	RemoveFeed(context.Context, string, string) (interface{}, error)
@@ -93,10 +95,12 @@ type Db interface {
 	UpsertDailyFeed(context.Context, DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(context.Context, string, string) (interface{}, error)
 	GetExpensesByProject(context.Context, string, string, PaginationOptions) ([]Expense, error)
+	GetProjectDependentExpenses(context.Context, string, string) ([]Identifiable, error)
 	GetExpenseByID(context.Context, string, string) (Expense, error)
 	UpsertExpense(context.Context, Expense) (Expense, error)
 	RemoveExpense(context.Context, string, string) (interface{}, error)
 	GetSuppliesByProject(context.Context, string, string, PaginationOptions) ([]Supply, error)
+	GetProjectDependentSupplies(context.Context, string, string) ([]Identifiable, error)
 	GetSupplyByID(context.Context, string, string) (Supply, error)
 	UpsertSupply(context.Context, Supply) (Supply, error)
 	RemoveSupply(context.Context, string, string) (interface{}, error)
@@ -157,7 +161,7 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 		client:    dbClient,
 	}
 
-	//rules for cascading deletes TODO: clean up repeated objects
+	//rules for cascading deletes
 	dependentsMap := make(map[string][]Dependent)
 	dependentsMap["animals"] = []Dependent{
 		{
@@ -176,6 +180,28 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 			ContainerName: "feedpurchases",
 			GetRelated:    e.GetFeedDependentFeedPurchases,
 			Delete:        e.RemoveFeedPurchase,
+		},
+	}
+	dependentsMap["projects"] = []Dependent{
+		{
+			ContainerName: "animals",
+			GetRelated:    e.GetProjectDependentAnimals,
+			Delete:        e.RemoveAnimal,
+		},
+		{
+			ContainerName: "expenses",
+			GetRelated:    e.GetProjectDependentExpenses,
+			Delete:        e.RemoveExpense,
+		},
+		{
+			ContainerName: "feeds",
+			GetRelated:    e.GetProjectDependentFeeds,
+			Delete:        e.RemoveFeed,
+		},
+		{
+			ContainerName: "supplies",
+			GetRelated:    e.GetProjectDependentSupplies,
+			Delete:        e.RemoveSupply,
 		},
 	}
 

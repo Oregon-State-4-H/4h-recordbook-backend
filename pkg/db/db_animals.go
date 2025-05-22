@@ -29,6 +29,10 @@ type Animal struct {
 	GenericDatabaseInfo
 }
 
+func (a Animal) GetID() string {
+	return a.ID
+}
+
 func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Animal, error) {
 
 	env.logger.Info("Getting animals by project")
@@ -90,6 +94,58 @@ func (env *env) GetAnimalsByProject(ctx context.Context, userID string, projectI
 	}
 
 	return animals, nil
+
+}
+
+func (env *env) GetProjectDependentAnimals(ctx context.Context, userID string, projectID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting project dependent animals")
+
+	container, err := env.client.NewContainer("animals")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM animals a WHERE a.user_id = @user_id AND a.project_id = @project_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	animals := []Animal{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			animal := Animal{}
+			err := json.Unmarshal(bytes, &animal)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			animals = append(animals, animal)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, a := range animals {
+		identifiables = append(identifiables, a)
+	}
+
+	return identifiables, nil
 
 }
 
