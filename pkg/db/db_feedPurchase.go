@@ -19,6 +19,10 @@ type FeedPurchase struct {
 	GenericDatabaseInfo
 }
 
+func (fp FeedPurchase) GetID() string {
+	return fp.ID
+}
+
 func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]FeedPurchase, error) {
 
 	env.logger.Info("Getting feed purchases by project")
@@ -80,6 +84,58 @@ func (env *env) GetFeedPurchasesByProject(ctx context.Context, userID string, pr
 	}
 
 	return feedPurchases, nil
+
+}
+
+func (env *env) GetFeedDependentFeedPurchases(ctx context.Context, userID string, feedID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting feed dependent feed purchases")
+
+	container, err := env.client.NewContainer("feedpurchases")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM feedpurchases fp WHERE fp.user_id = @user_id AND fp.feed_id = @feed_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@feed_id", Value: feedID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	feedPurchases := []FeedPurchase{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			feedPurchase := FeedPurchase{}
+			err := json.Unmarshal(bytes, &feedPurchase)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			feedPurchases = append(feedPurchases, feedPurchase)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, fp := range feedPurchases {
+		identifiables = append(identifiables, fp)
+	}
+
+	return identifiables, nil
 
 }
 

@@ -147,6 +147,19 @@ func (env *env) RemoveFeed(ctx context.Context, userID string, feedID string) (i
 		return nil, err
 	}
 
+	for _, dependent := range env.dependentsMap["feeds"] {
+		identifiables, err := dependent.GetRelated(ctx, userID, feedID)
+		if err != nil {
+			return nil, err
+		}
+		for _, identifiable := range identifiables {
+			_, err := dependent.Delete(ctx, userID, identifiable.GetID())
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return response, nil
 
 }

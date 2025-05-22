@@ -82,11 +82,13 @@ type Db interface {
 	UpsertFeed(context.Context, Feed) (Feed, error)
 	RemoveFeed(context.Context, string, string) (interface{}, error)
 	GetFeedPurchasesByProject(context.Context, string, string, PaginationOptions) ([]FeedPurchase, error)
+	GetFeedDependentFeedPurchases(context.Context, string, string) ([]Identifiable, error)
 	GetFeedPurchaseByID(context.Context, string, string) (FeedPurchase, error)
 	UpsertFeedPurchase(context.Context, FeedPurchase) (FeedPurchase, error)
 	RemoveFeedPurchase(context.Context, string, string) (interface{}, error)
 	GetDailyFeedsByProjectAndAnimal(context.Context, string, string, string, PaginationOptions) ([]DailyFeed, error)
-	GetDailyFeedsAsIdentifiables(context.Context, string, string) ([]Identifiable, error)
+	GetAnimalDependentDailyFeeds(context.Context, string, string) ([]Identifiable, error)
+	GetFeedDependentDailyFeeds(context.Context, string, string) ([]Identifiable, error)
 	GetDailyFeedByID(context.Context, string, string) (DailyFeed, error)
 	UpsertDailyFeed(context.Context, DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(context.Context, string, string) (interface{}, error)
@@ -155,13 +157,25 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 		client:    dbClient,
 	}
 
-	//rules for cascading deletes
+	//rules for cascading deletes TODO: clean up repeated objects
 	dependentsMap := make(map[string][]Dependent)
 	dependentsMap["animals"] = []Dependent{
 		{
 			ContainerName: "dailyfeeds",
-			GetRelated:    e.GetDailyFeedsAsIdentifiables,
+			GetRelated:    e.GetAnimalDependentDailyFeeds,
 			Delete:        e.RemoveDailyFeed,
+		},
+	}
+	dependentsMap["feeds"] = []Dependent{
+		{
+			ContainerName: "dailyfeeds",
+			GetRelated:    e.GetFeedDependentDailyFeeds,
+			Delete:        e.RemoveDailyFeed,
+		},
+		{
+			ContainerName: "feedpurchases",
+			GetRelated:    e.GetFeedDependentFeedPurchases,
+			Delete:        e.RemoveFeedPurchase,
 		},
 	}
 
