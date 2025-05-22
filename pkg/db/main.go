@@ -86,6 +86,7 @@ type Db interface {
 	UpsertFeedPurchase(context.Context, FeedPurchase) (FeedPurchase, error)
 	RemoveFeedPurchase(context.Context, string, string) (interface{}, error)
 	GetDailyFeedsByProjectAndAnimal(context.Context, string, string, string, PaginationOptions) ([]DailyFeed, error)
+	GetDailyFeedsAsIdentifiables(context.Context, string, string) ([]Identifiable, error)
 	GetDailyFeedByID(context.Context, string, string) (DailyFeed, error)
 	UpsertDailyFeed(context.Context, DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(context.Context, string, string) (interface{}, error)
@@ -97,6 +98,16 @@ type Db interface {
 	GetSupplyByID(context.Context, string, string) (Supply, error)
 	UpsertSupply(context.Context, Supply) (Supply, error)
 	RemoveSupply(context.Context, string, string) (interface{}, error)
+}
+
+type Identifiable interface {
+	GetID() string
+}
+
+type Dependent struct {
+	ContainerName string
+	GetRelated    func(context.Context, string, string) ([]Identifiable, error)
+	Delete        func(context.Context, string, string) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {
@@ -111,9 +122,10 @@ type PaginationOptions struct {
 }
 
 type env struct {
-	logger    *zap.SugaredLogger       `validate:"required"`
-	validator *validator.Validate      `validate:"required"`
-	client    *azcosmos.DatabaseClient `validate:"required"`
+	logger        *zap.SugaredLogger       `validate:"required"`
+	validator     *validator.Validate      `validate:"required"`
+	client        *azcosmos.DatabaseClient `validate:"required"`
+	dependentsMap map[string][]Dependent
 }
 
 func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
@@ -142,6 +154,18 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 		validator: validate,
 		client:    dbClient,
 	}
+
+	//rules for cascading deletes
+	dependentsMap := make(map[string][]Dependent)
+	dependentsMap["animals"] = []Dependent{
+		{
+			ContainerName: "dailyfeeds",
+			GetRelated:    e.GetDailyFeedsAsIdentifiables,
+			Delete:        e.RemoveDailyFeed,
+		},
+	}
+
+	e.dependentsMap = dependentsMap
 
 	return e, nil
 

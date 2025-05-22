@@ -160,6 +160,19 @@ func (env *env) RemoveAnimal(ctx context.Context, userID string, animalID string
 		return nil, err
 	}
 
+	for _, dependent := range env.dependentsMap["animals"] {
+		identifiables, err := dependent.GetRelated(ctx, userID, animalID)
+		if err != nil {
+			return nil, err
+		}
+		for _, identifiable := range identifiables {
+			_, err := dependent.Delete(ctx, userID, identifiable.GetID())
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return response, nil
 
 }

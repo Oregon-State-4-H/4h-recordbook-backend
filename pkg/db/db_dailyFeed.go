@@ -20,6 +20,10 @@ type DailyFeed struct {
 	GenericDatabaseInfo
 }
 
+func (df DailyFeed) GetID() string {
+	return df.ID
+}
+
 func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID string, projectID string, animalID string, paginationOptions PaginationOptions) ([]DailyFeed, error) {
 
 	env.logger.Info("Getting daily feeds by project and animal")
@@ -82,6 +86,58 @@ func (env *env) GetDailyFeedsByProjectAndAnimal(ctx context.Context, userID stri
 	}
 
 	return dailyFeeds, nil
+
+}
+
+func (env *env) GetDailyFeedsAsIdentifiables(ctx context.Context, userID string, animalID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting daily feeds by animal as identifiable")
+
+	container, err := env.client.NewContainer("dailyfeeds")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM dailyfeeds df WHERE df.user_id = @user_id AND df.animal_id = @animal_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@animal_id", Value: animalID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	dailyFeeds := []DailyFeed{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			dailyFeed := DailyFeed{}
+			err := json.Unmarshal(bytes, &dailyFeed)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			dailyFeeds = append(dailyFeeds, dailyFeed)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, df := range dailyFeeds {
+		identifiables = append(identifiables, df)
+	}
+
+	return identifiables, nil
 
 }
 
