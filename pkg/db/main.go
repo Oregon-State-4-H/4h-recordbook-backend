@@ -113,9 +113,8 @@ type Identifiable interface {
 }
 
 type Dependent struct {
-	ContainerName string
-	GetRelated    func(context.Context, string, string) ([]Identifiable, error)
-	Delete        func(context.Context, string, string) (interface{}, error)
+	GetRelated func(context.Context, string, string) ([]Identifiable, error)
+	Delete     func(context.Context, string, string) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {
@@ -167,57 +166,48 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 	dependentsMap := make(map[string][]Dependent)
 	dependentsMap["animals"] = []Dependent{
 		{
-			ContainerName: "dailyfeeds",
-			GetRelated:    e.GetAnimalDependentDailyFeeds,
-			Delete:        e.RemoveDailyFeed,
+			GetRelated: e.GetAnimalDependentDailyFeeds,
+			Delete:     e.RemoveDailyFeed,
 		},
 	}
 	dependentsMap["feeds"] = []Dependent{
 		{
-			ContainerName: "dailyfeeds",
-			GetRelated:    e.GetFeedDependentDailyFeeds,
-			Delete:        e.RemoveDailyFeed,
+			GetRelated: e.GetFeedDependentDailyFeeds,
+			Delete:     e.RemoveDailyFeed,
 		},
 		{
-			ContainerName: "feedpurchases",
-			GetRelated:    e.GetFeedDependentFeedPurchases,
-			Delete:        e.RemoveFeedPurchase,
+			GetRelated: e.GetFeedDependentFeedPurchases,
+			Delete:     e.RemoveFeedPurchase,
 		},
 	}
 	dependentsMap["projects"] = []Dependent{
 		{
-			ContainerName: "animals",
-			GetRelated:    e.GetProjectDependentAnimals,
-			Delete:        e.RemoveAnimal,
+			GetRelated: e.GetProjectDependentAnimals,
+			Delete:     e.RemoveAnimal,
 		},
 		{
-			ContainerName: "expenses",
-			GetRelated:    e.GetProjectDependentExpenses,
-			Delete:        e.RemoveExpense,
+			GetRelated: e.GetProjectDependentExpenses,
+			Delete:     e.RemoveExpense,
 		},
 		{
-			ContainerName: "feeds",
-			GetRelated:    e.GetProjectDependentFeeds,
-			Delete:        e.RemoveFeed,
+			GetRelated: e.GetProjectDependentFeeds,
+			Delete:     e.RemoveFeed,
 		},
 		{
-			ContainerName: "supplies",
-			GetRelated:    e.GetProjectDependentSupplies,
-			Delete:        e.RemoveSupply,
+			GetRelated: e.GetProjectDependentSupplies,
+			Delete:     e.RemoveSupply,
 		},
 	}
 	dependentsMap["sections"] = []Dependent{
 		{
-			ContainerName: "eventsections",
-			GetRelated:    e.GetSectionDependentEventSections,
-			Delete:        e.RemoveEventSection,
+			GetRelated: e.GetSectionDependentEventSections,
+			Delete:     e.RemoveEventSection,
 		},
 	}
 	dependentsMap["events"] = []Dependent{
 		{
-			ContainerName: "eventsections",
-			GetRelated:    e.GetEventDependentEventSections,
-			Delete:        e.RemoveEventSection,
+			GetRelated: e.GetEventDependentEventSections,
+			Delete:     e.RemoveEventSection,
 		},
 	}
 
