@@ -28,6 +28,10 @@ type EventSection struct {
 	GenericDatabaseInfo
 }
 
+func (es EventSection) GetID() string {
+	return es.ID
+}
+
 /*******************************
 * FULL EVENTS
 ********************************/
@@ -162,6 +166,19 @@ func (env *env) RemoveEvent(ctx context.Context, userID string, eventID string) 
 		return nil, err
 	}
 
+	for _, dependent := range env.dependentsMap["events"] {
+		identifiables, err := dependent.GetRelated(ctx, userID, eventID)
+		if err != nil {
+			return nil, err
+		}
+		for _, identifiable := range identifiables {
+			_, err := dependent.Delete(ctx, userID, identifiable.GetID())
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return response, nil
 
 }
@@ -260,6 +277,110 @@ func (env *env) GetEventSectionsByEvent(ctx context.Context, userID string, even
 	}
 
 	return eventSections, nil
+
+}
+
+func (env *env) GetEventDependentEventSections(ctx context.Context, userID string, eventID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting event dependent event sections")
+
+	container, err := env.client.NewContainer("eventsections")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM eventsections es WHERE es.user_id = @user_id AND es.event_id = @event_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@event_id", Value: eventID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	eventSections := []EventSection{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			eventSection := EventSection{}
+			err := json.Unmarshal(bytes, &eventSection)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			eventSections = append(eventSections, eventSection)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, es := range eventSections {
+		identifiables = append(identifiables, es)
+	}
+
+	return identifiables, nil
+
+}
+
+func (env *env) GetSectionDependentEventSections(ctx context.Context, userID string, sectionID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting section dependent event sections")
+
+	container, err := env.client.NewContainer("eventsections")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM eventsections es WHERE es.user_id = @user_id AND es.section_id = @section_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@section_id", Value: sectionID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	eventSections := []EventSection{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			eventSection := EventSection{}
+			err := json.Unmarshal(bytes, &eventSection)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			eventSections = append(eventSections, eventSection)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, es := range eventSections {
+		identifiables = append(identifiables, es)
+	}
+
+	return identifiables, nil
 
 }
 

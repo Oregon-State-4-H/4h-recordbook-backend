@@ -71,6 +71,8 @@ type Db interface {
 	RemoveEvent(context.Context, string, string) (interface{}, error)
 	GetEventSectionByIDs(context.Context, string, string, string) (EventSection, error)
 	GetEventSectionsByEvent(context.Context, string, string) ([]EventSection, error)
+	GetEventDependentEventSections(context.Context, string, string) ([]Identifiable, error)
+	GetSectionDependentEventSections(context.Context, string, string) ([]Identifiable, error)
 	UpsertEventSection(context.Context, EventSection) (EventSection, error)
 	RemoveEventSection(context.Context, string, string) (interface{}, error)
 	GetAnimalsByProject(context.Context, string, string, PaginationOptions) ([]Animal, error)
@@ -202,6 +204,20 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 			ContainerName: "supplies",
 			GetRelated:    e.GetProjectDependentSupplies,
 			Delete:        e.RemoveSupply,
+		},
+	}
+	dependentsMap["sections"] = []Dependent{
+		{
+			ContainerName: "eventsections",
+			GetRelated:    e.GetSectionDependentEventSections,
+			Delete:        e.RemoveEventSection,
+		},
+	}
+	dependentsMap["events"] = []Dependent{
+		{
+			ContainerName: "eventsections",
+			GetRelated:    e.GetEventDependentEventSections,
+			Delete:        e.RemoveEventSection,
 		},
 	}
 
