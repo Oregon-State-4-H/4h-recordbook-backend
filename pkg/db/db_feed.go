@@ -16,6 +16,10 @@ type Feed struct {
 	GenericDatabaseInfo
 }
 
+func (f Feed) GetID() string {
+	return f.ID
+}
+
 func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID string, paginationOptions PaginationOptions) ([]Feed, error) {
 
 	env.logger.Info("Getting feeds by project")
@@ -77,6 +81,58 @@ func (env *env) GetFeedsByProject(ctx context.Context, userID string, projectID 
 	}
 
 	return feeds, nil
+
+}
+
+func (env *env) GetProjectDependentFeeds(ctx context.Context, userID string, projectID string) ([]Identifiable, error) {
+
+	env.logger.Info("Getting project dependent feeds")
+
+	container, err := env.client.NewContainer("feeds")
+	if err != nil {
+		return []Identifiable{}, err
+	}
+
+	partitionKey := azcosmos.NewPartitionKeyString(userID)
+
+	query := "SELECT * FROM feeds f WHERE f.user_id = @user_id AND f.project_id = @project_id"
+
+	queryOptions := azcosmos.QueryOptions{
+		QueryParameters: []azcosmos.QueryParameter{
+			{Name: "@user_id", Value: userID},
+			{Name: "@project_id", Value: projectID},
+		},
+	}
+
+	pager := container.NewQueryItemsPager(query, partitionKey, &queryOptions)
+
+	feeds := []Feed{}
+
+	for pager.More() {
+
+		response, err := pager.NextPage(ctx)
+		if err != nil {
+			return []Identifiable{}, err
+		}
+
+		for _, bytes := range response.Items {
+			feed := Feed{}
+			err := json.Unmarshal(bytes, &feed)
+			if err != nil {
+				return []Identifiable{}, err
+			}
+			feeds = append(feeds, feed)
+		}
+
+	}
+
+	identifiables := []Identifiable{}
+
+	for _, f := range feeds {
+		identifiables = append(identifiables, f)
+	}
+
+	return identifiables, nil
 
 }
 
@@ -145,6 +201,19 @@ func (env *env) RemoveFeed(ctx context.Context, userID string, feedID string) (i
 	response, err := container.DeleteItem(ctx, partitionKey, feedID, nil)
 	if err != nil {
 		return nil, err
+	}
+
+	for _, dependent := range env.dependentsMap["feeds"] {
+		identifiables, err := dependent.GetRelated(ctx, userID, feedID)
+		if err != nil {
+			return nil, err
+		}
+		for _, identifiable := range identifiables {
+			_, err := dependent.Delete(ctx, userID, identifiable.GetID())
+			if err != nil {
+				return nil, err
+			}
+		}
 	}
 
 	return response, nil

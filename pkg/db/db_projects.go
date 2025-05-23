@@ -219,6 +219,19 @@ func (env *env) RemoveProject(ctx context.Context, userID string, projectID stri
 		return nil, err
 	}
 
+	for _, dependent := range env.dependentsMap["projects"] {
+		identifiables, err := dependent.GetRelated(ctx, userID, projectID)
+		if err != nil {
+			return nil, err
+		}
+		for _, identifiable := range identifiables {
+			_, err := dependent.Delete(ctx, userID, identifiable.GetID())
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return response, nil
 
 }

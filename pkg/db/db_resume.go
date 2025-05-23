@@ -2036,6 +2036,19 @@ func (env *env) RemoveSection(ctx context.Context, userID string, sectionID stri
 		return nil, err
 	}
 
+	for _, dependent := range env.dependentsMap["sections"] {
+		identifiables, err := dependent.GetRelated(ctx, userID, sectionID)
+		if err != nil {
+			return nil, err
+		}
+		for _, identifiable := range identifiables {
+			_, err := dependent.Delete(ctx, userID, identifiable.GetID())
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return response, nil
 
 }

@@ -71,32 +71,50 @@ type Db interface {
 	RemoveEvent(context.Context, string, string) (interface{}, error)
 	GetEventSectionByIDs(context.Context, string, string, string) (EventSection, error)
 	GetEventSectionsByEvent(context.Context, string, string) ([]EventSection, error)
+	GetEventDependentEventSections(context.Context, string, string) ([]Identifiable, error)
+	GetSectionDependentEventSections(context.Context, string, string) ([]Identifiable, error)
 	UpsertEventSection(context.Context, EventSection) (EventSection, error)
 	RemoveEventSection(context.Context, string, string) (interface{}, error)
 	GetAnimalsByProject(context.Context, string, string, PaginationOptions) ([]Animal, error)
+	GetProjectDependentAnimals(context.Context, string, string) ([]Identifiable, error)
 	GetAnimalByID(context.Context, string, string) (Animal, error)
 	UpsertAnimal(context.Context, Animal) (Animal, error)
 	RemoveAnimal(context.Context, string, string) (interface{}, error)
 	GetFeedsByProject(context.Context, string, string, PaginationOptions) ([]Feed, error)
+	GetProjectDependentFeeds(context.Context, string, string) ([]Identifiable, error)
 	GetFeedByID(context.Context, string, string) (Feed, error)
 	UpsertFeed(context.Context, Feed) (Feed, error)
 	RemoveFeed(context.Context, string, string) (interface{}, error)
 	GetFeedPurchasesByProject(context.Context, string, string, PaginationOptions) ([]FeedPurchase, error)
+	GetFeedDependentFeedPurchases(context.Context, string, string) ([]Identifiable, error)
 	GetFeedPurchaseByID(context.Context, string, string) (FeedPurchase, error)
 	UpsertFeedPurchase(context.Context, FeedPurchase) (FeedPurchase, error)
 	RemoveFeedPurchase(context.Context, string, string) (interface{}, error)
 	GetDailyFeedsByProjectAndAnimal(context.Context, string, string, string, PaginationOptions) ([]DailyFeed, error)
+	GetAnimalDependentDailyFeeds(context.Context, string, string) ([]Identifiable, error)
+	GetFeedDependentDailyFeeds(context.Context, string, string) ([]Identifiable, error)
 	GetDailyFeedByID(context.Context, string, string) (DailyFeed, error)
 	UpsertDailyFeed(context.Context, DailyFeed) (DailyFeed, error)
 	RemoveDailyFeed(context.Context, string, string) (interface{}, error)
 	GetExpensesByProject(context.Context, string, string, PaginationOptions) ([]Expense, error)
+	GetProjectDependentExpenses(context.Context, string, string) ([]Identifiable, error)
 	GetExpenseByID(context.Context, string, string) (Expense, error)
 	UpsertExpense(context.Context, Expense) (Expense, error)
 	RemoveExpense(context.Context, string, string) (interface{}, error)
 	GetSuppliesByProject(context.Context, string, string, PaginationOptions) ([]Supply, error)
+	GetProjectDependentSupplies(context.Context, string, string) ([]Identifiable, error)
 	GetSupplyByID(context.Context, string, string) (Supply, error)
 	UpsertSupply(context.Context, Supply) (Supply, error)
 	RemoveSupply(context.Context, string, string) (interface{}, error)
+}
+
+type Identifiable interface {
+	GetID() string
+}
+
+type Dependent struct {
+	GetRelated func(context.Context, string, string) ([]Identifiable, error)
+	Delete     func(context.Context, string, string) (interface{}, error)
 }
 
 type GenericDatabaseInfo struct {
@@ -111,9 +129,10 @@ type PaginationOptions struct {
 }
 
 type env struct {
-	logger    *zap.SugaredLogger       `validate:"required"`
-	validator *validator.Validate      `validate:"required"`
-	client    *azcosmos.DatabaseClient `validate:"required"`
+	logger        *zap.SugaredLogger       `validate:"required"`
+	validator     *validator.Validate      `validate:"required"`
+	client        *azcosmos.DatabaseClient `validate:"required"`
+	dependentsMap map[string][]Dependent
 }
 
 func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
@@ -142,6 +161,57 @@ func New(logger *zap.SugaredLogger, cfg *config.Config) (Db, error) {
 		validator: validate,
 		client:    dbClient,
 	}
+
+	//rules for cascading deletes
+	dependentsMap := make(map[string][]Dependent)
+	dependentsMap["animals"] = []Dependent{
+		{
+			GetRelated: e.GetAnimalDependentDailyFeeds,
+			Delete:     e.RemoveDailyFeed,
+		},
+	}
+	dependentsMap["feeds"] = []Dependent{
+		{
+			GetRelated: e.GetFeedDependentDailyFeeds,
+			Delete:     e.RemoveDailyFeed,
+		},
+		{
+			GetRelated: e.GetFeedDependentFeedPurchases,
+			Delete:     e.RemoveFeedPurchase,
+		},
+	}
+	dependentsMap["projects"] = []Dependent{
+		{
+			GetRelated: e.GetProjectDependentAnimals,
+			Delete:     e.RemoveAnimal,
+		},
+		{
+			GetRelated: e.GetProjectDependentExpenses,
+			Delete:     e.RemoveExpense,
+		},
+		{
+			GetRelated: e.GetProjectDependentFeeds,
+			Delete:     e.RemoveFeed,
+		},
+		{
+			GetRelated: e.GetProjectDependentSupplies,
+			Delete:     e.RemoveSupply,
+		},
+	}
+	dependentsMap["sections"] = []Dependent{
+		{
+			GetRelated: e.GetSectionDependentEventSections,
+			Delete:     e.RemoveEventSection,
+		},
+	}
+	dependentsMap["events"] = []Dependent{
+		{
+			GetRelated: e.GetEventDependentEventSections,
+			Delete:     e.RemoveEventSection,
+		},
+	}
+
+	e.dependentsMap = dependentsMap
 
 	return e, nil
 
