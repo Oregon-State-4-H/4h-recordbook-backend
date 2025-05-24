@@ -5842,7 +5842,7 @@ const docTemplate = `{
             ],
             "properties": {
                 "animal_cost": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "birth_date": {
                     "type": "string"
@@ -5863,7 +5863,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "sale_price": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "sire_breed": {
                     "type": "string"
@@ -6635,7 +6635,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "animal_cost": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "beginning_date": {
                     "type": "string"
@@ -6674,7 +6674,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "sale_price": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "sire_breed": {
                     "type": "string"

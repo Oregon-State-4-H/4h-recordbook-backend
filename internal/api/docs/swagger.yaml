@@ -134,6 +134,20 @@ definitions:
       resume:
         $ref: '#/definitions/db.Resume'
     type: object
+  api.GetSection1Output:
+    properties:
+      section_1:
+        $ref: '#/definitions/db.Section1'
+    type: object
+  api.GetSection1sOutput:
+    properties:
+      next:
+        type: string
+      section_1_data:
+        items:
+          $ref: '#/definitions/db.Section1'
+        type: array
+    type: object
   api.GetSection2Output:
     properties:
       section_2:
@@ -316,20 +330,6 @@ definitions:
           $ref: '#/definitions/db.Section14'
         type: array
     type: object
-  api.GetSection1Output:
-    properties:
-      section_1:
-        $ref: '#/definitions/db.Section1'
-    type: object
-  api.GetSection1sOutput:
-    properties:
-      next:
-        type: string
-      section_1_data:
-        items:
-          $ref: '#/definitions/db.Section1'
-        type: array
-    type: object
   api.GetSuppliesOutput:
     properties:
       next:
@@ -412,7 +412,7 @@ definitions:
   api.UpsertAnimalInput:
     properties:
       animal_cost:
-        type: string
+        type: number
       birth_date:
         type: string
       dam_breed:
@@ -426,7 +426,7 @@ definitions:
       quality_grade:
         type: string
       sale_price:
-        type: string
+        type: number
       sire_breed:
         type: string
       species:
@@ -964,7 +964,7 @@ definitions:
   db.Animal:
     properties:
       animal_cost:
-        type: string
+        type: number
       beginning_date:
         type: string
       beginning_weight:
@@ -990,7 +990,7 @@ definitions:
       quality_grade:
         type: string
       sale_price:
-        type: string
+        type: number
       sire_breed:
         type: string
       species:

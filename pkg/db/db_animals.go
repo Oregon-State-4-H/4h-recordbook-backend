@@ -20,8 +20,8 @@ type Animal struct {
 	BeginningDate   string  `json:"beginning_date"`
 	EndWeight       float64 `json:"end_weight"`
 	EndDate         string  `json:"end_date"`
-	AnimalCost      string  `json:"animal_cost"`
-	SalePrice       string  `json:"sale_price"`
+	AnimalCost      float64 `json:"animal_cost"`
+	SalePrice       float64 `json:"sale_price"`
 	YieldGrade      string  `json:"yield_grade"`
 	QualityGrade    string  `json:"quality_grade"`
 	UserID          string  `json:"user_id"`
