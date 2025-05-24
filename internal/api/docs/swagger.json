@@ -5832,7 +5832,7 @@
             ],
             "properties": {
                 "animal_cost": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "birth_date": {
                     "type": "string"
@@ -5853,7 +5853,7 @@
                     "type": "string"
                 },
                 "sale_price": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "sire_breed": {
                     "type": "string"
@@ -6625,7 +6625,7 @@
             "type": "object",
             "properties": {
                 "animal_cost": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "beginning_date": {
                     "type": "string"
@@ -6664,7 +6664,7 @@
                     "type": "string"
                 },
                 "sale_price": {
-                    "type": "string"
+                    "type": "number"
                 },
                 "sire_breed": {
                     "type": "string"

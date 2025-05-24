@@ -19,17 +19,17 @@ type GetAnimalOutput struct {
 }
 
 type UpsertAnimalInput struct {
-	Name         string `json:"name" validate:"required"`
-	Species      string `json:"species" validate:"required"`
-	BirthDate    string `json:"birth_date" validate:"required"`
-	PurchaseDate string `json:"purchase_date" validate:"required"`
-	SireBreed    string `json:"sire_breed" validate:"required"`
-	DamBreed     string `json:"dam_breed" validate:"required"`
-	AnimalCost   string `json:"animal_cost" validate:"required"`
-	SalePrice    string `json:"sale_price" validate:"required"`
-	YieldGrade   string `json:"yield_grade" validate:"required"`
-	QualityGrade string `json:"quality_grade" validate:"required"`
-	ProjectID    string `json:"project_id" validate:"required"`
+	Name         string   `json:"name" validate:"required"`
+	Species      string   `json:"species" validate:"required"`
+	BirthDate    string   `json:"birth_date" validate:"required"`
+	PurchaseDate string   `json:"purchase_date" validate:"required"`
+	SireBreed    string   `json:"sire_breed" validate:"required"`
+	DamBreed     string   `json:"dam_breed" validate:"required"`
+	AnimalCost   *float64 `json:"animal_cost" validate:"required"`
+	SalePrice    *float64 `json:"sale_price" validate:"required"`
+	YieldGrade   string   `json:"yield_grade" validate:"required"`
+	QualityGrade string   `json:"quality_grade" validate:"required"`
+	ProjectID    string   `json:"project_id" validate:"required"`
 }
 
 type UpdateRateOfGainInput struct {
@@ -210,8 +210,8 @@ func (e *env) addAnimal(c *gin.Context) {
 		PurchaseDate:    purchaseDate.String(),
 		SireBreed:       input.SireBreed,
 		DamBreed:        input.DamBreed,
-		AnimalCost:      input.AnimalCost,
-		SalePrice:       input.SalePrice,
+		AnimalCost:      *input.AnimalCost,
+		SalePrice:       *input.SalePrice,
 		YieldGrade:      input.YieldGrade,
 		QualityGrade:    input.QualityGrade,
 		BeginningWeight: 0,
@@ -319,8 +319,8 @@ func (e *env) updateAnimal(c *gin.Context) {
 		PurchaseDate:    purchaseDate.String(),
 		SireBreed:       input.SireBreed,
 		DamBreed:        input.DamBreed,
-		AnimalCost:      input.AnimalCost,
-		SalePrice:       input.SalePrice,
+		AnimalCost:      *input.AnimalCost,
+		SalePrice:       *input.SalePrice,
 		YieldGrade:      input.YieldGrade,
 		QualityGrade:    input.QualityGrade,
 		BeginningWeight: animal.BeginningWeight,
