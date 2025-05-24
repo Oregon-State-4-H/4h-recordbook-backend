@@ -34,6 +34,7 @@ const (
 	//409
 	ErrBookmarkConflict     = "bookmark with that link already exists"
 	ErrEventSectionConflict = "event already has this section"
+	ErrUserExists = "User already has an account"
 )
 
 type HTTPResponseCode struct {

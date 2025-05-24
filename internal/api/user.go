@@ -235,3 +235,63 @@ func (e *env) signup(c *gin.Context) {
 	c.JSON(204, response)
 
 }
+
+// Register godoc
+// @Summary Register
+// @Description With a valid JWT, add a user database entry
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param ID body api.SignUpInput true "User information"
+// @Success 204
+// @Failure 400
+// @Failure 409
+// @Router /register [post]
+func (e *env) register(c *gin.Context) {
+
+	_, exists := e.db.GetUser(c, c.GetString("user_id"))
+
+	if(exists == nil) {
+		// Account exists
+		c.JSON(409, gin.H{
+			"message": ErrUserExists,
+		})
+		return
+	}
+
+	var input SignUpInput
+	err := c.BindJSON(&input)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": ErrBadRequest,
+		})
+		return
+	}
+
+	timestamp := utils.TimeNow()
+
+	user := db.User{
+		ID:                c.GetString("user_id"),
+		Email:             c.GetString("user_email"),
+		Birthdate:         input.Birthdate,
+		FirstName:         c.GetString("user_name"),
+		MiddleNameInitial: input.MiddleNameInitial,
+		CountyName:        input.CountyName,
+		GenericDatabaseInfo: db.GenericDatabaseInfo{
+			Created: timestamp.String(),
+			Updated: timestamp.String(),
+		},
+	}
+
+	response, err := e.db.UpsertUser(context.TODO(), user)
+	if err != nil {
+		response := InterpretCosmosError(err)
+		c.JSON(response.Code, gin.H{
+			"message": response.Message,
+		})
+		return
+	}
+
+	c.JSON(204, response)
+
+}
