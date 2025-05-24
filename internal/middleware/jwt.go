@@ -9,6 +9,7 @@ import (
 	"time"
 	"os"
 	"io"
+	"encoding/json"
 
 	"github.com/gin-gonic/gin"
 	jwtmiddleware "github.com/auth0/go-jwt-middleware/v2"
@@ -82,7 +83,6 @@ func EnsureValidToken() gin.HandlerFunc {
 func GetToken() gin.HandlerFunc {
 	return func(c* gin.Context){
 		token := c.Request.Context().Value(jwtmiddleware.ContextKey{}).(*validator.ValidatedClaims)
-		customClaims := token.CustomClaims.(*CustomClaims)
 		// Get the user info with the JWT
 		req, _ := http.NewRequest("GET", token.RegisteredClaims.Audience[1], nil)
 		req.Header.Set("Authorization", c.GetHeader("Authorization"))
@@ -94,7 +94,7 @@ func GetToken() gin.HandlerFunc {
 		buf := new(strings.Builder);
 		if(res.StatusCode == 200){
 			io.Copy(buf, res.Body);
-			json.Unmarshall([]byte(buf.String()), &userinfo);
+			json.Unmarshal([]byte(buf.String()), &userinfo);
 		}
 		
 		c.Set("user_id", userinfo.Sub)
