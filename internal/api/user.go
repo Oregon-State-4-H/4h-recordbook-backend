@@ -283,7 +283,7 @@ func (e *env) register(c *gin.Context) {
 		},
 	}
 
-	response, err := e.db.UpsertUser(context.TODO(), user)
+	response, err := e.db.UpsertUser(c.Request.Context(), user)
 	if err != nil {
 		response := InterpretCosmosError(err)
 		c.JSON(response.Code, gin.H{
